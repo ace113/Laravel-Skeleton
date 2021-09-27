@@ -1,0 +1,188 @@
+.text-logo {
+    color: #fff;
+    font-weight: 600;
+    margin-left: 5px !important;
+    margin-top: 1px !important;
+
+}
+
+.page-logo a:hover {
+    text-decoration: none;
+}
+
+
+.invalid-feedback {
+    color: crimson;
+    font-size: 12px;
+}
+
+.error {
+    color: crimson;
+    font-size: 12px;
+}
+
+
+.page-header.navbar {
+    background-color: #262626 !important;
+}
+
+.active {
+    background-color: #f7f7f7 !important;
+}
+
+#excel-btn .btn {
+    font-size: 13.2px !important;
+    margin-right: 10px !important;
+}
+
+#map {
+    margin-top: 15px;
+    height: 200px;
+    width: 100%;
+    border: solid 1px #d0d0d0;
+}
+
+/**Image Preview style**/
+.no-height {
+    height: 0 !important;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.image-preview {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: solid 1px #d0d0d0;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.page-header.navbar .top-menu .navbar-nav>li.dropdown .dropdown-toggle:hover,
+.page-header.navbar .top-menu .navbar-nav>li.dropdown.open .dropdown-toggle {
+    background-color: #3f3f3f !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter label,
+div.dataTables_wrapper div.dataTables_length label {
+    font-weight: bold !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    margin-right: 57px !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    width: 100% !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    width: 100% !important;
+}
+
+.caption.font-dark {
+    color: #1d1d1d !important;
+}
+
+.control-label-padding {
+    text-align: right;
+    margin-bottom: 0;
+    padding-top: 7px;
+}
+
+.portlet-header {
+    margin: 0 auto;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.form-control-custom {
+    margin: 0;
+    padding-top: 7px;
+}
+
+
+.mt-radio-inline {
+    margin: 0;
+    padding-top: 7px;
+}
+
+.mt-radio {
+    margin-right: 15px;
+}
+
+input[type="radio"] {
+    cursor: pointer;
+    padding: 4px;
+    padding-right: 2px;
+}
+
+/* tabs */
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-gap: 1rem; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color:#193975;
+}
+
+.tabs p {
+    font-size: 1.4rem;
+    font-weight: normal;  
+    margin-left: .4rem;
+    margin: 10px !important;
+    
+}
+
+.tabs .tab-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.tabs div {
+    padding: .2rem .2rem;
+    border-right: 1px solid #fff;
+}
+
+.tabs >div:hover {
+    /* color: #fff; */
+    background: #274d92;
+    cursor: pointer;
+    border-bottom: 8px solid var(--color-secondary);
+}
+
+.tab-content-item{
+    display: none;
+}
+
+.tab-active{
+    background:#274d92;
+}
+
+.show{
+    display: block !important;
+}
+
+.hide{
+    display: none !important;
+}
+
+.payment_completed_container{
+    padding: 40px;
+    text-align: center;
+    justify-content: center;
+}
+
+
