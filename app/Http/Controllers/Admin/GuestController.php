@@ -6,14 +6,15 @@ use Auth;
 use Password;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\LoginRequest;
+use Illuminate\Auth\Events\PasswordReset;
+
 
 class GuestController extends Controller
-{
-    use SendsPasswordResetEmails;
-
+{    
     // Where to redirect user after login
-    protected $redirectTo = 'admin/dashbaord';
+    protected $redirectTo = 'admin/dashboard';
 
     public function __construct()
     {
@@ -27,13 +28,8 @@ class GuestController extends Controller
     }
 
     // login
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        // validate
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
 
         $credentials = $request->only(['email', 'password']);
 
@@ -41,7 +37,7 @@ class GuestController extends Controller
             if(auth()->user()->role_id == 3){
                 Auth::guard('web')->logout();
             }
-            return redirect()->intented($this->redirectTo);
+            return redirect()->intended($this->redirectTo);
         }
     }
 
@@ -53,44 +49,10 @@ class GuestController extends Controller
         return redirect()->route('admin.login.form');
     }
 
-  
-    // send reset link email
-    // public function sendResetLinkEmail(Request $request)
-    // {
-    //     // validate email
-    //     $request->validate([
-    //         'email' => 'required|email'
-    //     ]);
+   
 
-    //     $response = $this->broker()->sendResetLink(
-    //         $this->credentials($request)
-    //     );
+   
 
-    //     return response()->json(['hello', $response]);die();
-
-    //     return $response == Password::RESET_LINK_SENT
-    //                 ? $this->sendResetLinkResponse($request, $response)
-    //                 : $this->sendResetLinkFailedResponse($request, $response);
-    // }
-
-    // reset password form
-    public function getResetPassword()
-    {
-
-    }
-
-    // reset password
-    public function resetPassword()
-    {
-        
-    }
-
-    /**
-     * Get the broker to be used during password reset
-     */
-    public function broker()
-    {
-        return Password::broker();
-    }
+    
 
 }

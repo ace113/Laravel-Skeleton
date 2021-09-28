@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.dashboard.index');
-});
+// Route::get('/', function () {
+//     return view('admin.dashboard.index');
+// });
 
 Route::group([
     'namespace' => "Admin",
@@ -25,19 +25,27 @@ Route::group([
     // guest routes
     Route::get('/login', 'GuestController@getLogin')->name('login.form');
     Route::post('/login', 'GuestController@login')->name('login');
-    Route::post('/password/email', 'GuestController@sendResetLinkEmail')->name('password.email');
-    Route::get('/password/reset/{token}', 'GuestController@getResetPassword')->name('resetPassword.form');
-    Route::get('/password/reset', 'GuestController@resetPassword')->name('reset.password');
+  
+    Route::group([
+        "namespace" => "Auth",
+    ], function(){
+        Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('/password/reset', 'ResetPasswordController@reset')->name('password.update');
+        Route::get('/reset/confirm', 'ResetConfirmController@confirmReset')->name('confirm.reset');
+    });
+
     // Logout
     Route::get('/logout', 'GuestController@logout')->name('logout');
    
 
     // auth routes
     Route::group([
-        // 'middleware' => 'auth:web'
+        'middleware' => 'auth:web'
     ], function(){
         // Dashboard
-        Route::get('/dashboard', 'AuthController@dashboard')->name('dashboard');
+        Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
         
         // Page routes
         Route::resource('/page', 'PageController');
