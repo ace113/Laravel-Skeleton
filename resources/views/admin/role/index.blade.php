@@ -12,11 +12,11 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-tag font-dark"></i>
-                    <span class="caption-subject bold uppercase">Pages List</span>
+                    <span class="caption-subject bold uppercase">Roles List</span>
                 </div>
                 <div class="div">
                     <div class="pull-right">
-                        <a href="{{route('admin.page.create')}}" class="btn green" title="Add new page"><i
+                        <a href="{{route('admin.role.create')}}" class="btn green" title="Add new role"><i
                                 class="fa fa-plus"></i></a>
                     </div>
                 </div>
@@ -26,13 +26,12 @@
                 <!-- TABLE BEGIN -->
                 <table
                     class="table table-striped table-bordered table-hover table-checkable order-column table-manage"
-                    id="page-table">
+                    id="role-table">
                     <thead>
                         <tr>
                             <th width="40px">Sn.</th>
-                            <th>Title</th>
-                            <th>Slug</th>                                
-                            <th>Body</th>
+                            <th>Name</th>
+                            <th>Slug</th>                               
                             <th>Status</th>
                             <th width="10%">Actions</th>
                         </tr>
@@ -50,11 +49,11 @@
 
 @section('additional-scripts')
 <script>
-    var dataUrl = "{{route('admin.page.index')}}";
-    var deleteUrl = "/admin/page/";
-    var statusUrl = "/admin/page/status";
+    var dataUrl = "{{route('admin.role.index')}}";
+    var deleteUrl = "/admin/role/";
+    var statusUrl = "/admin/role/status";
 
    
 </script>
-<script src="{{asset('js/page-datatable.js')}}"></script>
+<script src="{{asset('js/role-datatable.js')}}"></script>
 @endsection

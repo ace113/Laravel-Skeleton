@@ -46,6 +46,10 @@ Route::group([
     ], function(){
         // Dashboard
         Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+
+        // Roles
+        Route::resource('/role', 'RoleController');
+        Route::post('/role/status', 'RoleController@status')->name('role.status');
         
         // Page routes
         Route::resource('/page', 'PageController');

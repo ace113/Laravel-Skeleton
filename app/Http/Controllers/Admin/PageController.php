@@ -21,7 +21,7 @@ class PageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {  
         if($request->ajax()){
             return $this->pageRepository->getAjaxData($request);
         }
@@ -98,7 +98,7 @@ class PageController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $page = $this->pageRepository->updatePage($request);
+            $page = $this->pageRepository->updatePage($request, $id);
             if(!$page){
                return redirect()
                     ->back()

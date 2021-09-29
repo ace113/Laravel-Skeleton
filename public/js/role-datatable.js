@@ -1,5 +1,5 @@
 $(function () {
-    var table = $('#datatable').DataTable({
+    var table = $('#role-table').DataTable({
         language: {
             emptyTable: "No data available in table",
         },
@@ -14,10 +14,32 @@ $(function () {
             }
         },
         columnDefs: [{
-            targets: [0, 4],
+            targets: [0, 3],
             className: "text-center",
         }],
-        columns: columnData
+        columns: [{
+                data: "DT_RowIndex",
+                searchable: false
+            },
+            {
+                data: 'name',
+                name: 'name'
+            },
+            {
+                data: 'slug',
+                name: 'slug'
+            },            
+            {
+                data: 'status',
+                name: 'status'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false
+            },
+        ],
     });
 
     // change status
@@ -47,10 +69,10 @@ $(function () {
         });
     });
 
-      // delete data item
-      $(document).on('click', '.delete', function () {
+    // delete data item
+    $(document).on('click', '.delete', function () {
         var id = $(this).data('id');
-        
+
         swal({
             title: "Are you sure?",
             text: "You will not be able to recover this data!",
@@ -66,11 +88,11 @@ $(function () {
                     type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }                   
+                    }
                 }).done(function () {
                     table.draw();
                 });
             }
         });
-    });    
+    });
 });

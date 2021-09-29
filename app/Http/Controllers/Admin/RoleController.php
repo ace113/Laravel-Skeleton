@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\RoleRepository;
 
 class RoleController extends Controller
-{
+{ protected $roleRepository;
+
+    public function __construct(
+        RoleRepository $roleRepository
+    ){
+        $this->roleRepository = $roleRepository;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+    {  
+        if($request->ajax()){
+            return $this->roleRepository->getAjaxData($request);
+        }
+
+        return view('admin.role.index');
     }
 
     /**
@@ -24,7 +35,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.role.create');
     }
 
     /**
@@ -35,7 +46,22 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $role = $this->roleRepository->createrole($request);
+            if(!$role){
+               return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withError('Something went wrong');
+            }
+            return redirect()
+                ->route("admin.role.index")
+                ->withSuccess('role created successfully');
+        } catch (Exception $e) {
+            return back()
+                    ->withInput()
+                    ->withError($e->getMessage());
+        }
     }
 
     /**
@@ -57,7 +83,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = $this->roleRepository->getroleById($id);
+        return view('admin.role.edit', compact('role'));
     }
 
     /**
@@ -69,7 +96,22 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $role = $this->roleRepository->updaterole($request, $id);
+            if(!$role){
+               return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withError('Something went wrong');
+            }
+            return redirect()
+                ->route("admin.role.index")
+                ->withSuccess('role updated successfully');
+        } catch (Exception $e) {
+            return back()
+                    ->withInput()
+                    ->withError($e->getMessage());
+        }
     }
 
     /**
@@ -80,6 +122,42 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = new \stdClass();
+        try {
+            $is_deleted = $this->roleRepository->deleterole($id);
+            if($is_deleted){
+                $data->status = 1;
+            }else{
+                $data->status = 2;
+            }
+        } catch (Exception $e) {
+            $data->status = 2;
+        }
+
+        return response()->json($data);
+    }
+
+    /**
+     * Change/Toggle status of specified resource from storage.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function status(Request $request)
+    {
+        $data = new \stdClass();
+
+        try {
+            $is_changed = $this->roleRepository->changeStatus($request);
+            if($is_changed){
+                $data->status = 1;
+            }else{
+                $data->status = 2;
+            }
+        } catch (Exception $e) {
+            $data->status = 2;
+        }
+
+        return response()->json($data);
     }
 }

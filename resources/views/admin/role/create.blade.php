@@ -10,22 +10,21 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-plus font-dark"></i>
-                        <span class="caption-subject bold uppercase">Add Page</span>
+                        <span class="caption-subject bold uppercase">Add role</span>
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <form action="{{ route('admin.page.update', $page->id) }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.role.store') }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                         <div class="form-body">
-                            @include('admin.page._form')
+                            @include('admin.role._form')
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
                                 <div class="col-sm-6">
                                     <div class="noborder">
-                                        <input type="submit" value="Update" class="btn green btn-submit">
-                                        <a href="{{ route('admin.page.index') }}" class="btn btn-default">Cancel</a>
+                                        <input type="submit" value="Submit" class="btn green btn-submit">
+                                        <a href="{{ route('admin.role.index') }}" class="btn btn-default">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -38,5 +37,4 @@
 @endsection
 
 @section('additional-scripts')
-<script src="{{asset('js/general.js')}}"></script>
 @endsection

@@ -38,6 +38,12 @@
                     <span class="arrow open"></span>
                 </a>               
             </li>
+            <li class="nav-item">
+                <a href="{{route("admin.page.index")}}" class="nav-link">
+                <i class="fa fa-page"></i>
+                 <span class="title">Pages</span>   
+                </a>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
         <!-- END SIDEBAR MENU -->
