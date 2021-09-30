@@ -6,6 +6,7 @@ use Closure;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthGates
 {
@@ -20,24 +21,23 @@ class AuthGates
     {
         $user = Auth::user();
 
-        if($user){
+        if ($user) {
             $roles = Role::with('permissions')->get();
+            $permissionsArray = [];
 
-            $permissionArray = [];
-
-            foreach($roles as $role){
-                foreach($role->permissions as $permission){
-                    $permissionArray[$permissions->title][] = $role->id;
+            foreach ($roles as $role) {
+                foreach ($role->permissions as $permissions) {
+                    $permissionsArray[$permissions->title][] = $role->id;
                 }
             }
 
-            foreach($permissionArray as $title => $roles)
-            {
-                Gate::define($title, function(User $role) use ($roles){
-                    return count(array_intersect($user->role->pluck('id')->toArray(), $roles)) > 0;
+            foreach ($permissionsArray as $title => $roles) {
+                Gate::define($title, function (User $user) use ($roles) {
+                    return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
                 });
             }
         }
+
         return $next($request);
     }
     

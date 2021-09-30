@@ -12,25 +12,38 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-         // superadmin
-         User::create([
-            'first_name'  => 'super',
-            'last_name' => 'admin',
-            'email' => 'admin@super.com',
-            'phone' => '78478474574',          
-            'password' => Hash::make('password'),
-            'gender' => 'male',
-            'role_id' => 1
-        ]);
-        // admin
-        User::create([
-            'first_name'  => 'admin',
-            'last_name' => 'admin',
-            'email' => 'admin@admin.com',
-            'phone' => '9841760946',         
-            'password' => Hash::make('password'),           
-            'gender' => 'male',
-            'role_id' => 2
-        ]);
+      
+        $users = [
+            [
+                'first_name'  => 'super',
+                'last_name' => 'admin',
+                'email' => 'admin@super.com',
+                'phone' => '78478474574',          
+                'password' => Hash::make('password'),
+                'gender' => 'male',
+                'role_id' => 1
+            ],
+            [
+                'first_name'  => 'admin',
+                'last_name' => 'admin',
+                'email' => 'admin@admin.com',
+                'phone' => '9841760946',         
+                'password' => Hash::make('password'),           
+                'gender' => 'male',
+                'role_id' => 2
+            ],
+            [
+                'first_name'  => 'user',
+                'last_name' => 'user',
+                'email' => 'user@user.com',
+                'phone' => '9841760976',         
+                'password' => Hash::make('password'),           
+                'gender' => 'male',
+                'role_id' => 3
+            ],
+        ];
+
+        User::insert($users);
+
     }
 }

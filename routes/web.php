@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('admin.dashboard.index');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::group([
     'namespace' => "Admin",
@@ -47,12 +47,18 @@ Route::group([
         // Dashboard
         Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 
+        // auth/profile
+        Route::get('/change-password', 'AuthController@getChangePassword')->name('edit.password');
+        Route::post('/change-password', 'AuthController@changePassword')->name('update.password');
+        Route::get('/profile', 'AuthController@getProfile')->name('edit.profile');
+        Route::post('/profile', 'AuthController@updateProfile')->name('update.profile');
+
         // Roles
-        Route::resource('/role', 'RoleController');
         Route::post('/role/status', 'RoleController@status')->name('role.status');
+        Route::resource('/role', 'RoleController');       
         
         // Page routes
-        Route::resource('/page', 'PageController');
         Route::post('/page/status', 'PageController@status')->name('page.status');
+        Route::resource('/page', 'PageController');       
     });
 });

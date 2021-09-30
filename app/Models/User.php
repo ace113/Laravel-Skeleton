@@ -45,6 +45,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     /**
      * Overriding the vendor functio
      * 
@@ -56,6 +61,12 @@ class User extends Authenticatable
     {
         // if admin
         $this->notify(new AdminResetPasswordNotification($token));
+    }
+
+
+    public function getFullNameAttribute()
+    {
+        return ucwords($this->first_name. ' '. $this->last_name);
     }
 
 }

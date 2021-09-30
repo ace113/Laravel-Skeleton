@@ -39,6 +39,9 @@ class GuestController extends Controller
             }
             return redirect()->intended($this->redirectTo);
         }
+        return back()
+            ->withInput()
+            ->withError('The provided credentials donot match any of our records!');
     }
 
     // logout

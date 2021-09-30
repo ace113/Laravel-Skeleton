@@ -19,17 +19,17 @@ class PageSeeder extends Seeder
             [
                 'title' => 'About Us',
                 'slug' => 'about-us',
-                'blog' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestias sunt, nesciunt est, dolores impedit enim exercitationem quas illo, recusandae atque velit!"
+                'body' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestias sunt, nesciunt est, dolores impedit enim exercitationem quas illo, recusandae atque velit!"
             ],
             [
                 'title' => 'Terms And Conditions',
                 'slug' => 'terms',
-                'blog' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestias sunt, nesciunt est, dolores impedit enim exercitationem quas illo, recusandae atque velit!"
+                'body' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestias sunt, nesciunt est, dolores impedit enim exercitationem quas illo, recusandae atque velit!"
             ],
             [
                 'title' => 'Privacy Policy',
                 'slug' => 'privacy-policy',
-                'blog' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestias sunt, nesciunt est, dolores impedit enim exercitationem quas illo, recusandae atque velit!"
+                'body' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestias sunt, nesciunt est, dolores impedit enim exercitationem quas illo, recusandae atque velit!"
             ],
         ];
 

@@ -12,13 +12,13 @@ class Role extends Model
         'status',
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class,'role_permission');
+        return $this->belongsToMany(Permission::class);
     }
 }

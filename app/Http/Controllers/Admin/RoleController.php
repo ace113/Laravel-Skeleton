@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\RoleRepository;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class RoleController extends Controller
 { protected $roleRepository;
@@ -21,6 +24,8 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {  
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         if($request->ajax()){
             return $this->roleRepository->getAjaxData($request);
         }
