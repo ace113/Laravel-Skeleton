@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 class RoleController extends Controller
-{ protected $roleRepository;
+{ 
+    protected $roleRepository;
 
     public function __construct(
         RoleRepository $roleRepository
