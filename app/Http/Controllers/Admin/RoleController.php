@@ -53,7 +53,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         try {
-            $role = $this->roleRepository->createrole($request);
+            $role = $this->roleRepository->createRole($request);
             if(!$role){
                return redirect()
                     ->back()
@@ -89,7 +89,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = $this->roleRepository->getroleById($id);
+        $role = $this->roleRepository->getRoleById($id);
         return view('admin.role.edit', compact('role'));
     }
 
@@ -103,7 +103,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $role = $this->roleRepository->updaterole($request, $id);
+            $role = $this->roleRepository->updateRole($request, $id);
             if(!$role){
                return redirect()
                     ->back()
@@ -130,7 +130,7 @@ class RoleController extends Controller
     {
         $data = new \stdClass();
         try {
-            $is_deleted = $this->roleRepository->deleterole($id);
+            $is_deleted = $this->roleRepository->deleteRole($id);
             if($is_deleted){
                 $data->status = 1;
             }else{

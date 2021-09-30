@@ -94,7 +94,8 @@ class RoleRepository
 
            
 
-        return $datatables->make(true);
-    
+        return $datatables->make(true);  
     }
+
+    
 }

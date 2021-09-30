@@ -60,6 +60,10 @@ Route::group([
         // Permissions
         Route::post('/permission/status', 'PermissionController@status')->name('permission.status');
         Route::resource('/permission', 'PermissionController');
+
+        // Users
+        Route::post('/user/status', 'UserController@status')->name('user.status');
+        Route::resource('/user', 'UserController');
         
         // Page routes
         Route::post('/page/status', 'PageController@status')->name('page.status');

@@ -33,6 +33,8 @@
 {{-- select2 --}}
 <link rel="stylesheet" href="{{asset('/assets/global/plugins/select2/css/select2-bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('/assets/global/plugins/select2/css/select2.css')}}">
+ {{-- toastr --}}
+ <link rel="stylesheet" href="{{asset('/assets/global/plugins/bootstrap-toastr/toastr.min.css')}}">
 
 {{-- scripts --}}
 <script src="{{asset('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
