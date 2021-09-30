@@ -13,7 +13,7 @@ class ApiController extends Controller
      *      title="My Ecommerce API Documentation",
      *      description="All API Documentations",
      *      @OA\Contact(
-     *          email="admin@admin.com"
+     *          email="prajwalmaharjan58@gmail.com",
      *      ),
      *      @OA\License(
      *          name="Apache 2.0",

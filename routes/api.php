@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([
+    'namespace' => 'Api/V1',
+    'prefix' => 'guest'
+], function(){
+    Route::post('/register', 'GuestController@register');
+    Route::post('/register/verifyContact', 'GuestController@verifyContact');
+    Route::post('/sendVerificationEmail', 'GuestController@sendVerificationEmail');
+    Route::post('/sendPhoneVerificationToken', 'GuestController@sendPhoneVerificationToken');
+    Route::get('/pages/{slug}', 'GuestController@getPage');
+    Route::post('/password/forgot', 'GuestController@forgotPassword');
+});

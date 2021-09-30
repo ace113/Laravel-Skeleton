@@ -1,0 +1,117 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My Ecommerce API Documentation",
+        "description": "All API Documentations",
+        "contact": {
+            "email": "prajwalmaharjan58@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Demo API Server"
+        },
+        {
+            "url": "http://localhost:8000/api/v1"
+        }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "Register New User",
+                "description": "Registers new users",
+                "operationId": "register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Register"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Register": {
+                "title": "Register",
+                "description": "User register request body",
+                "properties": {
+                    "first_name": {
+                        "title": "First Name",
+                        "description": "First Name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "last_name": {
+                        "title": "Last Name",
+                        "description": "Last Name",
+                        "type": "string",
+                        "example": "Cena"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "John@cena.com"
+                    },
+                    "phone": {
+                        "title": "Phone Number",
+                        "description": "Phone Number",
+                        "type": "string",
+                        "example": "John@cena.com"
+                    },
+                    "gender": {
+                        "title": "Gender",
+                        "description": "Gender",
+                        "example": "male"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "Password",
+                        "example": "password"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Register"
+                }
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
