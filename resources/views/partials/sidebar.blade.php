@@ -13,7 +13,7 @@
                  <!-- END SIDEBAR TOGGLER BUTTON -->
              </li>     
 
-             <li class="nav-item start active open">
+             <li class="nav-item {{classActivePath('admin.dashboard')}}">
                  <a href="{{route('admin.dashboard')}}" class="nav-link nav-toggle">
                      <i class="icon-home"></i>
                      <span class="title">Dashboard</span>
@@ -21,54 +21,57 @@
                  </a>
              </li>
 
-             <li class="nav-item start open">
+             <li class="nav-item {{classActivePath('admin.role')}}{{  classActivePath('admin.permission') }}{{ classActivePath('admin.user')}}">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-settings"></i>
-                    <span class="title">User Management</span>
+                    <span class="title">User</span>
                     <span class="arrow"></span>
+                    <span class="selected"></span>
                 </a>
-                <ul class="sub-menu">
+                <ul class="sub-menu {{subMenuOpen('admin.role')}}{{subMenuOpen('admin.permission')}}{{subMenuOpen('admin.user')}}">
                     @can('role_access')
-                    <li class="nav-item">
+                    <li class="nav-item {{classActivePath('admin.role')}}">
                         <a href="{{ route('admin.role.index') }}" class="nav-link">
-                            <i class="fa fa-file"></i>
+                            <i class="icon-check"></i>
                             <span class="title">{{trans('Role')}}</span>
                         </a>
                     </li>
                     @endcan
                     @can('permission_access')
-                    <li class="nav-item">
-                        <a href="" class="nav-link nav-toggle">
-                            <i class="icon-user"></i>
+                    <li class="nav-item {{classActivePath('admin.permission')}}">
+                        <a href="{{route('admin.permission.index')}}" class="nav-link nav-toggle">
+                            <i class="icon-user-following"></i>
                             <span class="title">Permission</span>
                         </a>
                     </li>
                     @endcan
-                    <li class="nav-item">
-                        <a href="" class="nav-link nav-toggle">
-                            <i class="icon-user"></i>
+                    <li class="nav-item {{classActivePath('admin.user')}}">
+                        <a href="{{route('admin.user.index')}}" class="nav-link nav-toggle">
+                            <i class="icon-users"></i>
                             <span class="title">Users</span>
                         </a>
                     </li>
                 </ul>
             </li>
 
-             <li class="nav-item">
+             <li class="nav-item {{classActivePath('admin.page')}}">
                  <a href="{{ route('admin.page.index') }}" class="nav-link">
-                     <i class="fa fa-file"></i>
+                     <i class="icon-doc"></i>
                      <span class="title">Pages</span>
+                     <span class="selected"></span>
                  </a>
              </li>        
-             <li class="nav-item start open">
+             <li class="nav-item {{classActivePath('admin.edit')}}">
                  <a href="javascript:;" class="nav-link nav-toggle">
                      <i class="icon-settings"></i>
                      <span class="title">Settings</span>
                      <span class="arrow"></span>
+                     <span class="selected"></span>
                  </a>
-                 <ul class="sub-menu">
+                 <ul class="sub-menu {{subMenuOpen('admin.edit')}}">
                      <li class="nav-item">
                          <a href="{{ route('admin.edit.profile') }}" class="nav-link nav-toggle">
-                             <i class="icon-user"></i>
+                             <i class="icon-list"></i>
                              <span class="title">Profile</span>
                          </a>
                      </li>

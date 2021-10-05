@@ -39,7 +39,8 @@
     },
     "autoload": {
         "files":[
-            "app/Helpers/ConstantHelpers.php"
+            "app/Helpers/ConstantHelpers.php",
+            "app/Helpers/GeneralHelpers.php"
         ],
         "psr-4": {
             "App\\": "app/"

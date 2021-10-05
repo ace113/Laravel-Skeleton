@@ -12,6 +12,12 @@ class UserRepository
         return User::find($id);
     }
 
+    public function findUserByEmail($email)
+    {
+        return User::where('email', $email)
+            ->first();
+    }
+
     public function createUser($request)
     {
         $user = User::create([

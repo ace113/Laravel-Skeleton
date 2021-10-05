@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api;
 use App\Http\Requests\Api\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends ApiRequest
+class RegisterRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class LoginRequest extends ApiRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,13 +25,11 @@ class LoginRequest extends ApiRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'phone' => 'required|numeric|exists:users,phone,'.$this->id,
+            'email' => 'required|email|exists:users,email,'.$this->id,
+            'gender' => 'nullable|in:male,female,other',
         ];
-    }
-
-    public function message()
-    {
-        
     }
 }
