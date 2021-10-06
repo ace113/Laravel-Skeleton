@@ -22,6 +22,186 @@
         }
     ],
     "paths": {
+        "/api/v1/auth/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "gets profile details",
+                "description": "Gets authenticated user's profile detail",
+                "operationId": "get profile Details",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "update user profile",
+                "description": "Updates authenticated user's profile",
+                "operationId": "updateProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProfile"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticate"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/change_password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Change password",
+                "description": "Change authenticated user's password",
+                "operationId": "ChangePassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangePassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticate"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/logout/{device_id}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "logout device",
+                "description": "Logs user out from a device",
+                "operationId": "logoutDevice",
+                "parameters": [
+                    {
+                        "name": "device_id",
+                        "in": "path",
+                        "description": "Device Id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticate"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/addUpdateDeviceInfo": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Add/Update Device Info",
+                "description": "Update or create new device info",
+                "operationId": "DeviceInfo",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DeviceInfo"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticate"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/guest/register": {
             "post": {
                 "tags": [
@@ -88,10 +268,91 @@
                     }
                 }
             }
+        },
+        "/api/v1/guest/pages/{slug}": {
+            "get": {
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "Get Page",
+                "description": "Gets pages from slug",
+                "operationId": "getPages",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Page Slug",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "ChangePassword": {
+                "title": "ChangePassword",
+                "description": "Change the user password",
+                "properties": {
+                    "current_password": {
+                        "title": "current_password",
+                        "description": "Current Password",
+                        "type": "string",
+                        "example": "password"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "New Password",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ChangePassword"
+                }
+            },
+            "DeviceInfo": {
+                "title": "DeviceInfo",
+                "description": "device info request body data",
+                "properties": {
+                    "device_id": {
+                        "title": "device_id",
+                        "description": "device id",
+                        "type": "string",
+                        "example": "1423454567"
+                    },
+                    "device_token": {
+                        "title": "device_token",
+                        "description": "device_token",
+                        "type": "string",
+                        "example": "efalksfjaslkeeowfwnwkjfalkfjsa"
+                    },
+                    "device_type": {
+                        "title": "device_type",
+                        "description": "device_type",
+                        "type": "string",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DeviceInfo"
+                }
+            },
             "Login": {
                 "title": "Login",
                 "description": "User Login request body data",
@@ -156,6 +417,46 @@
                 "type": "object",
                 "xml": {
                     "name": "Register"
+                }
+            },
+            "UpdateProfile": {
+                "title": "UpdateProfile",
+                "description": "Update profile request body data",
+                "properties": {
+                    "first_name": {
+                        "title": "first_name",
+                        "description": "First Name",
+                        "type": "string",
+                        "example": "admin"
+                    },
+                    "last_name": {
+                        "title": "last_name",
+                        "description": "Last Name",
+                        "type": "string",
+                        "example": "admin"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "admin@admin.com"
+                    },
+                    "phone": {
+                        "title": "phone",
+                        "description": "Mobile Number",
+                        "type": "string",
+                        "example": "954949494"
+                    },
+                    "gender": {
+                        "title": "gender",
+                        "description": "Gender:male,female,other",
+                        "type": "string",
+                        "example": "male"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UpdateProfile"
                 }
             }
         },

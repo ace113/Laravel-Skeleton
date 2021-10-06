@@ -20,4 +20,15 @@ class UserTransformer
             'email_verify_token' => Arr::get($data, 'email_verify_token', null)
         ];
     }
+
+    public function updateJson($data)
+    {
+        return [
+            'first_name' => Arr::get($data, 'first_name', null),
+            'last_name' => Arr::get($data, 'last_name', null),
+            'email' => Arr::get($data, 'email', null),
+            'phone' => Arr::get($data, 'phone', null),
+            'gender' => Arr::get($data, 'gender', null),
+        ];
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use DataTables;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {

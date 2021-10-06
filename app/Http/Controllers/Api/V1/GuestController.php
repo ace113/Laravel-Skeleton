@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Mail\ActivationMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\PageRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -20,13 +21,16 @@ class GuestController extends ApiController
     
     protected $userRepository;
     protected $userTransformer;
+    protected $pageRepository;
 
     public function __construct(
         UserRepository $userRepository,
-        UserTransformer $userTransformer
+        UserTransformer $userTransformer,
+        PageRepository $pageRepository
     ){
         $this->userRepository = $userRepository;
         $this->userTransformer = $userTransformer;
+        $this->pageRepository = $pageRepository;
     }
 
     /**
@@ -169,7 +173,51 @@ class GuestController extends ApiController
 
     public function sendPhoneVerificationToken(Request $request){}
 
-    public function getPage(Request $request, $slug){}
+    /**
+     * @OA\Get(
+     *      path="/api/v1/guest/pages/{slug}",
+     *      operationId="getPages",
+     *      summary="Get Page",
+     *      description="Gets pages from slug",
+     *      tags={"Guest"},
+     *      @OA\Parameter(
+     *          name="slug",
+     *          description="Page Slug",
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful Operation",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      )
+     * )
+     */
+    public function getPage($slug)
+    {
+        try {
+            $page = $this->pageRepository->getPageBySlug($slug);
+            if(!$page){
+                $this->response['message'] = 'Page Not Found.';                
+                return $this->respondWithError($this->response);
+            }
+          
+            $this->response['data'] = $page;
+            return $this->respondWithSuccess($this->response);
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
 
     public function forgotPassword(Request $request){}
 

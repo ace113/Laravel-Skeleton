@@ -12,6 +12,18 @@ class PageRepository
         return Page::find($id);
     }
 
+    public function getPageBySlug($slug)
+    {
+        $page = Page::where('slug', $slug)->first();
+
+        if($page){
+            return $page;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function createPage($request)
     {
         $page = Page::create([
