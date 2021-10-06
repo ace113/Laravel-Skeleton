@@ -25,11 +25,12 @@ class RegisterRequest extends ApiRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'phone' => 'required|numeric|exists:users,phone,'.$this->id,
-            'email' => 'required|email|exists:users,email,'.$this->id,
-            'gender' => 'nullable|in:male,female,other',
+           'first_name' => 'required|string',
+           'last_name' => 'required|string',
+           'email' => 'required|email',
+           'phone' => 'required|string',
+           'gender' => 'nullable|in:male, female, other',
+           'password' => 'required|string',
         ];
     }
 }

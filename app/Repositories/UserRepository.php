@@ -18,36 +18,25 @@ class UserRepository
             ->first();
     }
 
-    public function createUser($request)
-    {
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'gender' => $request->gender,
-            'status' => $request->status  == 1 ? true : false,
-            'password' => bcrypt($request->password)
-        ]);
-
-        return $user;
+    public function createUser($data) {
+        try {
+            $result = User::create($data);
+            return $result;
+        } catch(Exception $e) {
+            return $e->getMessage();
+        }
     }
 
-    public function updateUser($request, $id)
-    {
-        $user = self::getUserById($id);
-
-        $user->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'gender' => $request->gender,
-            'status' => $request->status  == 1 ? true : false,
-            // 'password' => $request->password                                
-        ]);
-
-        return $user;
+    public function updateUserById($id, $data) {
+        try {
+            DB::beginTransaction();
+            $result = User::where(['id'=>$id])->update($data);
+            DB::commit();
+            return $result;
+        } catch(Exception $e) {
+            DB::rollBack();
+            return $e->getMessage();
+        }
     }
 
     public function deleteUser($id)

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Mail\ActivationMail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
+use App\Http\Transformers\UserTransformer;
 use App\Http\Controllers\Api\V1\ApiController;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
@@ -15,11 +19,14 @@ class GuestController extends ApiController
     use SendsPasswordResetEmails;
     
     protected $userRepository;
+    protected $userTransformer;
 
     public function __construct(
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        UserTransformer $userTransformer
     ){
         $this->userRepository = $userRepository;
+        $this->userTransformer = $userTransformer;
     }
 
     /**
@@ -52,27 +59,31 @@ class GuestController extends ApiController
      */
     public function register(RegisterRequest $request)
     {
-        try {
-            \DB::beginTransaction();
+        try {         
             $request->role_id = 3; // adding user role
+            $request->email_verification_token = $this->generateVerificationToken();
+            // return print_r(gettype($request));die();
+            \DB::beginTransaction();
+            
             /** HANDLING UNIQUE INDEX OF EMAIL */
             $user = $this->userRepository->findUserByEmail($request->email);
             if($user){
-                if($user->email_verified_at){
-                    $this->response['message'] = 'This email has aleardy been taken.';
-                    return $this->respondWithCustomCode($this->response, EXPECATION_FAILED);
+                if(!$user->email_verified_at){
+                    $this->response['message'] = 'This email has already been taken.';
+                    return $this->respondWithCustomCode($this->response, EXPECTATION_FAILED);
                 }
             }
 
-            $result = $this->userRepository->createUser($user);
-            if(!$result){
-                $this->response['message'] = $e->getMessage();
-                return $this->respondWithError($this->response);
-            }
+            $userJson = $this->userTransformer->createJson($request);
+
+            $new_user = $this->userRepository->createUser($userJson);
+            
             \DB::commit();
             // ** Send Verification message
+            Mail::to($new_user->email)->send(new ActivationMail($new_user));
+
             $this->response['message'] = 'User created successfully.';
-            $this->response['data'] = $results;
+            $this->response['data'] = $new_user;
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             \DB::rollBack();
@@ -121,7 +132,7 @@ class GuestController extends ApiController
             }else if(!Hash::check($request->password, $user->password)){
                 $this->response['message'] = 'Invalid Password.';
                 return $this->respondWithCustomCode($this->response, HTTP_UNAUTHORIZED);
-            }else if($user->role_id != 3){
+            }else if($user->role_id == 1){
                 $this->response['message'] = 'Invalid Role.';
                 return $this->respondWithCustomCode($this->response, HTTP_UNAUTHORIZED);
             }else if(!$user->email_verified_at){
@@ -149,6 +160,8 @@ class GuestController extends ApiController
         }
     }
 
+
+
     public function verifyContact(Request $request)
     {}
 
@@ -159,4 +172,8 @@ class GuestController extends ApiController
     public function getPage(Request $request, $slug){}
 
     public function forgotPassword(Request $request){}
+
+    protected function generateVerificationToken(){
+        return \Str::random(32);
+    }
 }

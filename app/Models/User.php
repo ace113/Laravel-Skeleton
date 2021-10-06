@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens;
 
@@ -33,7 +33,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
+        'remember_token', 
+        'created_at',
+        'updated_at',
+        'email_verify_token',
     ];
 
     /**
@@ -68,10 +72,5 @@ class User extends Authenticatable
     {
         return ucwords($this->first_name. ' '. $this->last_name);
     }
-
-    // public function setPasswordAttribute($value)
-    // {
-    //     $this->attribute['password'] = bcrypt($value);
-    // }
 
 }

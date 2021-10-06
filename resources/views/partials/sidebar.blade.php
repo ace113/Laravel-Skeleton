@@ -23,8 +23,8 @@
 
              <li class="nav-item {{classActivePath('admin.role')}}{{  classActivePath('admin.permission') }}{{ classActivePath('admin.user')}}">
                 <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-settings"></i>
-                    <span class="title">User</span>
+                    <i class="icon-users"></i>
+                    <span class="title">User Management</span>
                     <span class="arrow"></span>
                     <span class="selected"></span>
                 </a>
