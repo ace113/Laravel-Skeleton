@@ -31,7 +31,7 @@ Route::group([
         Route::post('/sendVerificationEmail', 'GuestController@sendVerificationEmail');
         Route::post('/sendPhoneVerificationToken', 'GuestController@sendPhoneVerificationToken');
         Route::get('/pages/{slug}', 'GuestController@getPage');
-        Route::post('/password/forgot', 'GuestController@forgotPassword');
+        Route::post('/password/email', 'GuestController@resetLinkEmail');
         Route::post('/login', 'GuestController@login');
     });
 

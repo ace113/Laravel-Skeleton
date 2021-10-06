@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "My Ecommerce API Documentation",
+        "title": "Skeleton Laravel",
         "description": "All API Documentations",
         "contact": {
             "email": "prajwalmaharjan58@gmail.com"
@@ -293,6 +293,46 @@
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/guest/password/email": {
+            "post": {
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "send reset link",
+                "description": "Send user reset password email",
+                "operationId": "resetLinkEmail",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@user.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
                     },
                     "403": {
                         "description": "Forbidden"

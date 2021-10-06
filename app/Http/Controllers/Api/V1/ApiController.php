@@ -10,7 +10,7 @@ class ApiController extends Controller
     /**
      * @OA\Info(
      *      version="1.0.0",
-     *      title="My Ecommerce API Documentation",
+     *      title="Skeleton Laravel",
      *      description="All API Documentations",
      *      @OA\Contact(
      *          email="prajwalmaharjan58@gmail.com",

@@ -10,6 +10,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Api\LoginRequest;
+use Illuminate\Support\Facades\Password;
 use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Controllers\Api\V1\ApiController;
@@ -219,7 +220,63 @@ class GuestController extends ApiController
         }
     }
 
-    public function forgotPassword(Request $request){}
+    /**
+     * @OA\Post(
+     *      path="/api/v1/guest/password/email",
+     *      operationId="resetLinkEmail",
+     *      summary="send reset link",
+     *      description="Send user reset password email",
+     *      tags={"Guest"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  example="user@user.com",
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+    public function resetLinkEmail(Request $request){
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+            $response = $this->broker()->sendResetLink(
+                $this->credentials($request)
+            );
+
+            if($response == Password::RESET_LINK_SENT){
+                $this->response['message'] = trans($response);
+                return $this->respondWithSuccess($this->response);
+            }
+            else {
+                $this->response['message'] = trans($response);
+                return $this->respondWithError($this->response);    
+            }
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
 
     protected function generateVerificationToken(){
         return \Str::random(32);
