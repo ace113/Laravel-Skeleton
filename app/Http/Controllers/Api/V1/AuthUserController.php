@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Controllers\Api\V1\ApiController;
+use App\Http\Requests\Api\ChangePasswordRequest;
 
 class AuthUserController extends ApiController
 {
@@ -110,7 +112,7 @@ class AuthUserController extends ApiController
 
     /**
      * @OA\Post(
-     *      path="/api/v1/auth/change_password",
+     *      path="/api/v1/auth/changePassword",
      *      operationId="ChangePassword",
      *      summary="Change password",
      *      description="Change authenticated user's password",
@@ -137,10 +139,27 @@ class AuthUserController extends ApiController
      *      ),
      * )
      */
-    public function changePassword(Request $request)
+    public function changePassword(ChangePasswordRequest $request)
     {
         try {
-            //code...
+            if(!Hash::check($request->current_password, auth()->user()->password))
+            {
+                $this->response['message'] = 'Invalid Password.';
+                return $this->respondWithCustomCode($this->response, HTTP_UNAUTHORIZED);
+            }
+
+            // update user with new password
+            $user = auth()->user();
+            $user->password = bcrypt($request->password);
+            $user->save();
+
+            if(!$user){
+                $this->response['message'] = trans('Something went wrong.');
+                return $this->respondWithError($this->response);
+            }
+            $this->response['message'] = trans('Password changed successful.');
+            return $this->respondWithSuccess($this->response);
+
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);

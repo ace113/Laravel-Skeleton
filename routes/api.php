@@ -41,7 +41,7 @@ Route::group([
     ], function(){
         Route::get('/profile', 'AuthUserController@getUserProfile');
         Route::post('/profile', 'AuthUserController@updateProfile');
-        Route::post('/change_password', 'AuthUserController@changePassword');
+        Route::post('/changePassword', 'AuthUserController@changePassword');
         Route::get('/logout/{device_id}', 'AuthUserController@logout');
         Route::post('/addUpdateDeviceInfo', 'AuthUserController@addUpdateDeviceInfo');
     });
