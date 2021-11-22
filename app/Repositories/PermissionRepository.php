@@ -4,9 +4,12 @@ namespace App\Repositories;
 
 use DataTables;
 use App\Models\Permission;
+use App\Traits\SluggableTrait;
 
 class PermissionRepository
 {
+    use SluggableTrait;
+    
     public function getPermissionById($id)
     {
         return Permission::find($id);
@@ -16,7 +19,7 @@ class PermissionRepository
     {
         $permission = Permission::create([
             'name' => ucwords($request->name),
-            'slug' => \Str::slug($request->slug),           
+            'slug' => $this->createSlug($request->name, 0, 'Permission'),           
             'status' => $request->status == 1 ? true : false
         ]);
 
@@ -29,7 +32,7 @@ class PermissionRepository
 
         $permission->update([
             'name' => ucwords($request->name),
-            'slug' => \Str::slug($request->slug),         
+            'slug' => $this->createSlug($request->name, $id, 'Permission'),         
             'status' => $request->status == 1 ? true : false
         ]); 
 
