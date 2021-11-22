@@ -13,9 +13,37 @@ $('.summernote').summernote({
 });
 
 // auto close alert after 5 secs
-function closeAlert(){
+function closeAlert() {
     setTimeout(() => {
         $('.alert').hide();
     }, 5000);
 }
 closeAlert();
+
+
+/**
+ * PERMISSION SELELEC ALL / DESELECT ALL
+ */
+var permissionChecks = document.getElementsByName('permission[]'),
+    permissionSelectAll = document.querySelector('.per_select_all'),
+    permissionDeselectAll = document.querySelector('.per_deselect_all')
+
+function perSelectAll() {
+    for (var checkbox of permissionChecks) {
+        //    console.log(checkbox)
+        checkbox.setAttribute('checked', true);
+        checkbox.parentElement.classList.add('checked')
+    }
+}
+
+permissionSelectAll.addEventListener('click', perSelectAll);
+
+function perDeselectAll() {
+    for (var checkbox of permissionChecks) {
+        //    console.log(checkbox)
+        checkbox.removeAttribute('checked', true);
+        checkbox.parentElement.classList.remove('checked')
+    }
+}
+
+permissionDeselectAll.addEventListener('click', perDeselectAll);

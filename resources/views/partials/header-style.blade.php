@@ -3,7 +3,7 @@
 <link href="{{asset('assets/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/global/plugins/simple-line-icons/simple-line-icons.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/global/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-{{--<link href="{{asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />--}}
+<link href="{{asset('assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <link href="{{asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet" type="text/css" />
@@ -16,6 +16,7 @@
 
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL STYLES -->
+<link rel="stylesheet" href="{{asset('assets/global/plugins/icheck/skins/all.css')}}">
 <link href="{{asset('assets/global/css/components.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
 <link href="{{asset('assets/global/css/plugins.min.css')}}" rel="stylesheet" type="text/css" />
 {{-- <link href="{{asset('assets/global/plugins/bootstrap-multiselect/css/bootstrap-multiselect.css')}}" rel="stylesheet" type="text/css" /> --}}
@@ -40,4 +41,5 @@
 <script src="{{asset('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 {{-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete&key={{ env('GOOGLE_MAPS_KEY') }}" async defer></script> --}}
+
 @yield('additional-css')

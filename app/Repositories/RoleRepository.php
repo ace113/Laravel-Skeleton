@@ -19,6 +19,7 @@ class RoleRepository
             'slug' => \Str::slug($request->slug),           
             'status' => $request->status == 1 ? true : false
         ]);
+        $role->permissions()->sync($request->input('permission', []));
 
         return $role;
     }
@@ -32,6 +33,8 @@ class RoleRepository
             'slug' => \Str::slug($request->slug),         
             'status' => $request->status == 1 ? true : false
         ]); 
+
+        $role->permissions()->sync($request->input('permission', []));
 
         return $role;
     }
@@ -97,5 +100,10 @@ class RoleRepository
         return $datatables->make(true);  
     }
 
+    public function getRolePermissions($id){
+        $role = Role::find($id);
+
+        return $role->permissions;
+    }
     
 }

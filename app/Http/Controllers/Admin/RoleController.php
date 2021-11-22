@@ -6,17 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\RoleRepository;
 use Illuminate\Support\Facades\Gate;
+use App\Repositories\PermissionRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 
 class RoleController extends Controller
 { 
     protected $roleRepository;
+    protected $permissionRepository;
 
     public function __construct(
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        PermissionRepository $permissionRepository
     ){
         $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +29,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {  
-        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if($request->ajax()){
             return $this->roleRepository->getAjaxData($request);
@@ -41,7 +45,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role.create');
+        $permissions = $this->permissionRepository->getAllPermissions();    
+        $selectedPermissions = [];   
+        return view('admin.role.create', compact('permissions', 'selectedPermissions'));
     }
 
     /**
@@ -53,7 +59,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         try {
-            $role = $this->roleRepository->createRole($request);
+            $role = $this->roleRepository->createRole($request);           
             if(!$role){
                return redirect()
                     ->back()
@@ -89,8 +95,18 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $permissions = $this->permissionRepository->getAllPermissions();
+
+        $selectedPermissions = [];
+        if($permissions){
+            foreach($this->roleRepository->getRolePermissions($id) as $selectedPermission){
+                array_push($selectedPermissions, $selectedPermission->id);
+            }
+        };
+       
+
         $role = $this->roleRepository->getRoleById($id);
-        return view('admin.role.edit', compact('role'));
+        return view('admin.role.edit', compact('role', 'permissions', 'selectedPermissions'));
     }
 
     /**

@@ -86,4 +86,9 @@ class PermissionRepository
         return $datatables->make(true);
     
     }
+
+    public function getAllPermissions()
+    {
+        return Permission::get();
+    }
 }
