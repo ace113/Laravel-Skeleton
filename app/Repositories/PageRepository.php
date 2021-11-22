@@ -4,9 +4,12 @@ namespace App\Repositories;
 
 use DataTables;
 use App\Models\Page;
+use App\Traits\SluggableTrait;
 
 class PageRepository
 {
+    use SluggableTrait;
+    
     public function getPageById($id)
     {
         return Page::find($id);
@@ -28,7 +31,7 @@ class PageRepository
     {
         $page = Page::create([
             'title' => ucwords($request->title),
-            'slug' => \Str::slug($request->slug),
+            'slug' => $this->createSlug($request->title, 0, 'Page'),
             'body' => $request->body,
             'status' => $request->status == 1 ? true : false
         ]);
@@ -42,7 +45,7 @@ class PageRepository
 
         $page->update([
             'title' => ucwords($request->title),
-            'slug' => \Str::slug($request->slug),
+            'slug' => $this->createSlug($request->title, $id , 'Page'),
             'body' => $request->body,
             'status' => $request->status == 1 ? true : false
         ]); 

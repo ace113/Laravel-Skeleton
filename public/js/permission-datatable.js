@@ -26,6 +26,10 @@ $(function () {
                 name: 'title'
             },
             {
+                data: 'slug',
+                name: 'slug'
+            },
+            {
                 data: 'action',
                 name: 'action',
                 orderable: false,

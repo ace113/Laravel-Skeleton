@@ -31,6 +31,7 @@
                         <tr>
                             <th width="40px">Sn.</th>
                             <th>Permissions</th>
+                            <th>Slug</th>
                             <th width="10%">Actions</th>
                         </tr>
                     </thead>
