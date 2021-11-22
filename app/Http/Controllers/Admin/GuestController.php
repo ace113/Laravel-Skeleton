@@ -36,6 +36,10 @@ class GuestController extends Controller
         if(Auth::guard('web')->attempt($credentials, $request->remember)){
             if(auth()->user()->role_id == 3){
                 Auth::guard('web')->logout();
+                return redirect()
+                ->route('admin.login.form')
+                ->withInput()
+                ->withError('Permission denied!');
             }
             return redirect()->intended($this->redirectTo);
         }
