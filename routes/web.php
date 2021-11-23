@@ -70,3 +70,6 @@ Route::group([
         Route::resource('/page', 'PageController');       
     });
 });
+
+// Frontend routes
+Route::get('/{any}', 'Frontend\FrontendController@index')->where('any', '.*');
