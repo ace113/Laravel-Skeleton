@@ -93,6 +93,8 @@ $(function () {
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
+                }).fail(function(data){
+                    toastr.error(data.responseJSON.message)
                 }).done(function () {
                     table.draw();
                 });

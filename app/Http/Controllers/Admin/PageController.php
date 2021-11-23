@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\PageRepository;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends Controller
 {
@@ -22,6 +24,8 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {  
+        abort_if(Gate::denies('page_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         if($request->ajax()){
             return $this->pageRepository->getAjaxData($request);
         }
@@ -36,6 +40,8 @@ class PageController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('page_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admin.page.create');
     }
 
@@ -84,6 +90,8 @@ class PageController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('page_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $page = $this->pageRepository->getPageById($id);
         return view('admin.page.edit', compact('page'));
     }
@@ -123,6 +131,8 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('page_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $data = new \stdClass();
         try {
             $is_deleted = $this->pageRepository->deletePage($id);

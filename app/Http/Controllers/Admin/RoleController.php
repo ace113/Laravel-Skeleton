@@ -29,7 +29,8 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {  
-        // abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
 
         if($request->ajax()){
             return $this->roleRepository->getAjaxData($request);
@@ -45,6 +46,8 @@ class RoleController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permissions = $this->permissionRepository->getAllPermissions();    
         $selectedPermissions = [];   
         return view('admin.role.create', compact('permissions', 'selectedPermissions'));
@@ -95,6 +98,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permissions = $this->permissionRepository->getAllPermissions();
 
         $selectedPermissions = [];
@@ -144,6 +149,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $data = new \stdClass();
         try {
             $is_deleted = $this->roleRepository->deleteRole($id);

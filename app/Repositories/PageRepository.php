@@ -102,6 +102,10 @@ class PageRepository
                 }
             })
             ->addColumn('action', function($query){
+                if(\Gate::denies('page_delete')){
+                    return '<a href="'.route('admin.page.edit',[$query->id]).'" class="btn btn-info btn-sx" data-toggle="tooltip" title="Edit">
+                    <i class="fa fa-edit"></i></a';
+                }
                 return ' <a href="'.route('admin.page.edit',[$query->id]).'" class="btn btn-info btn-sx" data-toggle="tooltip" title="Edit">
                 <i class="fa fa-edit"></i></a>&nbsp;
                 <button class="btn btn-danger btn-sx delete" data-id="'.$query->id.'" data-toggle="tooltip" title="Delete">

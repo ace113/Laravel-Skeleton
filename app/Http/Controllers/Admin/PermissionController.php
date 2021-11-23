@@ -40,6 +40,8 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden. Permission denied!');
+
         return view('admin.permission.create');
     }
 
@@ -88,6 +90,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden. Permission denied!');
+
         $permission = $this->permissionRepository->getPermissionById($id);
         return view('admin.permission.edit', compact('permission'));
     }
@@ -127,6 +131,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
+        abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden. Permission denied!');
+
         $data = new \stdClass();
         try {
             $is_deleted = $this->permissionRepository->deletePermission($id);
