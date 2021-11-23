@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use DataTables;
 use App\Models\User;
+use App\Models\UserDeviceInfo;
 use Illuminate\Support\Facades\DB;
 
 class UserRepository
@@ -101,4 +102,17 @@ class UserRepository
         }
     }
 
+    // update or create device info
+    public function updateOrCreateDeviceInfo($request)
+    {
+        $deviceInfo = UserDeviceInfo::updateOrCreate([
+            'device_id' => $request->device_id
+        ], [
+            'device_token' => $request->device_token,
+            'device_type' => $request->device_type,
+            'user_id' => $request->user()->id
+        ]);
+
+        return $deviceInfo;
+    }
 }

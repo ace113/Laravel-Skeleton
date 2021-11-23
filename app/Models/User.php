@@ -73,4 +73,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return ucwords($this->first_name. ' '. $this->last_name);
     }
 
+    public function deviceInfos()
+    {
+        $this->hasMany(UserDeviceInfo::class);
+    }
+
 }

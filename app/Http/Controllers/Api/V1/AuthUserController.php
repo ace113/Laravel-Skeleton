@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Controllers\Api\V1\ApiController;
 use App\Http\Requests\Api\ChangePasswordRequest;
+use App\Http\Requests\Api\UserDeviceInfoRequest;
 
 class AuthUserController extends ApiController
 {
@@ -248,10 +249,14 @@ class AuthUserController extends ApiController
      *      ),
      * )
      */
-    public function addUpdateDeviceInfo(Request $request)
+    public function addUpdateDeviceInfo(UserDeviceInfoRequest $request)
     {
         try {
-            //code...
+            $deviceInfo = $this->userRepository->updateOrCreateDeviceInfo($request);
+
+            $this->response['message'] = trans('Device Info added successfully.');
+            $this->response['data'] = $deviceInfo;
+            return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);
