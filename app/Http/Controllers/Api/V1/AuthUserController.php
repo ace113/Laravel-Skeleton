@@ -203,7 +203,16 @@ class AuthUserController extends ApiController
     public function logout(Request $request)
     {
         try {
-            //code...
+            $user = $request->user();
+           
+            // revoke token
+            $user->token()->revoke();
+
+            // *delete device info
+
+            $this->response['message'] = 'Logout Successful';
+            return $this->respondWithSuccess($this->response);
+
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);

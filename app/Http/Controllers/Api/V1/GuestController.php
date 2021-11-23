@@ -154,6 +154,8 @@ class GuestController extends ApiController
 
             $headers['access_token'] = 'Bearer '.$token;
 
+            $user->access_token = 'Bearer '.$token;
+
             $data = $user->toArray();
 
             $this->response['message']= 'User logged in successfully.';
