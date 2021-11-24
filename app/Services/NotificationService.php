@@ -15,8 +15,8 @@ class NotificationService
         try {
             $url = 'https://fcm.googleapis.com/fcm/send';
 
-            // $key=config('app.fcm');
-            $key="dfsdfsdf";
+            $key=config('app.fcm_service_key');
+          
 
             $headers = array(
                 'Authorization: Key=' . $key,

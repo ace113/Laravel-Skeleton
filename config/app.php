@@ -123,6 +123,14 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    /**
+     * ---------------
+     * Firebase cloud messaging service
+     * ---------------
+     */
+
+    'fmc_service_key' => env('FMC_SERVICE_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
