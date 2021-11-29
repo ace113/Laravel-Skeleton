@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/9.5.0/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.5.0/firebase-messaging.js');
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-4NHNS7NmE8ATmyglufesNiN7p7mA8Z0",
@@ -15,8 +15,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
-messaging.setBackgroundMessageHandler(async function (payload) {
-    console.log("Message received.", payload);
+
+messaging.setBackgroundMessageHandler( function (payload) {
+    console.log(
+        "[firebase-messaging-sw.js] Received background message ",
+        payload,
+      );
 
     const title = "Hello world is awesome";
     const options = {

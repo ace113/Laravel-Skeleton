@@ -3,11 +3,12 @@
     <div class="jumbotron">
       <h1>Welcome To Laravel Skeleton Project</h1>
       <p>This is a laravel skeleton for rapid backend development.</p>
+      <input type="text" id="token" value="token placeholder">
     </div>
   </div>
 </template>
 <script>
 export default {
- 
+   
 };
 </script>

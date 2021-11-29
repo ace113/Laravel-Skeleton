@@ -1,0 +1,13 @@
+{
+  "name": "Laravel Skeleton",
+  "short_name": "Laravel Skeleton",
+  "icons": [{
+        "src": "/assets/pages/img/logo.png",
+       
+        "type": "image/png"
+      }],
+  "start_url": "index.php",
+  "display": "standalone",
+  "gcm_sender_id": "1091942871448",
+  "id": "index.php"
+}

@@ -1,19 +1,16 @@
-require('./bootstrap');
+require("./bootstrap");
 
-import Vue from 'vue';
-import router from './router';
+import Vue from "vue";
+import router from "./router";
 
-import App from './views/App';
+import App from "./views/App";
 
-import firebase from './firebase'
-
-Vue.prototype.$messaging = firebase;
-
+import firebase from './firebase';
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
     components: {
         App,
     },
-    router
+    router,
 });

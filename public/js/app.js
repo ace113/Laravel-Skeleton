@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/@firebase/app/dist/esm/index.esm2017.js":
 /*!**************************************************************!*\
   !*** ./node_modules/@firebase/app/dist/esm/index.esm2017.js ***!
@@ -3774,1283 +3786,6 @@ registerMessagingInWindow();
 
 
 //# sourceMappingURL=index.esm2017.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@firebase/messaging/dist/index.sw.esm2017.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@firebase/messaging/dist/index.sw.esm2017.js ***!
-  \*******************************************************************/
-/*! exports provided: experimentalSetDeliveryMetricsExportedToBigQueryEnabled, getMessaging, isSupported, onBackgroundMessage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "experimentalSetDeliveryMetricsExportedToBigQueryEnabled", function() { return experimentalSetDeliveryMetricsExportedToBigQueryEnabled; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMessaging", function() { return getMessagingInSw; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSupported", function() { return isSwSupported; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onBackgroundMessage", function() { return onBackgroundMessage; });
-/* harmony import */ var _firebase_installations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/installations */ "./node_modules/@firebase/installations/dist/esm/index.esm2017.js");
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @firebase/component */ "./node_modules/@firebase/component/dist/esm/index.esm2017.js");
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! idb */ "./node_modules/idb/build/idb.js");
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(idb__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @firebase/util */ "./node_modules/@firebase/util/dist/index.esm2017.js");
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @firebase/app */ "./node_modules/@firebase/app/dist/esm/index.esm2017.js");
-
-
-
-
-
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const DEFAULT_VAPID_KEY = 'BDOU99-h67HcA6JeFXHbSNMu7e2yNNu3RzoMj8TM4W88jITfq7ZmPvIM1Iv-4_l2LxQcYwhqby2xGpWwzjfAnG4';
-const ENDPOINT = 'https://fcmregistrations.googleapis.com/v1';
-/** Key of FCM Payload in Notification's data field. */
-const FCM_MSG = 'FCM_MSG';
-const CONSOLE_CAMPAIGN_ID = 'google.c.a.c_id';
-// Defined as in proto/messaging_event.proto. Neglecting fields that are supported.
-const SDK_PLATFORM_WEB = 3;
-const EVENT_MESSAGE_DELIVERED = 1;
-var MessageType$1;
-(function (MessageType) {
-    MessageType[MessageType["DATA_MESSAGE"] = 1] = "DATA_MESSAGE";
-    MessageType[MessageType["DISPLAY_NOTIFICATION"] = 3] = "DISPLAY_NOTIFICATION";
-})(MessageType$1 || (MessageType$1 = {}));
-
-/**
- * @license
- * Copyright 2018 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
-var MessageType;
-(function (MessageType) {
-    MessageType["PUSH_RECEIVED"] = "push-received";
-    MessageType["NOTIFICATION_CLICKED"] = "notification-clicked";
-})(MessageType || (MessageType = {}));
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function arrayToBase64(array) {
-    const uint8Array = new Uint8Array(array);
-    const base64String = btoa(String.fromCharCode(...uint8Array));
-    return base64String.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-}
-function base64ToArray(base64String) {
-    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding)
-        .replace(/\-/g, '+')
-        .replace(/_/g, '/');
-    const rawData = atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-    for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const OLD_DB_NAME = 'fcm_token_details_db';
-/**
- * The last DB version of 'fcm_token_details_db' was 4. This is one higher, so that the upgrade
- * callback is called for all versions of the old DB.
- */
-const OLD_DB_VERSION = 5;
-const OLD_OBJECT_STORE_NAME = 'fcm_token_object_Store';
-async function migrateOldDatabase(senderId) {
-    if ('databases' in indexedDB) {
-        // indexedDb.databases() is an IndexedDB v3 API and does not exist in all browsers. TODO: Remove
-        // typecast when it lands in TS types.
-        const databases = await indexedDB.databases();
-        const dbNames = databases.map(db => db.name);
-        if (!dbNames.includes(OLD_DB_NAME)) {
-            // old DB didn't exist, no need to open.
-            return null;
-        }
-    }
-    let tokenDetails = null;
-    const db = await Object(idb__WEBPACK_IMPORTED_MODULE_2__["openDb"])(OLD_DB_NAME, OLD_DB_VERSION, async (db) => {
-        var _a;
-        if (db.oldVersion < 2) {
-            // Database too old, skip migration.
-            return;
-        }
-        if (!db.objectStoreNames.contains(OLD_OBJECT_STORE_NAME)) {
-            // Database did not exist. Nothing to do.
-            return;
-        }
-        const objectStore = db.transaction.objectStore(OLD_OBJECT_STORE_NAME);
-        const value = await objectStore.index('fcmSenderId').get(senderId);
-        await objectStore.clear();
-        if (!value) {
-            // No entry in the database, nothing to migrate.
-            return;
-        }
-        if (db.oldVersion === 2) {
-            const oldDetails = value;
-            if (!oldDetails.auth || !oldDetails.p256dh || !oldDetails.endpoint) {
-                return;
-            }
-            tokenDetails = {
-                token: oldDetails.fcmToken,
-                createTime: (_a = oldDetails.createTime) !== null && _a !== void 0 ? _a : Date.now(),
-                subscriptionOptions: {
-                    auth: oldDetails.auth,
-                    p256dh: oldDetails.p256dh,
-                    endpoint: oldDetails.endpoint,
-                    swScope: oldDetails.swScope,
-                    vapidKey: typeof oldDetails.vapidKey === 'string'
-                        ? oldDetails.vapidKey
-                        : arrayToBase64(oldDetails.vapidKey)
-                }
-            };
-        }
-        else if (db.oldVersion === 3) {
-            const oldDetails = value;
-            tokenDetails = {
-                token: oldDetails.fcmToken,
-                createTime: oldDetails.createTime,
-                subscriptionOptions: {
-                    auth: arrayToBase64(oldDetails.auth),
-                    p256dh: arrayToBase64(oldDetails.p256dh),
-                    endpoint: oldDetails.endpoint,
-                    swScope: oldDetails.swScope,
-                    vapidKey: arrayToBase64(oldDetails.vapidKey)
-                }
-            };
-        }
-        else if (db.oldVersion === 4) {
-            const oldDetails = value;
-            tokenDetails = {
-                token: oldDetails.fcmToken,
-                createTime: oldDetails.createTime,
-                subscriptionOptions: {
-                    auth: arrayToBase64(oldDetails.auth),
-                    p256dh: arrayToBase64(oldDetails.p256dh),
-                    endpoint: oldDetails.endpoint,
-                    swScope: oldDetails.swScope,
-                    vapidKey: arrayToBase64(oldDetails.vapidKey)
-                }
-            };
-        }
-    });
-    db.close();
-    // Delete all old databases.
-    await Object(idb__WEBPACK_IMPORTED_MODULE_2__["deleteDb"])(OLD_DB_NAME);
-    await Object(idb__WEBPACK_IMPORTED_MODULE_2__["deleteDb"])('fcm_vapid_details_db');
-    await Object(idb__WEBPACK_IMPORTED_MODULE_2__["deleteDb"])('undefined');
-    return checkTokenDetails(tokenDetails) ? tokenDetails : null;
-}
-function checkTokenDetails(tokenDetails) {
-    if (!tokenDetails || !tokenDetails.subscriptionOptions) {
-        return false;
-    }
-    const { subscriptionOptions } = tokenDetails;
-    return (typeof tokenDetails.createTime === 'number' &&
-        tokenDetails.createTime > 0 &&
-        typeof tokenDetails.token === 'string' &&
-        tokenDetails.token.length > 0 &&
-        typeof subscriptionOptions.auth === 'string' &&
-        subscriptionOptions.auth.length > 0 &&
-        typeof subscriptionOptions.p256dh === 'string' &&
-        subscriptionOptions.p256dh.length > 0 &&
-        typeof subscriptionOptions.endpoint === 'string' &&
-        subscriptionOptions.endpoint.length > 0 &&
-        typeof subscriptionOptions.swScope === 'string' &&
-        subscriptionOptions.swScope.length > 0 &&
-        typeof subscriptionOptions.vapidKey === 'string' &&
-        subscriptionOptions.vapidKey.length > 0);
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-// Exported for tests.
-const DATABASE_NAME = 'firebase-messaging-database';
-const DATABASE_VERSION = 1;
-const OBJECT_STORE_NAME = 'firebase-messaging-store';
-let dbPromise = null;
-function getDbPromise() {
-    if (!dbPromise) {
-        dbPromise = Object(idb__WEBPACK_IMPORTED_MODULE_2__["openDb"])(DATABASE_NAME, DATABASE_VERSION, upgradeDb => {
-            // We don't use 'break' in this switch statement, the fall-through behavior is what we want,
-            // because if there are multiple versions between the old version and the current version, we
-            // want ALL the migrations that correspond to those versions to run, not only the last one.
-            // eslint-disable-next-line default-case
-            switch (upgradeDb.oldVersion) {
-                case 0:
-                    upgradeDb.createObjectStore(OBJECT_STORE_NAME);
-            }
-        });
-    }
-    return dbPromise;
-}
-/** Gets record(s) from the objectStore that match the given key. */
-async function dbGet(firebaseDependencies) {
-    const key = getKey(firebaseDependencies);
-    const db = await getDbPromise();
-    const tokenDetails = await db
-        .transaction(OBJECT_STORE_NAME)
-        .objectStore(OBJECT_STORE_NAME)
-        .get(key);
-    if (tokenDetails) {
-        return tokenDetails;
-    }
-    else {
-        // Check if there is a tokenDetails object in the old DB.
-        const oldTokenDetails = await migrateOldDatabase(firebaseDependencies.appConfig.senderId);
-        if (oldTokenDetails) {
-            await dbSet(firebaseDependencies, oldTokenDetails);
-            return oldTokenDetails;
-        }
-    }
-}
-/** Assigns or overwrites the record for the given key with the given value. */
-async function dbSet(firebaseDependencies, tokenDetails) {
-    const key = getKey(firebaseDependencies);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    await tx.objectStore(OBJECT_STORE_NAME).put(tokenDetails, key);
-    await tx.complete;
-    return tokenDetails;
-}
-/** Removes record(s) from the objectStore that match the given key. */
-async function dbRemove(firebaseDependencies) {
-    const key = getKey(firebaseDependencies);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    await tx.objectStore(OBJECT_STORE_NAME).delete(key);
-    await tx.complete;
-}
-function getKey({ appConfig }) {
-    return appConfig.appId;
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const ERROR_MAP = {
-    ["missing-app-config-values" /* MISSING_APP_CONFIG_VALUES */]: 'Missing App configuration value: "{$valueName}"',
-    ["only-available-in-window" /* AVAILABLE_IN_WINDOW */]: 'This method is available in a Window context.',
-    ["only-available-in-sw" /* AVAILABLE_IN_SW */]: 'This method is available in a service worker context.',
-    ["permission-default" /* PERMISSION_DEFAULT */]: 'The notification permission was not granted and dismissed instead.',
-    ["permission-blocked" /* PERMISSION_BLOCKED */]: 'The notification permission was not granted and blocked instead.',
-    ["unsupported-browser" /* UNSUPPORTED_BROWSER */]: "This browser doesn't support the API's required to use the Firebase SDK.",
-    ["indexed-db-unsupported" /* INDEXED_DB_UNSUPPORTED */]: "This browser doesn't support indexedDb.open() (ex. Safari iFrame, Firefox Private Browsing, etc)",
-    ["failed-service-worker-registration" /* FAILED_DEFAULT_REGISTRATION */]: 'We are unable to register the default service worker. {$browserErrorMessage}',
-    ["token-subscribe-failed" /* TOKEN_SUBSCRIBE_FAILED */]: 'A problem occurred while subscribing the user to FCM: {$errorInfo}',
-    ["token-subscribe-no-token" /* TOKEN_SUBSCRIBE_NO_TOKEN */]: 'FCM returned no token when subscribing the user to push.',
-    ["token-unsubscribe-failed" /* TOKEN_UNSUBSCRIBE_FAILED */]: 'A problem occurred while unsubscribing the ' +
-        'user from FCM: {$errorInfo}',
-    ["token-update-failed" /* TOKEN_UPDATE_FAILED */]: 'A problem occurred while updating the user from FCM: {$errorInfo}',
-    ["token-update-no-token" /* TOKEN_UPDATE_NO_TOKEN */]: 'FCM returned no token when updating the user to push.',
-    ["use-sw-after-get-token" /* USE_SW_AFTER_GET_TOKEN */]: 'The useServiceWorker() method may only be called once and must be ' +
-        'called before calling getToken() to ensure your service worker is used.',
-    ["invalid-sw-registration" /* INVALID_SW_REGISTRATION */]: 'The input to useServiceWorker() must be a ServiceWorkerRegistration.',
-    ["invalid-bg-handler" /* INVALID_BG_HANDLER */]: 'The input to setBackgroundMessageHandler() must be a function.',
-    ["invalid-vapid-key" /* INVALID_VAPID_KEY */]: 'The public VAPID key must be a string.',
-    ["use-vapid-key-after-get-token" /* USE_VAPID_KEY_AFTER_GET_TOKEN */]: 'The usePublicVapidKey() method may only be called once and must be ' +
-        'called before calling getToken() to ensure your VAPID key is used.'
-};
-const ERROR_FACTORY = new _firebase_util__WEBPACK_IMPORTED_MODULE_3__["ErrorFactory"]('messaging', 'Messaging', ERROR_MAP);
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function requestGetToken(firebaseDependencies, subscriptionOptions) {
-    const headers = await getHeaders(firebaseDependencies);
-    const body = getBody(subscriptionOptions);
-    const subscribeOptions = {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-    };
-    let responseData;
-    try {
-        const response = await fetch(getEndpoint(firebaseDependencies.appConfig), subscribeOptions);
-        responseData = await response.json();
-    }
-    catch (err) {
-        throw ERROR_FACTORY.create("token-subscribe-failed" /* TOKEN_SUBSCRIBE_FAILED */, {
-            errorInfo: err
-        });
-    }
-    if (responseData.error) {
-        const message = responseData.error.message;
-        throw ERROR_FACTORY.create("token-subscribe-failed" /* TOKEN_SUBSCRIBE_FAILED */, {
-            errorInfo: message
-        });
-    }
-    if (!responseData.token) {
-        throw ERROR_FACTORY.create("token-subscribe-no-token" /* TOKEN_SUBSCRIBE_NO_TOKEN */);
-    }
-    return responseData.token;
-}
-async function requestUpdateToken(firebaseDependencies, tokenDetails) {
-    const headers = await getHeaders(firebaseDependencies);
-    const body = getBody(tokenDetails.subscriptionOptions);
-    const updateOptions = {
-        method: 'PATCH',
-        headers,
-        body: JSON.stringify(body)
-    };
-    let responseData;
-    try {
-        const response = await fetch(`${getEndpoint(firebaseDependencies.appConfig)}/${tokenDetails.token}`, updateOptions);
-        responseData = await response.json();
-    }
-    catch (err) {
-        throw ERROR_FACTORY.create("token-update-failed" /* TOKEN_UPDATE_FAILED */, {
-            errorInfo: err
-        });
-    }
-    if (responseData.error) {
-        const message = responseData.error.message;
-        throw ERROR_FACTORY.create("token-update-failed" /* TOKEN_UPDATE_FAILED */, {
-            errorInfo: message
-        });
-    }
-    if (!responseData.token) {
-        throw ERROR_FACTORY.create("token-update-no-token" /* TOKEN_UPDATE_NO_TOKEN */);
-    }
-    return responseData.token;
-}
-async function requestDeleteToken(firebaseDependencies, token) {
-    const headers = await getHeaders(firebaseDependencies);
-    const unsubscribeOptions = {
-        method: 'DELETE',
-        headers
-    };
-    try {
-        const response = await fetch(`${getEndpoint(firebaseDependencies.appConfig)}/${token}`, unsubscribeOptions);
-        const responseData = await response.json();
-        if (responseData.error) {
-            const message = responseData.error.message;
-            throw ERROR_FACTORY.create("token-unsubscribe-failed" /* TOKEN_UNSUBSCRIBE_FAILED */, {
-                errorInfo: message
-            });
-        }
-    }
-    catch (err) {
-        throw ERROR_FACTORY.create("token-unsubscribe-failed" /* TOKEN_UNSUBSCRIBE_FAILED */, {
-            errorInfo: err
-        });
-    }
-}
-function getEndpoint({ projectId }) {
-    return `${ENDPOINT}/projects/${projectId}/registrations`;
-}
-async function getHeaders({ appConfig, installations }) {
-    const authToken = await installations.getToken();
-    return new Headers({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-goog-api-key': appConfig.apiKey,
-        'x-goog-firebase-installations-auth': `FIS ${authToken}`
-    });
-}
-function getBody({ p256dh, auth, endpoint, vapidKey }) {
-    const body = {
-        web: {
-            endpoint,
-            auth,
-            p256dh
-        }
-    };
-    if (vapidKey !== DEFAULT_VAPID_KEY) {
-        body.web.applicationPubKey = vapidKey;
-    }
-    return body;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-// UpdateRegistration will be called once every week.
-const TOKEN_EXPIRATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-async function getTokenInternal(messaging) {
-    const pushSubscription = await getPushSubscription(messaging.swRegistration, messaging.vapidKey);
-    const subscriptionOptions = {
-        vapidKey: messaging.vapidKey,
-        swScope: messaging.swRegistration.scope,
-        endpoint: pushSubscription.endpoint,
-        auth: arrayToBase64(pushSubscription.getKey('auth')),
-        p256dh: arrayToBase64(pushSubscription.getKey('p256dh'))
-    };
-    const tokenDetails = await dbGet(messaging.firebaseDependencies);
-    if (!tokenDetails) {
-        // No token, get a new one.
-        return getNewToken(messaging.firebaseDependencies, subscriptionOptions);
-    }
-    else if (!isTokenValid(tokenDetails.subscriptionOptions, subscriptionOptions)) {
-        // Invalid token, get a new one.
-        try {
-            await requestDeleteToken(messaging.firebaseDependencies, tokenDetails.token);
-        }
-        catch (e) {
-            // Suppress errors because of #2364
-            console.warn(e);
-        }
-        return getNewToken(messaging.firebaseDependencies, subscriptionOptions);
-    }
-    else if (Date.now() >= tokenDetails.createTime + TOKEN_EXPIRATION_MS) {
-        // Weekly token refresh
-        return updateToken(messaging, {
-            token: tokenDetails.token,
-            createTime: Date.now(),
-            subscriptionOptions
-        });
-    }
-    else {
-        // Valid token, nothing to do.
-        return tokenDetails.token;
-    }
-}
-/**
- * This method deletes the token from the database, unsubscribes the token from FCM, and unregisters
- * the push subscription if it exists.
- */
-async function deleteTokenInternal(messaging) {
-    const tokenDetails = await dbGet(messaging.firebaseDependencies);
-    if (tokenDetails) {
-        await requestDeleteToken(messaging.firebaseDependencies, tokenDetails.token);
-        await dbRemove(messaging.firebaseDependencies);
-    }
-    // Unsubscribe from the push subscription.
-    const pushSubscription = await messaging.swRegistration.pushManager.getSubscription();
-    if (pushSubscription) {
-        return pushSubscription.unsubscribe();
-    }
-    // If there's no SW, consider it a success.
-    return true;
-}
-async function updateToken(messaging, tokenDetails) {
-    try {
-        const updatedToken = await requestUpdateToken(messaging.firebaseDependencies, tokenDetails);
-        const updatedTokenDetails = Object.assign(Object.assign({}, tokenDetails), { token: updatedToken, createTime: Date.now() });
-        await dbSet(messaging.firebaseDependencies, updatedTokenDetails);
-        return updatedToken;
-    }
-    catch (e) {
-        await deleteTokenInternal(messaging);
-        throw e;
-    }
-}
-async function getNewToken(firebaseDependencies, subscriptionOptions) {
-    const token = await requestGetToken(firebaseDependencies, subscriptionOptions);
-    const tokenDetails = {
-        token,
-        createTime: Date.now(),
-        subscriptionOptions
-    };
-    await dbSet(firebaseDependencies, tokenDetails);
-    return tokenDetails.token;
-}
-/**
- * Gets a PushSubscription for the current user.
- */
-async function getPushSubscription(swRegistration, vapidKey) {
-    const subscription = await swRegistration.pushManager.getSubscription();
-    if (subscription) {
-        return subscription;
-    }
-    return swRegistration.pushManager.subscribe({
-        userVisibleOnly: true,
-        // Chrome <= 75 doesn't support base64-encoded VAPID key. For backward compatibility, VAPID key
-        // submitted to pushManager#subscribe must be of type Uint8Array.
-        applicationServerKey: base64ToArray(vapidKey)
-    });
-}
-/**
- * Checks if the saved tokenDetails object matches the configuration provided.
- */
-function isTokenValid(dbOptions, currentOptions) {
-    const isVapidKeyEqual = currentOptions.vapidKey === dbOptions.vapidKey;
-    const isEndpointEqual = currentOptions.endpoint === dbOptions.endpoint;
-    const isAuthEqual = currentOptions.auth === dbOptions.auth;
-    const isP256dhEqual = currentOptions.p256dh === dbOptions.p256dh;
-    return isVapidKeyEqual && isEndpointEqual && isAuthEqual && isP256dhEqual;
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function externalizePayload(internalPayload) {
-    const payload = {
-        from: internalPayload.from,
-        // eslint-disable-next-line camelcase
-        collapseKey: internalPayload.collapse_key,
-        // eslint-disable-next-line camelcase
-        messageId: internalPayload.fcm_message_id
-    };
-    propagateNotificationPayload(payload, internalPayload);
-    propagateDataPayload(payload, internalPayload);
-    propagateFcmOptions(payload, internalPayload);
-    return payload;
-}
-function propagateNotificationPayload(payload, messagePayloadInternal) {
-    if (!messagePayloadInternal.notification) {
-        return;
-    }
-    payload.notification = {};
-    const title = messagePayloadInternal.notification.title;
-    if (!!title) {
-        payload.notification.title = title;
-    }
-    const body = messagePayloadInternal.notification.body;
-    if (!!body) {
-        payload.notification.body = body;
-    }
-    const image = messagePayloadInternal.notification.image;
-    if (!!image) {
-        payload.notification.image = image;
-    }
-}
-function propagateDataPayload(payload, messagePayloadInternal) {
-    if (!messagePayloadInternal.data) {
-        return;
-    }
-    payload.data = messagePayloadInternal.data;
-}
-function propagateFcmOptions(payload, messagePayloadInternal) {
-    if (!messagePayloadInternal.fcmOptions) {
-        return;
-    }
-    payload.fcmOptions = {};
-    const link = messagePayloadInternal.fcmOptions.link;
-    if (!!link) {
-        payload.fcmOptions.link = link;
-    }
-    // eslint-disable-next-line camelcase
-    const analyticsLabel = messagePayloadInternal.fcmOptions.analytics_label;
-    if (!!analyticsLabel) {
-        payload.fcmOptions.analyticsLabel = analyticsLabel;
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function isConsoleMessage(data) {
-    // This message has a campaign ID, meaning it was sent using the Firebase Console.
-    return typeof data === 'object' && !!data && CONSOLE_CAMPAIGN_ID in data;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/** Returns a promise that resolves after given time passes. */
-function sleep(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-_mergeStrings('hts/frbslgigp.ogepscmv/ieo/eaylg', 'tp:/ieaeogn-agolai.o/1frlglgc/o');
-_mergeStrings('AzSCbw63g1R0nCw85jG8', 'Iaya3yLKwmgvh7cF0q4');
-async function stageLog(messaging, internalPayload) {
-    const fcmEvent = createFcmEvent(internalPayload, await messaging.firebaseDependencies.installations.getId());
-    createAndEnqueueLogEvent(messaging, fcmEvent);
-}
-function createFcmEvent(internalPayload, fid) {
-    var _a, _b;
-    const fcmEvent = {};
-    /* eslint-disable camelcase */
-    // some fields should always be non-null. Still check to ensure.
-    if (!!internalPayload.from) {
-        fcmEvent.project_number = internalPayload.from;
-    }
-    if (!!internalPayload.fcm_message_id) {
-        fcmEvent.message_id = internalPayload.fcm_message_id;
-    }
-    fcmEvent.instance_id = fid;
-    if (!!internalPayload.notification) {
-        fcmEvent.message_type = MessageType$1.DISPLAY_NOTIFICATION.toString();
-    }
-    else {
-        fcmEvent.message_type = MessageType$1.DATA_MESSAGE.toString();
-    }
-    fcmEvent.sdk_platform = SDK_PLATFORM_WEB.toString();
-    fcmEvent.package_name = self.origin.replace(/(^\w+:|^)\/\//, '');
-    if (!!internalPayload.collapse_key) {
-        fcmEvent.collapse_key = internalPayload.collapse_key;
-    }
-    fcmEvent.event = EVENT_MESSAGE_DELIVERED.toString();
-    if (!!((_a = internalPayload.fcmOptions) === null || _a === void 0 ? void 0 : _a.analytics_label)) {
-        fcmEvent.analytics_label = (_b = internalPayload.fcmOptions) === null || _b === void 0 ? void 0 : _b.analytics_label;
-    }
-    /* eslint-enable camelcase */
-    return fcmEvent;
-}
-function createAndEnqueueLogEvent(messaging, fcmEvent) {
-    const logEvent = {};
-    /* eslint-disable camelcase */
-    logEvent.event_time_ms = Math.floor(Date.now()).toString();
-    logEvent.source_extension_json_proto3 = JSON.stringify(fcmEvent);
-    // eslint-disable-next-line camelcase
-    messaging.logEvents.push(logEvent);
-}
-function _mergeStrings(s1, s2) {
-    const resultArray = [];
-    for (let i = 0; i < s1.length; i++) {
-        resultArray.push(s1.charAt(i));
-        if (i < s2.length) {
-            resultArray.push(s2.charAt(i));
-        }
-    }
-    return resultArray.join('');
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function onSubChange(event, messaging) {
-    var _a, _b;
-    const { newSubscription } = event;
-    if (!newSubscription) {
-        // Subscription revoked, delete token
-        await deleteTokenInternal(messaging);
-        return;
-    }
-    const tokenDetails = await dbGet(messaging.firebaseDependencies);
-    await deleteTokenInternal(messaging);
-    messaging.vapidKey =
-        (_b = (_a = tokenDetails === null || tokenDetails === void 0 ? void 0 : tokenDetails.subscriptionOptions) === null || _a === void 0 ? void 0 : _a.vapidKey) !== null && _b !== void 0 ? _b : DEFAULT_VAPID_KEY;
-    await getTokenInternal(messaging);
-}
-async function onPush(event, messaging) {
-    const internalPayload = getMessagePayloadInternal(event);
-    if (!internalPayload) {
-        // Failed to get parsed MessagePayload from the PushEvent. Skip handling the push.
-        return;
-    }
-    // log to Firelog with user consent
-    if (messaging.deliveryMetricsExportedToBigQueryEnabled) {
-        await stageLog(messaging, internalPayload);
-    }
-    // foreground handling: eventually passed to onMessage hook
-    const clientList = await getClientList();
-    if (hasVisibleClients(clientList)) {
-        return sendMessagePayloadInternalToWindows(clientList, internalPayload);
-    }
-    // background handling: display if possible and pass to onBackgroundMessage hook
-    if (!!internalPayload.notification) {
-        await showNotification(wrapInternalPayload(internalPayload));
-    }
-    if (!messaging) {
-        return;
-    }
-    if (!!messaging.onBackgroundMessageHandler) {
-        const payload = externalizePayload(internalPayload);
-        if (typeof messaging.onBackgroundMessageHandler === 'function') {
-            messaging.onBackgroundMessageHandler(payload);
-        }
-        else {
-            messaging.onBackgroundMessageHandler.next(payload);
-        }
-    }
-}
-async function onNotificationClick(event) {
-    var _a, _b;
-    const internalPayload = (_b = (_a = event.notification) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b[FCM_MSG];
-    if (!internalPayload) {
-        return;
-    }
-    else if (event.action) {
-        // User clicked on an action button. This will allow developers to act on action button clicks
-        // by using a custom onNotificationClick listener that they define.
-        return;
-    }
-    // Prevent other listeners from receiving the event
-    event.stopImmediatePropagation();
-    event.notification.close();
-    // Note clicking on a notification with no link set will focus the Chrome's current tab.
-    const link = getLink(internalPayload);
-    if (!link) {
-        return;
-    }
-    // FM should only open/focus links from app's origin.
-    const url = new URL(link, self.location.href);
-    const originUrl = new URL(self.location.origin);
-    if (url.host !== originUrl.host) {
-        return;
-    }
-    let client = await getWindowClient(url);
-    if (!client) {
-        client = await self.clients.openWindow(link);
-        // Wait three seconds for the client to initialize and set up the message handler so that it
-        // can receive the message.
-        await sleep(3000);
-    }
-    else {
-        client = await client.focus();
-    }
-    if (!client) {
-        // Window Client will not be returned if it's for a third party origin.
-        return;
-    }
-    internalPayload.messageType = MessageType.NOTIFICATION_CLICKED;
-    internalPayload.isFirebaseMessaging = true;
-    return client.postMessage(internalPayload);
-}
-function wrapInternalPayload(internalPayload) {
-    const wrappedInternalPayload = Object.assign({}, internalPayload.notification);
-    // Put the message payload under FCM_MSG name so we can identify the notification as being an FCM
-    // notification vs a notification from somewhere else (i.e. normal web push or developer generated
-    // notification).
-    wrappedInternalPayload.data = {
-        [FCM_MSG]: internalPayload
-    };
-    return wrappedInternalPayload;
-}
-function getMessagePayloadInternal({ data }) {
-    if (!data) {
-        return null;
-    }
-    try {
-        return data.json();
-    }
-    catch (err) {
-        // Not JSON so not an FCM message.
-        return null;
-    }
-}
-/**
- * @param url The URL to look for when focusing a client.
- * @return Returns an existing window client or a newly opened WindowClient.
- */
-async function getWindowClient(url) {
-    const clientList = await getClientList();
-    for (const client of clientList) {
-        const clientUrl = new URL(client.url, self.location.href);
-        if (url.host === clientUrl.host) {
-            return client;
-        }
-    }
-    return null;
-}
-/**
- * @returns If there is currently a visible WindowClient, this method will resolve to true,
- * otherwise false.
- */
-function hasVisibleClients(clientList) {
-    return clientList.some(client => client.visibilityState === 'visible' &&
-        // Ignore chrome-extension clients as that matches the background pages of extensions, which
-        // are always considered visible for some reason.
-        !client.url.startsWith('chrome-extension://'));
-}
-function sendMessagePayloadInternalToWindows(clientList, internalPayload) {
-    internalPayload.isFirebaseMessaging = true;
-    internalPayload.messageType = MessageType.PUSH_RECEIVED;
-    for (const client of clientList) {
-        client.postMessage(internalPayload);
-    }
-}
-function getClientList() {
-    return self.clients.matchAll({
-        type: 'window',
-        includeUncontrolled: true
-        // TS doesn't know that "type: 'window'" means it'll return WindowClient[]
-    });
-}
-function showNotification(notificationPayloadInternal) {
-    var _a;
-    // Note: Firefox does not support the maxActions property.
-    // https://developer.mozilla.org/en-US/docs/Web/API/notification/maxActions
-    const { actions } = notificationPayloadInternal;
-    const { maxActions } = Notification;
-    if (actions && maxActions && actions.length > maxActions) {
-        console.warn(`This browser only supports ${maxActions} actions. The remaining actions will not be displayed.`);
-    }
-    return self.registration.showNotification(
-    /* title= */ (_a = notificationPayloadInternal.title) !== null && _a !== void 0 ? _a : '', notificationPayloadInternal);
-}
-function getLink(payload) {
-    var _a, _b, _c;
-    // eslint-disable-next-line camelcase
-    const link = (_b = (_a = payload.fcmOptions) === null || _a === void 0 ? void 0 : _a.link) !== null && _b !== void 0 ? _b : (_c = payload.notification) === null || _c === void 0 ? void 0 : _c.click_action;
-    if (link) {
-        return link;
-    }
-    if (isConsoleMessage(payload.data)) {
-        // Notification created in the Firebase Console. Redirect to origin.
-        return self.location.origin;
-    }
-    else {
-        return null;
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function extractAppConfig(app) {
-    if (!app || !app.options) {
-        throw getMissingValueError('App Configuration Object');
-    }
-    if (!app.name) {
-        throw getMissingValueError('App Name');
-    }
-    // Required app config keys
-    const configKeys = [
-        'projectId',
-        'apiKey',
-        'appId',
-        'messagingSenderId'
-    ];
-    const { options } = app;
-    for (const keyName of configKeys) {
-        if (!options[keyName]) {
-            throw getMissingValueError(keyName);
-        }
-    }
-    return {
-        appName: app.name,
-        projectId: options.projectId,
-        apiKey: options.apiKey,
-        appId: options.appId,
-        senderId: options.messagingSenderId
-    };
-}
-function getMissingValueError(valueName) {
-    return ERROR_FACTORY.create("missing-app-config-values" /* MISSING_APP_CONFIG_VALUES */, {
-        valueName
-    });
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-class MessagingService {
-    constructor(app, installations, analyticsProvider) {
-        // logging is only done with end user consent. Default to false.
-        this.deliveryMetricsExportedToBigQueryEnabled = false;
-        this.onBackgroundMessageHandler = null;
-        this.onMessageHandler = null;
-        this.logEvents = [];
-        this.isLogServiceStarted = false;
-        const appConfig = extractAppConfig(app);
-        this.firebaseDependencies = {
-            app,
-            appConfig,
-            installations,
-            analyticsProvider
-        };
-    }
-    _delete() {
-        return Promise.resolve();
-    }
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const SwMessagingFactory = (container) => {
-    const messaging = new MessagingService(container.getProvider('app').getImmediate(), container.getProvider('installations-internal').getImmediate(), container.getProvider('analytics-internal'));
-    self.addEventListener('push', e => {
-        e.waitUntil(onPush(e, messaging));
-    });
-    self.addEventListener('pushsubscriptionchange', e => {
-        e.waitUntil(onSubChange(e, messaging));
-    });
-    self.addEventListener('notificationclick', e => {
-        e.waitUntil(onNotificationClick(e));
-    });
-    return messaging;
-};
-/**
- * The messaging instance registered in sw is named differently than that of in client. This is
- * because both `registerMessagingInWindow` and `registerMessagingInSw` would be called in
- * `messaging-compat` and component with the same name can only be registered once.
- */
-function registerMessagingInSw() {
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["_registerComponent"])(new _firebase_component__WEBPACK_IMPORTED_MODULE_1__["Component"]('messaging-sw', SwMessagingFactory, "PUBLIC" /* PUBLIC */));
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Checks whether all required APIs exist within SW Context
- * @returns a Promise that resolves to a boolean.
- *
- * @public
- */
-async function isSwSupported() {
-    // firebase-js-sdk/issues/2393 reveals that idb#open in Safari iframe and Firefox private browsing
-    // might be prohibited to run. In these contexts, an error would be thrown during the messaging
-    // instantiating phase, informing the developers to import/call isSupported for special handling.
-    return (Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["isIndexedDBAvailable"])() &&
-        (await Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["validateIndexedDBOpenable"])()) &&
-        'PushManager' in self &&
-        'Notification' in self &&
-        ServiceWorkerRegistration.prototype.hasOwnProperty('showNotification') &&
-        PushSubscription.prototype.hasOwnProperty('getKey'));
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function onBackgroundMessage$1(messaging, nextOrObserver) {
-    if (self.document !== undefined) {
-        throw ERROR_FACTORY.create("only-available-in-sw" /* AVAILABLE_IN_SW */);
-    }
-    messaging.onBackgroundMessageHandler = nextOrObserver;
-    return () => {
-        messaging.onBackgroundMessageHandler = null;
-    };
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function _setDeliveryMetricsExportedToBigQueryEnabled(messaging, enable) {
-    messaging.deliveryMetricsExportedToBigQueryEnabled =
-        enable;
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Retrieves a Firebase Cloud Messaging instance.
- *
- * @returns The Firebase Cloud Messaging instance associated with the provided firebase app.
- *
- * @public
- */
-function getMessagingInSw(app = Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["getApp"])()) {
-    // Conscious decision to make this async check non-blocking during the messaging instance
-    // initialization phase for performance consideration. An error would be thrown latter for
-    // developer's information. Developers can then choose to import and call `isSupported` for
-    // special handling.
-    isSwSupported().then(isSupported => {
-        // If `isSwSupported()` resolved, but returned false.
-        if (!isSupported) {
-            throw ERROR_FACTORY.create("unsupported-browser" /* UNSUPPORTED_BROWSER */);
-        }
-    }, _ => {
-        // If `isSwSupported()` rejected.
-        throw ERROR_FACTORY.create("indexed-db-unsupported" /* INDEXED_DB_UNSUPPORTED */);
-    });
-    return Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["_getProvider"])(Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(app), 'messaging-sw').getImmediate();
-}
-/**
- * Called when a message is received while the app is in the background. An app is considered to be
- * in the background if no active window is displayed.
- *
- * @param messaging - The {@link Messaging} instance.
- * @param nextOrObserver - This function, or observer object with `next` defined, is called when a
- * message is received and the app is currently in the background.
- *
- * @returns To stop listening for messages execute this returned function
- *
- * @public
- */
-function onBackgroundMessage(messaging, nextOrObserver) {
-    messaging = Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(messaging);
-    return onBackgroundMessage$1(messaging, nextOrObserver);
-}
-/**
- * Enables or disables Firebase Cloud Messaging message delivery metrics export to BigQuery. By
- * default, message delivery metrics are not exported to BigQuery. Use this method to enable or
- * disable the export at runtime.
- *
- * @param messaging - The `FirebaseMessaging` instance.
- * @param enable - Whether Firebase Cloud Messaging should export message delivery metrics to
- * BigQuery.
- *
- * @public
- */
-function experimentalSetDeliveryMetricsExportedToBigQueryEnabled(messaging, enable) {
-    messaging = Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(messaging);
-    return _setDeliveryMetricsExportedToBigQueryEnabled(messaging, enable);
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-registerMessagingInSw();
-
-
-//# sourceMappingURL=index.sw.esm2017.js.map
 
 
 /***/ }),
@@ -9245,6 +7980,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -9258,10 +7994,111 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      email: "",
+      password: ''
+    };
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.post('/api/v1/guest/login', {
+                  email: _this.email,
+                  password: _this.password
+                });
+
+              case 3:
+                response = _context.sent;
+                console.log(response);
+                _context.next = 11;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                console.log(_context.t0.response);
+
+                if (_context.t0.response.status == 401) {
+                  alert(_context.t0.response.data.message);
+                }
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 7]]);
+      }))();
+    }
+  }
+});
 
 /***/ }),
 
@@ -9274,6 +8111,31 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13741,30 +12603,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isSupported", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["isSupported"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "onMessage", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["onMessage"]; });
-
-
-//# sourceMappingURL=index.esm.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/firebase/messaging/sw/dist/index.esm.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/firebase/messaging/sw/dist/index.esm.js ***!
-  \**************************************************************/
-/*! exports provided: experimentalSetDeliveryMetricsExportedToBigQueryEnabled, getMessaging, isSupported, onBackgroundMessage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/messaging/sw */ "./node_modules/@firebase/messaging/dist/index.sw.esm2017.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "experimentalSetDeliveryMetricsExportedToBigQueryEnabled", function() { return _firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_0__["experimentalSetDeliveryMetricsExportedToBigQueryEnabled"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMessaging", function() { return _firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_0__["getMessaging"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isSupported", function() { return _firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_0__["isSupported"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "onBackgroundMessage", function() { return _firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_0__["onBackgroundMessage"]; });
 
 
 //# sourceMappingURL=index.esm.js.map
@@ -45029,6 +43867,771 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
+  }
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  define(IteratorPrototype, iteratorSymbol, function () {
+    return this;
+  });
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = GeneratorFunctionPrototype;
+  define(Gp, "constructor", GeneratorFunctionPrototype);
+  define(GeneratorFunctionPrototype, "constructor", GeneratorFunction);
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  define(AsyncIterator.prototype, asyncIteratorSymbol, function () {
+    return this;
+  });
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  define(Gp, iteratorSymbol, function() {
+    return this;
+  });
+
+  define(Gp, "toString", function() {
+    return "[object Generator]";
+  });
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, in modern engines
+  // we can explicitly access globalThis. In older engines we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  if (typeof globalThis === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -45384,6 +44987,10 @@ var staticRenderFns = [
           _c("p", [
             _vm._v("This is a laravel skeleton for rapid backend development."),
           ]),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "text", id: "token", value: "token placeholder" },
+          }),
         ]),
       ]
     )
@@ -45410,9 +45017,116 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Login")])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "vh-100 d-flex align-items-center" }, [
+      _c("div", { staticClass: "row w-100 justify-content-center" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.login.apply(null, arguments)
+                    },
+                  },
+                },
+                [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.email,
+                          expression: "email",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "email",
+                        name: "email",
+                        id: "email",
+                        placeholder: "Email",
+                        "aria-placeholder": "true",
+                      },
+                      domProps: { value: _vm.email },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.email = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.password,
+                          expression: "password",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "password",
+                        name: "password",
+                        id: "password",
+                        placeholder: "Password",
+                        "aria-placeholder": "true",
+                      },
+                      domProps: { value: _vm.password },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.password = $event.target.value
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                ]
+              ),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h1", { staticClass: "text-center" }, [_vm._v("Login")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("input", {
+        staticClass: "btn btn-success btn-block",
+        attrs: { type: "submit", value: "Login" },
+      }),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -45434,9 +45148,98 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Register")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { staticClass: "form-signin" }, [
+      _c("div", { staticClass: "text-center mb-4" }, [
+        _c("img", {
+          staticClass: "mb-4",
+          attrs: {
+            src: "/docs/4.6/assets/brand/bootstrap-solid.svg",
+            alt: "",
+            width: "72",
+            height: "72",
+          },
+        }),
+        _vm._v(" "),
+        _c("h1", { staticClass: "h3 mb-3 font-weight-normal" }, [
+          _vm._v("Floating labels"),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("Build form controls with floating labels via the "),
+          _c("code", [_vm._v(":placeholder-shown")]),
+          _vm._v(" pseudo-element. "),
+          _c(
+            "a",
+            { attrs: { href: "https://caniuse.com/css-placeholder-shown" } },
+            [
+              _vm._v(
+                "Works in latest Chrome, Safari, Firefox, and IE 10/11 (prefixed)."
+              ),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-label-group" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "email",
+            id: "inputEmail",
+            placeholder: "Email address",
+            required: "",
+            autofocus: "",
+          },
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "inputEmail" } }, [
+          _vm._v("Email address"),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-label-group" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "password",
+            id: "inputPassword",
+            placeholder: "Password",
+            required: "",
+          },
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "inputPassword" } }, [_vm._v("Password")]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "checkbox mb-3" }, [
+        _c("label", [
+          _c("input", { attrs: { type: "checkbox", value: "remember-me" } }),
+          _vm._v(" Remember me\r\n    "),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-lg btn-primary btn-block",
+          attrs: { type: "submit" },
+        },
+        [_vm._v("Sign in")]
+      ),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-5 mb-3 text-muted text-center" }, [
+        _vm._v("© 2017-2021"),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -60839,9 +60642,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$messaging = _firebase__WEBPACK_IMPORTED_MODULE_3__["default"];
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
+  el: "#app",
   components: {
     App: _views_App__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -60906,7 +60708,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.esm.js");
 /* harmony import */ var firebase_messaging__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/messaging */ "./node_modules/firebase/messaging/dist/index.esm.js");
-/* harmony import */ var firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! firebase/messaging/sw */ "./node_modules/firebase/messaging/sw/dist/index.esm.js");
+
 
 var firebaseConfig = {
   apiKey: "AIzaSyC-4NHNS7NmE8ATmyglufesNiN7p7mA8Z0",
@@ -60919,34 +60721,33 @@ var firebaseConfig = {
 }; // Initialize Firebase
 
 var firebase = Object(firebase_app__WEBPACK_IMPORTED_MODULE_0__["initializeApp"])(firebaseConfig);
-
 var messaging = Object(firebase_messaging__WEBPACK_IMPORTED_MODULE_1__["getMessaging"])();
 var vapid = "BEfgx025HTlvQjmrhjtmAyU2TNYZWdVD6nHlYCoJCTk5Jd3Un7av8jGiYIVIK3HAbQDQUDhMbbbGYiOxHnwN3UA";
 Object(firebase_messaging__WEBPACK_IMPORTED_MODULE_1__["getToken"])(messaging, {
   vapidKey: vapid
 }).then(function (token) {
-  console.log('fmc token: ' + token);
+  console.log("fmc token: " + token);
+  localStorage.setItem("token", JSON.stringify(token));
+  var t = document.getElementById("token");
+  t.value = token ? token : ""; // alert(token)
 })["catch"](function (err) {
   console.log(err);
 });
 Object(firebase_messaging__WEBPACK_IMPORTED_MODULE_1__["onMessage"])(messaging, function (payload) {
-  console.log('Message received. ', payload);
+  console.log("Message received. ", payload);
   var n = new Notification(payload.notification.title, {
     body: payload.notification.body
   });
-});
 
-Object(firebase_messaging_sw__WEBPACK_IMPORTED_MODULE_2__["onBackgroundMessage"])(messaging, function (payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload); // Customize notification here
-
-  var notificationTitle = 'Background Message Title';
-  var notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/firebase-logo.png'
+  n.onclick = function (e) {
+    e.preventDefault();
+    window.open(payload.notification.click_action, '_blank');
+    notification.close();
   };
-  self.registration.showNotification(notificationTitle, notificationOptions);
 });
-/* harmony default export */ __webpack_exports__["default"] = (messaging);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  messaging: messaging
+});
 
 /***/ }),
 
