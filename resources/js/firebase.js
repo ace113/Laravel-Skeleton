@@ -26,9 +26,11 @@ getToken(messaging, {
 })
     .then((token) => {
         console.log("fmc token: " + token);
-        localStorage.setItem("token", JSON.stringify(token));
+        localStorage.setItem("fmc_token", JSON.stringify(token));
         var t = document.getElementById("token");
-        t.value = token ? token : "";
+        if(t){
+            t.value = token ? token : "";
+        }
         // alert(token)
     })
     .catch((err) => {

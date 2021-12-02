@@ -4,8 +4,12 @@
       <div class="row w-100 justify-content-center">
         <div class="col-md-6">
           <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
               <h1 class="text-center">Login</h1>
+               <p class="mb-0">
+                Don't have an account yet?
+                <router-link :to="{name: 'Register'}">Register</router-link>
+              </p>
             </div>
             <div class="card-body">
               <form @submit.prevent="login">
@@ -47,6 +51,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
   data(){
     return {
@@ -55,21 +60,23 @@ export default {
     }
   },
   methods: {
-    async login(){
-      try {
-        const response = await axios.post('/api/v1/guest/login', {
-          email: this.email,
-          password: this.password
-        });
-
-        console.log(response)
-      } catch (error) {
-        console.log(error.response)
-        if(error.response.status == 401){
-          alert(error.response.data.message)
-        }
+    ...mapActions([
+      'userLogin',
+    ]),
+    login(){
+      let email = this.email;
+      let password = this.password;
+      let data = {
+        email : email,
+        password : password
       }
+      this.userLogin(data)
+        .then(() => {
+          this.$router.push('/profile')
+        })
+        .catch(err => console.log(err));
     }
-  }
+  },
+ 
 };
 </script>
