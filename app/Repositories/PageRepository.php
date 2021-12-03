@@ -45,7 +45,7 @@ class PageRepository
 
         $page->update([
             'title' => ucwords($request->title),
-            'slug' => $this->createSlug($request->title, $id , 'Page'),
+            'slug' => $this->createSlug($request->slug, $id , 'Page'),
             'body' => $request->body,
             'status' => $request->status == 1 ? true : false
         ]); 

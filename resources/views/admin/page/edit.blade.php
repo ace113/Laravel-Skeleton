@@ -10,7 +10,7 @@
                 <div class="portlet-title">
                     <div class="caption font-dark">
                         <i class="icon-plus font-dark"></i>
-                        <span class="caption-subject bold uppercase">Add Page</span>
+                        <span class="caption-subject bold uppercase">Edit Page</span>
                     </div>
                 </div>
                 <div class="portlet-body">

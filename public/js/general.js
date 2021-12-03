@@ -12,6 +12,8 @@ $('.summernote').summernote({
     height: 100,
 });
 
+
+
 // auto close alert after 5 secs
 function closeAlert() {
     setTimeout(() => {
@@ -28,8 +30,8 @@ var permissionChecks = document.getElementsByName('permission[]'),
     permissionSelectAll = document.querySelector('.per_select_all'),
     permissionDeselectAll = document.querySelector('.per_deselect_all')
 
-if(permissionChecks.length> 0){
-    if(permissionChecks){
+if (permissionChecks.length > 0) {
+    if (permissionChecks) {
         function perSelectAll() {
             for (var checkbox of permissionChecks) {
                 //    console.log(checkbox)
@@ -37,9 +39,9 @@ if(permissionChecks.length> 0){
                 checkbox.parentElement.classList.add('checked')
             }
         }
-        
+
         permissionSelectAll.addEventListener('click', perSelectAll);
-        
+
         function perDeselectAll() {
             for (var checkbox of permissionChecks) {
                 //    console.log(checkbox)
@@ -47,9 +49,7 @@ if(permissionChecks.length> 0){
                 checkbox.parentElement.classList.remove('checked')
             }
         }
-        
+
         permissionDeselectAll.addEventListener('click', perDeselectAll);
     }
 }
-
-
