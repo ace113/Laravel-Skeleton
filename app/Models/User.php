@@ -52,6 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'image_url'
+    ];
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);
@@ -74,6 +78,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFullNameAttribute()
     {
         return ucwords($this->first_name. ' '. $this->last_name);
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if($this->image){
+            return url('/uploads/user/'. $this->image);
+        }else{
+            return url('/uploads/noavatar.jpg');
+        }
     }
 
     public function deviceInfos()
