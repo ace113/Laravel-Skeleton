@@ -41,6 +41,7 @@ Route::group([
     ], function(){
         Route::get('/profile', 'AuthUserController@getUserProfile');
         Route::post('/profile', 'AuthUserController@updateProfile');
+        Route::post('/profile/upload_image', 'AuthUserController@uploadImage');
         Route::post('/changePassword', 'AuthUserController@changePassword');
         Route::get('/logout/{device_id}', 'AuthUserController@logout');
         Route::post('/addUpdateDeviceInfo', 'AuthUserController@addUpdateDeviceInfo');

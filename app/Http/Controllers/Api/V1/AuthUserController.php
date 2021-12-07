@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
@@ -13,6 +14,8 @@ use App\Http\Requests\Api\UserDeviceInfoRequest;
 
 class AuthUserController extends ApiController
 {
+    use UploadTrait;
+    
     protected $userRepository;
     protected $userTransformer;
 
@@ -247,7 +250,7 @@ class AuthUserController extends ApiController
      *          response=403,
      *          description="Forbidden",
      *      ),
-     * )
+     * )                                        
      */
     public function addUpdateDeviceInfo(UserDeviceInfoRequest $request)
     {
@@ -257,6 +260,60 @@ class AuthUserController extends ApiController
             $this->response['message'] = trans('Device Info added successfully.');
             $this->response['data'] = $deviceInfo;
             return $this->respondWithSuccess($this->response);
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/api/v1/auth/profile/upload_image",
+     *      operationId="Upload profile image",
+     *      tags={"Auth"},
+     *      summary="Upload profile image",
+     *      description="Upload profile image",
+     *      security = {{"Bearer": {}}},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(ref="#/components/schemas/UploadImage"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful Operation",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticate",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      ),
+     * )
+     */
+    public function uploadImage(Request $request){
+        return response()->json($request);die;
+        try {
+            $request->validate([
+                'image' => 'image|nullable'
+            ]);
+            $uploadedImage = $this->imageUpload($request, 'image', 'user');
+            $request->image = $uploadedImage;           
+
+            $updateUser = $this->userRepository->updateUserById($request->user()->id, $request);
+
+            if($updateUser){
+                $this->response['message'] = 'Image uploaded successfully';
+                return $this->respondWithSuccess($this->response);
+            }
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);

@@ -202,6 +202,45 @@
                 ]
             }
         },
+        "/api/v1/auth/profile/upload_image": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Upload profile image",
+                "description": "Upload profile image",
+                "operationId": "Upload profile image",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UploadImage"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticate"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/guest/register": {
             "post": {
                 "tags": [
@@ -597,6 +636,23 @@
                 "type": "object",
                 "xml": {
                     "name": "UpdateProfile"
+                }
+            },
+            "UploadImage": {
+                "title": "UploadImage",
+                "description": "Profile image",
+                "properties": {
+                    "image": {
+                        "title": "image",
+                        "description": "Image Format['jpg', 'jpeg', 'png']",
+                        "type": "string",
+                        "format": "file",
+                        "example": "1423454567.jpg"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UploadImage"
                 }
             }
         },
