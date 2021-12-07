@@ -37,7 +37,7 @@ Route::group([
 
     Route::group([
         'prefix' => 'auth',
-        'middleware' => 'auth:api',
+        'middleware' => ['auth:api', 'verified'],
     ], function(){
         Route::get('/profile', 'AuthUserController@getUserProfile');
         Route::post('/profile', 'AuthUserController@updateProfile');

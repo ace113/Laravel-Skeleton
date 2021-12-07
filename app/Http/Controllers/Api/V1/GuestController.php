@@ -154,7 +154,7 @@ class GuestController extends ApiController
                 $this->response['message'] = 'Invalid Role.';
                 return $this->respondWithCustomCode($this->response, HTTP_UNAUTHORIZED);
             }else if(!$user->email_verified_at){
-                $this->response['message'] = 'Your previous signup did not complete. Please sign up again.';
+                $this->response['message'] = 'Your email has not been verified. Please verify you email address.';
                 return $this->respondWithCustomCode($this->response, HTTP_UNAUTHORIZED);
             }else if(!$user->status){
                 $this->response['message'] = 'Your account has been disabled.';
