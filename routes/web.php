@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// Auth::routes(['verify' => true,'login'=>false]);
+
 Route::group([
     'namespace' => "Admin",
     'prefix' => "admin",
@@ -70,6 +72,8 @@ Route::group([
         Route::resource('/page', 'PageController');       
     });
 });
+
+Route::get('/verify/email', 'Frontend\FrontendController@verify')->name('verify.email');
 
 // Frontend routes
 Route::get('/{any}', 'Frontend\FrontendController@index')->where('any', '.*');

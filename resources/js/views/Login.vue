@@ -72,7 +72,7 @@ export default {
       }
       this.userLogin(data)
         .then(() => {
-          this.$router.push('/profile')
+          this.$route.push('/profile')
         })
         .catch(err => console.log(err));
     }

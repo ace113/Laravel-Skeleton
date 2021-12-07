@@ -11,4 +11,9 @@ class FrontendController extends Controller
     {
         return view('layouts.frontend');
     }
+
+    public function verify()
+    {
+        return view('layouts.frontend');
+    }
 }

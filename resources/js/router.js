@@ -8,6 +8,7 @@ import Register from './views/Register';
 import Profile from './views/Profile';
 import About from './views/About';
 import NotFound from './views/404';
+import VerifyEmail from './views/VerifyEmail';
 
 import store from './store/index'
 
@@ -55,6 +56,15 @@ const router = new VueRouter({
             meta: {
                 title: "Profile",
                 private: true
+            }
+        },
+        {
+            path: '/verify/email',
+            name: 'VerifyEmail',
+            component: VerifyEmail,
+            meta: {
+                title: "Email Verification",
+                guest: true,
             }
         },
         {

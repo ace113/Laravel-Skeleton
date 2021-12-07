@@ -14,10 +14,10 @@ class UserTransformer
             'last_name' => Arr::get($data, 'last_name', null),
             'email' => Arr::get($data, 'email', null),
             'phone' => Arr::get($data, 'phone', null),
-            'role_id' => Arr::get($data, 'role_id', null),
+            'role_id' => $data->role_id ?? null,
             'password' => Hash::make(Arr::get($data, 'password', null)),
             'gender' => Arr::get($data, 'gender', null),
-            'email_verify_token' => Arr::get($data, 'email_verify_token', null)
+            'email_verify_token' => $data->email_verify_token ?? null,
         ];
     }
 

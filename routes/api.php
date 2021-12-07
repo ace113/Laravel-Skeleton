@@ -26,7 +26,7 @@ Route::group([
         'prefix' => 'guest'
     ], function(){
         Route::post('/register', 'GuestController@register');
-        Route::get('/register/verifyEmail/{token}', 'GuestController@verifyEmail');
+        Route::get('/register/verifyEmail/', 'GuestController@verifyEmail')->name('api.verify.email');
         Route::post('/register/verifyContact', 'GuestController@verifyContact');
         Route::post('/sendVerificationEmail', 'GuestController@sendVerificationEmail');
         Route::post('/sendPhoneVerificationToken', 'GuestController@sendPhoneVerificationToken');

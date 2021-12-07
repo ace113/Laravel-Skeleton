@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\PageRepository;
 use App\Repositories\UserRepository;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Api\LoginRequest;
@@ -14,11 +15,14 @@ use Illuminate\Support\Facades\Password;
 use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Controllers\Api\V1\ApiController;
+use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class GuestController extends ApiController
 {
     use SendsPasswordResetEmails;
+    use VerifiesEmails;
+
     
     protected $userRepository;
     protected $userTransformer;
@@ -32,6 +36,8 @@ class GuestController extends ApiController
         $this->userRepository = $userRepository;
         $this->userTransformer = $userTransformer;
         $this->pageRepository = $pageRepository;
+        // $this->middleware('signed')->only('verifyEmail');
+        // $this->middleware('throttle:6,1')->only('verifyEmail', 'sendVerificationEmail');
     }
 
     /**
@@ -63,32 +69,39 @@ class GuestController extends ApiController
      * )
      */
     public function register(RegisterRequest $request)
-    {
+    { 
         try {         
             $request->role_id = 3; // adding user role
-            $request->email_verification_token = $this->generateVerificationToken();
+            $request->email_verify_token = $this->generateVerificationToken();
             // return print_r(gettype($request));die();
+           
             \DB::beginTransaction();
             
             /** HANDLING UNIQUE INDEX OF EMAIL */
             $user = $this->userRepository->findUserByEmail($request->email);
             if($user){
-                if(!$user->email_verified_at){
+                if($user->email_verified_at){
                     $this->response['message'] = 'This email has already been taken.';
                     return $this->respondWithCustomCode($this->response, EXPECTATION_FAILED);
                 }
+                $userJson = $this->userTransformer->createJson($request);
+                
+                // update user
+                $updateUser = $this->userRepository->updateUserById($user->id, $userJson);
+              
+            }else{
+                $userJson = $this->userTransformer->createJson($request);
+
+                $user = $this->userRepository->createUser($userJson);
             }
 
-            $userJson = $this->userTransformer->createJson($request);
-
-            $new_user = $this->userRepository->createUser($userJson);
-            
-            \DB::commit();
             // ** Send Verification message
-            Mail::to($new_user->email)->send(new ActivationMail($new_user));
+            Mail::to($user->email)->send(new ActivationMail($user));
+            \DB::commit();
+           
 
             $this->response['message'] = 'User created successfully.';
-            $this->response['data'] = $new_user;
+            $this->response['data'] = $user;
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             \DB::rollBack();
@@ -167,12 +180,145 @@ class GuestController extends ApiController
         }
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/v1/guest/register/verifyEmail",
+     *      operationId="Verifies Email",
+     *      tags={"Guest"},
+     *      summary="Verifies Email",
+     *      description="Verifies the email",
+     *      @OA\RequestBody(
+     *          required=true,
+     *         @OA\JsonContent(
+     *              required={"expires", "id", "hash", "signature"},
+     *              @OA\Property(
+     *                  property="expires",
+     *                  type="string",
+     *                  example="163877180"
+     *              ),
+     *              @OA\Property(
+     *                  property="id",
+     *                  type="string",
+     *                  example="16"
+     *              ),
+     *              @OA\Property(
+     *                  property="hash",
+     *                  type="string",
+     *                  example="a2675156297f4d2806e00f12d1aebe77b4492975"
+     *              ),
+     *              @OA\Property(
+     *                  property="signature",
+     *                  type="string",
+     *                  example="fc559b82958efe6f9817161b63a9b0541f39e33f46701ede7b4b9d20d1247beb"
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operation Successfull"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+    public function verifyEmail(Request $request){
+        try {
+            // return response()->json($request->hasValidSignature());die();
+            if(!$request->hasValidSignature()){
+                $this->response['message'] = "This verification link has expired.";
+                return $this->respondWithError($this->response);
+            }
+            $user = $this->userRepository->getUserById($request->id);
+            if(!$user){
+                $this->response['message'] = "No account associated with this email was found.";
+                return $this->respondWithError($this->response);
+            }
+            if($user->hasVerifiedEmail()){
+                $this->response['message'] = "Email has already been verified.";
+                return $this->respondWithSuccess($this->response);
+            }
+            if($request->hash !== $user->email_verify_token){
+                $this->response['message'] = "The verification token doesn't match.";
+                return $this->respondWithError($this->response);
+            }
+            if($user->markEmailAsVerified()){
+                event(new Verified($user));
+                $this->response['message'] = "Verification successfull";
+                return $this->respondWithSuccess = $this->response;
+            }
 
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
 
     public function verifyContact(Request $request)
     {}
 
-    public function sendVerificationEmail(Request $request){}
+    /**
+     * @OA\Post(
+     *      path="/api/v1/guest/sendVerificationEmail",
+     *      operationId="Send Verification Email",
+     *      tags={"Guest"},
+     *      summary="Resend Verification Email",
+     *      description="Resend verification email",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="required params",
+     *          @OA\JsonContent(
+     *              required={"email"},
+     *              @OA\Property(
+     *                  property="email",
+     *                  format="email",
+     *                  type="email",
+     *                  example="user@mail.com",
+     *              ), 
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Operation Successful",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden",
+     *      )
+     * )
+     */
+    public function sendVerificationEmail(Request $request){
+        try {
+            $user = $this->userRepository->findUserByEmail($request->email);
+            if(!$user){
+                $this->response['message'] = 'No account associated with this email was found.';
+                return $this->respondWithError($this->response);
+            }
+            if($user->hasVerifiedEmail()){
+                $this->response['message'] = "Email has already been verified.";
+                return $this->respondWithError($this->response);
+            }
+            Mail::to($user->email)->send(new ActivationMail($user));
+            $this->response['message'] = 'Verification mail has been sent!';
+            return $this->respondWithSuccess($this->response);
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
 
     public function sendPhoneVerificationToken(Request $request){}
 

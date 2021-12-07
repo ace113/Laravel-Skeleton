@@ -79,7 +79,7 @@ const actions = {
         try {
             const {
                 data
-            } = axios.get('/api/v1/guest/register', params);
+            } = axios.post('/api/v1/guest/register', params);
             if (data) {
                 console.log(data.data)
                 context.commit("");
@@ -105,7 +105,7 @@ const actions = {
             console.log(err.response);
         }
     },
-    async updateProfile(context, params){
+    async updateProfile(context, params) {
         try {
             const {
                 data

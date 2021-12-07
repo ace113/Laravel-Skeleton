@@ -124,16 +124,16 @@
         },
         {
             "name": "darkaonline/l5-swagger",
-            "version": "8.0.7",
+            "version": "8.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DarkaOnLine/L5-Swagger.git",
-                "reference": "5e3d9c067797ebc35304d20acd94aeb40cde2825"
+                "reference": "c882f984236ffeaebe4bed76b223ce9c3ec032fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DarkaOnLine/L5-Swagger/zipball/5e3d9c067797ebc35304d20acd94aeb40cde2825",
-                "reference": "5e3d9c067797ebc35304d20acd94aeb40cde2825",
+                "url": "https://api.github.com/repos/DarkaOnLine/L5-Swagger/zipball/c882f984236ffeaebe4bed76b223ce9c3ec032fb",
+                "reference": "c882f984236ffeaebe4bed76b223ce9c3ec032fb",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +191,7 @@
             ],
             "support": {
                 "issues": "https://github.com/DarkaOnLine/L5-Swagger/issues",
-                "source": "https://github.com/DarkaOnLine/L5-Swagger/tree/8.0.7"
+                "source": "https://github.com/DarkaOnLine/L5-Swagger/tree/8.0.9"
             },
             "funding": [
                 {
@@ -199,7 +199,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-12T06:31:40+00:00"
+            "time": "2021-10-18T06:28:30+00:00"
         },
         {
             "name": "defuse/php-encryption",

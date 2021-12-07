@@ -25,7 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'status',
-        'image'
+        'image',
+        'role_id',
+        'email_verify_token',   
     ];
 
     /**
@@ -38,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token', 
         'created_at',
         'updated_at',
-        'email_verify_token',
+        'email_verify_token',        
     ];
 
     /**
@@ -56,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Overriding the vendor functio
+     * Overriding the vendor function
      * 
      * Send the password reset notification to the user
      * @param string $token
