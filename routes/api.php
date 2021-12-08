@@ -33,6 +33,13 @@ Route::group([
         Route::get('/pages/{slug}', 'GuestController@getPage');
         Route::post('/password/email', 'GuestController@resetLinkEmail');
         Route::post('/login', 'GuestController@login');
+
+        // sociolite
+        Route::get('/login/facebook', 'GuestController@facebookLogin');
+        Route::get('/login/facebook/callback', 'GuestController@facebookLoginCallback');
+        
+        Route::get('/login/google', 'GuestController@googleLogin');
+        Route::get('/login/google/callback', 'GuestController@googleLoginCallback');
     });
 
     Route::group([

@@ -236,7 +236,7 @@ class GuestController extends ApiController
             // return response()->json($request->hasValidSignature());die();
             if(!$request->hasValidSignature()){
                 $this->response['message'] = "This verification link has expired.";
-                return $this->respondWithError($this->response);
+                return $this->respondWithCustomCode($this->response, VERIFICATION_TOKEN_EXPIRED);
             }
             $user = $this->userRepository->getUserById($request->id);
             if(!$user){
@@ -245,7 +245,7 @@ class GuestController extends ApiController
             }
             if($user->hasVerifiedEmail()){
                 $this->response['message'] = "Email has already been verified.";
-                return $this->respondWithSuccess($this->response);
+                return $this->respondWithCustomCode($this->response, EMAIL_ALREADY_VERIFIED);
             }
             if($request->hash !== $user->email_verify_token){
                 $this->response['message'] = "The verification token doesn't match.";
@@ -309,7 +309,7 @@ class GuestController extends ApiController
             }
             if($user->hasVerifiedEmail()){
                 $this->response['message'] = "Email has already been verified.";
-                return $this->respondWithError($this->response);
+                return $this->respondWithCustomCode($this->response, EMAIL_ALREADY_VERIFIED);
             }
             Mail::to($user->email)->send(new ActivationMail($user));
             $this->response['message'] = 'Verification mail has been sent!';

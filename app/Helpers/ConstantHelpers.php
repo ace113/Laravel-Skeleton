@@ -24,3 +24,11 @@ define('HTTP_NOT_IMPLEMENTED', 501);
 define('HTTP_BAD_GATEWAY', 502);
 define('HTTP_SERVICE_UNAVAILABLE', 503);
 
+/**-----------------Custom Status Codes---------------------- */
+define('USER_INACTIVE', 213);
+define('EMAIL_NOT_VERIFIED', 214);
+define('EMAIL_ALREADY_VERIFIED', 215);
+define('VERIFICATION_TOKEN_EXPIRED', 216);
+
+define('NO_RECORDS_FOUND', 232);
+define('INVALID_CREDENTIALS', 229);
