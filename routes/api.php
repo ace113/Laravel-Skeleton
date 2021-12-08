@@ -34,6 +34,8 @@ Route::group([
         Route::post('/password/email', 'GuestController@resetLinkEmail');
         Route::post('/login', 'GuestController@login');
 
+        Route::get('/test-sms', 'GuestController@testSms');
+
         // sociolite
         Route::get('/login/facebook', 'GuestController@facebookLogin');
         Route::get('/login/facebook/callback', 'GuestController@facebookLoginCallback');

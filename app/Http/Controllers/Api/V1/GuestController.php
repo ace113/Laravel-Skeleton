@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Mail\ActivationMail;
 use Illuminate\Http\Request;
+use App\Services\TwilioService;
 use App\Http\Controllers\Controller;
 use App\Repositories\PageRepository;
 use App\Repositories\UserRepository;
@@ -27,17 +28,20 @@ class GuestController extends ApiController
     protected $userRepository;
     protected $userTransformer;
     protected $pageRepository;
+    protected $twilioService;
 
     public function __construct(
         UserRepository $userRepository,
         UserTransformer $userTransformer,
-        PageRepository $pageRepository
+        PageRepository $pageRepository,
+        TwilioService $twilioService
     ){
         $this->userRepository = $userRepository;
         $this->userTransformer = $userTransformer;
         $this->pageRepository = $pageRepository;
         // $this->middleware('signed')->only('verifyEmail');
         // $this->middleware('throttle:6,1')->only('verifyEmail', 'sendVerificationEmail');
+        $this->twilioService = $twilioService;
     }
 
     /**
@@ -428,5 +432,13 @@ class GuestController extends ApiController
 
     protected function generateVerificationToken(){
         return \Str::random(32);
+    }
+
+    public function testSms(Request $request){
+        $data = new \StdClass();
+
+        $data->code = "1234";
+
+        return $this->twilioService->sendMessage($data);
     }
 }
