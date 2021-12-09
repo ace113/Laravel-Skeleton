@@ -35,7 +35,8 @@ class ResetPasswordController extends Controller
                 'email' => decrypt($request->email)
             ]);
     }
-/**
+    
+    /**
      * Reset the given user's password.
      *
      * @param  \Illuminate\Http\Request  $request

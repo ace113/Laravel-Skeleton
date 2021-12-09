@@ -17,12 +17,14 @@ use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Transformers\UserTransformer;
 use App\Http\Controllers\Api\V1\ApiController;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class GuestController extends ApiController
 {
     use SendsPasswordResetEmails;
     use VerifiesEmails;
+    use ResetsPasswords;
 
     
     protected $userRepository;
@@ -437,9 +439,71 @@ class GuestController extends ApiController
         }
     }
 
-    public function forgotPassword(Request $request){
+    /**
+     * @OA\Post(
+     *      path="/api/v1/guest/password/reset",
+     *      operationId="resetPassword",
+     *      summary="Reset password",
+     *      description="Reset password",
+     *      tags={"Guest"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  example="user@user.com",
+     *              ),
+     *              @OA\Property(
+     *                  property="password",
+     *                  type="password",
+     *                  example="password",
+     *              ),
+     *              @OA\Property(
+     *                  property="token",
+     *                  type="string",
+     *                  example="sadfalskdjflaksjdfiasjfdioasdofjewruopweur",
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+    public function reset(Request $request){
         try {
-            //code...
+            $request->validate([
+                'token' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:8',
+            ]);
+
+            $response = $this->broker()->reset(
+                $this->credentials($request), function($user, $password){
+                    $this->resetPassword($user, $password);
+                }
+            );
+    
+            $this->response['message'] = $response;
+
+            return $response == Password::PASSWORD_RESET 
+                    ? $this->respondWithSuccess($this->response)
+                    : $this->respondWithError($this->response);
+
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);
