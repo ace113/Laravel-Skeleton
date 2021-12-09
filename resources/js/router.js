@@ -7,7 +7,7 @@ import Login from './views/Login';
 import Register from './views/Register';
 import Profile from './views/Profile';
 import About from './views/About';
-import NotFound from './views/404';
+import NotFound from './views/errors/404';
 import VerifyEmail from './views/VerifyEmail';
 
 import store from './store/index'
