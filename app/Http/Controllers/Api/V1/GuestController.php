@@ -412,6 +412,13 @@ class GuestController extends ApiController
             $request->validate([
                 'email' => 'required|email',
             ]);
+            $user = $this->userRepository->findUserByEmail($request->email);
+            
+            if(!$user){
+                $this->response['message'] = "No account associated with this email was found.";
+                return $this->respondWithError($this->response);
+            }
+
             $response = $this->broker()->sendResetLink(
                 $this->credentials($request)
             );
@@ -424,6 +431,15 @@ class GuestController extends ApiController
                 $this->response['message'] = trans($response);
                 return $this->respondWithError($this->response);    
             }
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
+
+    public function forgotPassword(Request $request){
+        try {
+            //code...
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);

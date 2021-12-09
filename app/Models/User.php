@@ -6,6 +6,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\AdminResetPasswordNotification;
+use App\Notifications\ApiUserResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -71,7 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendPasswordResetNotification($token)
     {
         // if admin
-        $this->notify(new AdminResetPasswordNotification($token));
+        if($this->role_id == 3){
+            $this->notify(new ApiUserResetPasswordNotification($token));
+        }else{
+            $this->notify(new AdminResetPasswordNotification($token));
+        }
     }
 
 
