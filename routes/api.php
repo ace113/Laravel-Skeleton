@@ -31,8 +31,8 @@ Route::group([
         Route::post('/sendVerificationEmail', 'GuestController@sendVerificationEmail');
         Route::post('/sendPhoneVerificationToken', 'GuestController@sendPhoneVerificationToken');
         Route::get('/pages/{slug}', 'GuestController@getPage');
-        Route::post('/password/email', 'GuestController@resetLinkEmail');
-        Route::post('/password/reset', 'GuestController@reset');
+        Route::post('/password/forgot', 'ForgotPasswordController@resetLinkEmail');
+        Route::post('/password/reset', 'ResetPasswordController@reset');
         Route::post('/login', 'GuestController@login');
 
         Route::get('/test-sms', 'GuestController@testSms');

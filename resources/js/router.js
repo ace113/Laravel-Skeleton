@@ -8,6 +8,7 @@ import Register from './views/Register';
 import Profile from './views/Profile';
 import About from './views/About';
 import NotFound from './views/errors/404';
+import ResetPassword from './views/auth/ResetPassword';
 import VerifyEmail from './views/VerifyEmail';
 
 import store from './store/index'
@@ -50,20 +51,20 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/profile',
-            name: "Profile",
-            component: Profile,
-            meta: {
-                title: "Profile",
-                private: true
-            }
-        },
-        {
             path: '/verify/email',
             name: 'VerifyEmail',
             component: VerifyEmail,
             meta: {
                 title: "Email Verification",
+                guest: true,
+            }
+        },  
+        {
+            path: '/password/reset/:token/:email',
+            name: 'ResetPassword',
+            component: ResetPassword,
+            meta: {
+                title: "Reset Password",
                 guest: true,
             }
         },
@@ -73,6 +74,15 @@ const router = new VueRouter({
             component: About,
             meta: {
                 title: 'About'
+            }
+        },
+        {
+            path: '/profile',
+            name: "Profile",
+            component: Profile,
+            meta: {
+                title: "Profile",
+                private: true
             }
         },
 
