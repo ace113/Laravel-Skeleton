@@ -331,7 +331,7 @@
                  <li class="dropdown dropdown-user">
                      <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                          data-close-others="true">
-                         <img alt="" class="img-circle" src="../assets/layouts/layout/img/avatar3_small.jpg" />
+                         <img alt="" class="img-circle" src="{{auth()->user()->image_url}}" />
                          <span class="username username-hide-on-mobile"> {{auth()->user()->full_name ?? 'Admin'}} </span>
                          <i class="fa fa-angle-down"></i>
                      </a>
