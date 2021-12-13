@@ -53,12 +53,13 @@ const actions = {
                 data
             } = await axios.post("/api/v1/guest/login", params);
             if (data) {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit("GET_USER_INFO", data.data);
             }
         } catch (err) {
-            console.log(err.response);
+            // console.log(err.response);
             localStorage.removeItem("bearer_token");
+            throw err;
         }
     },
     async getProfile(context) {
@@ -73,6 +74,7 @@ const actions = {
             return data.data
         } catch (err) {
             console.log(err.response);
+            // throw err;
         }
     },
     async registerUser(context, params) {
@@ -85,7 +87,8 @@ const actions = {
                 context.commit("");
             }
         } catch (err) {
-            console.log(err.response)
+            console.log(err)
+            throw err;
         }
     },
     async logoutUser(context, params) {
@@ -116,7 +119,7 @@ const actions = {
             }
             return data.data;
         } catch (err) {
-            console.log(err.response)
+            throw err;
         }
     }
 };

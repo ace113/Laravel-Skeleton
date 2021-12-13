@@ -5,12 +5,15 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body text-center">
-              <h1 class="text-center">Profile</h1>
-              <!-- <p class="mb-0">Hello, {{user.first_name ? user.first_name: ''}}</p> -->
+              <h1 class="text-center">Register</h1>
+              <p class="mb-0">
+                Already have an account
+                <router-link :to="{ name: 'Login' }">Login</router-link>
+              </p>
             </div>
-            <div v-if="user" class="card-body">
+            <div class="card-body">
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-                <form @submit.prevent="handleSubmit(updateProfile)">
+                <form @submit.prevent="handleSubmit(register)">
                   <div class="form-group">
                     <ValidationProvider
                       vid="first_name"
@@ -25,7 +28,7 @@
                         class="form-control"
                         :class="{ 'is-invalid': errors[0] }"
                         placeholder="First Name"
-                        v-model="user.first_name"
+                        v-model="first_name"
                       />
                       <div class="invalid-feedback" v-if="errors[0]">
                         {{ errors[0] }}
@@ -47,7 +50,7 @@
                         placeholder="Last Name"
                         class="form-control"
                         :class="{ 'is-invalid': errors[0] }"
-                        v-model="user.last_name"
+                        v-model="last_name"
                       />
                       <div class="invalid-feedback" v-if="errors[0]">
                         {{ errors[0] }}
@@ -68,7 +71,7 @@
                         placeholder="Email"
                         class="form-control"
                         :class="{ 'is-invalid': errors[0] }"
-                        v-model="user.email"
+                        v-model="email"
                       />
                       <div class="invalid-feedback" v-if="errors[0]">
                         {{ errors[0] }}
@@ -93,20 +96,66 @@
                           placeholder="Phone Number"
                           class="form-control"
                           :class="{ 'is-invalid': errors[0] }"
-                          v-model="user.phone"
+                          v-model="phone"
                         />
                       </div>
                       <div class="invalid-feedback" v-if="errors[0]">
                         {{ errors[0] }}
                       </div>
                     </ValidationProvider>
-                  </div>                  
+                  </div>
                   <div class="form-group">
-          
+                    <ValidationProvider
+                      vid="password"
+                      name="Password"
+                      rules="required"
+                      v-slot="{ errors }"
+                    >
+                      <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors[0] }"
+                        v-model="password"
+                      />
+                      <div class="invalid-feedback" v-if="errors[0]">
+                        {{ errors[0] }}
+                      </div>
+                    </ValidationProvider>
+                  </div>
+                  <div class="form-group">
+                    <ValidationProvider
+                      vid="password_confirmation"
+                      name="Password Confirmation"
+                      rules="required|confirmed:password"
+                      v-slot="{ errors }"
+                    >
+                      <input
+                        type="password"
+                        name="password_confirmation"
+                        id="password_confirmation"
+                        placeholder="Retype Password"
+                        class="form-control"
+                        :class="{ 'is-invalid': errors[0] }"
+                        v-model="password_confirmation"
+                      />
+                      <div class="invalid-feedback" v-if="errors[0]">
+                        {{ errors[0] }}
+                      </div>
+                    </ValidationProvider>
+                  </div>
+                  <div class="form-group">
+                    <!-- <input
+                    type="submit"
+                    value="Register"
+                    class="btn btn-block btn-info text-light"
+                  /> -->
                     <AwaitingButton
                       type="submit"
                       class="btn btn-success btn-block"
-                      >Update</AwaitingButton
+                      >Register</AwaitingButton
                     >
                   </div>
                 </form>
@@ -120,37 +169,68 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-
 export default {
-  name: "Profile",
   data() {
     return {
-      user: {},
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      password: "",
+      password_confirmation: "",
     };
   },
-
-  created() {
-    this.getProfile().then((data)=> {
-        this.user = data
-    });
-    
+  mounted() {
+    this.$store.commit("setErrors", {});
   },
-
+  computed: {
+    ...mapGetters(["errors"]),
+  },
   methods: {
-    ...mapActions(["getProfile", "updateProfile"]),
-    updateProfile() {     
+    ...mapActions(["registerUser"]),
+    register() {
+      var data = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        phone: this.phone,
+        password: this.password,
+        password_confirmation: this.password_confirmation,
+      };
 
-        this.updateProfile(this.user).then(() => {
-
-        }).catch(err => {
+      this.registerUser(data)
+        .then((res) => {
+          if (res.status === 200) {
+            this.$router.push({ name: "Activate" });
+          }
+        })
+        .catch((error) => {
           this.$refs.observer.setErrors({
             first_name: this.errors.first_name,
             last_name: this.errors.last_name,
             phone: this.errors.phone,
             email: this.errors.email,
+            password: this.errors.password,
           });
+          console.log("err", err.response);
+          // this.message = err.response.data.message;
         });
-    }
+    },
   },
 };
 </script>
+<style lang="scss" scoped>
+input[type=password] {
+  position: relative;
+  &::after{
+    content: "→";
+    position: absolute;
+    z-index: 2000;
+    width: 100%;
+    height: 100%;
+    right: -20px;
+    top: -20px;
+  }
+}
+
+</style>

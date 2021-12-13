@@ -1,16 +1,22 @@
 <template>
-  <div class="min-vh-100 d-flex align-items-center">
+  <div class="activation">
+    <div class="min-vh-100 d-flex align-items-center">
       <div class="row w-100 justify-content-center">
         <div class="col-md-8">
           <div class="card">
             <div class="card-body">
-              <h1>Email Verification</h1>
+              <h1>You are almost there.</h1>
               <div v-if="success != ''" class="alert alert-success">
                   {{ success }}
               </div>
               <div v-if="error != ''" class="alert alert-danger">
                 {{ error }}
-              </div>         
+              </div>
+
+              <p v-else>
+                Please confirm you email. A verification link has been sent your
+                email address.
+              </p>
               <p>
                 Did not receive the email?
                 <button @click.prevent="resendVerificationLink()">
@@ -22,41 +28,19 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
 import axios from "axios";
 export default {
-  name: "VerifyEmail",
+  name: "Activation",
   data() {
     return {
-        success: "",
-        error: "",
+      error: "",
+      success: '',
     };
   },
-  mounted() {
-    this.verifyEmail();
-  },
   methods: {
-    verifyEmail() {
-      const params = this.$route.query;
-
-      try {
-        const { data } = axios.get("/api/v1/guest/register/verifyEmail", {
-          params,
-        });
-        if (data) {
-          console.log("verified");
-          if (data.status === 200) {
-            setTimeout(() => {
-              this.$router.push({ name: "Login" });
-            }, 5000);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-         this.error = error.response.data.message;
-      }
-    },
     async resendVerificationLink() {
       var formData = {
         email: "test@email.com",
@@ -76,7 +60,7 @@ export default {
         console.log(error.response.data.message);
         this.error = error.response.data.message;
       }
-    },  
+    },
   },
 };
 </script>

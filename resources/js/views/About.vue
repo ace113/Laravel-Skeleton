@@ -23,6 +23,7 @@ export default {
       ])
   },
   mounted(){
+      console.log('mounted about page');
       this.getAboutPage();
   }
 };

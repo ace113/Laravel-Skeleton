@@ -26,6 +26,7 @@ const actions = {
             }
         } catch (err) {
             console.log(err.response)
+            // throw err;
         }
     },
    

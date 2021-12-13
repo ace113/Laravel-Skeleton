@@ -1,104 +1,103 @@
-import Vue from 'vue';
+import Vue from "vue";
 
-import VueRouter from 'vue-router';
-import axios from 'axios';
-import Home from './views/Home';
-import Login from './views/Login';
-import Register from './views/Register';
-import Profile from './views/Profile';
-import About from './views/About';
-import NotFound from './views/errors/404';
-import ResetPassword from './views/auth/ResetPassword';
-import VerifyEmail from './views/VerifyEmail';
+import VueRouter from "vue-router";
+import Home from "./views/Home";
+import Login from "./views/auth/Login";
+import Register from "./views/auth/Register";
+import Profile from "./views/Profile";
+import About from "./views/About";
+import NotFound from "./views/errors/404";
+import ResetPassword from "./views/auth/ResetPassword";
+import VerifyEmail from "./views/auth/VerifyEmail";
+import Activate from "./views/auth/Activation";
 
-import store from './store/index'
+import store from "./store/index";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    routes: [{
+    routes: [
+        {
             path: "*",
             name: "NotFound",
             component: NotFound,
             meta: {
                 title: "404 Not Found",
-            }
+            },
         },
         {
-            path: '/',
+            path: "/",
             name: "Home",
             component: Home,
             meta: {
                 title: "Home",
-            }
+            },
         },
         {
-            path: '/login',
+            path: "/login",
             name: "Login",
             component: Login,
             meta: {
                 title: "Login",
-                guest: true
-            }
+                guest: true,
+            },
         },
         {
-            path: '/register',
+            path: "/register",
             name: "Register",
             component: Register,
             meta: {
                 title: "Register",
-                guest: true
-            }
+                guest: true,
+            },
         },
         {
-            path: '/verify/email',
-            name: 'VerifyEmail',
+            path: "/activate",
+            name: "Activate",
+            component: Activate,
+            meta: {
+                title: "Activation",
+            },
+        },
+        {
+            path: "/verify/email",
+            name: "VerifyEmail",
             component: VerifyEmail,
             meta: {
                 title: "Email Verification",
                 guest: true,
-            }
-        },  
+            },
+        },
         {
-            path: '/password/reset/:token/:email',
-            name: 'ResetPassword',
+            path: "/password/reset/:token/:email",
+            name: "ResetPassword",
             component: ResetPassword,
             meta: {
                 title: "Reset Password",
                 guest: true,
-            }
+            },
         },
         {
-            path: '/about',
+            path: "/about",
             name: "About",
             component: About,
             meta: {
-                title: 'About'
-            }
+                title: "About",
+            },
         },
         {
-            path: '/profile',
+            path: "/profile",
             name: "Profile",
             component: Profile,
             meta: {
                 title: "Profile",
-                private: true
-            }
+                private: true,
+            },
         },
-
     ],
-    mode: 'history',
+    mode: "history",
     base: process.env.BASE_URL,
-})
-
-
-
-// router.beforeEach((to, from , next) => {
-//     const auth = `${to.meta.auth}`;
-//     if(auth === "guest"){
-
-//     }
-// })
+});
 
 // router.beforeEach((to, from , next) => {
 //     // redirect to login page if not logged in and trying to access a restricted page
@@ -120,28 +119,30 @@ router.beforeEach((to, from, next) => {
     // console.log('to', to.name)
     // console.log('token state', store)
     // if route is private and user state is not null
-    if (to.matched.some(r => r.meta.private && !store.getters.isLoggedIn)) {
+    if (to.matched.some((r) => r.meta.private && !store.getters.isLoggedIn)) {
         next({
-            name: 'Login',
+            name: "Login",
             params: {
                 wantedRoute: to.fullPath,
-            }
-        })
-        return
+            },
+        });
+        return;
     }
 
-    if (to.matched.some(r => r.meta.guest) && store.getters.isLoggedIn) {
+    if (to.matched.some((r) => r.meta.guest) && store.getters.isLoggedIn) {
         next({
-            name: "Home"
-        })
-        return
+            name: "Home",
+        });
+        return;
     }
 
     next();
-})
+});
+
 // title
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | Laravel Skeleton`;
     next();
-})
+});
+
 export default router;

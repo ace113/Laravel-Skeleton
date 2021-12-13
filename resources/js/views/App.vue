@@ -12,3 +12,9 @@ export default {
   components: { HeaderComponent, FooterComponent },
 };
 </script>
+<style>
+.error-text{
+  color: crimson;
+  font-size: .75rem;
+}
+</style>

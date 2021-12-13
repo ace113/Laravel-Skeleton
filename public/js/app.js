@@ -98,5664 +98,6 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
-/***/ "./node_modules/@firebase/app/dist/esm/index.esm2017.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@firebase/app/dist/esm/index.esm2017.js ***!
-  \**************************************************************/
-/*! exports provided: FirebaseError, SDK_VERSION, _DEFAULT_ENTRY_NAME, _addComponent, _addOrOverwriteComponent, _apps, _clearComponents, _components, _getProvider, _registerComponent, _removeServiceInstance, deleteApp, getApp, getApps, initializeApp, onLog, registerVersion, setLogLevel */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SDK_VERSION", function() { return SDK_VERSION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_DEFAULT_ENTRY_NAME", function() { return DEFAULT_ENTRY_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_addComponent", function() { return _addComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_addOrOverwriteComponent", function() { return _addOrOverwriteComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_apps", function() { return _apps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_clearComponents", function() { return _clearComponents; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_components", function() { return _components; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_getProvider", function() { return _getProvider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_registerComponent", function() { return _registerComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_removeServiceInstance", function() { return _removeServiceInstance; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteApp", function() { return deleteApp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getApp", function() { return getApp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getApps", function() { return getApps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeApp", function() { return initializeApp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onLog", function() { return onLog; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerVersion", function() { return registerVersion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLogLevel", function() { return setLogLevel; });
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/component */ "./node_modules/@firebase/component/dist/esm/index.esm2017.js");
-/* harmony import */ var _firebase_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @firebase/logger */ "./node_modules/@firebase/logger/dist/esm/index.esm2017.js");
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @firebase/util */ "./node_modules/@firebase/util/dist/index.esm2017.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FirebaseError", function() { return _firebase_util__WEBPACK_IMPORTED_MODULE_2__["FirebaseError"]; });
-
-
-
-
-
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-class PlatformLoggerServiceImpl {
-    constructor(container) {
-        this.container = container;
-    }
-    // In initial implementation, this will be called by installations on
-    // auth token refresh, and installations will send this string.
-    getPlatformInfoString() {
-        const providers = this.container.getProviders();
-        // Loop through providers and get library/version pairs from any that are
-        // version components.
-        return providers
-            .map(provider => {
-            if (isVersionServiceProvider(provider)) {
-                const service = provider.getImmediate();
-                return `${service.library}/${service.version}`;
-            }
-            else {
-                return null;
-            }
-        })
-            .filter(logString => logString)
-            .join(' ');
-    }
-}
-/**
- *
- * @param provider check if this provider provides a VersionService
- *
- * NOTE: Using Provider<'app-version'> is a hack to indicate that the provider
- * provides VersionService. The provider is not necessarily a 'app-version'
- * provider.
- */
-function isVersionServiceProvider(provider) {
-    const component = provider.getComponent();
-    return (component === null || component === void 0 ? void 0 : component.type) === "VERSION" /* VERSION */;
-}
-
-const name$o = "@firebase/app";
-const version$1 = "0.7.9";
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const logger = new _firebase_logger__WEBPACK_IMPORTED_MODULE_1__["Logger"]('@firebase/app');
-
-const name$n = "@firebase/app-compat";
-
-const name$m = "@firebase/analytics-compat";
-
-const name$l = "@firebase/analytics";
-
-const name$k = "@firebase/app-check-compat";
-
-const name$j = "@firebase/app-check";
-
-const name$i = "@firebase/auth";
-
-const name$h = "@firebase/auth-compat";
-
-const name$g = "@firebase/database";
-
-const name$f = "@firebase/database-compat";
-
-const name$e = "@firebase/functions";
-
-const name$d = "@firebase/functions-compat";
-
-const name$c = "@firebase/installations";
-
-const name$b = "@firebase/installations-compat";
-
-const name$a = "@firebase/messaging";
-
-const name$9 = "@firebase/messaging-compat";
-
-const name$8 = "@firebase/performance";
-
-const name$7 = "@firebase/performance-compat";
-
-const name$6 = "@firebase/remote-config";
-
-const name$5 = "@firebase/remote-config-compat";
-
-const name$4 = "@firebase/storage";
-
-const name$3 = "@firebase/storage-compat";
-
-const name$2 = "@firebase/firestore";
-
-const name$1 = "@firebase/firestore-compat";
-
-const name = "firebase";
-const version = "9.5.0";
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * The default app name
- *
- * @internal
- */
-const DEFAULT_ENTRY_NAME = '[DEFAULT]';
-const PLATFORM_LOG_STRING = {
-    [name$o]: 'fire-core',
-    [name$n]: 'fire-core-compat',
-    [name$l]: 'fire-analytics',
-    [name$m]: 'fire-analytics-compat',
-    [name$j]: 'fire-app-check',
-    [name$k]: 'fire-app-check-compat',
-    [name$i]: 'fire-auth',
-    [name$h]: 'fire-auth-compat',
-    [name$g]: 'fire-rtdb',
-    [name$f]: 'fire-rtdb-compat',
-    [name$e]: 'fire-fn',
-    [name$d]: 'fire-fn-compat',
-    [name$c]: 'fire-iid',
-    [name$b]: 'fire-iid-compat',
-    [name$a]: 'fire-fcm',
-    [name$9]: 'fire-fcm-compat',
-    [name$8]: 'fire-perf',
-    [name$7]: 'fire-perf-compat',
-    [name$6]: 'fire-rc',
-    [name$5]: 'fire-rc-compat',
-    [name$4]: 'fire-gcs',
-    [name$3]: 'fire-gcs-compat',
-    [name$2]: 'fire-fst',
-    [name$1]: 'fire-fst-compat',
-    'fire-js': 'fire-js',
-    [name]: 'fire-js-all'
-};
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @internal
- */
-const _apps = new Map();
-/**
- * Registered components.
- *
- * @internal
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const _components = new Map();
-/**
- * @param component - the component being added to this app's container
- *
- * @internal
- */
-function _addComponent(app, component) {
-    try {
-        app.container.addComponent(component);
-    }
-    catch (e) {
-        logger.debug(`Component ${component.name} failed to register with FirebaseApp ${app.name}`, e);
-    }
-}
-/**
- *
- * @internal
- */
-function _addOrOverwriteComponent(app, component) {
-    app.container.addOrOverwriteComponent(component);
-}
-/**
- *
- * @param component - the component to register
- * @returns whether or not the component is registered successfully
- *
- * @internal
- */
-function _registerComponent(component) {
-    const componentName = component.name;
-    if (_components.has(componentName)) {
-        logger.debug(`There were multiple attempts to register component ${componentName}.`);
-        return false;
-    }
-    _components.set(componentName, component);
-    // add the component to existing app instances
-    for (const app of _apps.values()) {
-        _addComponent(app, component);
-    }
-    return true;
-}
-/**
- *
- * @param app - FirebaseApp instance
- * @param name - service name
- *
- * @returns the provider for the service with the matching name
- *
- * @internal
- */
-function _getProvider(app, name) {
-    return app.container.getProvider(name);
-}
-/**
- *
- * @param app - FirebaseApp instance
- * @param name - service name
- * @param instanceIdentifier - service instance identifier in case the service supports multiple instances
- *
- * @internal
- */
-function _removeServiceInstance(app, name, instanceIdentifier = DEFAULT_ENTRY_NAME) {
-    _getProvider(app, name).clearInstance(instanceIdentifier);
-}
-/**
- * Test only
- *
- * @internal
- */
-function _clearComponents() {
-    _components.clear();
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const ERRORS = {
-    ["no-app" /* NO_APP */]: "No Firebase App '{$appName}' has been created - " +
-        'call Firebase App.initializeApp()',
-    ["bad-app-name" /* BAD_APP_NAME */]: "Illegal App name: '{$appName}",
-    ["duplicate-app" /* DUPLICATE_APP */]: "Firebase App named '{$appName}' already exists with different options or config",
-    ["app-deleted" /* APP_DELETED */]: "Firebase App named '{$appName}' already deleted",
-    ["invalid-app-argument" /* INVALID_APP_ARGUMENT */]: 'firebase.{$appName}() takes either no argument or a ' +
-        'Firebase App instance.',
-    ["invalid-log-argument" /* INVALID_LOG_ARGUMENT */]: 'First argument to `onLog` must be null or a function.'
-};
-const ERROR_FACTORY = new _firebase_util__WEBPACK_IMPORTED_MODULE_2__["ErrorFactory"]('app', 'Firebase', ERRORS);
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-class FirebaseAppImpl {
-    constructor(options, config, container) {
-        this._isDeleted = false;
-        this._options = Object.assign({}, options);
-        this._config = Object.assign({}, config);
-        this._name = config.name;
-        this._automaticDataCollectionEnabled =
-            config.automaticDataCollectionEnabled;
-        this._container = container;
-        this.container.addComponent(new _firebase_component__WEBPACK_IMPORTED_MODULE_0__["Component"]('app', () => this, "PUBLIC" /* PUBLIC */));
-    }
-    get automaticDataCollectionEnabled() {
-        this.checkDestroyed();
-        return this._automaticDataCollectionEnabled;
-    }
-    set automaticDataCollectionEnabled(val) {
-        this.checkDestroyed();
-        this._automaticDataCollectionEnabled = val;
-    }
-    get name() {
-        this.checkDestroyed();
-        return this._name;
-    }
-    get options() {
-        this.checkDestroyed();
-        return this._options;
-    }
-    get config() {
-        this.checkDestroyed();
-        return this._config;
-    }
-    get container() {
-        return this._container;
-    }
-    get isDeleted() {
-        return this._isDeleted;
-    }
-    set isDeleted(val) {
-        this._isDeleted = val;
-    }
-    /**
-     * This function will throw an Error if the App has already been deleted -
-     * use before performing API actions on the App.
-     */
-    checkDestroyed() {
-        if (this.isDeleted) {
-            throw ERROR_FACTORY.create("app-deleted" /* APP_DELETED */, { appName: this._name });
-        }
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * The current SDK version.
- *
- * @public
- */
-const SDK_VERSION = version;
-function initializeApp(options, rawConfig = {}) {
-    if (typeof rawConfig !== 'object') {
-        const name = rawConfig;
-        rawConfig = { name };
-    }
-    const config = Object.assign({ name: DEFAULT_ENTRY_NAME, automaticDataCollectionEnabled: false }, rawConfig);
-    const name = config.name;
-    if (typeof name !== 'string' || !name) {
-        throw ERROR_FACTORY.create("bad-app-name" /* BAD_APP_NAME */, {
-            appName: String(name)
-        });
-    }
-    const existingApp = _apps.get(name);
-    if (existingApp) {
-        // return the existing app if options and config deep equal the ones in the existing app.
-        if (Object(_firebase_util__WEBPACK_IMPORTED_MODULE_2__["deepEqual"])(options, existingApp.options) &&
-            Object(_firebase_util__WEBPACK_IMPORTED_MODULE_2__["deepEqual"])(config, existingApp.config)) {
-            return existingApp;
-        }
-        else {
-            throw ERROR_FACTORY.create("duplicate-app" /* DUPLICATE_APP */, { appName: name });
-        }
-    }
-    const container = new _firebase_component__WEBPACK_IMPORTED_MODULE_0__["ComponentContainer"](name);
-    for (const component of _components.values()) {
-        container.addComponent(component);
-    }
-    const newApp = new FirebaseAppImpl(options, config, container);
-    _apps.set(name, newApp);
-    return newApp;
-}
-/**
- * Retrieves a {@link @firebase/app#FirebaseApp} instance.
- *
- * When called with no arguments, the default app is returned. When an app name
- * is provided, the app corresponding to that name is returned.
- *
- * An exception is thrown if the app being retrieved has not yet been
- * initialized.
- *
- * @example
- * ```javascript
- * // Return the default app
- * const app = getApp();
- * ```
- *
- * @example
- * ```javascript
- * // Return a named app
- * const otherApp = getApp("otherApp");
- * ```
- *
- * @param name - Optional name of the app to return. If no name is
- *   provided, the default is `"[DEFAULT]"`.
- *
- * @returns The app corresponding to the provided app name.
- *   If no app name is provided, the default app is returned.
- *
- * @public
- */
-function getApp(name = DEFAULT_ENTRY_NAME) {
-    const app = _apps.get(name);
-    if (!app) {
-        throw ERROR_FACTORY.create("no-app" /* NO_APP */, { appName: name });
-    }
-    return app;
-}
-/**
- * A (read-only) array of all initialized apps.
- * @public
- */
-function getApps() {
-    return Array.from(_apps.values());
-}
-/**
- * Renders this app unusable and frees the resources of all associated
- * services.
- *
- * @example
- * ```javascript
- * deleteApp(app)
- *   .then(function() {
- *     console.log("App deleted successfully");
- *   })
- *   .catch(function(error) {
- *     console.log("Error deleting app:", error);
- *   });
- * ```
- *
- * @public
- */
-async function deleteApp(app) {
-    const name = app.name;
-    if (_apps.has(name)) {
-        _apps.delete(name);
-        await Promise.all(app.container
-            .getProviders()
-            .map(provider => provider.delete()));
-        app.isDeleted = true;
-    }
-}
-/**
- * Registers a library's name and version for platform logging purposes.
- * @param library - Name of 1p or 3p library (e.g. firestore, angularfire)
- * @param version - Current version of that library.
- * @param variant - Bundle variant, e.g., node, rn, etc.
- *
- * @public
- */
-function registerVersion(libraryKeyOrName, version, variant) {
-    var _a;
-    // TODO: We can use this check to whitelist strings when/if we set up
-    // a good whitelist system.
-    let library = (_a = PLATFORM_LOG_STRING[libraryKeyOrName]) !== null && _a !== void 0 ? _a : libraryKeyOrName;
-    if (variant) {
-        library += `-${variant}`;
-    }
-    const libraryMismatch = library.match(/\s|\//);
-    const versionMismatch = version.match(/\s|\//);
-    if (libraryMismatch || versionMismatch) {
-        const warning = [
-            `Unable to register library "${library}" with version "${version}":`
-        ];
-        if (libraryMismatch) {
-            warning.push(`library name "${library}" contains illegal characters (whitespace or "/")`);
-        }
-        if (libraryMismatch && versionMismatch) {
-            warning.push('and');
-        }
-        if (versionMismatch) {
-            warning.push(`version name "${version}" contains illegal characters (whitespace or "/")`);
-        }
-        logger.warn(warning.join(' '));
-        return;
-    }
-    _registerComponent(new _firebase_component__WEBPACK_IMPORTED_MODULE_0__["Component"](`${library}-version`, () => ({ library, version }), "VERSION" /* VERSION */));
-}
-/**
- * Sets log handler for all Firebase SDKs.
- * @param logCallback - An optional custom log handler that executes user code whenever
- * the Firebase SDK makes a logging call.
- *
- * @public
- */
-function onLog(logCallback, options) {
-    if (logCallback !== null && typeof logCallback !== 'function') {
-        throw ERROR_FACTORY.create("invalid-log-argument" /* INVALID_LOG_ARGUMENT */);
-    }
-    Object(_firebase_logger__WEBPACK_IMPORTED_MODULE_1__["setUserLogHandler"])(logCallback, options);
-}
-/**
- * Sets log level for all Firebase SDKs.
- *
- * All of the log types above the current log level are captured (i.e. if
- * you set the log level to `info`, errors are logged, but `debug` and
- * `verbose` logs are not).
- *
- * @public
- */
-function setLogLevel(logLevel) {
-    Object(_firebase_logger__WEBPACK_IMPORTED_MODULE_1__["setLogLevel"])(logLevel);
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function registerCoreComponents(variant) {
-    _registerComponent(new _firebase_component__WEBPACK_IMPORTED_MODULE_0__["Component"]('platform-logger', container => new PlatformLoggerServiceImpl(container), "PRIVATE" /* PRIVATE */));
-    // Register `app` package.
-    registerVersion(name$o, version$1, variant);
-    // BUILD_TARGET will be replaced by values like esm5, esm2017, cjs5, etc during the compilation
-    registerVersion(name$o, version$1, 'esm2017');
-    // Register platform SDK identifier (no version).
-    registerVersion('fire-js', '');
-}
-
-/**
- * Firebase App
- *
- * @remarks This package coordinates the communication between the different Firebase components
- * @packageDocumentation
- */
-registerCoreComponents('');
-
-
-//# sourceMappingURL=index.esm2017.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@firebase/component/dist/esm/index.esm2017.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@firebase/component/dist/esm/index.esm2017.js ***!
-  \********************************************************************/
-/*! exports provided: Component, ComponentContainer, Provider */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Component", function() { return Component; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComponentContainer", function() { return ComponentContainer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return Provider; });
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/util */ "./node_modules/@firebase/util/dist/index.esm2017.js");
-
-
-/**
- * Component for service name T, e.g. `auth`, `auth-internal`
- */
-class Component {
-    /**
-     *
-     * @param name The public service name, e.g. app, auth, firestore, database
-     * @param instanceFactory Service factory responsible for creating the public interface
-     * @param type whether the service provided by the component is public or private
-     */
-    constructor(name, instanceFactory, type) {
-        this.name = name;
-        this.instanceFactory = instanceFactory;
-        this.type = type;
-        this.multipleInstances = false;
-        /**
-         * Properties to be added to the service namespace
-         */
-        this.serviceProps = {};
-        this.instantiationMode = "LAZY" /* LAZY */;
-        this.onInstanceCreated = null;
-    }
-    setInstantiationMode(mode) {
-        this.instantiationMode = mode;
-        return this;
-    }
-    setMultipleInstances(multipleInstances) {
-        this.multipleInstances = multipleInstances;
-        return this;
-    }
-    setServiceProps(props) {
-        this.serviceProps = props;
-        return this;
-    }
-    setInstanceCreatedCallback(callback) {
-        this.onInstanceCreated = callback;
-        return this;
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const DEFAULT_ENTRY_NAME = '[DEFAULT]';
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Provider for instance for service name T, e.g. 'auth', 'auth-internal'
- * NameServiceMapping[T] is an alias for the type of the instance
- */
-class Provider {
-    constructor(name, container) {
-        this.name = name;
-        this.container = container;
-        this.component = null;
-        this.instances = new Map();
-        this.instancesDeferred = new Map();
-        this.instancesOptions = new Map();
-        this.onInitCallbacks = new Map();
-    }
-    /**
-     * @param identifier A provider can provide mulitple instances of a service
-     * if this.component.multipleInstances is true.
-     */
-    get(identifier) {
-        // if multipleInstances is not supported, use the default name
-        const normalizedIdentifier = this.normalizeInstanceIdentifier(identifier);
-        if (!this.instancesDeferred.has(normalizedIdentifier)) {
-            const deferred = new _firebase_util__WEBPACK_IMPORTED_MODULE_0__["Deferred"]();
-            this.instancesDeferred.set(normalizedIdentifier, deferred);
-            if (this.isInitialized(normalizedIdentifier) ||
-                this.shouldAutoInitialize()) {
-                // initialize the service if it can be auto-initialized
-                try {
-                    const instance = this.getOrInitializeService({
-                        instanceIdentifier: normalizedIdentifier
-                    });
-                    if (instance) {
-                        deferred.resolve(instance);
-                    }
-                }
-                catch (e) {
-                    // when the instance factory throws an exception during get(), it should not cause
-                    // a fatal error. We just return the unresolved promise in this case.
-                }
-            }
-        }
-        return this.instancesDeferred.get(normalizedIdentifier).promise;
-    }
-    getImmediate(options) {
-        var _a;
-        // if multipleInstances is not supported, use the default name
-        const normalizedIdentifier = this.normalizeInstanceIdentifier(options === null || options === void 0 ? void 0 : options.identifier);
-        const optional = (_a = options === null || options === void 0 ? void 0 : options.optional) !== null && _a !== void 0 ? _a : false;
-        if (this.isInitialized(normalizedIdentifier) ||
-            this.shouldAutoInitialize()) {
-            try {
-                return this.getOrInitializeService({
-                    instanceIdentifier: normalizedIdentifier
-                });
-            }
-            catch (e) {
-                if (optional) {
-                    return null;
-                }
-                else {
-                    throw e;
-                }
-            }
-        }
-        else {
-            // In case a component is not initialized and should/can not be auto-initialized at the moment, return null if the optional flag is set, or throw
-            if (optional) {
-                return null;
-            }
-            else {
-                throw Error(`Service ${this.name} is not available`);
-            }
-        }
-    }
-    getComponent() {
-        return this.component;
-    }
-    setComponent(component) {
-        if (component.name !== this.name) {
-            throw Error(`Mismatching Component ${component.name} for Provider ${this.name}.`);
-        }
-        if (this.component) {
-            throw Error(`Component for ${this.name} has already been provided`);
-        }
-        this.component = component;
-        // return early without attempting to initialize the component if the component requires explicit initialization (calling `Provider.initialize()`)
-        if (!this.shouldAutoInitialize()) {
-            return;
-        }
-        // if the service is eager, initialize the default instance
-        if (isComponentEager(component)) {
-            try {
-                this.getOrInitializeService({ instanceIdentifier: DEFAULT_ENTRY_NAME });
-            }
-            catch (e) {
-                // when the instance factory for an eager Component throws an exception during the eager
-                // initialization, it should not cause a fatal error.
-                // TODO: Investigate if we need to make it configurable, because some component may want to cause
-                // a fatal error in this case?
-            }
-        }
-        // Create service instances for the pending promises and resolve them
-        // NOTE: if this.multipleInstances is false, only the default instance will be created
-        // and all promises with resolve with it regardless of the identifier.
-        for (const [instanceIdentifier, instanceDeferred] of this.instancesDeferred.entries()) {
-            const normalizedIdentifier = this.normalizeInstanceIdentifier(instanceIdentifier);
-            try {
-                // `getOrInitializeService()` should always return a valid instance since a component is guaranteed. use ! to make typescript happy.
-                const instance = this.getOrInitializeService({
-                    instanceIdentifier: normalizedIdentifier
-                });
-                instanceDeferred.resolve(instance);
-            }
-            catch (e) {
-                // when the instance factory throws an exception, it should not cause
-                // a fatal error. We just leave the promise unresolved.
-            }
-        }
-    }
-    clearInstance(identifier = DEFAULT_ENTRY_NAME) {
-        this.instancesDeferred.delete(identifier);
-        this.instancesOptions.delete(identifier);
-        this.instances.delete(identifier);
-    }
-    // app.delete() will call this method on every provider to delete the services
-    // TODO: should we mark the provider as deleted?
-    async delete() {
-        const services = Array.from(this.instances.values());
-        await Promise.all([
-            ...services
-                .filter(service => 'INTERNAL' in service) // legacy services
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                .map(service => service.INTERNAL.delete()),
-            ...services
-                .filter(service => '_delete' in service) // modularized services
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                .map(service => service._delete())
-        ]);
-    }
-    isComponentSet() {
-        return this.component != null;
-    }
-    isInitialized(identifier = DEFAULT_ENTRY_NAME) {
-        return this.instances.has(identifier);
-    }
-    getOptions(identifier = DEFAULT_ENTRY_NAME) {
-        return this.instancesOptions.get(identifier) || {};
-    }
-    initialize(opts = {}) {
-        const { options = {} } = opts;
-        const normalizedIdentifier = this.normalizeInstanceIdentifier(opts.instanceIdentifier);
-        if (this.isInitialized(normalizedIdentifier)) {
-            throw Error(`${this.name}(${normalizedIdentifier}) has already been initialized`);
-        }
-        if (!this.isComponentSet()) {
-            throw Error(`Component ${this.name} has not been registered yet`);
-        }
-        const instance = this.getOrInitializeService({
-            instanceIdentifier: normalizedIdentifier,
-            options
-        });
-        // resolve any pending promise waiting for the service instance
-        for (const [instanceIdentifier, instanceDeferred] of this.instancesDeferred.entries()) {
-            const normalizedDeferredIdentifier = this.normalizeInstanceIdentifier(instanceIdentifier);
-            if (normalizedIdentifier === normalizedDeferredIdentifier) {
-                instanceDeferred.resolve(instance);
-            }
-        }
-        return instance;
-    }
-    /**
-     *
-     * @param callback - a function that will be invoked  after the provider has been initialized by calling provider.initialize().
-     * The function is invoked SYNCHRONOUSLY, so it should not execute any longrunning tasks in order to not block the program.
-     *
-     * @param identifier An optional instance identifier
-     * @returns a function to unregister the callback
-     */
-    onInit(callback, identifier) {
-        var _a;
-        const normalizedIdentifier = this.normalizeInstanceIdentifier(identifier);
-        const existingCallbacks = (_a = this.onInitCallbacks.get(normalizedIdentifier)) !== null && _a !== void 0 ? _a : new Set();
-        existingCallbacks.add(callback);
-        this.onInitCallbacks.set(normalizedIdentifier, existingCallbacks);
-        const existingInstance = this.instances.get(normalizedIdentifier);
-        if (existingInstance) {
-            callback(existingInstance, normalizedIdentifier);
-        }
-        return () => {
-            existingCallbacks.delete(callback);
-        };
-    }
-    /**
-     * Invoke onInit callbacks synchronously
-     * @param instance the service instance`
-     */
-    invokeOnInitCallbacks(instance, identifier) {
-        const callbacks = this.onInitCallbacks.get(identifier);
-        if (!callbacks) {
-            return;
-        }
-        for (const callback of callbacks) {
-            try {
-                callback(instance, identifier);
-            }
-            catch (_a) {
-                // ignore errors in the onInit callback
-            }
-        }
-    }
-    getOrInitializeService({ instanceIdentifier, options = {} }) {
-        let instance = this.instances.get(instanceIdentifier);
-        if (!instance && this.component) {
-            instance = this.component.instanceFactory(this.container, {
-                instanceIdentifier: normalizeIdentifierForFactory(instanceIdentifier),
-                options
-            });
-            this.instances.set(instanceIdentifier, instance);
-            this.instancesOptions.set(instanceIdentifier, options);
-            /**
-             * Invoke onInit listeners.
-             * Note this.component.onInstanceCreated is different, which is used by the component creator,
-             * while onInit listeners are registered by consumers of the provider.
-             */
-            this.invokeOnInitCallbacks(instance, instanceIdentifier);
-            /**
-             * Order is important
-             * onInstanceCreated() should be called after this.instances.set(instanceIdentifier, instance); which
-             * makes `isInitialized()` return true.
-             */
-            if (this.component.onInstanceCreated) {
-                try {
-                    this.component.onInstanceCreated(this.container, instanceIdentifier, instance);
-                }
-                catch (_a) {
-                    // ignore errors in the onInstanceCreatedCallback
-                }
-            }
-        }
-        return instance || null;
-    }
-    normalizeInstanceIdentifier(identifier = DEFAULT_ENTRY_NAME) {
-        if (this.component) {
-            return this.component.multipleInstances ? identifier : DEFAULT_ENTRY_NAME;
-        }
-        else {
-            return identifier; // assume multiple instances are supported before the component is provided.
-        }
-    }
-    shouldAutoInitialize() {
-        return (!!this.component &&
-            this.component.instantiationMode !== "EXPLICIT" /* EXPLICIT */);
-    }
-}
-// undefined should be passed to the service factory for the default instance
-function normalizeIdentifierForFactory(identifier) {
-    return identifier === DEFAULT_ENTRY_NAME ? undefined : identifier;
-}
-function isComponentEager(component) {
-    return component.instantiationMode === "EAGER" /* EAGER */;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * ComponentContainer that provides Providers for service name T, e.g. `auth`, `auth-internal`
- */
-class ComponentContainer {
-    constructor(name) {
-        this.name = name;
-        this.providers = new Map();
-    }
-    /**
-     *
-     * @param component Component being added
-     * @param overwrite When a component with the same name has already been registered,
-     * if overwrite is true: overwrite the existing component with the new component and create a new
-     * provider with the new component. It can be useful in tests where you want to use different mocks
-     * for different tests.
-     * if overwrite is false: throw an exception
-     */
-    addComponent(component) {
-        const provider = this.getProvider(component.name);
-        if (provider.isComponentSet()) {
-            throw new Error(`Component ${component.name} has already been registered with ${this.name}`);
-        }
-        provider.setComponent(component);
-    }
-    addOrOverwriteComponent(component) {
-        const provider = this.getProvider(component.name);
-        if (provider.isComponentSet()) {
-            // delete the existing provider from the container, so we can register the new component
-            this.providers.delete(component.name);
-        }
-        this.addComponent(component);
-    }
-    /**
-     * getProvider provides a type safe interface where it can only be called with a field name
-     * present in NameServiceMapping interface.
-     *
-     * Firebase SDKs providing services should extend NameServiceMapping interface to register
-     * themselves.
-     */
-    getProvider(name) {
-        if (this.providers.has(name)) {
-            return this.providers.get(name);
-        }
-        // create a Provider for a service that hasn't registered with Firebase
-        const provider = new Provider(name, this);
-        this.providers.set(name, provider);
-        return provider;
-    }
-    getProviders() {
-        return Array.from(this.providers.values());
-    }
-}
-
-
-//# sourceMappingURL=index.esm2017.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@firebase/installations/dist/esm/index.esm2017.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@firebase/installations/dist/esm/index.esm2017.js ***!
-  \************************************************************************/
-/*! exports provided: deleteInstallations, getId, getInstallations, getToken, onIdChange */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteInstallations", function() { return deleteInstallations; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getId", function() { return getId; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInstallations", function() { return getInstallations; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToken", function() { return getToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onIdChange", function() { return onIdChange; });
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/app */ "./node_modules/@firebase/app/dist/esm/index.esm2017.js");
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @firebase/component */ "./node_modules/@firebase/component/dist/esm/index.esm2017.js");
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @firebase/util */ "./node_modules/@firebase/util/dist/index.esm2017.js");
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! idb */ "./node_modules/idb/build/idb.js");
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(idb__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-
-const name = "@firebase/installations";
-const version = "0.5.4";
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const PENDING_TIMEOUT_MS = 10000;
-const PACKAGE_VERSION = `w:${version}`;
-const INTERNAL_AUTH_VERSION = 'FIS_v2';
-const INSTALLATIONS_API_URL = 'https://firebaseinstallations.googleapis.com/v1';
-const TOKEN_EXPIRATION_BUFFER = 60 * 60 * 1000; // One hour
-const SERVICE = 'installations';
-const SERVICE_NAME = 'Installations';
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const ERROR_DESCRIPTION_MAP = {
-    ["missing-app-config-values" /* MISSING_APP_CONFIG_VALUES */]: 'Missing App configuration value: "{$valueName}"',
-    ["not-registered" /* NOT_REGISTERED */]: 'Firebase Installation is not registered.',
-    ["installation-not-found" /* INSTALLATION_NOT_FOUND */]: 'Firebase Installation not found.',
-    ["request-failed" /* REQUEST_FAILED */]: '{$requestName} request failed with error "{$serverCode} {$serverStatus}: {$serverMessage}"',
-    ["app-offline" /* APP_OFFLINE */]: 'Could not process request. Application offline.',
-    ["delete-pending-registration" /* DELETE_PENDING_REGISTRATION */]: "Can't delete installation while there is a pending registration request."
-};
-const ERROR_FACTORY = new _firebase_util__WEBPACK_IMPORTED_MODULE_2__["ErrorFactory"](SERVICE, SERVICE_NAME, ERROR_DESCRIPTION_MAP);
-/** Returns true if error is a FirebaseError that is based on an error from the server. */
-function isServerError(error) {
-    return (error instanceof _firebase_util__WEBPACK_IMPORTED_MODULE_2__["FirebaseError"] &&
-        error.code.includes("request-failed" /* REQUEST_FAILED */));
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function getInstallationsEndpoint({ projectId }) {
-    return `${INSTALLATIONS_API_URL}/projects/${projectId}/installations`;
-}
-function extractAuthTokenInfoFromResponse(response) {
-    return {
-        token: response.token,
-        requestStatus: 2 /* COMPLETED */,
-        expiresIn: getExpiresInFromResponseExpiresIn(response.expiresIn),
-        creationTime: Date.now()
-    };
-}
-async function getErrorFromResponse(requestName, response) {
-    const responseJson = await response.json();
-    const errorData = responseJson.error;
-    return ERROR_FACTORY.create("request-failed" /* REQUEST_FAILED */, {
-        requestName,
-        serverCode: errorData.code,
-        serverMessage: errorData.message,
-        serverStatus: errorData.status
-    });
-}
-function getHeaders({ apiKey }) {
-    return new Headers({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-goog-api-key': apiKey
-    });
-}
-function getHeadersWithAuth(appConfig, { refreshToken }) {
-    const headers = getHeaders(appConfig);
-    headers.append('Authorization', getAuthorizationHeader(refreshToken));
-    return headers;
-}
-/**
- * Calls the passed in fetch wrapper and returns the response.
- * If the returned response has a status of 5xx, re-runs the function once and
- * returns the response.
- */
-async function retryIfServerError(fn) {
-    const result = await fn();
-    if (result.status >= 500 && result.status < 600) {
-        // Internal Server Error. Retry request.
-        return fn();
-    }
-    return result;
-}
-function getExpiresInFromResponseExpiresIn(responseExpiresIn) {
-    // This works because the server will never respond with fractions of a second.
-    return Number(responseExpiresIn.replace('s', '000'));
-}
-function getAuthorizationHeader(refreshToken) {
-    return `${INTERNAL_AUTH_VERSION} ${refreshToken}`;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function createInstallationRequest(appConfig, { fid }) {
-    const endpoint = getInstallationsEndpoint(appConfig);
-    const headers = getHeaders(appConfig);
-    const body = {
-        fid,
-        authVersion: INTERNAL_AUTH_VERSION,
-        appId: appConfig.appId,
-        sdkVersion: PACKAGE_VERSION
-    };
-    const request = {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-    };
-    const response = await retryIfServerError(() => fetch(endpoint, request));
-    if (response.ok) {
-        const responseValue = await response.json();
-        const registeredInstallationEntry = {
-            fid: responseValue.fid || fid,
-            registrationStatus: 2 /* COMPLETED */,
-            refreshToken: responseValue.refreshToken,
-            authToken: extractAuthTokenInfoFromResponse(responseValue.authToken)
-        };
-        return registeredInstallationEntry;
-    }
-    else {
-        throw await getErrorFromResponse('Create Installation', response);
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/** Returns a promise that resolves after given time passes. */
-function sleep(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function bufferToBase64UrlSafe(array) {
-    const b64 = btoa(String.fromCharCode(...array));
-    return b64.replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const VALID_FID_PATTERN = /^[cdef][\w-]{21}$/;
-const INVALID_FID = '';
-/**
- * Generates a new FID using random values from Web Crypto API.
- * Returns an empty string if FID generation fails for any reason.
- */
-function generateFid() {
-    try {
-        // A valid FID has exactly 22 base64 characters, which is 132 bits, or 16.5
-        // bytes. our implementation generates a 17 byte array instead.
-        const fidByteArray = new Uint8Array(17);
-        const crypto = self.crypto || self.msCrypto;
-        crypto.getRandomValues(fidByteArray);
-        // Replace the first 4 random bits with the constant FID header of 0b0111.
-        fidByteArray[0] = 0b01110000 + (fidByteArray[0] % 0b00010000);
-        const fid = encode(fidByteArray);
-        return VALID_FID_PATTERN.test(fid) ? fid : INVALID_FID;
-    }
-    catch (_a) {
-        // FID generation errored
-        return INVALID_FID;
-    }
-}
-/** Converts a FID Uint8Array to a base64 string representation. */
-function encode(fidByteArray) {
-    const b64String = bufferToBase64UrlSafe(fidByteArray);
-    // Remove the 23rd character that was added because of the extra 4 bits at the
-    // end of our 17 byte array, and the '=' padding.
-    return b64String.substr(0, 22);
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/** Returns a string key that can be used to identify the app. */
-function getKey(appConfig) {
-    return `${appConfig.appName}!${appConfig.appId}`;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const fidChangeCallbacks = new Map();
-/**
- * Calls the onIdChange callbacks with the new FID value, and broadcasts the
- * change to other tabs.
- */
-function fidChanged(appConfig, fid) {
-    const key = getKey(appConfig);
-    callFidChangeCallbacks(key, fid);
-    broadcastFidChange(key, fid);
-}
-function addCallback(appConfig, callback) {
-    // Open the broadcast channel if it's not already open,
-    // to be able to listen to change events from other tabs.
-    getBroadcastChannel();
-    const key = getKey(appConfig);
-    let callbackSet = fidChangeCallbacks.get(key);
-    if (!callbackSet) {
-        callbackSet = new Set();
-        fidChangeCallbacks.set(key, callbackSet);
-    }
-    callbackSet.add(callback);
-}
-function removeCallback(appConfig, callback) {
-    const key = getKey(appConfig);
-    const callbackSet = fidChangeCallbacks.get(key);
-    if (!callbackSet) {
-        return;
-    }
-    callbackSet.delete(callback);
-    if (callbackSet.size === 0) {
-        fidChangeCallbacks.delete(key);
-    }
-    // Close broadcast channel if there are no more callbacks.
-    closeBroadcastChannel();
-}
-function callFidChangeCallbacks(key, fid) {
-    const callbacks = fidChangeCallbacks.get(key);
-    if (!callbacks) {
-        return;
-    }
-    for (const callback of callbacks) {
-        callback(fid);
-    }
-}
-function broadcastFidChange(key, fid) {
-    const channel = getBroadcastChannel();
-    if (channel) {
-        channel.postMessage({ key, fid });
-    }
-    closeBroadcastChannel();
-}
-let broadcastChannel = null;
-/** Opens and returns a BroadcastChannel if it is supported by the browser. */
-function getBroadcastChannel() {
-    if (!broadcastChannel && 'BroadcastChannel' in self) {
-        broadcastChannel = new BroadcastChannel('[Firebase] FID Change');
-        broadcastChannel.onmessage = e => {
-            callFidChangeCallbacks(e.data.key, e.data.fid);
-        };
-    }
-    return broadcastChannel;
-}
-function closeBroadcastChannel() {
-    if (fidChangeCallbacks.size === 0 && broadcastChannel) {
-        broadcastChannel.close();
-        broadcastChannel = null;
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const DATABASE_NAME = 'firebase-installations-database';
-const DATABASE_VERSION = 1;
-const OBJECT_STORE_NAME = 'firebase-installations-store';
-let dbPromise = null;
-function getDbPromise() {
-    if (!dbPromise) {
-        dbPromise = Object(idb__WEBPACK_IMPORTED_MODULE_3__["openDb"])(DATABASE_NAME, DATABASE_VERSION, upgradeDB => {
-            // We don't use 'break' in this switch statement, the fall-through
-            // behavior is what we want, because if there are multiple versions between
-            // the old version and the current version, we want ALL the migrations
-            // that correspond to those versions to run, not only the last one.
-            // eslint-disable-next-line default-case
-            switch (upgradeDB.oldVersion) {
-                case 0:
-                    upgradeDB.createObjectStore(OBJECT_STORE_NAME);
-            }
-        });
-    }
-    return dbPromise;
-}
-/** Assigns or overwrites the record for the given key with the given value. */
-async function set(appConfig, value) {
-    const key = getKey(appConfig);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    const objectStore = tx.objectStore(OBJECT_STORE_NAME);
-    const oldValue = await objectStore.get(key);
-    await objectStore.put(value, key);
-    await tx.complete;
-    if (!oldValue || oldValue.fid !== value.fid) {
-        fidChanged(appConfig, value.fid);
-    }
-    return value;
-}
-/** Removes record(s) from the objectStore that match the given key. */
-async function remove(appConfig) {
-    const key = getKey(appConfig);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    await tx.objectStore(OBJECT_STORE_NAME).delete(key);
-    await tx.complete;
-}
-/**
- * Atomically updates a record with the result of updateFn, which gets
- * called with the current value. If newValue is undefined, the record is
- * deleted instead.
- * @return Updated value
- */
-async function update(appConfig, updateFn) {
-    const key = getKey(appConfig);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    const store = tx.objectStore(OBJECT_STORE_NAME);
-    const oldValue = await store.get(key);
-    const newValue = updateFn(oldValue);
-    if (newValue === undefined) {
-        await store.delete(key);
-    }
-    else {
-        await store.put(newValue, key);
-    }
-    await tx.complete;
-    if (newValue && (!oldValue || oldValue.fid !== newValue.fid)) {
-        fidChanged(appConfig, newValue.fid);
-    }
-    return newValue;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Updates and returns the InstallationEntry from the database.
- * Also triggers a registration request if it is necessary and possible.
- */
-async function getInstallationEntry(appConfig) {
-    let registrationPromise;
-    const installationEntry = await update(appConfig, oldEntry => {
-        const installationEntry = updateOrCreateInstallationEntry(oldEntry);
-        const entryWithPromise = triggerRegistrationIfNecessary(appConfig, installationEntry);
-        registrationPromise = entryWithPromise.registrationPromise;
-        return entryWithPromise.installationEntry;
-    });
-    if (installationEntry.fid === INVALID_FID) {
-        // FID generation failed. Waiting for the FID from the server.
-        return { installationEntry: await registrationPromise };
-    }
-    return {
-        installationEntry,
-        registrationPromise
-    };
-}
-/**
- * Creates a new Installation Entry if one does not exist.
- * Also clears timed out pending requests.
- */
-function updateOrCreateInstallationEntry(oldEntry) {
-    const entry = oldEntry || {
-        fid: generateFid(),
-        registrationStatus: 0 /* NOT_STARTED */
-    };
-    return clearTimedOutRequest(entry);
-}
-/**
- * If the Firebase Installation is not registered yet, this will trigger the
- * registration and return an InProgressInstallationEntry.
- *
- * If registrationPromise does not exist, the installationEntry is guaranteed
- * to be registered.
- */
-function triggerRegistrationIfNecessary(appConfig, installationEntry) {
-    if (installationEntry.registrationStatus === 0 /* NOT_STARTED */) {
-        if (!navigator.onLine) {
-            // Registration required but app is offline.
-            const registrationPromiseWithError = Promise.reject(ERROR_FACTORY.create("app-offline" /* APP_OFFLINE */));
-            return {
-                installationEntry,
-                registrationPromise: registrationPromiseWithError
-            };
-        }
-        // Try registering. Change status to IN_PROGRESS.
-        const inProgressEntry = {
-            fid: installationEntry.fid,
-            registrationStatus: 1 /* IN_PROGRESS */,
-            registrationTime: Date.now()
-        };
-        const registrationPromise = registerInstallation(appConfig, inProgressEntry);
-        return { installationEntry: inProgressEntry, registrationPromise };
-    }
-    else if (installationEntry.registrationStatus === 1 /* IN_PROGRESS */) {
-        return {
-            installationEntry,
-            registrationPromise: waitUntilFidRegistration(appConfig)
-        };
-    }
-    else {
-        return { installationEntry };
-    }
-}
-/** This will be executed only once for each new Firebase Installation. */
-async function registerInstallation(appConfig, installationEntry) {
-    try {
-        const registeredInstallationEntry = await createInstallationRequest(appConfig, installationEntry);
-        return set(appConfig, registeredInstallationEntry);
-    }
-    catch (e) {
-        if (isServerError(e) && e.customData.serverCode === 409) {
-            // Server returned a "FID can not be used" error.
-            // Generate a new ID next time.
-            await remove(appConfig);
-        }
-        else {
-            // Registration failed. Set FID as not registered.
-            await set(appConfig, {
-                fid: installationEntry.fid,
-                registrationStatus: 0 /* NOT_STARTED */
-            });
-        }
-        throw e;
-    }
-}
-/** Call if FID registration is pending in another request. */
-async function waitUntilFidRegistration(appConfig) {
-    // Unfortunately, there is no way of reliably observing when a value in
-    // IndexedDB changes (yet, see https://github.com/WICG/indexed-db-observers),
-    // so we need to poll.
-    let entry = await updateInstallationRequest(appConfig);
-    while (entry.registrationStatus === 1 /* IN_PROGRESS */) {
-        // createInstallation request still in progress.
-        await sleep(100);
-        entry = await updateInstallationRequest(appConfig);
-    }
-    if (entry.registrationStatus === 0 /* NOT_STARTED */) {
-        // The request timed out or failed in a different call. Try again.
-        const { installationEntry, registrationPromise } = await getInstallationEntry(appConfig);
-        if (registrationPromise) {
-            return registrationPromise;
-        }
-        else {
-            // if there is no registrationPromise, entry is registered.
-            return installationEntry;
-        }
-    }
-    return entry;
-}
-/**
- * Called only if there is a CreateInstallation request in progress.
- *
- * Updates the InstallationEntry in the DB based on the status of the
- * CreateInstallation request.
- *
- * Returns the updated InstallationEntry.
- */
-function updateInstallationRequest(appConfig) {
-    return update(appConfig, oldEntry => {
-        if (!oldEntry) {
-            throw ERROR_FACTORY.create("installation-not-found" /* INSTALLATION_NOT_FOUND */);
-        }
-        return clearTimedOutRequest(oldEntry);
-    });
-}
-function clearTimedOutRequest(entry) {
-    if (hasInstallationRequestTimedOut(entry)) {
-        return {
-            fid: entry.fid,
-            registrationStatus: 0 /* NOT_STARTED */
-        };
-    }
-    return entry;
-}
-function hasInstallationRequestTimedOut(installationEntry) {
-    return (installationEntry.registrationStatus === 1 /* IN_PROGRESS */ &&
-        installationEntry.registrationTime + PENDING_TIMEOUT_MS < Date.now());
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function generateAuthTokenRequest({ appConfig, platformLoggerProvider }, installationEntry) {
-    const endpoint = getGenerateAuthTokenEndpoint(appConfig, installationEntry);
-    const headers = getHeadersWithAuth(appConfig, installationEntry);
-    // If platform logger exists, add the platform info string to the header.
-    const platformLogger = platformLoggerProvider.getImmediate({
-        optional: true
-    });
-    if (platformLogger) {
-        headers.append('x-firebase-client', platformLogger.getPlatformInfoString());
-    }
-    const body = {
-        installation: {
-            sdkVersion: PACKAGE_VERSION
-        }
-    };
-    const request = {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-    };
-    const response = await retryIfServerError(() => fetch(endpoint, request));
-    if (response.ok) {
-        const responseValue = await response.json();
-        const completedAuthToken = extractAuthTokenInfoFromResponse(responseValue);
-        return completedAuthToken;
-    }
-    else {
-        throw await getErrorFromResponse('Generate Auth Token', response);
-    }
-}
-function getGenerateAuthTokenEndpoint(appConfig, { fid }) {
-    return `${getInstallationsEndpoint(appConfig)}/${fid}/authTokens:generate`;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Returns a valid authentication token for the installation. Generates a new
- * token if one doesn't exist, is expired or about to expire.
- *
- * Should only be called if the Firebase Installation is registered.
- */
-async function refreshAuthToken(installations, forceRefresh = false) {
-    let tokenPromise;
-    const entry = await update(installations.appConfig, oldEntry => {
-        if (!isEntryRegistered(oldEntry)) {
-            throw ERROR_FACTORY.create("not-registered" /* NOT_REGISTERED */);
-        }
-        const oldAuthToken = oldEntry.authToken;
-        if (!forceRefresh && isAuthTokenValid(oldAuthToken)) {
-            // There is a valid token in the DB.
-            return oldEntry;
-        }
-        else if (oldAuthToken.requestStatus === 1 /* IN_PROGRESS */) {
-            // There already is a token request in progress.
-            tokenPromise = waitUntilAuthTokenRequest(installations, forceRefresh);
-            return oldEntry;
-        }
-        else {
-            // No token or token expired.
-            if (!navigator.onLine) {
-                throw ERROR_FACTORY.create("app-offline" /* APP_OFFLINE */);
-            }
-            const inProgressEntry = makeAuthTokenRequestInProgressEntry(oldEntry);
-            tokenPromise = fetchAuthTokenFromServer(installations, inProgressEntry);
-            return inProgressEntry;
-        }
-    });
-    const authToken = tokenPromise
-        ? await tokenPromise
-        : entry.authToken;
-    return authToken;
-}
-/**
- * Call only if FID is registered and Auth Token request is in progress.
- *
- * Waits until the current pending request finishes. If the request times out,
- * tries once in this thread as well.
- */
-async function waitUntilAuthTokenRequest(installations, forceRefresh) {
-    // Unfortunately, there is no way of reliably observing when a value in
-    // IndexedDB changes (yet, see https://github.com/WICG/indexed-db-observers),
-    // so we need to poll.
-    let entry = await updateAuthTokenRequest(installations.appConfig);
-    while (entry.authToken.requestStatus === 1 /* IN_PROGRESS */) {
-        // generateAuthToken still in progress.
-        await sleep(100);
-        entry = await updateAuthTokenRequest(installations.appConfig);
-    }
-    const authToken = entry.authToken;
-    if (authToken.requestStatus === 0 /* NOT_STARTED */) {
-        // The request timed out or failed in a different call. Try again.
-        return refreshAuthToken(installations, forceRefresh);
-    }
-    else {
-        return authToken;
-    }
-}
-/**
- * Called only if there is a GenerateAuthToken request in progress.
- *
- * Updates the InstallationEntry in the DB based on the status of the
- * GenerateAuthToken request.
- *
- * Returns the updated InstallationEntry.
- */
-function updateAuthTokenRequest(appConfig) {
-    return update(appConfig, oldEntry => {
-        if (!isEntryRegistered(oldEntry)) {
-            throw ERROR_FACTORY.create("not-registered" /* NOT_REGISTERED */);
-        }
-        const oldAuthToken = oldEntry.authToken;
-        if (hasAuthTokenRequestTimedOut(oldAuthToken)) {
-            return Object.assign(Object.assign({}, oldEntry), { authToken: { requestStatus: 0 /* NOT_STARTED */ } });
-        }
-        return oldEntry;
-    });
-}
-async function fetchAuthTokenFromServer(installations, installationEntry) {
-    try {
-        const authToken = await generateAuthTokenRequest(installations, installationEntry);
-        const updatedInstallationEntry = Object.assign(Object.assign({}, installationEntry), { authToken });
-        await set(installations.appConfig, updatedInstallationEntry);
-        return authToken;
-    }
-    catch (e) {
-        if (isServerError(e) &&
-            (e.customData.serverCode === 401 || e.customData.serverCode === 404)) {
-            // Server returned a "FID not found" or a "Invalid authentication" error.
-            // Generate a new ID next time.
-            await remove(installations.appConfig);
-        }
-        else {
-            const updatedInstallationEntry = Object.assign(Object.assign({}, installationEntry), { authToken: { requestStatus: 0 /* NOT_STARTED */ } });
-            await set(installations.appConfig, updatedInstallationEntry);
-        }
-        throw e;
-    }
-}
-function isEntryRegistered(installationEntry) {
-    return (installationEntry !== undefined &&
-        installationEntry.registrationStatus === 2 /* COMPLETED */);
-}
-function isAuthTokenValid(authToken) {
-    return (authToken.requestStatus === 2 /* COMPLETED */ &&
-        !isAuthTokenExpired(authToken));
-}
-function isAuthTokenExpired(authToken) {
-    const now = Date.now();
-    return (now < authToken.creationTime ||
-        authToken.creationTime + authToken.expiresIn < now + TOKEN_EXPIRATION_BUFFER);
-}
-/** Returns an updated InstallationEntry with an InProgressAuthToken. */
-function makeAuthTokenRequestInProgressEntry(oldEntry) {
-    const inProgressAuthToken = {
-        requestStatus: 1 /* IN_PROGRESS */,
-        requestTime: Date.now()
-    };
-    return Object.assign(Object.assign({}, oldEntry), { authToken: inProgressAuthToken });
-}
-function hasAuthTokenRequestTimedOut(authToken) {
-    return (authToken.requestStatus === 1 /* IN_PROGRESS */ &&
-        authToken.requestTime + PENDING_TIMEOUT_MS < Date.now());
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Creates a Firebase Installation if there isn't one for the app and
- * returns the Installation ID.
- * @param installations - The `Installations` instance.
- *
- * @public
- */
-async function getId(installations) {
-    const installationsImpl = installations;
-    const { installationEntry, registrationPromise } = await getInstallationEntry(installationsImpl.appConfig);
-    if (registrationPromise) {
-        registrationPromise.catch(console.error);
-    }
-    else {
-        // If the installation is already registered, update the authentication
-        // token if needed.
-        refreshAuthToken(installationsImpl).catch(console.error);
-    }
-    return installationEntry.fid;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Returns a Firebase Installations auth token, identifying the current
- * Firebase Installation.
- * @param installations - The `Installations` instance.
- * @param forceRefresh - Force refresh regardless of token expiration.
- *
- * @public
- */
-async function getToken(installations, forceRefresh = false) {
-    const installationsImpl = installations;
-    await completeInstallationRegistration(installationsImpl.appConfig);
-    // At this point we either have a Registered Installation in the DB, or we've
-    // already thrown an error.
-    const authToken = await refreshAuthToken(installationsImpl, forceRefresh);
-    return authToken.token;
-}
-async function completeInstallationRegistration(appConfig) {
-    const { registrationPromise } = await getInstallationEntry(appConfig);
-    if (registrationPromise) {
-        // A createInstallation request is in progress. Wait until it finishes.
-        await registrationPromise;
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function deleteInstallationRequest(appConfig, installationEntry) {
-    const endpoint = getDeleteEndpoint(appConfig, installationEntry);
-    const headers = getHeadersWithAuth(appConfig, installationEntry);
-    const request = {
-        method: 'DELETE',
-        headers
-    };
-    const response = await retryIfServerError(() => fetch(endpoint, request));
-    if (!response.ok) {
-        throw await getErrorFromResponse('Delete Installation', response);
-    }
-}
-function getDeleteEndpoint(appConfig, { fid }) {
-    return `${getInstallationsEndpoint(appConfig)}/${fid}`;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Deletes the Firebase Installation and all associated data.
- * @param installations - The `Installations` instance.
- *
- * @public
- */
-async function deleteInstallations(installations) {
-    const { appConfig } = installations;
-    const entry = await update(appConfig, oldEntry => {
-        if (oldEntry && oldEntry.registrationStatus === 0 /* NOT_STARTED */) {
-            // Delete the unregistered entry without sending a deleteInstallation request.
-            return undefined;
-        }
-        return oldEntry;
-    });
-    if (entry) {
-        if (entry.registrationStatus === 1 /* IN_PROGRESS */) {
-            // Can't delete while trying to register.
-            throw ERROR_FACTORY.create("delete-pending-registration" /* DELETE_PENDING_REGISTRATION */);
-        }
-        else if (entry.registrationStatus === 2 /* COMPLETED */) {
-            if (!navigator.onLine) {
-                throw ERROR_FACTORY.create("app-offline" /* APP_OFFLINE */);
-            }
-            else {
-                await deleteInstallationRequest(appConfig, entry);
-                await remove(appConfig);
-            }
-        }
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Sets a new callback that will get called when Installation ID changes.
- * Returns an unsubscribe function that will remove the callback when called.
- * @param installations - The `Installations` instance.
- * @param callback - The callback function that is invoked when FID changes.
- * @returns A function that can be called to unsubscribe.
- *
- * @public
- */
-function onIdChange(installations, callback) {
-    const { appConfig } = installations;
-    addCallback(appConfig, callback);
-    return () => {
-        removeCallback(appConfig, callback);
-    };
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Returns an instance of {@link Installations} associated with the given
- * {@link @firebase/app#FirebaseApp} instance.
- * @param app - The {@link @firebase/app#FirebaseApp} instance.
- *
- * @public
- */
-function getInstallations(app = Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["getApp"])()) {
-    const installationsImpl = Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["_getProvider"])(app, 'installations').getImmediate();
-    return installationsImpl;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function extractAppConfig(app) {
-    if (!app || !app.options) {
-        throw getMissingValueError('App Configuration');
-    }
-    if (!app.name) {
-        throw getMissingValueError('App Name');
-    }
-    // Required app config keys
-    const configKeys = [
-        'projectId',
-        'apiKey',
-        'appId'
-    ];
-    for (const keyName of configKeys) {
-        if (!app.options[keyName]) {
-            throw getMissingValueError(keyName);
-        }
-    }
-    return {
-        appName: app.name,
-        projectId: app.options.projectId,
-        apiKey: app.options.apiKey,
-        appId: app.options.appId
-    };
-}
-function getMissingValueError(valueName) {
-    return ERROR_FACTORY.create("missing-app-config-values" /* MISSING_APP_CONFIG_VALUES */, {
-        valueName
-    });
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const INSTALLATIONS_NAME = 'installations';
-const INSTALLATIONS_NAME_INTERNAL = 'installations-internal';
-const publicFactory = (container) => {
-    const app = container.getProvider('app').getImmediate();
-    // Throws if app isn't configured properly.
-    const appConfig = extractAppConfig(app);
-    const platformLoggerProvider = Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["_getProvider"])(app, 'platform-logger');
-    const installationsImpl = {
-        app,
-        appConfig,
-        platformLoggerProvider,
-        _delete: () => Promise.resolve()
-    };
-    return installationsImpl;
-};
-const internalFactory = (container) => {
-    const app = container.getProvider('app').getImmediate();
-    // Internal FIS instance relies on public FIS instance.
-    const installations = Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["_getProvider"])(app, INSTALLATIONS_NAME).getImmediate();
-    const installationsInternal = {
-        getId: () => getId(installations),
-        getToken: (forceRefresh) => getToken(installations, forceRefresh)
-    };
-    return installationsInternal;
-};
-function registerInstallations() {
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["_registerComponent"])(new _firebase_component__WEBPACK_IMPORTED_MODULE_1__["Component"](INSTALLATIONS_NAME, publicFactory, "PUBLIC" /* PUBLIC */));
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["_registerComponent"])(new _firebase_component__WEBPACK_IMPORTED_MODULE_1__["Component"](INSTALLATIONS_NAME_INTERNAL, internalFactory, "PRIVATE" /* PRIVATE */));
-}
-
-/**
- * Firebase Installations
- *
- * @packageDocumentation
- */
-registerInstallations();
-Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["registerVersion"])(name, version);
-// BUILD_TARGET will be replaced by values like esm5, esm2017, cjs5, etc during the compilation
-Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["registerVersion"])(name, version, 'esm2017');
-
-
-//# sourceMappingURL=index.esm2017.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@firebase/logger/dist/esm/index.esm2017.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@firebase/logger/dist/esm/index.esm2017.js ***!
-  \*****************************************************************/
-/*! exports provided: LogLevel, Logger, setLogLevel, setUserLogHandler */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogLevel", function() { return LogLevel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Logger", function() { return Logger; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLogLevel", function() { return setLogLevel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserLogHandler", function() { return setUserLogHandler; });
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * A container for all of the Logger instances
- */
-const instances = [];
-/**
- * The JS SDK supports 5 log levels and also allows a user the ability to
- * silence the logs altogether.
- *
- * The order is a follows:
- * DEBUG < VERBOSE < INFO < WARN < ERROR
- *
- * All of the log types above the current log level will be captured (i.e. if
- * you set the log level to `INFO`, errors will still be logged, but `DEBUG` and
- * `VERBOSE` logs will not)
- */
-var LogLevel;
-(function (LogLevel) {
-    LogLevel[LogLevel["DEBUG"] = 0] = "DEBUG";
-    LogLevel[LogLevel["VERBOSE"] = 1] = "VERBOSE";
-    LogLevel[LogLevel["INFO"] = 2] = "INFO";
-    LogLevel[LogLevel["WARN"] = 3] = "WARN";
-    LogLevel[LogLevel["ERROR"] = 4] = "ERROR";
-    LogLevel[LogLevel["SILENT"] = 5] = "SILENT";
-})(LogLevel || (LogLevel = {}));
-const levelStringToEnum = {
-    'debug': LogLevel.DEBUG,
-    'verbose': LogLevel.VERBOSE,
-    'info': LogLevel.INFO,
-    'warn': LogLevel.WARN,
-    'error': LogLevel.ERROR,
-    'silent': LogLevel.SILENT
-};
-/**
- * The default log level
- */
-const defaultLogLevel = LogLevel.INFO;
-/**
- * By default, `console.debug` is not displayed in the developer console (in
- * chrome). To avoid forcing users to have to opt-in to these logs twice
- * (i.e. once for firebase, and once in the console), we are sending `DEBUG`
- * logs to the `console.log` function.
- */
-const ConsoleMethod = {
-    [LogLevel.DEBUG]: 'log',
-    [LogLevel.VERBOSE]: 'log',
-    [LogLevel.INFO]: 'info',
-    [LogLevel.WARN]: 'warn',
-    [LogLevel.ERROR]: 'error'
-};
-/**
- * The default log handler will forward DEBUG, VERBOSE, INFO, WARN, and ERROR
- * messages on to their corresponding console counterparts (if the log method
- * is supported by the current log level)
- */
-const defaultLogHandler = (instance, logType, ...args) => {
-    if (logType < instance.logLevel) {
-        return;
-    }
-    const now = new Date().toISOString();
-    const method = ConsoleMethod[logType];
-    if (method) {
-        console[method](`[${now}]  ${instance.name}:`, ...args);
-    }
-    else {
-        throw new Error(`Attempted to log a message with an invalid logType (value: ${logType})`);
-    }
-};
-class Logger {
-    /**
-     * Gives you an instance of a Logger to capture messages according to
-     * Firebase's logging scheme.
-     *
-     * @param name The name that the logs will be associated with
-     */
-    constructor(name) {
-        this.name = name;
-        /**
-         * The log level of the given Logger instance.
-         */
-        this._logLevel = defaultLogLevel;
-        /**
-         * The main (internal) log handler for the Logger instance.
-         * Can be set to a new function in internal package code but not by user.
-         */
-        this._logHandler = defaultLogHandler;
-        /**
-         * The optional, additional, user-defined log handler for the Logger instance.
-         */
-        this._userLogHandler = null;
-        /**
-         * Capture the current instance for later use
-         */
-        instances.push(this);
-    }
-    get logLevel() {
-        return this._logLevel;
-    }
-    set logLevel(val) {
-        if (!(val in LogLevel)) {
-            throw new TypeError(`Invalid value "${val}" assigned to \`logLevel\``);
-        }
-        this._logLevel = val;
-    }
-    // Workaround for setter/getter having to be the same type.
-    setLogLevel(val) {
-        this._logLevel = typeof val === 'string' ? levelStringToEnum[val] : val;
-    }
-    get logHandler() {
-        return this._logHandler;
-    }
-    set logHandler(val) {
-        if (typeof val !== 'function') {
-            throw new TypeError('Value assigned to `logHandler` must be a function');
-        }
-        this._logHandler = val;
-    }
-    get userLogHandler() {
-        return this._userLogHandler;
-    }
-    set userLogHandler(val) {
-        this._userLogHandler = val;
-    }
-    /**
-     * The functions below are all based on the `console` interface
-     */
-    debug(...args) {
-        this._userLogHandler && this._userLogHandler(this, LogLevel.DEBUG, ...args);
-        this._logHandler(this, LogLevel.DEBUG, ...args);
-    }
-    log(...args) {
-        this._userLogHandler &&
-            this._userLogHandler(this, LogLevel.VERBOSE, ...args);
-        this._logHandler(this, LogLevel.VERBOSE, ...args);
-    }
-    info(...args) {
-        this._userLogHandler && this._userLogHandler(this, LogLevel.INFO, ...args);
-        this._logHandler(this, LogLevel.INFO, ...args);
-    }
-    warn(...args) {
-        this._userLogHandler && this._userLogHandler(this, LogLevel.WARN, ...args);
-        this._logHandler(this, LogLevel.WARN, ...args);
-    }
-    error(...args) {
-        this._userLogHandler && this._userLogHandler(this, LogLevel.ERROR, ...args);
-        this._logHandler(this, LogLevel.ERROR, ...args);
-    }
-}
-function setLogLevel(level) {
-    instances.forEach(inst => {
-        inst.setLogLevel(level);
-    });
-}
-function setUserLogHandler(logCallback, options) {
-    for (const instance of instances) {
-        let customLogLevel = null;
-        if (options && options.level) {
-            customLogLevel = levelStringToEnum[options.level];
-        }
-        if (logCallback === null) {
-            instance.userLogHandler = null;
-        }
-        else {
-            instance.userLogHandler = (instance, level, ...args) => {
-                const message = args
-                    .map(arg => {
-                    if (arg == null) {
-                        return null;
-                    }
-                    else if (typeof arg === 'string') {
-                        return arg;
-                    }
-                    else if (typeof arg === 'number' || typeof arg === 'boolean') {
-                        return arg.toString();
-                    }
-                    else if (arg instanceof Error) {
-                        return arg.message;
-                    }
-                    else {
-                        try {
-                            return JSON.stringify(arg);
-                        }
-                        catch (ignored) {
-                            return null;
-                        }
-                    }
-                })
-                    .filter(arg => arg)
-                    .join(' ');
-                if (level >= (customLogLevel !== null && customLogLevel !== void 0 ? customLogLevel : instance.logLevel)) {
-                    logCallback({
-                        level: LogLevel[level].toLowerCase(),
-                        message,
-                        args,
-                        type: instance.name
-                    });
-                }
-            };
-        }
-    }
-}
-
-
-//# sourceMappingURL=index.esm2017.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@firebase/messaging/dist/esm/index.esm2017.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@firebase/messaging/dist/esm/index.esm2017.js ***!
-  \********************************************************************/
-/*! exports provided: deleteToken, getMessaging, getToken, isSupported, onMessage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteToken", function() { return deleteToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMessaging", function() { return getMessagingInWindow; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getToken", function() { return getToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSupported", function() { return isWindowSupported; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onMessage", function() { return onMessage; });
-/* harmony import */ var _firebase_installations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/installations */ "./node_modules/@firebase/installations/dist/esm/index.esm2017.js");
-/* harmony import */ var _firebase_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @firebase/component */ "./node_modules/@firebase/component/dist/esm/index.esm2017.js");
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! idb */ "./node_modules/idb/build/idb.js");
-/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(idb__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _firebase_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @firebase/util */ "./node_modules/@firebase/util/dist/index.esm2017.js");
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @firebase/app */ "./node_modules/@firebase/app/dist/esm/index.esm2017.js");
-
-
-
-
-
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const DEFAULT_SW_PATH = '/firebase-messaging-sw.js';
-const DEFAULT_SW_SCOPE = '/firebase-cloud-messaging-push-scope';
-const DEFAULT_VAPID_KEY = 'BDOU99-h67HcA6JeFXHbSNMu7e2yNNu3RzoMj8TM4W88jITfq7ZmPvIM1Iv-4_l2LxQcYwhqby2xGpWwzjfAnG4';
-const ENDPOINT = 'https://fcmregistrations.googleapis.com/v1';
-const CONSOLE_CAMPAIGN_ID = 'google.c.a.c_id';
-const CONSOLE_CAMPAIGN_NAME = 'google.c.a.c_l';
-const CONSOLE_CAMPAIGN_TIME = 'google.c.a.ts';
-/** Set to '1' if Analytics is enabled for the campaign */
-const CONSOLE_CAMPAIGN_ANALYTICS_ENABLED = 'google.c.a.e';
-var MessageType$1;
-(function (MessageType) {
-    MessageType[MessageType["DATA_MESSAGE"] = 1] = "DATA_MESSAGE";
-    MessageType[MessageType["DISPLAY_NOTIFICATION"] = 3] = "DISPLAY_NOTIFICATION";
-})(MessageType$1 || (MessageType$1 = {}));
-
-/**
- * @license
- * Copyright 2018 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
-var MessageType;
-(function (MessageType) {
-    MessageType["PUSH_RECEIVED"] = "push-received";
-    MessageType["NOTIFICATION_CLICKED"] = "notification-clicked";
-})(MessageType || (MessageType = {}));
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function arrayToBase64(array) {
-    const uint8Array = new Uint8Array(array);
-    const base64String = btoa(String.fromCharCode(...uint8Array));
-    return base64String.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
-}
-function base64ToArray(base64String) {
-    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding)
-        .replace(/\-/g, '+')
-        .replace(/_/g, '/');
-    const rawData = atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-    for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const OLD_DB_NAME = 'fcm_token_details_db';
-/**
- * The last DB version of 'fcm_token_details_db' was 4. This is one higher, so that the upgrade
- * callback is called for all versions of the old DB.
- */
-const OLD_DB_VERSION = 5;
-const OLD_OBJECT_STORE_NAME = 'fcm_token_object_Store';
-async function migrateOldDatabase(senderId) {
-    if ('databases' in indexedDB) {
-        // indexedDb.databases() is an IndexedDB v3 API and does not exist in all browsers. TODO: Remove
-        // typecast when it lands in TS types.
-        const databases = await indexedDB.databases();
-        const dbNames = databases.map(db => db.name);
-        if (!dbNames.includes(OLD_DB_NAME)) {
-            // old DB didn't exist, no need to open.
-            return null;
-        }
-    }
-    let tokenDetails = null;
-    const db = await Object(idb__WEBPACK_IMPORTED_MODULE_2__["openDb"])(OLD_DB_NAME, OLD_DB_VERSION, async (db) => {
-        var _a;
-        if (db.oldVersion < 2) {
-            // Database too old, skip migration.
-            return;
-        }
-        if (!db.objectStoreNames.contains(OLD_OBJECT_STORE_NAME)) {
-            // Database did not exist. Nothing to do.
-            return;
-        }
-        const objectStore = db.transaction.objectStore(OLD_OBJECT_STORE_NAME);
-        const value = await objectStore.index('fcmSenderId').get(senderId);
-        await objectStore.clear();
-        if (!value) {
-            // No entry in the database, nothing to migrate.
-            return;
-        }
-        if (db.oldVersion === 2) {
-            const oldDetails = value;
-            if (!oldDetails.auth || !oldDetails.p256dh || !oldDetails.endpoint) {
-                return;
-            }
-            tokenDetails = {
-                token: oldDetails.fcmToken,
-                createTime: (_a = oldDetails.createTime) !== null && _a !== void 0 ? _a : Date.now(),
-                subscriptionOptions: {
-                    auth: oldDetails.auth,
-                    p256dh: oldDetails.p256dh,
-                    endpoint: oldDetails.endpoint,
-                    swScope: oldDetails.swScope,
-                    vapidKey: typeof oldDetails.vapidKey === 'string'
-                        ? oldDetails.vapidKey
-                        : arrayToBase64(oldDetails.vapidKey)
-                }
-            };
-        }
-        else if (db.oldVersion === 3) {
-            const oldDetails = value;
-            tokenDetails = {
-                token: oldDetails.fcmToken,
-                createTime: oldDetails.createTime,
-                subscriptionOptions: {
-                    auth: arrayToBase64(oldDetails.auth),
-                    p256dh: arrayToBase64(oldDetails.p256dh),
-                    endpoint: oldDetails.endpoint,
-                    swScope: oldDetails.swScope,
-                    vapidKey: arrayToBase64(oldDetails.vapidKey)
-                }
-            };
-        }
-        else if (db.oldVersion === 4) {
-            const oldDetails = value;
-            tokenDetails = {
-                token: oldDetails.fcmToken,
-                createTime: oldDetails.createTime,
-                subscriptionOptions: {
-                    auth: arrayToBase64(oldDetails.auth),
-                    p256dh: arrayToBase64(oldDetails.p256dh),
-                    endpoint: oldDetails.endpoint,
-                    swScope: oldDetails.swScope,
-                    vapidKey: arrayToBase64(oldDetails.vapidKey)
-                }
-            };
-        }
-    });
-    db.close();
-    // Delete all old databases.
-    await Object(idb__WEBPACK_IMPORTED_MODULE_2__["deleteDb"])(OLD_DB_NAME);
-    await Object(idb__WEBPACK_IMPORTED_MODULE_2__["deleteDb"])('fcm_vapid_details_db');
-    await Object(idb__WEBPACK_IMPORTED_MODULE_2__["deleteDb"])('undefined');
-    return checkTokenDetails(tokenDetails) ? tokenDetails : null;
-}
-function checkTokenDetails(tokenDetails) {
-    if (!tokenDetails || !tokenDetails.subscriptionOptions) {
-        return false;
-    }
-    const { subscriptionOptions } = tokenDetails;
-    return (typeof tokenDetails.createTime === 'number' &&
-        tokenDetails.createTime > 0 &&
-        typeof tokenDetails.token === 'string' &&
-        tokenDetails.token.length > 0 &&
-        typeof subscriptionOptions.auth === 'string' &&
-        subscriptionOptions.auth.length > 0 &&
-        typeof subscriptionOptions.p256dh === 'string' &&
-        subscriptionOptions.p256dh.length > 0 &&
-        typeof subscriptionOptions.endpoint === 'string' &&
-        subscriptionOptions.endpoint.length > 0 &&
-        typeof subscriptionOptions.swScope === 'string' &&
-        subscriptionOptions.swScope.length > 0 &&
-        typeof subscriptionOptions.vapidKey === 'string' &&
-        subscriptionOptions.vapidKey.length > 0);
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-// Exported for tests.
-const DATABASE_NAME = 'firebase-messaging-database';
-const DATABASE_VERSION = 1;
-const OBJECT_STORE_NAME = 'firebase-messaging-store';
-let dbPromise = null;
-function getDbPromise() {
-    if (!dbPromise) {
-        dbPromise = Object(idb__WEBPACK_IMPORTED_MODULE_2__["openDb"])(DATABASE_NAME, DATABASE_VERSION, upgradeDb => {
-            // We don't use 'break' in this switch statement, the fall-through behavior is what we want,
-            // because if there are multiple versions between the old version and the current version, we
-            // want ALL the migrations that correspond to those versions to run, not only the last one.
-            // eslint-disable-next-line default-case
-            switch (upgradeDb.oldVersion) {
-                case 0:
-                    upgradeDb.createObjectStore(OBJECT_STORE_NAME);
-            }
-        });
-    }
-    return dbPromise;
-}
-/** Gets record(s) from the objectStore that match the given key. */
-async function dbGet(firebaseDependencies) {
-    const key = getKey(firebaseDependencies);
-    const db = await getDbPromise();
-    const tokenDetails = await db
-        .transaction(OBJECT_STORE_NAME)
-        .objectStore(OBJECT_STORE_NAME)
-        .get(key);
-    if (tokenDetails) {
-        return tokenDetails;
-    }
-    else {
-        // Check if there is a tokenDetails object in the old DB.
-        const oldTokenDetails = await migrateOldDatabase(firebaseDependencies.appConfig.senderId);
-        if (oldTokenDetails) {
-            await dbSet(firebaseDependencies, oldTokenDetails);
-            return oldTokenDetails;
-        }
-    }
-}
-/** Assigns or overwrites the record for the given key with the given value. */
-async function dbSet(firebaseDependencies, tokenDetails) {
-    const key = getKey(firebaseDependencies);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    await tx.objectStore(OBJECT_STORE_NAME).put(tokenDetails, key);
-    await tx.complete;
-    return tokenDetails;
-}
-/** Removes record(s) from the objectStore that match the given key. */
-async function dbRemove(firebaseDependencies) {
-    const key = getKey(firebaseDependencies);
-    const db = await getDbPromise();
-    const tx = db.transaction(OBJECT_STORE_NAME, 'readwrite');
-    await tx.objectStore(OBJECT_STORE_NAME).delete(key);
-    await tx.complete;
-}
-function getKey({ appConfig }) {
-    return appConfig.appId;
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const ERROR_MAP = {
-    ["missing-app-config-values" /* MISSING_APP_CONFIG_VALUES */]: 'Missing App configuration value: "{$valueName}"',
-    ["only-available-in-window" /* AVAILABLE_IN_WINDOW */]: 'This method is available in a Window context.',
-    ["only-available-in-sw" /* AVAILABLE_IN_SW */]: 'This method is available in a service worker context.',
-    ["permission-default" /* PERMISSION_DEFAULT */]: 'The notification permission was not granted and dismissed instead.',
-    ["permission-blocked" /* PERMISSION_BLOCKED */]: 'The notification permission was not granted and blocked instead.',
-    ["unsupported-browser" /* UNSUPPORTED_BROWSER */]: "This browser doesn't support the API's required to use the Firebase SDK.",
-    ["indexed-db-unsupported" /* INDEXED_DB_UNSUPPORTED */]: "This browser doesn't support indexedDb.open() (ex. Safari iFrame, Firefox Private Browsing, etc)",
-    ["failed-service-worker-registration" /* FAILED_DEFAULT_REGISTRATION */]: 'We are unable to register the default service worker. {$browserErrorMessage}',
-    ["token-subscribe-failed" /* TOKEN_SUBSCRIBE_FAILED */]: 'A problem occurred while subscribing the user to FCM: {$errorInfo}',
-    ["token-subscribe-no-token" /* TOKEN_SUBSCRIBE_NO_TOKEN */]: 'FCM returned no token when subscribing the user to push.',
-    ["token-unsubscribe-failed" /* TOKEN_UNSUBSCRIBE_FAILED */]: 'A problem occurred while unsubscribing the ' +
-        'user from FCM: {$errorInfo}',
-    ["token-update-failed" /* TOKEN_UPDATE_FAILED */]: 'A problem occurred while updating the user from FCM: {$errorInfo}',
-    ["token-update-no-token" /* TOKEN_UPDATE_NO_TOKEN */]: 'FCM returned no token when updating the user to push.',
-    ["use-sw-after-get-token" /* USE_SW_AFTER_GET_TOKEN */]: 'The useServiceWorker() method may only be called once and must be ' +
-        'called before calling getToken() to ensure your service worker is used.',
-    ["invalid-sw-registration" /* INVALID_SW_REGISTRATION */]: 'The input to useServiceWorker() must be a ServiceWorkerRegistration.',
-    ["invalid-bg-handler" /* INVALID_BG_HANDLER */]: 'The input to setBackgroundMessageHandler() must be a function.',
-    ["invalid-vapid-key" /* INVALID_VAPID_KEY */]: 'The public VAPID key must be a string.',
-    ["use-vapid-key-after-get-token" /* USE_VAPID_KEY_AFTER_GET_TOKEN */]: 'The usePublicVapidKey() method may only be called once and must be ' +
-        'called before calling getToken() to ensure your VAPID key is used.'
-};
-const ERROR_FACTORY = new _firebase_util__WEBPACK_IMPORTED_MODULE_3__["ErrorFactory"]('messaging', 'Messaging', ERROR_MAP);
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function requestGetToken(firebaseDependencies, subscriptionOptions) {
-    const headers = await getHeaders(firebaseDependencies);
-    const body = getBody(subscriptionOptions);
-    const subscribeOptions = {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body)
-    };
-    let responseData;
-    try {
-        const response = await fetch(getEndpoint(firebaseDependencies.appConfig), subscribeOptions);
-        responseData = await response.json();
-    }
-    catch (err) {
-        throw ERROR_FACTORY.create("token-subscribe-failed" /* TOKEN_SUBSCRIBE_FAILED */, {
-            errorInfo: err
-        });
-    }
-    if (responseData.error) {
-        const message = responseData.error.message;
-        throw ERROR_FACTORY.create("token-subscribe-failed" /* TOKEN_SUBSCRIBE_FAILED */, {
-            errorInfo: message
-        });
-    }
-    if (!responseData.token) {
-        throw ERROR_FACTORY.create("token-subscribe-no-token" /* TOKEN_SUBSCRIBE_NO_TOKEN */);
-    }
-    return responseData.token;
-}
-async function requestUpdateToken(firebaseDependencies, tokenDetails) {
-    const headers = await getHeaders(firebaseDependencies);
-    const body = getBody(tokenDetails.subscriptionOptions);
-    const updateOptions = {
-        method: 'PATCH',
-        headers,
-        body: JSON.stringify(body)
-    };
-    let responseData;
-    try {
-        const response = await fetch(`${getEndpoint(firebaseDependencies.appConfig)}/${tokenDetails.token}`, updateOptions);
-        responseData = await response.json();
-    }
-    catch (err) {
-        throw ERROR_FACTORY.create("token-update-failed" /* TOKEN_UPDATE_FAILED */, {
-            errorInfo: err
-        });
-    }
-    if (responseData.error) {
-        const message = responseData.error.message;
-        throw ERROR_FACTORY.create("token-update-failed" /* TOKEN_UPDATE_FAILED */, {
-            errorInfo: message
-        });
-    }
-    if (!responseData.token) {
-        throw ERROR_FACTORY.create("token-update-no-token" /* TOKEN_UPDATE_NO_TOKEN */);
-    }
-    return responseData.token;
-}
-async function requestDeleteToken(firebaseDependencies, token) {
-    const headers = await getHeaders(firebaseDependencies);
-    const unsubscribeOptions = {
-        method: 'DELETE',
-        headers
-    };
-    try {
-        const response = await fetch(`${getEndpoint(firebaseDependencies.appConfig)}/${token}`, unsubscribeOptions);
-        const responseData = await response.json();
-        if (responseData.error) {
-            const message = responseData.error.message;
-            throw ERROR_FACTORY.create("token-unsubscribe-failed" /* TOKEN_UNSUBSCRIBE_FAILED */, {
-                errorInfo: message
-            });
-        }
-    }
-    catch (err) {
-        throw ERROR_FACTORY.create("token-unsubscribe-failed" /* TOKEN_UNSUBSCRIBE_FAILED */, {
-            errorInfo: err
-        });
-    }
-}
-function getEndpoint({ projectId }) {
-    return `${ENDPOINT}/projects/${projectId}/registrations`;
-}
-async function getHeaders({ appConfig, installations }) {
-    const authToken = await installations.getToken();
-    return new Headers({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'x-goog-api-key': appConfig.apiKey,
-        'x-goog-firebase-installations-auth': `FIS ${authToken}`
-    });
-}
-function getBody({ p256dh, auth, endpoint, vapidKey }) {
-    const body = {
-        web: {
-            endpoint,
-            auth,
-            p256dh
-        }
-    };
-    if (vapidKey !== DEFAULT_VAPID_KEY) {
-        body.web.applicationPubKey = vapidKey;
-    }
-    return body;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-// UpdateRegistration will be called once every week.
-const TOKEN_EXPIRATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-async function getTokenInternal(messaging) {
-    const pushSubscription = await getPushSubscription(messaging.swRegistration, messaging.vapidKey);
-    const subscriptionOptions = {
-        vapidKey: messaging.vapidKey,
-        swScope: messaging.swRegistration.scope,
-        endpoint: pushSubscription.endpoint,
-        auth: arrayToBase64(pushSubscription.getKey('auth')),
-        p256dh: arrayToBase64(pushSubscription.getKey('p256dh'))
-    };
-    const tokenDetails = await dbGet(messaging.firebaseDependencies);
-    if (!tokenDetails) {
-        // No token, get a new one.
-        return getNewToken(messaging.firebaseDependencies, subscriptionOptions);
-    }
-    else if (!isTokenValid(tokenDetails.subscriptionOptions, subscriptionOptions)) {
-        // Invalid token, get a new one.
-        try {
-            await requestDeleteToken(messaging.firebaseDependencies, tokenDetails.token);
-        }
-        catch (e) {
-            // Suppress errors because of #2364
-            console.warn(e);
-        }
-        return getNewToken(messaging.firebaseDependencies, subscriptionOptions);
-    }
-    else if (Date.now() >= tokenDetails.createTime + TOKEN_EXPIRATION_MS) {
-        // Weekly token refresh
-        return updateToken(messaging, {
-            token: tokenDetails.token,
-            createTime: Date.now(),
-            subscriptionOptions
-        });
-    }
-    else {
-        // Valid token, nothing to do.
-        return tokenDetails.token;
-    }
-}
-/**
- * This method deletes the token from the database, unsubscribes the token from FCM, and unregisters
- * the push subscription if it exists.
- */
-async function deleteTokenInternal(messaging) {
-    const tokenDetails = await dbGet(messaging.firebaseDependencies);
-    if (tokenDetails) {
-        await requestDeleteToken(messaging.firebaseDependencies, tokenDetails.token);
-        await dbRemove(messaging.firebaseDependencies);
-    }
-    // Unsubscribe from the push subscription.
-    const pushSubscription = await messaging.swRegistration.pushManager.getSubscription();
-    if (pushSubscription) {
-        return pushSubscription.unsubscribe();
-    }
-    // If there's no SW, consider it a success.
-    return true;
-}
-async function updateToken(messaging, tokenDetails) {
-    try {
-        const updatedToken = await requestUpdateToken(messaging.firebaseDependencies, tokenDetails);
-        const updatedTokenDetails = Object.assign(Object.assign({}, tokenDetails), { token: updatedToken, createTime: Date.now() });
-        await dbSet(messaging.firebaseDependencies, updatedTokenDetails);
-        return updatedToken;
-    }
-    catch (e) {
-        await deleteTokenInternal(messaging);
-        throw e;
-    }
-}
-async function getNewToken(firebaseDependencies, subscriptionOptions) {
-    const token = await requestGetToken(firebaseDependencies, subscriptionOptions);
-    const tokenDetails = {
-        token,
-        createTime: Date.now(),
-        subscriptionOptions
-    };
-    await dbSet(firebaseDependencies, tokenDetails);
-    return tokenDetails.token;
-}
-/**
- * Gets a PushSubscription for the current user.
- */
-async function getPushSubscription(swRegistration, vapidKey) {
-    const subscription = await swRegistration.pushManager.getSubscription();
-    if (subscription) {
-        return subscription;
-    }
-    return swRegistration.pushManager.subscribe({
-        userVisibleOnly: true,
-        // Chrome <= 75 doesn't support base64-encoded VAPID key. For backward compatibility, VAPID key
-        // submitted to pushManager#subscribe must be of type Uint8Array.
-        applicationServerKey: base64ToArray(vapidKey)
-    });
-}
-/**
- * Checks if the saved tokenDetails object matches the configuration provided.
- */
-function isTokenValid(dbOptions, currentOptions) {
-    const isVapidKeyEqual = currentOptions.vapidKey === dbOptions.vapidKey;
-    const isEndpointEqual = currentOptions.endpoint === dbOptions.endpoint;
-    const isAuthEqual = currentOptions.auth === dbOptions.auth;
-    const isP256dhEqual = currentOptions.p256dh === dbOptions.p256dh;
-    return isVapidKeyEqual && isEndpointEqual && isAuthEqual && isP256dhEqual;
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function externalizePayload(internalPayload) {
-    const payload = {
-        from: internalPayload.from,
-        // eslint-disable-next-line camelcase
-        collapseKey: internalPayload.collapse_key,
-        // eslint-disable-next-line camelcase
-        messageId: internalPayload.fcm_message_id
-    };
-    propagateNotificationPayload(payload, internalPayload);
-    propagateDataPayload(payload, internalPayload);
-    propagateFcmOptions(payload, internalPayload);
-    return payload;
-}
-function propagateNotificationPayload(payload, messagePayloadInternal) {
-    if (!messagePayloadInternal.notification) {
-        return;
-    }
-    payload.notification = {};
-    const title = messagePayloadInternal.notification.title;
-    if (!!title) {
-        payload.notification.title = title;
-    }
-    const body = messagePayloadInternal.notification.body;
-    if (!!body) {
-        payload.notification.body = body;
-    }
-    const image = messagePayloadInternal.notification.image;
-    if (!!image) {
-        payload.notification.image = image;
-    }
-}
-function propagateDataPayload(payload, messagePayloadInternal) {
-    if (!messagePayloadInternal.data) {
-        return;
-    }
-    payload.data = messagePayloadInternal.data;
-}
-function propagateFcmOptions(payload, messagePayloadInternal) {
-    if (!messagePayloadInternal.fcmOptions) {
-        return;
-    }
-    payload.fcmOptions = {};
-    const link = messagePayloadInternal.fcmOptions.link;
-    if (!!link) {
-        payload.fcmOptions.link = link;
-    }
-    // eslint-disable-next-line camelcase
-    const analyticsLabel = messagePayloadInternal.fcmOptions.analytics_label;
-    if (!!analyticsLabel) {
-        payload.fcmOptions.analyticsLabel = analyticsLabel;
-    }
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function isConsoleMessage(data) {
-    // This message has a campaign ID, meaning it was sent using the Firebase Console.
-    return typeof data === 'object' && !!data && CONSOLE_CAMPAIGN_ID in data;
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-_mergeStrings('hts/frbslgigp.ogepscmv/ieo/eaylg', 'tp:/ieaeogn-agolai.o/1frlglgc/o');
-_mergeStrings('AzSCbw63g1R0nCw85jG8', 'Iaya3yLKwmgvh7cF0q4');
-function _mergeStrings(s1, s2) {
-    const resultArray = [];
-    for (let i = 0; i < s1.length; i++) {
-        resultArray.push(s1.charAt(i));
-        if (i < s2.length) {
-            resultArray.push(s2.charAt(i));
-        }
-    }
-    return resultArray.join('');
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function extractAppConfig(app) {
-    if (!app || !app.options) {
-        throw getMissingValueError('App Configuration Object');
-    }
-    if (!app.name) {
-        throw getMissingValueError('App Name');
-    }
-    // Required app config keys
-    const configKeys = [
-        'projectId',
-        'apiKey',
-        'appId',
-        'messagingSenderId'
-    ];
-    const { options } = app;
-    for (const keyName of configKeys) {
-        if (!options[keyName]) {
-            throw getMissingValueError(keyName);
-        }
-    }
-    return {
-        appName: app.name,
-        projectId: options.projectId,
-        apiKey: options.apiKey,
-        appId: options.appId,
-        senderId: options.messagingSenderId
-    };
-}
-function getMissingValueError(valueName) {
-    return ERROR_FACTORY.create("missing-app-config-values" /* MISSING_APP_CONFIG_VALUES */, {
-        valueName
-    });
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-class MessagingService {
-    constructor(app, installations, analyticsProvider) {
-        // logging is only done with end user consent. Default to false.
-        this.deliveryMetricsExportedToBigQueryEnabled = false;
-        this.onBackgroundMessageHandler = null;
-        this.onMessageHandler = null;
-        this.logEvents = [];
-        this.isLogServiceStarted = false;
-        const appConfig = extractAppConfig(app);
-        this.firebaseDependencies = {
-            app,
-            appConfig,
-            installations,
-            analyticsProvider
-        };
-    }
-    _delete() {
-        return Promise.resolve();
-    }
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function registerDefaultSw(messaging) {
-    try {
-        messaging.swRegistration = await navigator.serviceWorker.register(DEFAULT_SW_PATH, {
-            scope: DEFAULT_SW_SCOPE
-        });
-        // The timing when browser updates sw when sw has an update is unreliable from experiment. It
-        // leads to version conflict when the SDK upgrades to a newer version in the main page, but sw
-        // is stuck with the old version. For example,
-        // https://github.com/firebase/firebase-js-sdk/issues/2590 The following line reliably updates
-        // sw if there was an update.
-        messaging.swRegistration.update().catch(() => {
-            /* it is non blocking and we don't care if it failed */
-        });
-    }
-    catch (e) {
-        throw ERROR_FACTORY.create("failed-service-worker-registration" /* FAILED_DEFAULT_REGISTRATION */, {
-            browserErrorMessage: e.message
-        });
-    }
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function updateSwReg(messaging, swRegistration) {
-    if (!swRegistration && !messaging.swRegistration) {
-        await registerDefaultSw(messaging);
-    }
-    if (!swRegistration && !!messaging.swRegistration) {
-        return;
-    }
-    if (!(swRegistration instanceof ServiceWorkerRegistration)) {
-        throw ERROR_FACTORY.create("invalid-sw-registration" /* INVALID_SW_REGISTRATION */);
-    }
-    messaging.swRegistration = swRegistration;
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function updateVapidKey(messaging, vapidKey) {
-    if (!!vapidKey) {
-        messaging.vapidKey = vapidKey;
-    }
-    else if (!messaging.vapidKey) {
-        messaging.vapidKey = DEFAULT_VAPID_KEY;
-    }
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function getToken$1(messaging, options) {
-    if (!navigator) {
-        throw ERROR_FACTORY.create("only-available-in-window" /* AVAILABLE_IN_WINDOW */);
-    }
-    if (Notification.permission === 'default') {
-        await Notification.requestPermission();
-    }
-    if (Notification.permission !== 'granted') {
-        throw ERROR_FACTORY.create("permission-blocked" /* PERMISSION_BLOCKED */);
-    }
-    await updateVapidKey(messaging, options === null || options === void 0 ? void 0 : options.vapidKey);
-    await updateSwReg(messaging, options === null || options === void 0 ? void 0 : options.serviceWorkerRegistration);
-    return getTokenInternal(messaging);
-}
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function logToScion(messaging, messageType, data) {
-    const eventType = getEventType(messageType);
-    const analytics = await messaging.firebaseDependencies.analyticsProvider.get();
-    analytics.logEvent(eventType, {
-        /* eslint-disable camelcase */
-        message_id: data[CONSOLE_CAMPAIGN_ID],
-        message_name: data[CONSOLE_CAMPAIGN_NAME],
-        message_time: data[CONSOLE_CAMPAIGN_TIME],
-        message_device_time: Math.floor(Date.now() / 1000)
-        /* eslint-enable camelcase */
-    });
-}
-function getEventType(messageType) {
-    switch (messageType) {
-        case MessageType.NOTIFICATION_CLICKED:
-            return 'notification_open';
-        case MessageType.PUSH_RECEIVED:
-            return 'notification_foreground';
-        default:
-            throw new Error();
-    }
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function messageEventListener(messaging, event) {
-    const internalPayload = event.data;
-    if (!internalPayload.isFirebaseMessaging) {
-        return;
-    }
-    if (messaging.onMessageHandler &&
-        internalPayload.messageType === MessageType.PUSH_RECEIVED) {
-        if (typeof messaging.onMessageHandler === 'function') {
-            messaging.onMessageHandler(externalizePayload(internalPayload));
-        }
-        else {
-            messaging.onMessageHandler.next(externalizePayload(internalPayload));
-        }
-    }
-    // Log to Scion if applicable
-    const dataPayload = internalPayload.data;
-    if (isConsoleMessage(dataPayload) &&
-        dataPayload[CONSOLE_CAMPAIGN_ANALYTICS_ENABLED] === '1') {
-        await logToScion(messaging, internalPayload.messageType, dataPayload);
-    }
-}
-
-const name = "@firebase/messaging";
-const version = "0.9.4";
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const WindowMessagingFactory = (container) => {
-    const messaging = new MessagingService(container.getProvider('app').getImmediate(), container.getProvider('installations-internal').getImmediate(), container.getProvider('analytics-internal'));
-    navigator.serviceWorker.addEventListener('message', e => messageEventListener(messaging, e));
-    return messaging;
-};
-const WindowMessagingInternalFactory = (container) => {
-    const messaging = container
-        .getProvider('messaging')
-        .getImmediate();
-    const messagingInternal = {
-        getToken: (options) => getToken$1(messaging, options)
-    };
-    return messagingInternal;
-};
-function registerMessagingInWindow() {
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["_registerComponent"])(new _firebase_component__WEBPACK_IMPORTED_MODULE_1__["Component"]('messaging', WindowMessagingFactory, "PUBLIC" /* PUBLIC */));
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["_registerComponent"])(new _firebase_component__WEBPACK_IMPORTED_MODULE_1__["Component"]('messaging-internal', WindowMessagingInternalFactory, "PRIVATE" /* PRIVATE */));
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["registerVersion"])(name, version);
-    // BUILD_TARGET will be replaced by values like esm5, esm2017, cjs5, etc during the compilation
-    Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["registerVersion"])(name, version, 'esm2017');
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Checks if all required APIs exist in the browser.
- * @returns a Promise that resolves to a boolean.
- *
- * @public
- */
-async function isWindowSupported() {
-    // firebase-js-sdk/issues/2393 reveals that idb#open in Safari iframe and Firefox private browsing
-    // might be prohibited to run. In these contexts, an error would be thrown during the messaging
-    // instantiating phase, informing the developers to import/call isSupported for special handling.
-    return (typeof window !== 'undefined' &&
-        Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["isIndexedDBAvailable"])() &&
-        (await Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["validateIndexedDBOpenable"])()) &&
-        Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["areCookiesEnabled"])() &&
-        'serviceWorker' in navigator &&
-        'PushManager' in window &&
-        'Notification' in window &&
-        'fetch' in window &&
-        ServiceWorkerRegistration.prototype.hasOwnProperty('showNotification') &&
-        PushSubscription.prototype.hasOwnProperty('getKey'));
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-async function deleteToken$1(messaging) {
-    if (!navigator) {
-        throw ERROR_FACTORY.create("only-available-in-window" /* AVAILABLE_IN_WINDOW */);
-    }
-    if (!messaging.swRegistration) {
-        await registerDefaultSw(messaging);
-    }
-    return deleteTokenInternal(messaging);
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function onMessage$1(messaging, nextOrObserver) {
-    if (!navigator) {
-        throw ERROR_FACTORY.create("only-available-in-window" /* AVAILABLE_IN_WINDOW */);
-    }
-    messaging.onMessageHandler = nextOrObserver;
-    return () => {
-        messaging.onMessageHandler = null;
-    };
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Retrieves a Firebase Cloud Messaging instance.
- *
- * @returns The Firebase Cloud Messaging instance associated with the provided firebase app.
- *
- * @public
- */
-function getMessagingInWindow(app = Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["getApp"])()) {
-    // Conscious decision to make this async check non-blocking during the messaging instance
-    // initialization phase for performance consideration. An error would be thrown latter for
-    // developer's information. Developers can then choose to import and call `isSupported` for
-    // special handling.
-    isWindowSupported().then(isSupported => {
-        // If `isWindowSupported()` resolved, but returned false.
-        if (!isSupported) {
-            throw ERROR_FACTORY.create("unsupported-browser" /* UNSUPPORTED_BROWSER */);
-        }
-    }, _ => {
-        // If `isWindowSupported()` rejected.
-        throw ERROR_FACTORY.create("indexed-db-unsupported" /* INDEXED_DB_UNSUPPORTED */);
-    });
-    return Object(_firebase_app__WEBPACK_IMPORTED_MODULE_4__["_getProvider"])(Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(app), 'messaging').getImmediate();
-}
-/**
- * Subscribes the {@link Messaging} instance to push notifications. Returns an Firebase Cloud
- * Messaging registration token that can be used to send push messages to that {@link Messaging}
- * instance.
- *
- * If a notification permission isn't already granted, this method asks the user for permission. The
- * returned promise rejects if the user does not allow the app to show notifications.
- *
- * @param messaging - The {@link Messaging} instance.
- * @param options - Provides an optional vapid key and an optinoal service worker registration
- *
- * @returns The promise resolves with an FCM registration token.
- *
- * @public
- */
-async function getToken(messaging, options) {
-    messaging = Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(messaging);
-    return getToken$1(messaging, options);
-}
-/**
- * Deletes the registration token associated with this {@link Messaging} instance and unsubscribes
- * the {@link Messaging} instance from the push subscription.
- *
- * @param messaging - The {@link Messaging} instance.
- *
- * @returns The promise resolves when the token has been successfully deleted.
- *
- * @public
- */
-function deleteToken(messaging) {
-    messaging = Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(messaging);
-    return deleteToken$1(messaging);
-}
-/**
- * When a push message is received and the user is currently on a page for your origin, the
- * message is passed to the page and an `onMessage()` event is dispatched with the payload of
- * the push message.
- *
- *
- * @param messaging - The {@link Messaging} instance.
- * @param nextOrObserver - This function, or observer object with `next` defined,
- *     is called when a message is received and the user is currently viewing your page.
- * @returns To stop listening for messages execute this returned function.
- *
- * @public
- */
-function onMessage(messaging, nextOrObserver) {
-    messaging = Object(_firebase_util__WEBPACK_IMPORTED_MODULE_3__["getModularInstance"])(messaging);
-    return onMessage$1(messaging, nextOrObserver);
-}
-
-/**
- * Firebase Cloud Messaging
- *
- * @packageDocumentation
- */
-registerMessagingInWindow();
-
-
-//# sourceMappingURL=index.esm2017.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/@firebase/util/dist/index.esm2017.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/@firebase/util/dist/index.esm2017.js ***!
-  \***********************************************************/
-/*! exports provided: CONSTANTS, Deferred, ErrorFactory, FirebaseError, MAX_VALUE_MILLIS, RANDOM_FACTOR, Sha1, areCookiesEnabled, assert, assertionError, async, base64, base64Decode, base64Encode, base64urlEncodeWithoutPadding, calculateBackoffMillis, contains, createMockUserToken, createSubscribe, decode, deepCopy, deepEqual, deepExtend, errorPrefix, extractQuerystring, getGlobal, getModularInstance, getUA, isAdmin, isBrowser, isBrowserExtension, isElectron, isEmpty, isIE, isIndexedDBAvailable, isMobileCordova, isNode, isNodeSdk, isReactNative, isSafari, isUWP, isValidFormat, isValidTimestamp, issuedAtTime, jsonEval, map, ordinal, querystring, querystringDecode, safeGet, stringLength, stringToByteArray, stringify, validateArgCount, validateCallback, validateContextObject, validateIndexedDBOpenable, validateNamespace */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONSTANTS", function() { return CONSTANTS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Deferred", function() { return Deferred; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorFactory", function() { return ErrorFactory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FirebaseError", function() { return FirebaseError; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAX_VALUE_MILLIS", function() { return MAX_VALUE_MILLIS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RANDOM_FACTOR", function() { return RANDOM_FACTOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Sha1", function() { return Sha1; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "areCookiesEnabled", function() { return areCookiesEnabled; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assert", function() { return assert; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assertionError", function() { return assertionError; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "async", function() { return async; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64", function() { return base64; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64Decode", function() { return base64Decode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64Encode", function() { return base64Encode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64urlEncodeWithoutPadding", function() { return base64urlEncodeWithoutPadding; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "calculateBackoffMillis", function() { return calculateBackoffMillis; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "contains", function() { return contains; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createMockUserToken", function() { return createMockUserToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSubscribe", function() { return createSubscribe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decode", function() { return decode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepEqual", function() { return deepEqual; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deepExtend", function() { return deepExtend; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorPrefix", function() { return errorPrefix; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extractQuerystring", function() { return extractQuerystring; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGlobal", function() { return getGlobal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getModularInstance", function() { return getModularInstance; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUA", function() { return getUA; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAdmin", function() { return isAdmin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBrowser", function() { return isBrowser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBrowserExtension", function() { return isBrowserExtension; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isElectron", function() { return isElectron; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isIE", function() { return isIE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isIndexedDBAvailable", function() { return isIndexedDBAvailable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isMobileCordova", function() { return isMobileCordova; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNode", function() { return isNode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNodeSdk", function() { return isNodeSdk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isReactNative", function() { return isReactNative; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isSafari", function() { return isSafari; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUWP", function() { return isUWP; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isValidFormat", function() { return isValidFormat; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isValidTimestamp", function() { return isValidTimestamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "issuedAtTime", function() { return issuedAtTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jsonEval", function() { return jsonEval; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordinal", function() { return ordinal; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "querystring", function() { return querystring; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "querystringDecode", function() { return querystringDecode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "safeGet", function() { return safeGet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stringLength", function() { return stringLength; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stringToByteArray", function() { return stringToByteArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return stringify; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateArgCount", function() { return validateArgCount; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateCallback", function() { return validateCallback; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateContextObject", function() { return validateContextObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateIndexedDBOpenable", function() { return validateIndexedDBOpenable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateNamespace", function() { return validateNamespace; });
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @fileoverview Firebase constants.  Some of these (@defines) can be overridden at compile-time.
- */
-const CONSTANTS = {
-    /**
-     * @define {boolean} Whether this is the client Node.js SDK.
-     */
-    NODE_CLIENT: false,
-    /**
-     * @define {boolean} Whether this is the Admin Node.js SDK.
-     */
-    NODE_ADMIN: false,
-    /**
-     * Firebase SDK Version
-     */
-    SDK_VERSION: '${JSCORE_VERSION}'
-};
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Throws an error if the provided assertion is falsy
- */
-const assert = function (assertion, message) {
-    if (!assertion) {
-        throw assertionError(message);
-    }
-};
-/**
- * Returns an Error object suitable for throwing.
- */
-const assertionError = function (message) {
-    return new Error('Firebase Database (' +
-        CONSTANTS.SDK_VERSION +
-        ') INTERNAL ASSERT FAILED: ' +
-        message);
-};
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-const stringToByteArray$1 = function (str) {
-    // TODO(user): Use native implementations if/when available
-    const out = [];
-    let p = 0;
-    for (let i = 0; i < str.length; i++) {
-        let c = str.charCodeAt(i);
-        if (c < 128) {
-            out[p++] = c;
-        }
-        else if (c < 2048) {
-            out[p++] = (c >> 6) | 192;
-            out[p++] = (c & 63) | 128;
-        }
-        else if ((c & 0xfc00) === 0xd800 &&
-            i + 1 < str.length &&
-            (str.charCodeAt(i + 1) & 0xfc00) === 0xdc00) {
-            // Surrogate Pair
-            c = 0x10000 + ((c & 0x03ff) << 10) + (str.charCodeAt(++i) & 0x03ff);
-            out[p++] = (c >> 18) | 240;
-            out[p++] = ((c >> 12) & 63) | 128;
-            out[p++] = ((c >> 6) & 63) | 128;
-            out[p++] = (c & 63) | 128;
-        }
-        else {
-            out[p++] = (c >> 12) | 224;
-            out[p++] = ((c >> 6) & 63) | 128;
-            out[p++] = (c & 63) | 128;
-        }
-    }
-    return out;
-};
-/**
- * Turns an array of numbers into the string given by the concatenation of the
- * characters to which the numbers correspond.
- * @param bytes Array of numbers representing characters.
- * @return Stringification of the array.
- */
-const byteArrayToString = function (bytes) {
-    // TODO(user): Use native implementations if/when available
-    const out = [];
-    let pos = 0, c = 0;
-    while (pos < bytes.length) {
-        const c1 = bytes[pos++];
-        if (c1 < 128) {
-            out[c++] = String.fromCharCode(c1);
-        }
-        else if (c1 > 191 && c1 < 224) {
-            const c2 = bytes[pos++];
-            out[c++] = String.fromCharCode(((c1 & 31) << 6) | (c2 & 63));
-        }
-        else if (c1 > 239 && c1 < 365) {
-            // Surrogate Pair
-            const c2 = bytes[pos++];
-            const c3 = bytes[pos++];
-            const c4 = bytes[pos++];
-            const u = (((c1 & 7) << 18) | ((c2 & 63) << 12) | ((c3 & 63) << 6) | (c4 & 63)) -
-                0x10000;
-            out[c++] = String.fromCharCode(0xd800 + (u >> 10));
-            out[c++] = String.fromCharCode(0xdc00 + (u & 1023));
-        }
-        else {
-            const c2 = bytes[pos++];
-            const c3 = bytes[pos++];
-            out[c++] = String.fromCharCode(((c1 & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-        }
-    }
-    return out.join('');
-};
-// We define it as an object literal instead of a class because a class compiled down to es5 can't
-// be treeshaked. https://github.com/rollup/rollup/issues/1691
-// Static lookup maps, lazily populated by init_()
-const base64 = {
-    /**
-     * Maps bytes to characters.
-     */
-    byteToCharMap_: null,
-    /**
-     * Maps characters to bytes.
-     */
-    charToByteMap_: null,
-    /**
-     * Maps bytes to websafe characters.
-     * @private
-     */
-    byteToCharMapWebSafe_: null,
-    /**
-     * Maps websafe characters to bytes.
-     * @private
-     */
-    charToByteMapWebSafe_: null,
-    /**
-     * Our default alphabet, shared between
-     * ENCODED_VALS and ENCODED_VALS_WEBSAFE
-     */
-    ENCODED_VALS_BASE: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 'abcdefghijklmnopqrstuvwxyz' + '0123456789',
-    /**
-     * Our default alphabet. Value 64 (=) is special; it means "nothing."
-     */
-    get ENCODED_VALS() {
-        return this.ENCODED_VALS_BASE + '+/=';
-    },
-    /**
-     * Our websafe alphabet.
-     */
-    get ENCODED_VALS_WEBSAFE() {
-        return this.ENCODED_VALS_BASE + '-_.';
-    },
-    /**
-     * Whether this browser supports the atob and btoa functions. This extension
-     * started at Mozilla but is now implemented by many browsers. We use the
-     * ASSUME_* variables to avoid pulling in the full useragent detection library
-     * but still allowing the standard per-browser compilations.
-     *
-     */
-    HAS_NATIVE_SUPPORT: typeof atob === 'function',
-    /**
-     * Base64-encode an array of bytes.
-     *
-     * @param input An array of bytes (numbers with
-     *     value in [0, 255]) to encode.
-     * @param webSafe Boolean indicating we should use the
-     *     alternative alphabet.
-     * @return The base64 encoded string.
-     */
-    encodeByteArray(input, webSafe) {
-        if (!Array.isArray(input)) {
-            throw Error('encodeByteArray takes an array as a parameter');
-        }
-        this.init_();
-        const byteToCharMap = webSafe
-            ? this.byteToCharMapWebSafe_
-            : this.byteToCharMap_;
-        const output = [];
-        for (let i = 0; i < input.length; i += 3) {
-            const byte1 = input[i];
-            const haveByte2 = i + 1 < input.length;
-            const byte2 = haveByte2 ? input[i + 1] : 0;
-            const haveByte3 = i + 2 < input.length;
-            const byte3 = haveByte3 ? input[i + 2] : 0;
-            const outByte1 = byte1 >> 2;
-            const outByte2 = ((byte1 & 0x03) << 4) | (byte2 >> 4);
-            let outByte3 = ((byte2 & 0x0f) << 2) | (byte3 >> 6);
-            let outByte4 = byte3 & 0x3f;
-            if (!haveByte3) {
-                outByte4 = 64;
-                if (!haveByte2) {
-                    outByte3 = 64;
-                }
-            }
-            output.push(byteToCharMap[outByte1], byteToCharMap[outByte2], byteToCharMap[outByte3], byteToCharMap[outByte4]);
-        }
-        return output.join('');
-    },
-    /**
-     * Base64-encode a string.
-     *
-     * @param input A string to encode.
-     * @param webSafe If true, we should use the
-     *     alternative alphabet.
-     * @return The base64 encoded string.
-     */
-    encodeString(input, webSafe) {
-        // Shortcut for Mozilla browsers that implement
-        // a native base64 encoder in the form of "btoa/atob"
-        if (this.HAS_NATIVE_SUPPORT && !webSafe) {
-            return btoa(input);
-        }
-        return this.encodeByteArray(stringToByteArray$1(input), webSafe);
-    },
-    /**
-     * Base64-decode a string.
-     *
-     * @param input to decode.
-     * @param webSafe True if we should use the
-     *     alternative alphabet.
-     * @return string representing the decoded value.
-     */
-    decodeString(input, webSafe) {
-        // Shortcut for Mozilla browsers that implement
-        // a native base64 encoder in the form of "btoa/atob"
-        if (this.HAS_NATIVE_SUPPORT && !webSafe) {
-            return atob(input);
-        }
-        return byteArrayToString(this.decodeStringToByteArray(input, webSafe));
-    },
-    /**
-     * Base64-decode a string.
-     *
-     * In base-64 decoding, groups of four characters are converted into three
-     * bytes.  If the encoder did not apply padding, the input length may not
-     * be a multiple of 4.
-     *
-     * In this case, the last group will have fewer than 4 characters, and
-     * padding will be inferred.  If the group has one or two characters, it decodes
-     * to one byte.  If the group has three characters, it decodes to two bytes.
-     *
-     * @param input Input to decode.
-     * @param webSafe True if we should use the web-safe alphabet.
-     * @return bytes representing the decoded value.
-     */
-    decodeStringToByteArray(input, webSafe) {
-        this.init_();
-        const charToByteMap = webSafe
-            ? this.charToByteMapWebSafe_
-            : this.charToByteMap_;
-        const output = [];
-        for (let i = 0; i < input.length;) {
-            const byte1 = charToByteMap[input.charAt(i++)];
-            const haveByte2 = i < input.length;
-            const byte2 = haveByte2 ? charToByteMap[input.charAt(i)] : 0;
-            ++i;
-            const haveByte3 = i < input.length;
-            const byte3 = haveByte3 ? charToByteMap[input.charAt(i)] : 64;
-            ++i;
-            const haveByte4 = i < input.length;
-            const byte4 = haveByte4 ? charToByteMap[input.charAt(i)] : 64;
-            ++i;
-            if (byte1 == null || byte2 == null || byte3 == null || byte4 == null) {
-                throw Error();
-            }
-            const outByte1 = (byte1 << 2) | (byte2 >> 4);
-            output.push(outByte1);
-            if (byte3 !== 64) {
-                const outByte2 = ((byte2 << 4) & 0xf0) | (byte3 >> 2);
-                output.push(outByte2);
-                if (byte4 !== 64) {
-                    const outByte3 = ((byte3 << 6) & 0xc0) | byte4;
-                    output.push(outByte3);
-                }
-            }
-        }
-        return output;
-    },
-    /**
-     * Lazy static initialization function. Called before
-     * accessing any of the static map variables.
-     * @private
-     */
-    init_() {
-        if (!this.byteToCharMap_) {
-            this.byteToCharMap_ = {};
-            this.charToByteMap_ = {};
-            this.byteToCharMapWebSafe_ = {};
-            this.charToByteMapWebSafe_ = {};
-            // We want quick mappings back and forth, so we precompute two maps.
-            for (let i = 0; i < this.ENCODED_VALS.length; i++) {
-                this.byteToCharMap_[i] = this.ENCODED_VALS.charAt(i);
-                this.charToByteMap_[this.byteToCharMap_[i]] = i;
-                this.byteToCharMapWebSafe_[i] = this.ENCODED_VALS_WEBSAFE.charAt(i);
-                this.charToByteMapWebSafe_[this.byteToCharMapWebSafe_[i]] = i;
-                // Be forgiving when decoding and correctly decode both encodings.
-                if (i >= this.ENCODED_VALS_BASE.length) {
-                    this.charToByteMap_[this.ENCODED_VALS_WEBSAFE.charAt(i)] = i;
-                    this.charToByteMapWebSafe_[this.ENCODED_VALS.charAt(i)] = i;
-                }
-            }
-        }
-    }
-};
-/**
- * URL-safe base64 encoding
- */
-const base64Encode = function (str) {
-    const utf8Bytes = stringToByteArray$1(str);
-    return base64.encodeByteArray(utf8Bytes, true);
-};
-/**
- * URL-safe base64 encoding (without "." padding in the end).
- * e.g. Used in JSON Web Token (JWT) parts.
- */
-const base64urlEncodeWithoutPadding = function (str) {
-    // Use base64url encoding and remove padding in the end (dot characters).
-    return base64Encode(str).replace(/\./g, '');
-};
-/**
- * URL-safe base64 decoding
- *
- * NOTE: DO NOT use the global atob() function - it does NOT support the
- * base64Url variant encoding.
- *
- * @param str To be decoded
- * @return Decoded result, if possible
- */
-const base64Decode = function (str) {
-    try {
-        return base64.decodeString(str, true);
-    }
-    catch (e) {
-        console.error('base64Decode failed: ', e);
-    }
-    return null;
-};
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Do a deep-copy of basic JavaScript Objects or Arrays.
- */
-function deepCopy(value) {
-    return deepExtend(undefined, value);
-}
-/**
- * Copy properties from source to target (recursively allows extension
- * of Objects and Arrays).  Scalar values in the target are over-written.
- * If target is undefined, an object of the appropriate type will be created
- * (and returned).
- *
- * We recursively copy all child properties of plain Objects in the source- so
- * that namespace- like dictionaries are merged.
- *
- * Note that the target can be a function, in which case the properties in
- * the source Object are copied onto it as static properties of the Function.
- *
- * Note: we don't merge __proto__ to prevent prototype pollution
- */
-function deepExtend(target, source) {
-    if (!(source instanceof Object)) {
-        return source;
-    }
-    switch (source.constructor) {
-        case Date:
-            // Treat Dates like scalars; if the target date object had any child
-            // properties - they will be lost!
-            const dateValue = source;
-            return new Date(dateValue.getTime());
-        case Object:
-            if (target === undefined) {
-                target = {};
-            }
-            break;
-        case Array:
-            // Always copy the array source and overwrite the target.
-            target = [];
-            break;
-        default:
-            // Not a plain Object - treat it as a scalar.
-            return source;
-    }
-    for (const prop in source) {
-        // use isValidKey to guard against prototype pollution. See https://snyk.io/vuln/SNYK-JS-LODASH-450202
-        if (!source.hasOwnProperty(prop) || !isValidKey(prop)) {
-            continue;
-        }
-        target[prop] = deepExtend(target[prop], source[prop]);
-    }
-    return target;
-}
-function isValidKey(key) {
-    return key !== '__proto__';
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-class Deferred {
-    constructor() {
-        this.reject = () => { };
-        this.resolve = () => { };
-        this.promise = new Promise((resolve, reject) => {
-            this.resolve = resolve;
-            this.reject = reject;
-        });
-    }
-    /**
-     * Our API internals are not promiseified and cannot because our callback APIs have subtle expectations around
-     * invoking promises inline, which Promises are forbidden to do. This method accepts an optional node-style callback
-     * and returns a node-style callback which will resolve or reject the Deferred's promise.
-     */
-    wrapCallback(callback) {
-        return (error, value) => {
-            if (error) {
-                this.reject(error);
-            }
-            else {
-                this.resolve(value);
-            }
-            if (typeof callback === 'function') {
-                // Attaching noop handler just in case developer wasn't expecting
-                // promises
-                this.promise.catch(() => { });
-                // Some of our callbacks don't expect a value and our own tests
-                // assert that the parameter length is 1
-                if (callback.length === 1) {
-                    callback(error);
-                }
-                else {
-                    callback(error, value);
-                }
-            }
-        };
-    }
-}
-
-/**
- * @license
- * Copyright 2021 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function createMockUserToken(token, projectId) {
-    if (token.uid) {
-        throw new Error('The "uid" field is no longer supported by mockUserToken. Please use "sub" instead for Firebase Auth User ID.');
-    }
-    // Unsecured JWTs use "none" as the algorithm.
-    const header = {
-        alg: 'none',
-        type: 'JWT'
-    };
-    const project = projectId || 'demo-project';
-    const iat = token.iat || 0;
-    const sub = token.sub || token.user_id;
-    if (!sub) {
-        throw new Error("mockUserToken must contain 'sub' or 'user_id' field!");
-    }
-    const payload = Object.assign({ 
-        // Set all required fields to decent defaults
-        iss: `https://securetoken.google.com/${project}`, aud: project, iat, exp: iat + 3600, auth_time: iat, sub, user_id: sub, firebase: {
-            sign_in_provider: 'custom',
-            identities: {}
-        } }, token);
-    // Unsecured JWTs use the empty string as a signature.
-    const signature = '';
-    return [
-        base64urlEncodeWithoutPadding(JSON.stringify(header)),
-        base64urlEncodeWithoutPadding(JSON.stringify(payload)),
-        signature
-    ].join('.');
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Returns navigator.userAgent string or '' if it's not defined.
- * @return user agent string
- */
-function getUA() {
-    if (typeof navigator !== 'undefined' &&
-        typeof navigator['userAgent'] === 'string') {
-        return navigator['userAgent'];
-    }
-    else {
-        return '';
-    }
-}
-/**
- * Detect Cordova / PhoneGap / Ionic frameworks on a mobile device.
- *
- * Deliberately does not rely on checking `file://` URLs (as this fails PhoneGap
- * in the Ripple emulator) nor Cordova `onDeviceReady`, which would normally
- * wait for a callback.
- */
-function isMobileCordova() {
-    return (typeof window !== 'undefined' &&
-        // @ts-ignore Setting up an broadly applicable index signature for Window
-        // just to deal with this case would probably be a bad idea.
-        !!(window['cordova'] || window['phonegap'] || window['PhoneGap']) &&
-        /ios|iphone|ipod|ipad|android|blackberry|iemobile/i.test(getUA()));
-}
-/**
- * Detect Node.js.
- *
- * @return true if Node.js environment is detected.
- */
-// Node detection logic from: https://github.com/iliakan/detect-node/
-function isNode() {
-    try {
-        return (Object.prototype.toString.call(global.process) === '[object process]');
-    }
-    catch (e) {
-        return false;
-    }
-}
-/**
- * Detect Browser Environment
- */
-function isBrowser() {
-    return typeof self === 'object' && self.self === self;
-}
-function isBrowserExtension() {
-    const runtime = typeof chrome === 'object'
-        ? chrome.runtime
-        : typeof browser === 'object'
-            ? browser.runtime
-            : undefined;
-    return typeof runtime === 'object' && runtime.id !== undefined;
-}
-/**
- * Detect React Native.
- *
- * @return true if ReactNative environment is detected.
- */
-function isReactNative() {
-    return (typeof navigator === 'object' && navigator['product'] === 'ReactNative');
-}
-/** Detects Electron apps. */
-function isElectron() {
-    return getUA().indexOf('Electron/') >= 0;
-}
-/** Detects Internet Explorer. */
-function isIE() {
-    const ua = getUA();
-    return ua.indexOf('MSIE ') >= 0 || ua.indexOf('Trident/') >= 0;
-}
-/** Detects Universal Windows Platform apps. */
-function isUWP() {
-    return getUA().indexOf('MSAppHost/') >= 0;
-}
-/**
- * Detect whether the current SDK build is the Node version.
- *
- * @return true if it's the Node SDK build.
- */
-function isNodeSdk() {
-    return CONSTANTS.NODE_CLIENT === true || CONSTANTS.NODE_ADMIN === true;
-}
-/** Returns true if we are running in Safari. */
-function isSafari() {
-    return (!isNode() &&
-        navigator.userAgent.includes('Safari') &&
-        !navigator.userAgent.includes('Chrome'));
-}
-/**
- * This method checks if indexedDB is supported by current browser/service worker context
- * @return true if indexedDB is supported by current browser/service worker context
- */
-function isIndexedDBAvailable() {
-    return typeof indexedDB === 'object';
-}
-/**
- * This method validates browser/sw context for indexedDB by opening a dummy indexedDB database and reject
- * if errors occur during the database open operation.
- *
- * @throws exception if current browser/sw context can't run idb.open (ex: Safari iframe, Firefox
- * private browsing)
- */
-function validateIndexedDBOpenable() {
-    return new Promise((resolve, reject) => {
-        try {
-            let preExist = true;
-            const DB_CHECK_NAME = 'validate-browser-context-for-indexeddb-analytics-module';
-            const request = self.indexedDB.open(DB_CHECK_NAME);
-            request.onsuccess = () => {
-                request.result.close();
-                // delete database only when it doesn't pre-exist
-                if (!preExist) {
-                    self.indexedDB.deleteDatabase(DB_CHECK_NAME);
-                }
-                resolve(true);
-            };
-            request.onupgradeneeded = () => {
-                preExist = false;
-            };
-            request.onerror = () => {
-                var _a;
-                reject(((_a = request.error) === null || _a === void 0 ? void 0 : _a.message) || '');
-            };
-        }
-        catch (error) {
-            reject(error);
-        }
-    });
-}
-/**
- *
- * This method checks whether cookie is enabled within current browser
- * @return true if cookie is enabled within current browser
- */
-function areCookiesEnabled() {
-    if (typeof navigator === 'undefined' || !navigator.cookieEnabled) {
-        return false;
-    }
-    return true;
-}
-/**
- * Polyfill for `globalThis` object.
- * @returns the `globalThis` object for the given environment.
- */
-function getGlobal() {
-    if (typeof self !== 'undefined') {
-        return self;
-    }
-    if (typeof window !== 'undefined') {
-        return window;
-    }
-    if (typeof global !== 'undefined') {
-        return global;
-    }
-    throw new Error('Unable to locate global object.');
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @fileoverview Standardized Firebase Error.
- *
- * Usage:
- *
- *   // Typescript string literals for type-safe codes
- *   type Err =
- *     'unknown' |
- *     'object-not-found'
- *     ;
- *
- *   // Closure enum for type-safe error codes
- *   // at-enum {string}
- *   var Err = {
- *     UNKNOWN: 'unknown',
- *     OBJECT_NOT_FOUND: 'object-not-found',
- *   }
- *
- *   let errors: Map<Err, string> = {
- *     'generic-error': "Unknown error",
- *     'file-not-found': "Could not find file: {$file}",
- *   };
- *
- *   // Type-safe function - must pass a valid error code as param.
- *   let error = new ErrorFactory<Err>('service', 'Service', errors);
- *
- *   ...
- *   throw error.create(Err.GENERIC);
- *   ...
- *   throw error.create(Err.FILE_NOT_FOUND, {'file': fileName});
- *   ...
- *   // Service: Could not file file: foo.txt (service/file-not-found).
- *
- *   catch (e) {
- *     assert(e.message === "Could not find file: foo.txt.");
- *     if (e.code === 'service/file-not-found') {
- *       console.log("Could not read file: " + e['file']);
- *     }
- *   }
- */
-const ERROR_NAME = 'FirebaseError';
-// Based on code from:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Custom_Error_Types
-class FirebaseError extends Error {
-    constructor(code, message, customData) {
-        super(message);
-        this.code = code;
-        this.customData = customData;
-        this.name = ERROR_NAME;
-        // Fix For ES5
-        // https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
-        Object.setPrototypeOf(this, FirebaseError.prototype);
-        // Maintains proper stack trace for where our error was thrown.
-        // Only available on V8.
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, ErrorFactory.prototype.create);
-        }
-    }
-}
-class ErrorFactory {
-    constructor(service, serviceName, errors) {
-        this.service = service;
-        this.serviceName = serviceName;
-        this.errors = errors;
-    }
-    create(code, ...data) {
-        const customData = data[0] || {};
-        const fullCode = `${this.service}/${code}`;
-        const template = this.errors[code];
-        const message = template ? replaceTemplate(template, customData) : 'Error';
-        // Service Name: Error message (service/code).
-        const fullMessage = `${this.serviceName}: ${message} (${fullCode}).`;
-        const error = new FirebaseError(fullCode, fullMessage, customData);
-        return error;
-    }
-}
-function replaceTemplate(template, data) {
-    return template.replace(PATTERN, (_, key) => {
-        const value = data[key];
-        return value != null ? String(value) : `<${key}?>`;
-    });
-}
-const PATTERN = /\{\$([^}]+)}/g;
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Evaluates a JSON string into a javascript object.
- *
- * @param {string} str A string containing JSON.
- * @return {*} The javascript object representing the specified JSON.
- */
-function jsonEval(str) {
-    return JSON.parse(str);
-}
-/**
- * Returns JSON representing a javascript object.
- * @param {*} data Javascript object to be stringified.
- * @return {string} The JSON contents of the object.
- */
-function stringify(data) {
-    return JSON.stringify(data);
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Decodes a Firebase auth. token into constituent parts.
- *
- * Notes:
- * - May return with invalid / incomplete claims if there's no native base64 decoding support.
- * - Doesn't check if the token is actually valid.
- */
-const decode = function (token) {
-    let header = {}, claims = {}, data = {}, signature = '';
-    try {
-        const parts = token.split('.');
-        header = jsonEval(base64Decode(parts[0]) || '');
-        claims = jsonEval(base64Decode(parts[1]) || '');
-        signature = parts[2];
-        data = claims['d'] || {};
-        delete claims['d'];
-    }
-    catch (e) { }
-    return {
-        header,
-        claims,
-        data,
-        signature
-    };
-};
-/**
- * Decodes a Firebase auth. token and checks the validity of its time-based claims. Will return true if the
- * token is within the time window authorized by the 'nbf' (not-before) and 'iat' (issued-at) claims.
- *
- * Notes:
- * - May return a false negative if there's no native base64 decoding support.
- * - Doesn't check if the token is actually valid.
- */
-const isValidTimestamp = function (token) {
-    const claims = decode(token).claims;
-    const now = Math.floor(new Date().getTime() / 1000);
-    let validSince = 0, validUntil = 0;
-    if (typeof claims === 'object') {
-        if (claims.hasOwnProperty('nbf')) {
-            validSince = claims['nbf'];
-        }
-        else if (claims.hasOwnProperty('iat')) {
-            validSince = claims['iat'];
-        }
-        if (claims.hasOwnProperty('exp')) {
-            validUntil = claims['exp'];
-        }
-        else {
-            // token will expire after 24h by default
-            validUntil = validSince + 86400;
-        }
-    }
-    return (!!now &&
-        !!validSince &&
-        !!validUntil &&
-        now >= validSince &&
-        now <= validUntil);
-};
-/**
- * Decodes a Firebase auth. token and returns its issued at time if valid, null otherwise.
- *
- * Notes:
- * - May return null if there's no native base64 decoding support.
- * - Doesn't check if the token is actually valid.
- */
-const issuedAtTime = function (token) {
-    const claims = decode(token).claims;
-    if (typeof claims === 'object' && claims.hasOwnProperty('iat')) {
-        return claims['iat'];
-    }
-    return null;
-};
-/**
- * Decodes a Firebase auth. token and checks the validity of its format. Expects a valid issued-at time.
- *
- * Notes:
- * - May return a false negative if there's no native base64 decoding support.
- * - Doesn't check if the token is actually valid.
- */
-const isValidFormat = function (token) {
-    const decoded = decode(token), claims = decoded.claims;
-    return !!claims && typeof claims === 'object' && claims.hasOwnProperty('iat');
-};
-/**
- * Attempts to peer into an auth token and determine if it's an admin auth token by looking at the claims portion.
- *
- * Notes:
- * - May return a false negative if there's no native base64 decoding support.
- * - Doesn't check if the token is actually valid.
- */
-const isAdmin = function (token) {
-    const claims = decode(token).claims;
-    return typeof claims === 'object' && claims['admin'] === true;
-};
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function contains(obj, key) {
-    return Object.prototype.hasOwnProperty.call(obj, key);
-}
-function safeGet(obj, key) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        return obj[key];
-    }
-    else {
-        return undefined;
-    }
-}
-function isEmpty(obj) {
-    for (const key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            return false;
-        }
-    }
-    return true;
-}
-function map(obj, fn, contextObj) {
-    const res = {};
-    for (const key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            res[key] = fn.call(contextObj, obj[key], key, obj);
-        }
-    }
-    return res;
-}
-/**
- * Deep equal two objects. Support Arrays and Objects.
- */
-function deepEqual(a, b) {
-    if (a === b) {
-        return true;
-    }
-    const aKeys = Object.keys(a);
-    const bKeys = Object.keys(b);
-    for (const k of aKeys) {
-        if (!bKeys.includes(k)) {
-            return false;
-        }
-        const aProp = a[k];
-        const bProp = b[k];
-        if (isObject(aProp) && isObject(bProp)) {
-            if (!deepEqual(aProp, bProp)) {
-                return false;
-            }
-        }
-        else if (aProp !== bProp) {
-            return false;
-        }
-    }
-    for (const k of bKeys) {
-        if (!aKeys.includes(k)) {
-            return false;
-        }
-    }
-    return true;
-}
-function isObject(thing) {
-    return thing !== null && typeof thing === 'object';
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Returns a querystring-formatted string (e.g. &arg=val&arg2=val2) from a
- * params object (e.g. {arg: 'val', arg2: 'val2'})
- * Note: You must prepend it with ? when adding it to a URL.
- */
-function querystring(querystringParams) {
-    const params = [];
-    for (const [key, value] of Object.entries(querystringParams)) {
-        if (Array.isArray(value)) {
-            value.forEach(arrayVal => {
-                params.push(encodeURIComponent(key) + '=' + encodeURIComponent(arrayVal));
-            });
-        }
-        else {
-            params.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
-        }
-    }
-    return params.length ? '&' + params.join('&') : '';
-}
-/**
- * Decodes a querystring (e.g. ?arg=val&arg2=val2) into a params object
- * (e.g. {arg: 'val', arg2: 'val2'})
- */
-function querystringDecode(querystring) {
-    const obj = {};
-    const tokens = querystring.replace(/^\?/, '').split('&');
-    tokens.forEach(token => {
-        if (token) {
-            const [key, value] = token.split('=');
-            obj[decodeURIComponent(key)] = decodeURIComponent(value);
-        }
-    });
-    return obj;
-}
-/**
- * Extract the query string part of a URL, including the leading question mark (if present).
- */
-function extractQuerystring(url) {
-    const queryStart = url.indexOf('?');
-    if (!queryStart) {
-        return '';
-    }
-    const fragmentStart = url.indexOf('#', queryStart);
-    return url.substring(queryStart, fragmentStart > 0 ? fragmentStart : undefined);
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @fileoverview SHA-1 cryptographic hash.
- * Variable names follow the notation in FIPS PUB 180-3:
- * http://csrc.nist.gov/publications/fips/fips180-3/fips180-3_final.pdf.
- *
- * Usage:
- *   var sha1 = new sha1();
- *   sha1.update(bytes);
- *   var hash = sha1.digest();
- *
- * Performance:
- *   Chrome 23:   ~400 Mbit/s
- *   Firefox 16:  ~250 Mbit/s
- *
- */
-/**
- * SHA-1 cryptographic hash constructor.
- *
- * The properties declared here are discussed in the above algorithm document.
- * @constructor
- * @final
- * @struct
- */
-class Sha1 {
-    constructor() {
-        /**
-         * Holds the previous values of accumulated variables a-e in the compress_
-         * function.
-         * @private
-         */
-        this.chain_ = [];
-        /**
-         * A buffer holding the partially computed hash result.
-         * @private
-         */
-        this.buf_ = [];
-        /**
-         * An array of 80 bytes, each a part of the message to be hashed.  Referred to
-         * as the message schedule in the docs.
-         * @private
-         */
-        this.W_ = [];
-        /**
-         * Contains data needed to pad messages less than 64 bytes.
-         * @private
-         */
-        this.pad_ = [];
-        /**
-         * @private {number}
-         */
-        this.inbuf_ = 0;
-        /**
-         * @private {number}
-         */
-        this.total_ = 0;
-        this.blockSize = 512 / 8;
-        this.pad_[0] = 128;
-        for (let i = 1; i < this.blockSize; ++i) {
-            this.pad_[i] = 0;
-        }
-        this.reset();
-    }
-    reset() {
-        this.chain_[0] = 0x67452301;
-        this.chain_[1] = 0xefcdab89;
-        this.chain_[2] = 0x98badcfe;
-        this.chain_[3] = 0x10325476;
-        this.chain_[4] = 0xc3d2e1f0;
-        this.inbuf_ = 0;
-        this.total_ = 0;
-    }
-    /**
-     * Internal compress helper function.
-     * @param buf Block to compress.
-     * @param offset Offset of the block in the buffer.
-     * @private
-     */
-    compress_(buf, offset) {
-        if (!offset) {
-            offset = 0;
-        }
-        const W = this.W_;
-        // get 16 big endian words
-        if (typeof buf === 'string') {
-            for (let i = 0; i < 16; i++) {
-                // TODO(user): [bug 8140122] Recent versions of Safari for Mac OS and iOS
-                // have a bug that turns the post-increment ++ operator into pre-increment
-                // during JIT compilation.  We have code that depends heavily on SHA-1 for
-                // correctness and which is affected by this bug, so I've removed all uses
-                // of post-increment ++ in which the result value is used.  We can revert
-                // this change once the Safari bug
-                // (https://bugs.webkit.org/show_bug.cgi?id=109036) has been fixed and
-                // most clients have been updated.
-                W[i] =
-                    (buf.charCodeAt(offset) << 24) |
-                        (buf.charCodeAt(offset + 1) << 16) |
-                        (buf.charCodeAt(offset + 2) << 8) |
-                        buf.charCodeAt(offset + 3);
-                offset += 4;
-            }
-        }
-        else {
-            for (let i = 0; i < 16; i++) {
-                W[i] =
-                    (buf[offset] << 24) |
-                        (buf[offset + 1] << 16) |
-                        (buf[offset + 2] << 8) |
-                        buf[offset + 3];
-                offset += 4;
-            }
-        }
-        // expand to 80 words
-        for (let i = 16; i < 80; i++) {
-            const t = W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16];
-            W[i] = ((t << 1) | (t >>> 31)) & 0xffffffff;
-        }
-        let a = this.chain_[0];
-        let b = this.chain_[1];
-        let c = this.chain_[2];
-        let d = this.chain_[3];
-        let e = this.chain_[4];
-        let f, k;
-        // TODO(user): Try to unroll this loop to speed up the computation.
-        for (let i = 0; i < 80; i++) {
-            if (i < 40) {
-                if (i < 20) {
-                    f = d ^ (b & (c ^ d));
-                    k = 0x5a827999;
-                }
-                else {
-                    f = b ^ c ^ d;
-                    k = 0x6ed9eba1;
-                }
-            }
-            else {
-                if (i < 60) {
-                    f = (b & c) | (d & (b | c));
-                    k = 0x8f1bbcdc;
-                }
-                else {
-                    f = b ^ c ^ d;
-                    k = 0xca62c1d6;
-                }
-            }
-            const t = (((a << 5) | (a >>> 27)) + f + e + k + W[i]) & 0xffffffff;
-            e = d;
-            d = c;
-            c = ((b << 30) | (b >>> 2)) & 0xffffffff;
-            b = a;
-            a = t;
-        }
-        this.chain_[0] = (this.chain_[0] + a) & 0xffffffff;
-        this.chain_[1] = (this.chain_[1] + b) & 0xffffffff;
-        this.chain_[2] = (this.chain_[2] + c) & 0xffffffff;
-        this.chain_[3] = (this.chain_[3] + d) & 0xffffffff;
-        this.chain_[4] = (this.chain_[4] + e) & 0xffffffff;
-    }
-    update(bytes, length) {
-        // TODO(johnlenz): tighten the function signature and remove this check
-        if (bytes == null) {
-            return;
-        }
-        if (length === undefined) {
-            length = bytes.length;
-        }
-        const lengthMinusBlock = length - this.blockSize;
-        let n = 0;
-        // Using local instead of member variables gives ~5% speedup on Firefox 16.
-        const buf = this.buf_;
-        let inbuf = this.inbuf_;
-        // The outer while loop should execute at most twice.
-        while (n < length) {
-            // When we have no data in the block to top up, we can directly process the
-            // input buffer (assuming it contains sufficient data). This gives ~25%
-            // speedup on Chrome 23 and ~15% speedup on Firefox 16, but requires that
-            // the data is provided in large chunks (or in multiples of 64 bytes).
-            if (inbuf === 0) {
-                while (n <= lengthMinusBlock) {
-                    this.compress_(bytes, n);
-                    n += this.blockSize;
-                }
-            }
-            if (typeof bytes === 'string') {
-                while (n < length) {
-                    buf[inbuf] = bytes.charCodeAt(n);
-                    ++inbuf;
-                    ++n;
-                    if (inbuf === this.blockSize) {
-                        this.compress_(buf);
-                        inbuf = 0;
-                        // Jump to the outer loop so we use the full-block optimization.
-                        break;
-                    }
-                }
-            }
-            else {
-                while (n < length) {
-                    buf[inbuf] = bytes[n];
-                    ++inbuf;
-                    ++n;
-                    if (inbuf === this.blockSize) {
-                        this.compress_(buf);
-                        inbuf = 0;
-                        // Jump to the outer loop so we use the full-block optimization.
-                        break;
-                    }
-                }
-            }
-        }
-        this.inbuf_ = inbuf;
-        this.total_ += length;
-    }
-    /** @override */
-    digest() {
-        const digest = [];
-        let totalBits = this.total_ * 8;
-        // Add pad 0x80 0x00*.
-        if (this.inbuf_ < 56) {
-            this.update(this.pad_, 56 - this.inbuf_);
-        }
-        else {
-            this.update(this.pad_, this.blockSize - (this.inbuf_ - 56));
-        }
-        // Add # bits.
-        for (let i = this.blockSize - 1; i >= 56; i--) {
-            this.buf_[i] = totalBits & 255;
-            totalBits /= 256; // Don't use bit-shifting here!
-        }
-        this.compress_(this.buf_);
-        let n = 0;
-        for (let i = 0; i < 5; i++) {
-            for (let j = 24; j >= 0; j -= 8) {
-                digest[n] = (this.chain_[i] >> j) & 255;
-                ++n;
-            }
-        }
-        return digest;
-    }
-}
-
-/**
- * Helper to make a Subscribe function (just like Promise helps make a
- * Thenable).
- *
- * @param executor Function which can make calls to a single Observer
- *     as a proxy.
- * @param onNoObservers Callback when count of Observers goes to zero.
- */
-function createSubscribe(executor, onNoObservers) {
-    const proxy = new ObserverProxy(executor, onNoObservers);
-    return proxy.subscribe.bind(proxy);
-}
-/**
- * Implement fan-out for any number of Observers attached via a subscribe
- * function.
- */
-class ObserverProxy {
-    /**
-     * @param executor Function which can make calls to a single Observer
-     *     as a proxy.
-     * @param onNoObservers Callback when count of Observers goes to zero.
-     */
-    constructor(executor, onNoObservers) {
-        this.observers = [];
-        this.unsubscribes = [];
-        this.observerCount = 0;
-        // Micro-task scheduling by calling task.then().
-        this.task = Promise.resolve();
-        this.finalized = false;
-        this.onNoObservers = onNoObservers;
-        // Call the executor asynchronously so subscribers that are called
-        // synchronously after the creation of the subscribe function
-        // can still receive the very first value generated in the executor.
-        this.task
-            .then(() => {
-            executor(this);
-        })
-            .catch(e => {
-            this.error(e);
-        });
-    }
-    next(value) {
-        this.forEachObserver((observer) => {
-            observer.next(value);
-        });
-    }
-    error(error) {
-        this.forEachObserver((observer) => {
-            observer.error(error);
-        });
-        this.close(error);
-    }
-    complete() {
-        this.forEachObserver((observer) => {
-            observer.complete();
-        });
-        this.close();
-    }
-    /**
-     * Subscribe function that can be used to add an Observer to the fan-out list.
-     *
-     * - We require that no event is sent to a subscriber sychronously to their
-     *   call to subscribe().
-     */
-    subscribe(nextOrObserver, error, complete) {
-        let observer;
-        if (nextOrObserver === undefined &&
-            error === undefined &&
-            complete === undefined) {
-            throw new Error('Missing Observer.');
-        }
-        // Assemble an Observer object when passed as callback functions.
-        if (implementsAnyMethods(nextOrObserver, [
-            'next',
-            'error',
-            'complete'
-        ])) {
-            observer = nextOrObserver;
-        }
-        else {
-            observer = {
-                next: nextOrObserver,
-                error,
-                complete
-            };
-        }
-        if (observer.next === undefined) {
-            observer.next = noop;
-        }
-        if (observer.error === undefined) {
-            observer.error = noop;
-        }
-        if (observer.complete === undefined) {
-            observer.complete = noop;
-        }
-        const unsub = this.unsubscribeOne.bind(this, this.observers.length);
-        // Attempt to subscribe to a terminated Observable - we
-        // just respond to the Observer with the final error or complete
-        // event.
-        if (this.finalized) {
-            // eslint-disable-next-line @typescript-eslint/no-floating-promises
-            this.task.then(() => {
-                try {
-                    if (this.finalError) {
-                        observer.error(this.finalError);
-                    }
-                    else {
-                        observer.complete();
-                    }
-                }
-                catch (e) {
-                    // nothing
-                }
-                return;
-            });
-        }
-        this.observers.push(observer);
-        return unsub;
-    }
-    // Unsubscribe is synchronous - we guarantee that no events are sent to
-    // any unsubscribed Observer.
-    unsubscribeOne(i) {
-        if (this.observers === undefined || this.observers[i] === undefined) {
-            return;
-        }
-        delete this.observers[i];
-        this.observerCount -= 1;
-        if (this.observerCount === 0 && this.onNoObservers !== undefined) {
-            this.onNoObservers(this);
-        }
-    }
-    forEachObserver(fn) {
-        if (this.finalized) {
-            // Already closed by previous event....just eat the additional values.
-            return;
-        }
-        // Since sendOne calls asynchronously - there is no chance that
-        // this.observers will become undefined.
-        for (let i = 0; i < this.observers.length; i++) {
-            this.sendOne(i, fn);
-        }
-    }
-    // Call the Observer via one of it's callback function. We are careful to
-    // confirm that the observe has not been unsubscribed since this asynchronous
-    // function had been queued.
-    sendOne(i, fn) {
-        // Execute the callback asynchronously
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        this.task.then(() => {
-            if (this.observers !== undefined && this.observers[i] !== undefined) {
-                try {
-                    fn(this.observers[i]);
-                }
-                catch (e) {
-                    // Ignore exceptions raised in Observers or missing methods of an
-                    // Observer.
-                    // Log error to console. b/31404806
-                    if (typeof console !== 'undefined' && console.error) {
-                        console.error(e);
-                    }
-                }
-            }
-        });
-    }
-    close(err) {
-        if (this.finalized) {
-            return;
-        }
-        this.finalized = true;
-        if (err !== undefined) {
-            this.finalError = err;
-        }
-        // Proxy is no longer needed - garbage collect references
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        this.task.then(() => {
-            this.observers = undefined;
-            this.onNoObservers = undefined;
-        });
-    }
-}
-/** Turn synchronous function into one called asynchronously. */
-// eslint-disable-next-line @typescript-eslint/ban-types
-function async(fn, onError) {
-    return (...args) => {
-        Promise.resolve(true)
-            .then(() => {
-            fn(...args);
-        })
-            .catch((error) => {
-            if (onError) {
-                onError(error);
-            }
-        });
-    };
-}
-/**
- * Return true if the object passed in implements any of the named methods.
- */
-function implementsAnyMethods(obj, methods) {
-    if (typeof obj !== 'object' || obj === null) {
-        return false;
-    }
-    for (const method of methods) {
-        if (method in obj && typeof obj[method] === 'function') {
-            return true;
-        }
-    }
-    return false;
-}
-function noop() {
-    // do nothing
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Check to make sure the appropriate number of arguments are provided for a public function.
- * Throws an error if it fails.
- *
- * @param fnName The function name
- * @param minCount The minimum number of arguments to allow for the function call
- * @param maxCount The maximum number of argument to allow for the function call
- * @param argCount The actual number of arguments provided.
- */
-const validateArgCount = function (fnName, minCount, maxCount, argCount) {
-    let argError;
-    if (argCount < minCount) {
-        argError = 'at least ' + minCount;
-    }
-    else if (argCount > maxCount) {
-        argError = maxCount === 0 ? 'none' : 'no more than ' + maxCount;
-    }
-    if (argError) {
-        const error = fnName +
-            ' failed: Was called with ' +
-            argCount +
-            (argCount === 1 ? ' argument.' : ' arguments.') +
-            ' Expects ' +
-            argError +
-            '.';
-        throw new Error(error);
-    }
-};
-/**
- * Generates a string to prefix an error message about failed argument validation
- *
- * @param fnName The function name
- * @param argName The name of the argument
- * @return The prefix to add to the error thrown for validation.
- */
-function errorPrefix(fnName, argName) {
-    return `${fnName} failed: ${argName} argument `;
-}
-/**
- * @param fnName
- * @param argumentNumber
- * @param namespace
- * @param optional
- */
-function validateNamespace(fnName, namespace, optional) {
-    if (optional && !namespace) {
-        return;
-    }
-    if (typeof namespace !== 'string') {
-        //TODO: I should do more validation here. We only allow certain chars in namespaces.
-        throw new Error(errorPrefix(fnName, 'namespace') + 'must be a valid firebase namespace.');
-    }
-}
-function validateCallback(fnName, argumentName, 
-// eslint-disable-next-line @typescript-eslint/ban-types
-callback, optional) {
-    if (optional && !callback) {
-        return;
-    }
-    if (typeof callback !== 'function') {
-        throw new Error(errorPrefix(fnName, argumentName) + 'must be a valid function.');
-    }
-}
-function validateContextObject(fnName, argumentName, context, optional) {
-    if (optional && !context) {
-        return;
-    }
-    if (typeof context !== 'object' || context === null) {
-        throw new Error(errorPrefix(fnName, argumentName) + 'must be a valid context object.');
-    }
-}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-// Code originally came from goog.crypt.stringToUtf8ByteArray, but for some reason they
-// automatically replaced '\r\n' with '\n', and they didn't handle surrogate pairs,
-// so it's been modified.
-// Note that not all Unicode characters appear as single characters in JavaScript strings.
-// fromCharCode returns the UTF-16 encoding of a character - so some Unicode characters
-// use 2 characters in Javascript.  All 4-byte UTF-8 characters begin with a first
-// character in the range 0xD800 - 0xDBFF (the first character of a so-called surrogate
-// pair).
-// See http://www.ecma-international.org/ecma-262/5.1/#sec-15.1.3
-/**
- * @param {string} str
- * @return {Array}
- */
-const stringToByteArray = function (str) {
-    const out = [];
-    let p = 0;
-    for (let i = 0; i < str.length; i++) {
-        let c = str.charCodeAt(i);
-        // Is this the lead surrogate in a surrogate pair?
-        if (c >= 0xd800 && c <= 0xdbff) {
-            const high = c - 0xd800; // the high 10 bits.
-            i++;
-            assert(i < str.length, 'Surrogate pair missing trail surrogate.');
-            const low = str.charCodeAt(i) - 0xdc00; // the low 10 bits.
-            c = 0x10000 + (high << 10) + low;
-        }
-        if (c < 128) {
-            out[p++] = c;
-        }
-        else if (c < 2048) {
-            out[p++] = (c >> 6) | 192;
-            out[p++] = (c & 63) | 128;
-        }
-        else if (c < 65536) {
-            out[p++] = (c >> 12) | 224;
-            out[p++] = ((c >> 6) & 63) | 128;
-            out[p++] = (c & 63) | 128;
-        }
-        else {
-            out[p++] = (c >> 18) | 240;
-            out[p++] = ((c >> 12) & 63) | 128;
-            out[p++] = ((c >> 6) & 63) | 128;
-            out[p++] = (c & 63) | 128;
-        }
-    }
-    return out;
-};
-/**
- * Calculate length without actually converting; useful for doing cheaper validation.
- * @param {string} str
- * @return {number}
- */
-const stringLength = function (str) {
-    let p = 0;
-    for (let i = 0; i < str.length; i++) {
-        const c = str.charCodeAt(i);
-        if (c < 128) {
-            p++;
-        }
-        else if (c < 2048) {
-            p += 2;
-        }
-        else if (c >= 0xd800 && c <= 0xdbff) {
-            // Lead surrogate of a surrogate pair.  The pair together will take 4 bytes to represent.
-            p += 4;
-            i++; // skip trail surrogate.
-        }
-        else {
-            p += 3;
-        }
-    }
-    return p;
-};
-
-/**
- * @license
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * The amount of milliseconds to exponentially increase.
- */
-const DEFAULT_INTERVAL_MILLIS = 1000;
-/**
- * The factor to backoff by.
- * Should be a number greater than 1.
- */
-const DEFAULT_BACKOFF_FACTOR = 2;
-/**
- * The maximum milliseconds to increase to.
- *
- * <p>Visible for testing
- */
-const MAX_VALUE_MILLIS = 4 * 60 * 60 * 1000; // Four hours, like iOS and Android.
-/**
- * The percentage of backoff time to randomize by.
- * See
- * http://go/safe-client-behavior#step-1-determine-the-appropriate-retry-interval-to-handle-spike-traffic
- * for context.
- *
- * <p>Visible for testing
- */
-const RANDOM_FACTOR = 0.5;
-/**
- * Based on the backoff method from
- * https://github.com/google/closure-library/blob/master/closure/goog/math/exponentialbackoff.js.
- * Extracted here so we don't need to pass metadata and a stateful ExponentialBackoff object around.
- */
-function calculateBackoffMillis(backoffCount, intervalMillis = DEFAULT_INTERVAL_MILLIS, backoffFactor = DEFAULT_BACKOFF_FACTOR) {
-    // Calculates an exponentially increasing value.
-    // Deviation: calculates value from count and a constant interval, so we only need to save value
-    // and count to restore state.
-    const currBaseValue = intervalMillis * Math.pow(backoffFactor, backoffCount);
-    // A random "fuzz" to avoid waves of retries.
-    // Deviation: randomFactor is required.
-    const randomWait = Math.round(
-    // A fraction of the backoff value to add/subtract.
-    // Deviation: changes multiplication order to improve readability.
-    RANDOM_FACTOR *
-        currBaseValue *
-        // A random float (rounded to int by Math.round above) in the range [-1, 1]. Determines
-        // if we add or subtract.
-        (Math.random() - 0.5) *
-        2);
-    // Limits backoff to max to avoid effectively permanent backoff.
-    return Math.min(MAX_VALUE_MILLIS, currBaseValue + randomWait);
-}
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Provide English ordinal letters after a number
- */
-function ordinal(i) {
-    if (!Number.isFinite(i)) {
-        return `${i}`;
-    }
-    return i + indicator(i);
-}
-function indicator(i) {
-    i = Math.abs(i);
-    const cent = i % 100;
-    if (cent >= 10 && cent <= 20) {
-        return 'th';
-    }
-    const dec = i % 10;
-    if (dec === 1) {
-        return 'st';
-    }
-    if (dec === 2) {
-        return 'nd';
-    }
-    if (dec === 3) {
-        return 'rd';
-    }
-    return 'th';
-}
-
-/**
- * @license
- * Copyright 2021 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-function getModularInstance(service) {
-    if (service && service._delegate) {
-        return service._delegate;
-    }
-    else {
-        return service;
-    }
-}
-
-
-//# sourceMappingURL=index.esm2017.js.map
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -7931,6 +2273,43 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AwaitingButton.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AwaitingButton.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AwaitingButton",
+  inheritAttrs: "false",
+  data: function data() {
+    return {
+      loading: false
+    };
+  },
+  methods: {
+    clicked: function clicked() {
+      var _this = this;
+
+      this.loading = true;
+      this.$emit('click', function () {
+        _this.loading = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FooterComponent.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FooterComponent.vue?vue&type=script&lang=js& ***!
@@ -8074,6 +2453,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getPage'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['getAboutPage'])),
   mounted: function mounted() {
+    console.log('mounted about page');
     this.getAboutPage();
   }
 });
@@ -8128,103 +2508,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Login.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Login.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      email: "",
-      password: ''
-    };
-  },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['userLogin'])), {}, {
-    login: function login() {
-      var _this = this;
-
-      var email = this.email;
-      var password = this.password;
-      var data = {
-        email: email,
-        password: password
-      };
-      this.userLogin(data).then(function () {
-        _this.$route.push('/profile');
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-    }
-  })
-});
 
 /***/ }),
 
@@ -8311,6 +2594,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Profile",
@@ -8327,18 +2663,276 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["getProfile", "updateProfile"])), {}, {
-    handleUpdateProfile: function handleUpdateProfile() {
-      this.updateProfile(this.user);
+    updateProfile: function updateProfile() {
+      var _this2 = this;
+
+      this.updateProfile(this.user).then(function () {})["catch"](function (err) {
+        _this2.$refs.observer.setErrors({
+          first_name: _this2.errors.first_name,
+          last_name: _this2.errors.last_name,
+          phone: _this2.errors.phone,
+          email: _this2.errors.email
+        });
+      });
     }
   })
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Register.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Register.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Activation.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Activation.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Activation",
+  data: function data() {
+    return {
+      error: "",
+      success: ''
+    };
+  },
+  methods: {
+    resendVerificationLink: function resendVerificationLink() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                formData = {
+                  email: "test@email.com"
+                };
+                _context.prev = 1;
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/v1/guest/sendVerificationEmail", formData);
+
+              case 4:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+
+                if (data) {
+                  console.log(data);
+
+                  if (data.status === 200) {
+                    _this.success = data.message;
+                  }
+                }
+
+                _context.next = 13;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0.response.data.message);
+                _this.error = _context.t0.response.data.message;
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 9]]);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Login.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Login.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      email: "",
+      password: "",
+      message: ""
+    };
+  },
+  mounted: function mounted() {
+    this.$store.commit("setErrors", {});
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["errors"])),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["userLogin"])), {}, {
+    login: function login() {
+      var _this = this;
+
+      this.$store.commit("setErrors", {});
+      this.message = '';
+      console.log('clicked');
+      var data = {
+        email: this.email,
+        password: this.password
+      };
+      this.userLogin(data).then(function () {
+        _this.$router.push("/profile");
+      })["catch"](function (err) {
+        _this.$refs.observer.setErrors({
+          email: _this.errors.email,
+          password: _this.errors.password
+        });
+
+        console.log('err', err.response);
+        _this.message = err.response.data.message;
+      });
+    }
+  })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Register.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8441,20 +3035,105 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      password: '',
-      password_confirmation: ''
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      password: "",
+      password_confirmation: ""
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['registerUser'])), {}, {
-    handleRegister: function handleRegister() {
+  mounted: function mounted() {
+    this.$store.commit("setErrors", {});
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["errors"])),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["registerUser"])), {}, {
+    register: function register() {
+      var _this = this;
+
       var data = {
         first_name: this.first_name,
         last_name: this.last_name,
@@ -8463,58 +3142,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password: this.password,
         password_confirmation: this.password_confirmation
       };
+      this.registerUser(data).then(function (res) {
+        if (res.status === 200) {
+          _this.$router.push({
+            name: "Activate"
+          });
+        }
+      })["catch"](function (error) {
+        _this.$refs.observer.setErrors({
+          first_name: _this.errors.first_name,
+          last_name: _this.errors.last_name,
+          phone: _this.errors.phone,
+          email: _this.errors.email,
+          password: _this.errors.password
+        });
 
-      try {
-        this.registerUser(data);
-      } catch (error) {
-        console.log(error);
-      }
+        console.log("err", err.response); // this.message = err.response.data.message;
+      });
     }
   })
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/VerifyEmail.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/VerifyEmail.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "VerifyEmail",
-  mounted: function mounted() {
-    this.verifyEmail();
-  },
-  methods: {
-    verifyEmail: function verifyEmail() {
-      var params = this.$route.query;
-
-      try {
-        var _axios$get = axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/v1/guest/register/verifyEmail', {
-          params: params
-        }),
-            data = _axios$get.data;
-
-        if (data) {
-          console.log('verified');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
 });
 
 /***/ }),
@@ -8572,6 +3218,141 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/VerifyEmail.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/VerifyEmail.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "VerifyEmail",
+  data: function data() {
+    return {
+      success: "",
+      error: ""
+    };
+  },
+  mounted: function mounted() {
+    this.verifyEmail();
+  },
+  methods: {
+    verifyEmail: function verifyEmail() {
+      var _this = this;
+
+      var params = this.$route.query;
+
+      try {
+        var _axios$get = axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/v1/guest/register/verifyEmail", {
+          params: params
+        }),
+            data = _axios$get.data;
+
+        if (data) {
+          console.log("verified");
+
+          if (data.status === 200) {
+            setTimeout(function () {
+              _this.$router.push({
+                name: "Login"
+              });
+            }, 5000);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+        this.error = error.response.data.message;
+      }
+    },
+    resendVerificationLink: function resendVerificationLink() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData, _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                formData = {
+                  email: "test@email.com"
+                };
+                _context.prev = 1;
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/api/v1/guest/sendVerificationEmail", formData);
+
+              case 4:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+
+                if (data) {
+                  console.log(data);
+
+                  if (data.status === 200) {
+                    _this2.success = data.message;
+                  }
+                }
+
+                _context.next = 13;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0.response.data.message);
+                _this2.error = _context.t0.response.data.message;
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 9]]);
+      }))();
     }
   }
 });
@@ -12961,428 +7742,127 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/firebase/app/dist/index.esm.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/firebase/app/dist/index.esm.js ***!
-  \*****************************************************/
-/*! exports provided: FirebaseError, SDK_VERSION, _DEFAULT_ENTRY_NAME, _addComponent, _addOrOverwriteComponent, _apps, _clearComponents, _components, _getProvider, _registerComponent, _removeServiceInstance, deleteApp, getApp, getApps, initializeApp, onLog, registerVersion, setLogLevel */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/app */ "./node_modules/@firebase/app/dist/esm/index.esm2017.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FirebaseError", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["FirebaseError"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SDK_VERSION", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["SDK_VERSION"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_DEFAULT_ENTRY_NAME", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_DEFAULT_ENTRY_NAME"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_addComponent", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_addComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_addOrOverwriteComponent", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_addOrOverwriteComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_apps", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_apps"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_clearComponents", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_clearComponents"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_components", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_components"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_getProvider", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_getProvider"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_registerComponent", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_registerComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_removeServiceInstance", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["_removeServiceInstance"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deleteApp", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["deleteApp"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getApp", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["getApp"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getApps", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["getApps"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "initializeApp", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["initializeApp"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "onLog", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["onLog"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "registerVersion", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["registerVersion"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setLogLevel", function() { return _firebase_app__WEBPACK_IMPORTED_MODULE_0__["setLogLevel"]; });
-
-
-
-
-var name = "firebase";
-var version = "9.5.0";
-
-/**
- * @license
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-Object(_firebase_app__WEBPACK_IMPORTED_MODULE_0__["registerVersion"])(name, version, 'app');
-//# sourceMappingURL=index.esm.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/firebase/messaging/dist/index.esm.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/firebase/messaging/dist/index.esm.js ***!
-  \***********************************************************/
-/*! exports provided: deleteToken, getMessaging, getToken, isSupported, onMessage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @firebase/messaging */ "./node_modules/@firebase/messaging/dist/esm/index.esm2017.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deleteToken", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["deleteToken"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMessaging", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["getMessaging"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getToken", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["getToken"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isSupported", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["isSupported"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "onMessage", function() { return _firebase_messaging__WEBPACK_IMPORTED_MODULE_0__["onMessage"]; });
-
-
-//# sourceMappingURL=index.esm.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/idb/build/idb.js":
-/*!***************************************!*\
-  !*** ./node_modules/idb/build/idb.js ***!
-  \***************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (global, factory) {
-   true ? factory(exports) :
-  undefined;
-}(this, function (exports) { 'use strict';
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
 
-  function toArray(arr) {
-    return Array.prototype.slice.call(arr);
-  }
 
-  function promisifyRequest(request) {
-    return new Promise(function(resolve, reject) {
-      request.onsuccess = function() {
-        resolve(request.result);
-      };
+// module
+exports.push([module.i, "@charset \"UTF-8\";\ninput[type=password][data-v-0a273bdb] {\n  position: relative;\n}\ninput[type=password][data-v-0a273bdb]::after {\n  content: \"\\2192\";\n  position: absolute;\n  z-index: 2000;\n  width: 100%;\n  height: 100%;\n  right: -20px;\n  top: -20px;\n}", ""]);
 
-      request.onerror = function() {
-        reject(request.error);
-      };
-    });
-  }
+// exports
 
-  function promisifyRequestCall(obj, method, args) {
-    var request;
-    var p = new Promise(function(resolve, reject) {
-      request = obj[method].apply(obj, args);
-      promisifyRequest(request).then(resolve, reject);
-    });
 
-    p.request = request;
-    return p;
-  }
+/***/ }),
 
-  function promisifyCursorRequestCall(obj, method, args) {
-    var p = promisifyRequestCall(obj, method, args);
-    return p.then(function(value) {
-      if (!value) return;
-      return new Cursor(value, p.request);
-    });
-  }
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/App.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-  function proxyProperties(ProxyClass, targetProp, properties) {
-    properties.forEach(function(prop) {
-      Object.defineProperty(ProxyClass.prototype, prop, {
-        get: function() {
-          return this[targetProp][prop];
-        },
-        set: function(val) {
-          this[targetProp][prop] = val;
-        }
-      });
-    });
-  }
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
 
-  function proxyRequestMethods(ProxyClass, targetProp, Constructor, properties) {
-    properties.forEach(function(prop) {
-      if (!(prop in Constructor.prototype)) return;
-      ProxyClass.prototype[prop] = function() {
-        return promisifyRequestCall(this[targetProp], prop, arguments);
-      };
-    });
-  }
 
-  function proxyMethods(ProxyClass, targetProp, Constructor, properties) {
-    properties.forEach(function(prop) {
-      if (!(prop in Constructor.prototype)) return;
-      ProxyClass.prototype[prop] = function() {
-        return this[targetProp][prop].apply(this[targetProp], arguments);
-      };
-    });
-  }
+// module
+exports.push([module.i, "\n.error-text{\r\n  color: crimson;\r\n  font-size: .75rem;\n}\r\n", ""]);
 
-  function proxyCursorRequestMethods(ProxyClass, targetProp, Constructor, properties) {
-    properties.forEach(function(prop) {
-      if (!(prop in Constructor.prototype)) return;
-      ProxyClass.prototype[prop] = function() {
-        return promisifyCursorRequestCall(this[targetProp], prop, arguments);
-      };
-    });
-  }
+// exports
 
-  function Index(index) {
-    this._index = index;
-  }
 
-  proxyProperties(Index, '_index', [
-    'name',
-    'keyPath',
-    'multiEntry',
-    'unique'
-  ]);
+/***/ }),
 
-  proxyRequestMethods(Index, '_index', IDBIndex, [
-    'get',
-    'getKey',
-    'getAll',
-    'getAllKeys',
-    'count'
-  ]);
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-  proxyCursorRequestMethods(Index, '_index', IDBIndex, [
-    'openCursor',
-    'openKeyCursor'
-  ]);
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
 
-  function Cursor(cursor, request) {
-    this._cursor = cursor;
-    this._request = request;
-  }
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
 
-  proxyProperties(Cursor, '_cursor', [
-    'direction',
-    'key',
-    'primaryKey',
-    'value'
-  ]);
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
 
-  proxyRequestMethods(Cursor, '_cursor', IDBCursor, [
-    'update',
-    'delete'
-  ]);
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
 
-  // proxy 'next' methods
-  ['advance', 'continue', 'continuePrimaryKey'].forEach(function(methodName) {
-    if (!(methodName in IDBCursor.prototype)) return;
-    Cursor.prototype[methodName] = function() {
-      var cursor = this;
-      var args = arguments;
-      return Promise.resolve().then(function() {
-        cursor._cursor[methodName].apply(cursor._cursor, args);
-        return promisifyRequest(cursor._request).then(function(value) {
-          if (!value) return;
-          return new Cursor(value, cursor._request);
-        });
-      });
-    };
-  });
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
 
-  function ObjectStore(store) {
-    this._store = store;
-  }
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
 
-  ObjectStore.prototype.createIndex = function() {
-    return new Index(this._store.createIndex.apply(this._store, arguments));
-  };
+	return [content].join('\n');
+}
 
-  ObjectStore.prototype.index = function() {
-    return new Index(this._store.index.apply(this._store, arguments));
-  };
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
-  proxyProperties(ObjectStore, '_store', [
-    'name',
-    'keyPath',
-    'indexNames',
-    'autoIncrement'
-  ]);
-
-  proxyRequestMethods(ObjectStore, '_store', IDBObjectStore, [
-    'put',
-    'add',
-    'delete',
-    'clear',
-    'get',
-    'getAll',
-    'getKey',
-    'getAllKeys',
-    'count'
-  ]);
-
-  proxyCursorRequestMethods(ObjectStore, '_store', IDBObjectStore, [
-    'openCursor',
-    'openKeyCursor'
-  ]);
-
-  proxyMethods(ObjectStore, '_store', IDBObjectStore, [
-    'deleteIndex'
-  ]);
-
-  function Transaction(idbTransaction) {
-    this._tx = idbTransaction;
-    this.complete = new Promise(function(resolve, reject) {
-      idbTransaction.oncomplete = function() {
-        resolve();
-      };
-      idbTransaction.onerror = function() {
-        reject(idbTransaction.error);
-      };
-      idbTransaction.onabort = function() {
-        reject(idbTransaction.error);
-      };
-    });
-  }
-
-  Transaction.prototype.objectStore = function() {
-    return new ObjectStore(this._tx.objectStore.apply(this._tx, arguments));
-  };
-
-  proxyProperties(Transaction, '_tx', [
-    'objectStoreNames',
-    'mode'
-  ]);
-
-  proxyMethods(Transaction, '_tx', IDBTransaction, [
-    'abort'
-  ]);
-
-  function UpgradeDB(db, oldVersion, transaction) {
-    this._db = db;
-    this.oldVersion = oldVersion;
-    this.transaction = new Transaction(transaction);
-  }
-
-  UpgradeDB.prototype.createObjectStore = function() {
-    return new ObjectStore(this._db.createObjectStore.apply(this._db, arguments));
-  };
-
-  proxyProperties(UpgradeDB, '_db', [
-    'name',
-    'version',
-    'objectStoreNames'
-  ]);
-
-  proxyMethods(UpgradeDB, '_db', IDBDatabase, [
-    'deleteObjectStore',
-    'close'
-  ]);
-
-  function DB(db) {
-    this._db = db;
-  }
-
-  DB.prototype.transaction = function() {
-    return new Transaction(this._db.transaction.apply(this._db, arguments));
-  };
-
-  proxyProperties(DB, '_db', [
-    'name',
-    'version',
-    'objectStoreNames'
-  ]);
-
-  proxyMethods(DB, '_db', IDBDatabase, [
-    'close'
-  ]);
-
-  // Add cursor iterators
-  // TODO: remove this once browsers do the right thing with promises
-  ['openCursor', 'openKeyCursor'].forEach(function(funcName) {
-    [ObjectStore, Index].forEach(function(Constructor) {
-      // Don't create iterateKeyCursor if openKeyCursor doesn't exist.
-      if (!(funcName in Constructor.prototype)) return;
-
-      Constructor.prototype[funcName.replace('open', 'iterate')] = function() {
-        var args = toArray(arguments);
-        var callback = args[args.length - 1];
-        var nativeObject = this._store || this._index;
-        var request = nativeObject[funcName].apply(nativeObject, args.slice(0, -1));
-        request.onsuccess = function() {
-          callback(request.result);
-        };
-      };
-    });
-  });
-
-  // polyfill getAll
-  [Index, ObjectStore].forEach(function(Constructor) {
-    if (Constructor.prototype.getAll) return;
-    Constructor.prototype.getAll = function(query, count) {
-      var instance = this;
-      var items = [];
-
-      return new Promise(function(resolve) {
-        instance.iterateCursor(query, function(cursor) {
-          if (!cursor) {
-            resolve(items);
-            return;
-          }
-          items.push(cursor.value);
-
-          if (count !== undefined && items.length == count) {
-            resolve(items);
-            return;
-          }
-          cursor.continue();
-        });
-      });
-    };
-  });
-
-  function openDb(name, version, upgradeCallback) {
-    var p = promisifyRequestCall(indexedDB, 'open', [name, version]);
-    var request = p.request;
-
-    if (request) {
-      request.onupgradeneeded = function(event) {
-        if (upgradeCallback) {
-          upgradeCallback(new UpgradeDB(request.result, event.oldVersion, request.transaction));
-        }
-      };
-    }
-
-    return p.then(function(db) {
-      return new DB(db);
-    });
-  }
-
-  function deleteDb(name) {
-    return promisifyRequestCall(indexedDB, 'deleteDatabase', [name]);
-  }
-
-  exports.openDb = openDb;
-  exports.deleteDb = deleteDb;
-
-  Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
+	return '/*# ' + data + ' */';
+}
 
 
 /***/ }),
@@ -45281,6 +39761,575 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/App.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -45353,6 +40402,4933 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vee-validate/dist/vee-validate.esm.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vee-validate/dist/vee-validate.esm.js ***!
+  \************************************************************/
+/*! exports provided: ValidationObserver, ValidationProvider, configure, extend, localeChanged, localize, normalizeRules, setInteractionMode, validate, version, withValidation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidationObserver", function() { return ValidationObserver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidationProvider", function() { return ValidationProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configure", function() { return configure; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return extend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localeChanged", function() { return localeChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localize", function() { return localize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalizeRules", function() { return normalizeRules; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setInteractionMode", function() { return setInteractionMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validate", function() { return validate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return version; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withValidation", function() { return withValidation; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/**
+  * vee-validate v3.4.14
+  * (c) 2021 Abdelrahman Awad
+  * @license MIT
+  */
+
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+function isNaN(value) {
+    // NaN is the one value that does not equal itself.
+    // eslint-disable-next-line
+    return value !== value;
+}
+function isNullOrUndefined(value) {
+    return value === null || value === undefined;
+}
+function isEmptyArray(arr) {
+    return Array.isArray(arr) && arr.length === 0;
+}
+var isObject = function (obj) {
+    return obj !== null && obj && typeof obj === 'object' && !Array.isArray(obj);
+};
+/**
+ * A reference comparison function with NaN support
+ */
+function isRefEqual(lhs, rhs) {
+    if (isNaN(lhs) && isNaN(rhs)) {
+        return true;
+    }
+    return lhs === rhs;
+}
+// Checks if a given value is not an empty string or null or undefined.
+function isSpecified(val) {
+    if (val === '') {
+        return false;
+    }
+    return !isNullOrUndefined(val);
+}
+// eslint-disable-next-line @typescript-eslint/ban-types
+function isCallable(fn) {
+    return typeof fn === 'function';
+}
+function isLocator(value) {
+    return isCallable(value) && !!value.__locatorRef;
+}
+
+function findIndex(arrayLike, predicate) {
+    var array = Array.isArray(arrayLike) ? arrayLike : toArray(arrayLike);
+    if (isCallable(array.findIndex)) {
+        return array.findIndex(predicate);
+    }
+    /* istanbul ignore next */
+    for (var i = 0; i < array.length; i++) {
+        if (predicate(array[i], i)) {
+            return i;
+        }
+    }
+    /* istanbul ignore next */
+    return -1;
+}
+/**
+ * finds the first element that satisfies the predicate callback, polyfills array.find
+ */
+function find(arrayLike, predicate) {
+    var array = Array.isArray(arrayLike) ? arrayLike : toArray(arrayLike);
+    var idx = findIndex(array, predicate);
+    return idx === -1 ? undefined : array[idx];
+}
+function includes(collection, item) {
+    return collection.indexOf(item) !== -1;
+}
+/**
+ * Converts an array-like object to array, provides a simple polyfill for Array.from
+ */
+function toArray(arrayLike) {
+    if (isCallable(Array.from)) {
+        return Array.from(arrayLike);
+    }
+    /* istanbul ignore next */
+    return _copyArray(arrayLike);
+}
+/* istanbul ignore next */
+function _copyArray(arrayLike) {
+    var array = [];
+    var length = arrayLike.length;
+    for (var i = 0; i < length; i++) {
+        array.push(arrayLike[i]);
+    }
+    return array;
+}
+function values(obj) {
+    if (isCallable(Object.values)) {
+        return Object.values(obj);
+    }
+    // fallback to keys()
+    /* istanbul ignore next */
+    return Object.keys(obj).map(function (k) { return obj[k]; });
+}
+function merge(target, source) {
+    Object.keys(source).forEach(function (key) {
+        if (isObject(source[key])) {
+            if (!target[key]) {
+                target[key] = {};
+            }
+            merge(target[key], source[key]);
+            return;
+        }
+        target[key] = source[key];
+    });
+    return target;
+}
+
+function createFlags() {
+    return {
+        untouched: true,
+        touched: false,
+        dirty: false,
+        pristine: true,
+        valid: false,
+        invalid: false,
+        validated: false,
+        pending: false,
+        required: false,
+        changed: false,
+        passed: false,
+        failed: false
+    };
+}
+
+function identity(x) {
+    return x;
+}
+function debounce(fn, wait, token) {
+    if (wait === void 0) { wait = 0; }
+    if (token === void 0) { token = { cancelled: false }; }
+    if (wait === 0) {
+        return fn;
+    }
+    var timeout;
+    return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var later = function () {
+            timeout = undefined;
+            // check if the fn call was cancelled.
+            if (!token.cancelled)
+                fn.apply(void 0, args);
+        };
+        // because we might want to use Node.js setTimout for SSR.
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Emits a warning to the console
+ */
+function warn(message) {
+    console.warn("[vee-validate] " + message);
+}
+/**
+ * Replaces placeholder values in a string with their actual values
+ */
+function interpolate(template, values) {
+    return template.replace(/{([^}]+)}/g, function (_, p) {
+        return p in values ? values[p] : "{" + p + "}";
+    });
+}
+
+var RULES = {};
+function normalizeSchema(schema) {
+    var _a;
+    if ((_a = schema.params) === null || _a === void 0 ? void 0 : _a.length) {
+        schema.params = schema.params.map(function (param) {
+            if (typeof param === 'string') {
+                return { name: param };
+            }
+            return param;
+        });
+    }
+    return schema;
+}
+var RuleContainer = /** @class */ (function () {
+    function RuleContainer() {
+    }
+    RuleContainer.extend = function (name, schema) {
+        // if rule already exists, overwrite it.
+        var rule = normalizeSchema(schema);
+        if (RULES[name]) {
+            RULES[name] = merge(RULES[name], schema);
+            return;
+        }
+        RULES[name] = __assign({ lazy: false, computesRequired: false }, rule);
+    };
+    RuleContainer.isLazy = function (name) {
+        var _a;
+        return !!((_a = RULES[name]) === null || _a === void 0 ? void 0 : _a.lazy);
+    };
+    RuleContainer.isRequireRule = function (name) {
+        var _a;
+        return !!((_a = RULES[name]) === null || _a === void 0 ? void 0 : _a.computesRequired);
+    };
+    RuleContainer.getRuleDefinition = function (ruleName) {
+        return RULES[ruleName];
+    };
+    return RuleContainer;
+}());
+/**
+ * Adds a custom validator to the list of validation rules.
+ */
+function extend(name, schema) {
+    // makes sure new rules are properly formatted.
+    guardExtend(name, schema);
+    // Full schema object.
+    if (typeof schema === 'object') {
+        RuleContainer.extend(name, schema);
+        return;
+    }
+    RuleContainer.extend(name, {
+        validate: schema
+    });
+}
+/**
+ * Guards from extension violations.
+ */
+function guardExtend(name, validator) {
+    if (isCallable(validator)) {
+        return;
+    }
+    if (isCallable(validator.validate)) {
+        return;
+    }
+    if (RuleContainer.getRuleDefinition(name)) {
+        return;
+    }
+    throw new Error("Extension Error: The validator '" + name + "' must be a function or have a 'validate' method.");
+}
+
+var DEFAULT_CONFIG = {
+    defaultMessage: "{_field_} is not valid.",
+    skipOptional: true,
+    classes: {
+        touched: 'touched',
+        untouched: 'untouched',
+        valid: 'valid',
+        invalid: 'invalid',
+        pristine: 'pristine',
+        dirty: 'dirty' // control has been interacted with
+    },
+    bails: true,
+    mode: 'aggressive',
+    useConstraintAttrs: true
+};
+var currentConfig = __assign({}, DEFAULT_CONFIG);
+var getConfig = function () { return currentConfig; };
+var setConfig = function (newConf) {
+    currentConfig = __assign(__assign({}, currentConfig), newConf);
+};
+var configure = function (cfg) {
+    setConfig(cfg);
+};
+
+/**
+ * Normalizes the given rules expression.
+ */
+function normalizeRules(rules) {
+    // if falsy value return an empty object.
+    var acc = {};
+    Object.defineProperty(acc, '_$$isNormalized', {
+        value: true,
+        writable: false,
+        enumerable: false,
+        configurable: false
+    });
+    if (!rules) {
+        return acc;
+    }
+    // Object is already normalized, skip.
+    if (isObject(rules) && rules._$$isNormalized) {
+        return rules;
+    }
+    if (isObject(rules)) {
+        return Object.keys(rules).reduce(function (prev, curr) {
+            var params = [];
+            if (rules[curr] === true) {
+                params = [];
+            }
+            else if (Array.isArray(rules[curr])) {
+                params = rules[curr];
+            }
+            else if (isObject(rules[curr])) {
+                params = rules[curr];
+            }
+            else {
+                params = [rules[curr]];
+            }
+            if (rules[curr] !== false) {
+                prev[curr] = buildParams(curr, params);
+            }
+            return prev;
+        }, acc);
+    }
+    /* istanbul ignore if */
+    if (typeof rules !== 'string') {
+        warn('rules must be either a string or an object.');
+        return acc;
+    }
+    return rules.split('|').reduce(function (prev, rule) {
+        var parsedRule = parseRule(rule);
+        if (!parsedRule.name) {
+            return prev;
+        }
+        prev[parsedRule.name] = buildParams(parsedRule.name, parsedRule.params);
+        return prev;
+    }, acc);
+}
+function buildParams(ruleName, provided) {
+    var ruleSchema = RuleContainer.getRuleDefinition(ruleName);
+    if (!ruleSchema) {
+        return provided;
+    }
+    var params = {};
+    if (!ruleSchema.params && !Array.isArray(provided)) {
+        throw new Error('You provided an object params to a rule that has no defined schema.');
+    }
+    // Rule probably uses an array for their args, keep it as is.
+    if (Array.isArray(provided) && !ruleSchema.params) {
+        return provided;
+    }
+    var definedParams;
+    // collect the params schema.
+    if (!ruleSchema.params || (ruleSchema.params.length < provided.length && Array.isArray(provided))) {
+        var lastDefinedParam_1;
+        // collect any additional parameters in the last item.
+        definedParams = provided.map(function (_, idx) {
+            var _a;
+            var param = (_a = ruleSchema.params) === null || _a === void 0 ? void 0 : _a[idx];
+            lastDefinedParam_1 = param || lastDefinedParam_1;
+            if (!param) {
+                param = lastDefinedParam_1;
+            }
+            return param;
+        });
+    }
+    else {
+        definedParams = ruleSchema.params;
+    }
+    // Match the provided array length with a temporary schema.
+    for (var i = 0; i < definedParams.length; i++) {
+        var options = definedParams[i];
+        var value = options.default;
+        // if the provided is an array, map element value.
+        if (Array.isArray(provided)) {
+            if (i in provided) {
+                value = provided[i];
+            }
+        }
+        else {
+            // If the param exists in the provided object.
+            if (options.name in provided) {
+                value = provided[options.name];
+                // if the provided is the first param value.
+            }
+            else if (definedParams.length === 1) {
+                value = provided;
+            }
+        }
+        // if the param is a target, resolve the target value.
+        if (options.isTarget) {
+            value = createLocator(value, options.cast);
+        }
+        // A target param using interpolation
+        if (typeof value === 'string' && value[0] === '@') {
+            value = createLocator(value.slice(1), options.cast);
+        }
+        // If there is a transformer defined.
+        if (!isLocator(value) && options.cast) {
+            value = options.cast(value);
+        }
+        // already been set, probably multiple values.
+        if (params[options.name]) {
+            params[options.name] = Array.isArray(params[options.name]) ? params[options.name] : [params[options.name]];
+            params[options.name].push(value);
+        }
+        else {
+            // set the value.
+            params[options.name] = value;
+        }
+    }
+    return params;
+}
+/**
+ * Parses a rule string expression.
+ */
+var parseRule = function (rule) {
+    var params = [];
+    var name = rule.split(':')[0];
+    if (includes(rule, ':')) {
+        params = rule
+            .split(':')
+            .slice(1)
+            .join(':')
+            .split(',');
+    }
+    return { name: name, params: params };
+};
+function createLocator(value, castFn) {
+    var locator = function (crossTable) {
+        var val = crossTable[value];
+        return castFn ? castFn(val) : val;
+    };
+    locator.__locatorRef = value;
+    return locator;
+}
+function extractLocators(params) {
+    if (Array.isArray(params)) {
+        return params.filter(function (param) {
+            return isLocator(param) || (typeof param === 'string' && param[0] === '@');
+        });
+    }
+    return Object.keys(params)
+        .filter(function (key) { return isLocator(params[key]); })
+        .map(function (key) { return params[key]; });
+}
+
+/**
+ * Validates a value against the rules.
+ */
+function validate(value, rules, options) {
+    if (options === void 0) { options = {}; }
+    return __awaiter(this, void 0, void 0, function () {
+        var shouldBail, skipIfEmpty, field, result, errors, failedRules, regenerateMap;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    shouldBail = options === null || options === void 0 ? void 0 : options.bails;
+                    skipIfEmpty = options === null || options === void 0 ? void 0 : options.skipIfEmpty;
+                    field = {
+                        name: (options === null || options === void 0 ? void 0 : options.name) || '{field}',
+                        rules: normalizeRules(rules),
+                        bails: shouldBail !== null && shouldBail !== void 0 ? shouldBail : true,
+                        skipIfEmpty: skipIfEmpty !== null && skipIfEmpty !== void 0 ? skipIfEmpty : true,
+                        forceRequired: false,
+                        crossTable: (options === null || options === void 0 ? void 0 : options.values) || {},
+                        names: (options === null || options === void 0 ? void 0 : options.names) || {},
+                        customMessages: (options === null || options === void 0 ? void 0 : options.customMessages) || {}
+                    };
+                    return [4 /*yield*/, _validate(field, value, options)];
+                case 1:
+                    result = _a.sent();
+                    errors = [];
+                    failedRules = {};
+                    regenerateMap = {};
+                    result.errors.forEach(function (e) {
+                        var msg = e.msg();
+                        errors.push(msg);
+                        failedRules[e.rule] = msg;
+                        regenerateMap[e.rule] = e.msg;
+                    });
+                    return [2 /*return*/, {
+                            valid: result.valid,
+                            required: result.required,
+                            errors: errors,
+                            failedRules: failedRules,
+                            regenerateMap: regenerateMap
+                        }];
+            }
+        });
+    });
+}
+/**
+ * Starts the validation process.
+ */
+function _validate(field, value, _a) {
+    var _b = (_a === void 0 ? {} : _a).isInitial, isInitial = _b === void 0 ? false : _b;
+    return __awaiter(this, void 0, void 0, function () {
+        var _c, shouldSkip, required, errors, rules, length, i, rule, result;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0: return [4 /*yield*/, _shouldSkip(field, value)];
+                case 1:
+                    _c = _d.sent(), shouldSkip = _c.shouldSkip, required = _c.required, errors = _c.errors;
+                    if (shouldSkip) {
+                        return [2 /*return*/, {
+                                valid: !errors.length,
+                                required: required,
+                                errors: errors
+                            }];
+                    }
+                    rules = Object.keys(field.rules).filter(function (rule) { return !RuleContainer.isRequireRule(rule); });
+                    length = rules.length;
+                    i = 0;
+                    _d.label = 2;
+                case 2:
+                    if (!(i < length)) return [3 /*break*/, 5];
+                    if (isInitial && RuleContainer.isLazy(rules[i])) {
+                        return [3 /*break*/, 4];
+                    }
+                    rule = rules[i];
+                    return [4 /*yield*/, _test(field, value, {
+                            name: rule,
+                            params: field.rules[rule]
+                        })];
+                case 3:
+                    result = _d.sent();
+                    if (!result.valid && result.error) {
+                        errors.push(result.error);
+                        if (field.bails) {
+                            return [2 /*return*/, {
+                                    valid: false,
+                                    required: required,
+                                    errors: errors
+                                }];
+                        }
+                    }
+                    _d.label = 4;
+                case 4:
+                    i++;
+                    return [3 /*break*/, 2];
+                case 5: return [2 /*return*/, {
+                        valid: !errors.length,
+                        required: required,
+                        errors: errors
+                    }];
+            }
+        });
+    });
+}
+function _shouldSkip(field, value) {
+    return __awaiter(this, void 0, void 0, function () {
+        var requireRules, length, errors, isEmpty, isEmptyAndOptional, isRequired, i, rule, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    requireRules = Object.keys(field.rules).filter(RuleContainer.isRequireRule);
+                    length = requireRules.length;
+                    errors = [];
+                    isEmpty = isNullOrUndefined(value) || value === '' || isEmptyArray(value);
+                    isEmptyAndOptional = isEmpty && field.skipIfEmpty;
+                    i = 0;
+                    _a.label = 1;
+                case 1:
+                    if (!(i < length)) return [3 /*break*/, 4];
+                    rule = requireRules[i];
+                    return [4 /*yield*/, _test(field, value, {
+                            name: rule,
+                            params: field.rules[rule]
+                        })];
+                case 2:
+                    result = _a.sent();
+                    if (!isObject(result)) {
+                        throw new Error('Require rules has to return an object (see docs)');
+                    }
+                    if (result.required !== undefined) {
+                        isRequired = result.required;
+                    }
+                    if (!result.valid && result.error) {
+                        errors.push(result.error);
+                        // Exit early as the field is required and failed validation.
+                        if (field.bails) {
+                            return [2 /*return*/, {
+                                    shouldSkip: true,
+                                    required: result.required,
+                                    errors: errors
+                                }];
+                        }
+                    }
+                    _a.label = 3;
+                case 3:
+                    i++;
+                    return [3 /*break*/, 1];
+                case 4:
+                    if (isEmpty && !isRequired && !field.skipIfEmpty) {
+                        return [2 /*return*/, {
+                                shouldSkip: false,
+                                required: isRequired,
+                                errors: errors
+                            }];
+                    }
+                    // field is configured to run through the pipeline regardless
+                    if (!field.bails && !isEmptyAndOptional) {
+                        return [2 /*return*/, {
+                                shouldSkip: false,
+                                required: isRequired,
+                                errors: errors
+                            }];
+                    }
+                    // skip if the field is not required and has an empty value.
+                    return [2 /*return*/, {
+                            shouldSkip: !isRequired && isEmpty,
+                            required: isRequired,
+                            errors: errors
+                        }];
+            }
+        });
+    });
+}
+/**
+ * Tests a single input value against a rule.
+ */
+function _test(field, value, rule) {
+    return __awaiter(this, void 0, void 0, function () {
+        var ruleSchema, normalizedValue, params, result, values_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    ruleSchema = RuleContainer.getRuleDefinition(rule.name);
+                    if (!ruleSchema || !ruleSchema.validate) {
+                        throw new Error("No such validator '" + rule.name + "' exists.");
+                    }
+                    normalizedValue = ruleSchema.castValue ? ruleSchema.castValue(value) : value;
+                    params = fillTargetValues(rule.params, field.crossTable);
+                    return [4 /*yield*/, ruleSchema.validate(normalizedValue, params)];
+                case 1:
+                    result = _a.sent();
+                    if (typeof result === 'string') {
+                        values_1 = __assign(__assign({}, (params || {})), { _field_: field.name, _value_: value, _rule_: rule.name });
+                        return [2 /*return*/, {
+                                valid: false,
+                                error: { rule: rule.name, msg: function () { return interpolate(result, values_1); } }
+                            }];
+                    }
+                    if (!isObject(result)) {
+                        result = { valid: result };
+                    }
+                    return [2 /*return*/, {
+                            valid: result.valid,
+                            required: result.required,
+                            error: result.valid ? undefined : _generateFieldError(field, value, ruleSchema, rule.name, params)
+                        }];
+            }
+        });
+    });
+}
+/**
+ * Generates error messages.
+ */
+function _generateFieldError(field, value, ruleSchema, ruleName, params) {
+    var _a;
+    var message = (_a = field.customMessages[ruleName]) !== null && _a !== void 0 ? _a : ruleSchema.message;
+    var ruleTargets = _getRuleTargets(field, ruleSchema, ruleName);
+    var _b = _getUserTargets(field, ruleSchema, ruleName, message), userTargets = _b.userTargets, userMessage = _b.userMessage;
+    var values = __assign(__assign(__assign(__assign({}, (params || {})), { _field_: field.name, _value_: value, _rule_: ruleName }), ruleTargets), userTargets);
+    return {
+        msg: function () { return _normalizeMessage(userMessage || getConfig().defaultMessage, field.name, values); },
+        rule: ruleName
+    };
+}
+function _getRuleTargets(field, ruleSchema, ruleName) {
+    var params = ruleSchema.params;
+    if (!params) {
+        return {};
+    }
+    var numTargets = params.filter(function (param) { return param.isTarget; }).length;
+    if (numTargets <= 0) {
+        return {};
+    }
+    var names = {};
+    var ruleConfig = field.rules[ruleName];
+    if (!Array.isArray(ruleConfig) && isObject(ruleConfig)) {
+        ruleConfig = params.map(function (param) {
+            return ruleConfig[param.name];
+        });
+    }
+    for (var index = 0; index < params.length; index++) {
+        var param = params[index];
+        var key = ruleConfig[index];
+        if (!isLocator(key)) {
+            continue;
+        }
+        key = key.__locatorRef;
+        var name_1 = field.names[key] || key;
+        names[param.name] = name_1;
+        names["_" + param.name + "_"] = field.crossTable[key];
+    }
+    return names;
+}
+function _getUserTargets(field, ruleSchema, ruleName, userMessage) {
+    var userTargets = {};
+    var rules = field.rules[ruleName];
+    var params = ruleSchema.params || [];
+    // early return if no rules
+    if (!rules) {
+        return {};
+    }
+    // check all rules to convert targets
+    Object.keys(rules).forEach(function (key, index) {
+        // get the rule
+        var rule = rules[key];
+        if (!isLocator(rule)) {
+            return {};
+        }
+        // get associated parameter
+        var param = params[index];
+        if (!param) {
+            return {};
+        }
+        // grab the name of the target
+        var name = rule.__locatorRef;
+        userTargets[param.name] = field.names[name] || name;
+        userTargets["_" + param.name + "_"] = field.crossTable[name];
+    });
+    return {
+        userTargets: userTargets,
+        userMessage: userMessage
+    };
+}
+function _normalizeMessage(template, field, values) {
+    if (typeof template === 'function') {
+        return template(field, values);
+    }
+    return interpolate(template, __assign(__assign({}, values), { _field_: field }));
+}
+function fillTargetValues(params, crossTable) {
+    if (Array.isArray(params)) {
+        return params.map(function (param) {
+            var targetPart = typeof param === 'string' && param[0] === '@' ? param.slice(1) : param;
+            if (targetPart in crossTable) {
+                return crossTable[targetPart];
+            }
+            return param;
+        });
+    }
+    var values = {};
+    var normalize = function (value) {
+        if (isLocator(value)) {
+            return value(crossTable);
+        }
+        return value;
+    };
+    Object.keys(params).forEach(function (param) {
+        values[param] = normalize(params[param]);
+    });
+    return values;
+}
+
+var aggressive = function () { return ({
+    on: ['input', 'blur']
+}); };
+var lazy = function () { return ({
+    on: ['change', 'blur']
+}); };
+var eager = function (_a) {
+    var errors = _a.errors;
+    if (errors.length) {
+        return {
+            on: ['input', 'change']
+        };
+    }
+    return {
+        on: ['change', 'blur']
+    };
+};
+var passive = function () { return ({
+    on: []
+}); };
+var modes = {
+    aggressive: aggressive,
+    eager: eager,
+    passive: passive,
+    lazy: lazy
+};
+var setInteractionMode = function (mode, implementation) {
+    setConfig({ mode: mode });
+    if (!implementation) {
+        return;
+    }
+    if (!isCallable(implementation)) {
+        throw new Error('A mode implementation must be a function');
+    }
+    modes[mode] = implementation;
+};
+
+var EVENT_BUS = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+function localeChanged() {
+    EVENT_BUS.$emit('change:locale');
+}
+
+var Dictionary = /** @class */ (function () {
+    function Dictionary(locale, dictionary) {
+        this.container = {};
+        this.locale = locale;
+        this.merge(dictionary);
+    }
+    Dictionary.prototype.resolve = function (field, rule, values) {
+        return this.format(this.locale, field, rule, values);
+    };
+    Dictionary.prototype.format = function (locale, field, rule, values) {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var message;
+        // find if specific message for that field was specified.
+        var fieldContainer = (_c = (_b = (_a = this.container[locale]) === null || _a === void 0 ? void 0 : _a.fields) === null || _b === void 0 ? void 0 : _b[field]) === null || _c === void 0 ? void 0 : _c[rule];
+        var messageContainer = (_e = (_d = this.container[locale]) === null || _d === void 0 ? void 0 : _d.messages) === null || _e === void 0 ? void 0 : _e[rule];
+        message = fieldContainer || messageContainer || '';
+        if (!message) {
+            message = '{_field_} is not valid';
+        }
+        field = (_h = (_g = (_f = this.container[locale]) === null || _f === void 0 ? void 0 : _f.names) === null || _g === void 0 ? void 0 : _g[field]) !== null && _h !== void 0 ? _h : field;
+        return isCallable(message) ? message(field, values) : interpolate(message, __assign(__assign({}, values), { _field_: field }));
+    };
+    Dictionary.prototype.merge = function (dictionary) {
+        merge(this.container, dictionary);
+    };
+    Dictionary.prototype.hasRule = function (name) {
+        var _a, _b;
+        return !!((_b = (_a = this.container[this.locale]) === null || _a === void 0 ? void 0 : _a.messages) === null || _b === void 0 ? void 0 : _b[name]);
+    };
+    return Dictionary;
+}());
+var DICTIONARY;
+function localize(locale, dictionary) {
+    var _a;
+    if (!DICTIONARY) {
+        DICTIONARY = new Dictionary('en', {});
+        setConfig({
+            defaultMessage: function (field, values) {
+                return DICTIONARY.resolve(field, values === null || values === void 0 ? void 0 : values._rule_, values || {});
+            }
+        });
+    }
+    if (typeof locale === 'string') {
+        DICTIONARY.locale = locale;
+        if (dictionary) {
+            DICTIONARY.merge((_a = {}, _a[locale] = dictionary, _a));
+        }
+        localeChanged();
+        return;
+    }
+    DICTIONARY.merge(locale);
+}
+
+// do not edit .js files directly - edit src/index.jst
+
+
+
+var fastDeepEqual = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+var isEvent = function (evt) {
+    if (!evt) {
+        return false;
+    }
+    if (typeof Event !== 'undefined' && isCallable(Event) && evt instanceof Event) {
+        return true;
+    }
+    // this is for IE
+    /* istanbul ignore next */
+    if (evt && evt.srcElement) {
+        return true;
+    }
+    return false;
+};
+function normalizeEventValue(value) {
+    var _a, _b;
+    if (!isEvent(value)) {
+        return value;
+    }
+    var input = value.target;
+    if (input.type === 'file' && input.files) {
+        return toArray(input.files);
+    }
+    // If the input has a `v-model.number` modifier applied.
+    if ((_a = input._vModifiers) === null || _a === void 0 ? void 0 : _a.number) {
+        // as per the spec the v-model.number uses parseFloat
+        var valueAsNumber = parseFloat(input.value);
+        if (isNaN(valueAsNumber)) {
+            return input.value;
+        }
+        return valueAsNumber;
+    }
+    if ((_b = input._vModifiers) === null || _b === void 0 ? void 0 : _b.trim) {
+        var trimmedValue = typeof input.value === 'string' ? input.value.trim() : input.value;
+        return trimmedValue;
+    }
+    return input.value;
+}
+
+var isTextInput = function (vnode) {
+    var _a;
+    var attrs = ((_a = vnode.data) === null || _a === void 0 ? void 0 : _a.attrs) || vnode.elm;
+    // it will fallback to being a text input per browsers spec.
+    if (vnode.tag === 'input' && (!attrs || !attrs.type)) {
+        return true;
+    }
+    if (vnode.tag === 'textarea') {
+        return true;
+    }
+    return includes(['text', 'password', 'search', 'email', 'tel', 'url', 'number'], attrs === null || attrs === void 0 ? void 0 : attrs.type);
+};
+// export const isCheckboxOrRadioInput = (vnode: VNode): boolean => {
+//   const attrs = (vnode.data && vnode.data.attrs) || vnode.elm;
+//   return includes(['radio', 'checkbox'], attrs && attrs.type);
+// };
+// Gets the model object on the vnode.
+function findModel(vnode) {
+    if (!vnode.data) {
+        return undefined;
+    }
+    // Component Model
+    // THIS IS NOT TYPED IN OFFICIAL VUE TYPINGS
+    // eslint-disable-next-line
+    var nonStandardVNodeData = vnode.data;
+    if ('model' in nonStandardVNodeData) {
+        return nonStandardVNodeData.model;
+    }
+    if (!vnode.data.directives) {
+        return undefined;
+    }
+    return find(vnode.data.directives, function (d) { return d.name === 'model'; });
+}
+function findValue(vnode) {
+    var _a, _b;
+    var model = findModel(vnode);
+    if (model) {
+        return { value: model.value };
+    }
+    var config = findModelConfig(vnode);
+    var prop = (config === null || config === void 0 ? void 0 : config.prop) || 'value';
+    if (((_a = vnode.componentOptions) === null || _a === void 0 ? void 0 : _a.propsData) && prop in vnode.componentOptions.propsData) {
+        var propsDataWithValue = vnode.componentOptions.propsData;
+        return { value: propsDataWithValue[prop] };
+    }
+    if (((_b = vnode.data) === null || _b === void 0 ? void 0 : _b.domProps) && 'value' in vnode.data.domProps) {
+        return { value: vnode.data.domProps.value };
+    }
+    return undefined;
+}
+function extractChildren(vnode) {
+    if (Array.isArray(vnode)) {
+        return vnode;
+    }
+    if (Array.isArray(vnode.children)) {
+        return vnode.children;
+    }
+    /* istanbul ignore next */
+    if (vnode.componentOptions && Array.isArray(vnode.componentOptions.children)) {
+        return vnode.componentOptions.children;
+    }
+    return [];
+}
+function findInputNodes(vnode) {
+    if (!Array.isArray(vnode) && findValue(vnode) !== undefined) {
+        return [vnode];
+    }
+    var children = extractChildren(vnode);
+    return children.reduce(function (nodes, node) {
+        var candidates = findInputNodes(node);
+        if (candidates.length) {
+            nodes.push.apply(nodes, candidates);
+        }
+        return nodes;
+    }, []);
+}
+// Resolves v-model config if exists.
+function findModelConfig(vnode) {
+    /* istanbul ignore next */
+    if (!vnode.componentOptions)
+        return null;
+    // This is also not typed in the standard Vue TS.
+    return vnode.componentOptions.Ctor.options.model;
+}
+// Adds a listener to vnode listener object.
+function mergeVNodeListeners(obj, eventName, handler) {
+    // no listener at all.
+    if (isNullOrUndefined(obj[eventName])) {
+        obj[eventName] = [handler];
+        return;
+    }
+    // Is an invoker.
+    if (isCallable(obj[eventName]) && obj[eventName].fns) {
+        var invoker = obj[eventName];
+        invoker.fns = Array.isArray(invoker.fns) ? invoker.fns : [invoker.fns];
+        if (!includes(invoker.fns, handler)) {
+            invoker.fns.push(handler);
+        }
+        return;
+    }
+    if (isCallable(obj[eventName])) {
+        var prev = obj[eventName];
+        obj[eventName] = [prev];
+    }
+    if (Array.isArray(obj[eventName]) && !includes(obj[eventName], handler)) {
+        obj[eventName].push(handler);
+    }
+}
+// Adds a listener to a native HTML vnode.
+function addNativeNodeListener(node, eventName, handler) {
+    /* istanbul ignore next */
+    if (!node.data) {
+        node.data = {};
+    }
+    if (isNullOrUndefined(node.data.on)) {
+        node.data.on = {};
+    }
+    mergeVNodeListeners(node.data.on, eventName, handler);
+}
+// Adds a listener to a Vue component vnode.
+function addComponentNodeListener(node, eventName, handler) {
+    /* istanbul ignore next */
+    if (!node.componentOptions) {
+        return;
+    }
+    /* istanbul ignore next */
+    if (!node.componentOptions.listeners) {
+        node.componentOptions.listeners = {};
+    }
+    mergeVNodeListeners(node.componentOptions.listeners, eventName, handler);
+}
+function addVNodeListener(vnode, eventName, handler) {
+    if (vnode.componentOptions) {
+        addComponentNodeListener(vnode, eventName, handler);
+        return;
+    }
+    addNativeNodeListener(vnode, eventName, handler);
+}
+// Determines if `change` should be used over `input` for listeners.
+function getInputEventName(vnode, model) {
+    var _a;
+    // Is a component.
+    if (vnode.componentOptions) {
+        var event_1 = (findModelConfig(vnode) || { event: 'input' }).event;
+        return event_1;
+    }
+    // Lazy Models typically use change event
+    if ((_a = model === null || model === void 0 ? void 0 : model.modifiers) === null || _a === void 0 ? void 0 : _a.lazy) {
+        return 'change';
+    }
+    // is a textual-type input.
+    if (isTextInput(vnode)) {
+        return 'input';
+    }
+    return 'change';
+}
+function isHTMLNode(node) {
+    return includes(['input', 'select', 'textarea'], node.tag);
+}
+// TODO: Type this one properly.
+function normalizeSlots(slots, ctx) {
+    var acc = [];
+    return Object.keys(slots).reduce(function (arr, key) {
+        slots[key].forEach(function (vnode) {
+            if (!vnode.context) {
+                slots[key].context = ctx;
+                if (!vnode.data) {
+                    vnode.data = {};
+                }
+                vnode.data.slot = key;
+            }
+        });
+        return arr.concat(slots[key]);
+    }, acc);
+}
+function resolveTextualRules(vnode) {
+    var _a;
+    var attrs = (_a = vnode.data) === null || _a === void 0 ? void 0 : _a.attrs;
+    var rules = {};
+    if (!attrs)
+        return rules;
+    if (attrs.type === 'email' && RuleContainer.getRuleDefinition('email')) {
+        rules.email = ['multiple' in attrs];
+    }
+    if (attrs.pattern && RuleContainer.getRuleDefinition('regex')) {
+        rules.regex = attrs.pattern;
+    }
+    if (attrs.maxlength >= 0 && RuleContainer.getRuleDefinition('max')) {
+        rules.max = attrs.maxlength;
+    }
+    if (attrs.minlength >= 0 && RuleContainer.getRuleDefinition('min')) {
+        rules.min = attrs.minlength;
+    }
+    if (attrs.type === 'number') {
+        if (isSpecified(attrs.min) && RuleContainer.getRuleDefinition('min_value')) {
+            rules.min_value = Number(attrs.min);
+        }
+        if (isSpecified(attrs.max) && RuleContainer.getRuleDefinition('max_value')) {
+            rules.max_value = Number(attrs.max);
+        }
+    }
+    return rules;
+}
+function resolveRules(vnode) {
+    var _a;
+    var htmlTags = ['input', 'select', 'textarea'];
+    var attrs = (_a = vnode.data) === null || _a === void 0 ? void 0 : _a.attrs;
+    if (!includes(htmlTags, vnode.tag) || !attrs) {
+        return {};
+    }
+    var rules = {};
+    if ('required' in attrs && attrs.required !== false && RuleContainer.getRuleDefinition('required')) {
+        rules.required = attrs.type === 'checkbox' ? [true] : true;
+    }
+    if (isTextInput(vnode)) {
+        return normalizeRules(__assign(__assign({}, rules), resolveTextualRules(vnode)));
+    }
+    return normalizeRules(rules);
+}
+function normalizeChildren(context, slotProps) {
+    if (context.$scopedSlots.default) {
+        return context.$scopedSlots.default(slotProps) || [];
+    }
+    return context.$slots.default || [];
+}
+
+/**
+ * Determines if a provider needs to run validation.
+ */
+function shouldValidate(ctx, value) {
+    // when an immediate/initial validation is needed and wasn't done before.
+    if (!ctx._ignoreImmediate && ctx.immediate) {
+        return true;
+    }
+    // when the value changes for whatever reason.
+    if (!isRefEqual(ctx.value, value) && ctx.normalizedEvents.length) {
+        return true;
+    }
+    // when it needs validation due to props/cross-fields changes.
+    if (ctx._needsValidation) {
+        return true;
+    }
+    // when the initial value is undefined and the field wasn't rendered yet.
+    if (!ctx.initialized && value === undefined) {
+        return true;
+    }
+    return false;
+}
+function createValidationCtx(ctx) {
+    return __assign(__assign({}, ctx.flags), { errors: ctx.errors, classes: ctx.classes, failedRules: ctx.failedRules, reset: function () { return ctx.reset(); }, validate: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return ctx.validate.apply(ctx, args);
+        }, ariaInput: {
+            'aria-invalid': ctx.flags.invalid ? 'true' : 'false',
+            'aria-required': ctx.isRequired ? 'true' : 'false',
+            'aria-errormessage': "vee_" + ctx.id
+        }, ariaMsg: {
+            id: "vee_" + ctx.id,
+            'aria-live': ctx.errors.length ? 'assertive' : 'off'
+        } });
+}
+function onRenderUpdate(vm, value) {
+    if (!vm.initialized) {
+        vm.initialValue = value;
+    }
+    var validateNow = shouldValidate(vm, value);
+    vm._needsValidation = false;
+    vm.value = value;
+    vm._ignoreImmediate = true;
+    if (!validateNow) {
+        return;
+    }
+    var validate = function () {
+        if (vm.immediate || vm.flags.validated) {
+            return triggerThreadSafeValidation(vm);
+        }
+        vm.validateSilent();
+    };
+    if (vm.initialized) {
+        validate();
+        return;
+    }
+    vm.$once('hook:mounted', function () { return validate(); });
+}
+function computeModeSetting(ctx) {
+    var compute = (isCallable(ctx.mode) ? ctx.mode : modes[ctx.mode]);
+    return compute(ctx);
+}
+function triggerThreadSafeValidation(vm) {
+    var pendingPromise = vm.validateSilent();
+    // avoids race conditions between successive validations.
+    vm._pendingValidation = pendingPromise;
+    return pendingPromise.then(function (result) {
+        if (pendingPromise === vm._pendingValidation) {
+            vm.applyResult(result);
+            vm._pendingValidation = undefined;
+        }
+        return result;
+    });
+}
+// Creates the common handlers for a validatable context.
+function createCommonHandlers(vm) {
+    if (!vm.$veeOnInput) {
+        vm.$veeOnInput = function (e) {
+            vm.syncValue(e); // track and keep the value updated.
+            vm.setFlags({ dirty: true, pristine: false });
+        };
+    }
+    var onInput = vm.$veeOnInput;
+    if (!vm.$veeOnBlur) {
+        vm.$veeOnBlur = function () {
+            vm.setFlags({ touched: true, untouched: false });
+        };
+    }
+    // Blur event listener.
+    var onBlur = vm.$veeOnBlur;
+    var onValidate = vm.$veeHandler;
+    var mode = computeModeSetting(vm);
+    // Handle debounce changes.
+    if (!onValidate || vm.$veeDebounce !== vm.debounce) {
+        onValidate = debounce(function () {
+            vm.$nextTick(function () {
+                if (!vm._pendingReset) {
+                    triggerThreadSafeValidation(vm);
+                }
+                vm._pendingReset = false;
+            });
+        }, mode.debounce || vm.debounce);
+        // Cache the handler so we don't create it each time.
+        vm.$veeHandler = onValidate;
+        // cache the debounce value so we detect if it was changed.
+        vm.$veeDebounce = vm.debounce;
+    }
+    return { onInput: onInput, onBlur: onBlur, onValidate: onValidate };
+}
+// Adds all plugin listeners to the vnode.
+function addListeners(vm, node) {
+    var value = findValue(node);
+    // cache the input eventName.
+    vm._inputEventName = vm._inputEventName || getInputEventName(node, findModel(node));
+    onRenderUpdate(vm, value === null || value === void 0 ? void 0 : value.value);
+    var _a = createCommonHandlers(vm), onInput = _a.onInput, onBlur = _a.onBlur, onValidate = _a.onValidate;
+    addVNodeListener(node, vm._inputEventName, onInput);
+    addVNodeListener(node, 'blur', onBlur);
+    // add the validation listeners.
+    vm.normalizedEvents.forEach(function (evt) {
+        addVNodeListener(node, evt, onValidate);
+    });
+    vm.initialized = true;
+}
+
+var PROVIDER_COUNTER = 0;
+function data$1() {
+    var errors = [];
+    var fieldName = '';
+    var defaultValues = {
+        errors: errors,
+        value: undefined,
+        initialized: false,
+        initialValue: undefined,
+        flags: createFlags(),
+        failedRules: {},
+        isActive: true,
+        fieldName: fieldName,
+        id: ''
+    };
+    return defaultValues;
+}
+var ValidationProvider = vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+    name: 'ValidationProvider',
+    inject: {
+        $_veeObserver: {
+            from: '$_veeObserver',
+            default: function () {
+                if (!this.$vnode.context.$_veeObserver) {
+                    this.$vnode.context.$_veeObserver = createObserver();
+                }
+                return this.$vnode.context.$_veeObserver;
+            }
+        }
+    },
+    props: {
+        vid: {
+            type: String,
+            default: ''
+        },
+        name: {
+            type: String,
+            default: null
+        },
+        mode: {
+            type: [String, Function],
+            default: function () {
+                return getConfig().mode;
+            }
+        },
+        rules: {
+            type: [Object, String],
+            default: null
+        },
+        immediate: {
+            type: Boolean,
+            default: false
+        },
+        bails: {
+            type: Boolean,
+            default: function () { return getConfig().bails; }
+        },
+        skipIfEmpty: {
+            type: Boolean,
+            default: function () { return getConfig().skipOptional; }
+        },
+        debounce: {
+            type: Number,
+            default: 0
+        },
+        tag: {
+            type: String,
+            default: 'span'
+        },
+        slim: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        customMessages: {
+            type: Object,
+            default: function () {
+                return {};
+            }
+        },
+        detectInput: {
+            type: Boolean,
+            default: true
+        }
+    },
+    watch: {
+        rules: {
+            deep: true,
+            handler: function (val, oldVal) {
+                this._needsValidation = !fastDeepEqual(val, oldVal);
+            }
+        }
+    },
+    data: data$1,
+    computed: {
+        fieldDeps: function () {
+            var _this = this;
+            return Object.keys(this.normalizedRules).reduce(function (acc, rule) {
+                var deps = extractLocators(_this.normalizedRules[rule]).map(function (dep) {
+                    return isLocator(dep) ? dep.__locatorRef : dep.slice(1);
+                });
+                acc.push.apply(acc, deps);
+                deps.forEach(function (depName) {
+                    watchCrossFieldDep(_this, depName);
+                });
+                return acc;
+            }, []);
+        },
+        normalizedEvents: function () {
+            var _this = this;
+            var on = computeModeSetting(this).on;
+            return (on || []).map(function (e) {
+                if (e === 'input') {
+                    return _this._inputEventName;
+                }
+                return e;
+            });
+        },
+        isRequired: function () {
+            var rules = __assign(__assign({}, this._resolvedRules), this.normalizedRules);
+            var isRequired = Object.keys(rules).some(RuleContainer.isRequireRule);
+            this.flags.required = !!isRequired;
+            return isRequired;
+        },
+        classes: function () {
+            var names = getConfig().classes;
+            return computeClassObj(names, this.flags);
+        },
+        normalizedRules: function () {
+            return normalizeRules(this.rules);
+        }
+    },
+    mounted: function () {
+        var _this = this;
+        var onLocaleChanged = function () {
+            if (!_this.flags.validated) {
+                return;
+            }
+            var regenerateMap = _this._regenerateMap;
+            if (regenerateMap) {
+                var errors_1 = [];
+                var failedRules_1 = {};
+                Object.keys(regenerateMap).forEach(function (rule) {
+                    var msg = regenerateMap[rule]();
+                    errors_1.push(msg);
+                    failedRules_1[rule] = msg;
+                });
+                _this.applyResult({ errors: errors_1, failedRules: failedRules_1, regenerateMap: regenerateMap });
+                return;
+            }
+            _this.validate();
+        };
+        EVENT_BUS.$on('change:locale', onLocaleChanged);
+        this.$on('hook:beforeDestroy', function () {
+            EVENT_BUS.$off('change:locale', onLocaleChanged);
+        });
+    },
+    render: function (h) {
+        var _this = this;
+        this.registerField();
+        var ctx = createValidationCtx(this);
+        var children = normalizeChildren(this, ctx);
+        // Automatic v-model detection
+        if (this.detectInput) {
+            var inputs = findInputNodes(children);
+            if (inputs.length) {
+                inputs.forEach(function (input, idx) {
+                    var _a, _b, _c, _d, _e, _f;
+                    // If the elements are not checkboxes and there are more input nodes
+                    if (!includes(['checkbox', 'radio'], (_b = (_a = input.data) === null || _a === void 0 ? void 0 : _a.attrs) === null || _b === void 0 ? void 0 : _b.type) && idx > 0) {
+                        return;
+                    }
+                    var resolved = getConfig().useConstraintAttrs ? resolveRules(input) : {};
+                    if (!fastDeepEqual(_this._resolvedRules, resolved)) {
+                        _this._needsValidation = true;
+                    }
+                    if (isHTMLNode(input)) {
+                        _this.fieldName = ((_d = (_c = input.data) === null || _c === void 0 ? void 0 : _c.attrs) === null || _d === void 0 ? void 0 : _d.name) || ((_f = (_e = input.data) === null || _e === void 0 ? void 0 : _e.attrs) === null || _f === void 0 ? void 0 : _f.id);
+                    }
+                    _this._resolvedRules = resolved;
+                    addListeners(_this, input);
+                });
+            }
+        }
+        return this.slim && children.length <= 1 ? children[0] : h(this.tag, children);
+    },
+    beforeDestroy: function () {
+        // cleanup reference.
+        this.$_veeObserver.unobserve(this.id);
+    },
+    activated: function () {
+        this.isActive = true;
+    },
+    deactivated: function () {
+        this.isActive = false;
+    },
+    methods: {
+        setFlags: function (flags) {
+            var _this = this;
+            Object.keys(flags).forEach(function (flag) {
+                _this.flags[flag] = flags[flag];
+            });
+        },
+        syncValue: function (v) {
+            var value = normalizeEventValue(v);
+            this.value = value;
+            this.flags.changed = !fastDeepEqual(this.initialValue, value);
+        },
+        reset: function () {
+            var _this = this;
+            this.errors = [];
+            this.initialValue = this.value;
+            var flags = createFlags();
+            flags.required = this.isRequired;
+            this.setFlags(flags);
+            this.failedRules = {};
+            this.validateSilent();
+            this._pendingValidation = undefined;
+            this._pendingReset = true;
+            setTimeout(function () {
+                _this._pendingReset = false;
+            }, this.debounce);
+        },
+        validate: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (args.length > 0) {
+                        this.syncValue(args[0]);
+                    }
+                    return [2 /*return*/, triggerThreadSafeValidation(this)];
+                });
+            });
+        },
+        validateSilent: function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var rules, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            this.setFlags({ pending: true });
+                            rules = __assign(__assign({}, this._resolvedRules), this.normalizedRules);
+                            Object.defineProperty(rules, '_$$isNormalized', {
+                                value: true,
+                                writable: false,
+                                enumerable: false,
+                                configurable: false
+                            });
+                            return [4 /*yield*/, validate(this.value, rules, __assign(__assign({ name: this.name || this.fieldName }, createLookup(this)), { bails: this.bails, skipIfEmpty: this.skipIfEmpty, isInitial: !this.initialized, customMessages: this.customMessages }))];
+                        case 1:
+                            result = _a.sent();
+                            this.setFlags({
+                                pending: false,
+                                valid: result.valid,
+                                invalid: !result.valid
+                            });
+                            if (result.required !== undefined) {
+                                this.setFlags({
+                                    required: result.required
+                                });
+                            }
+                            return [2 /*return*/, result];
+                    }
+                });
+            });
+        },
+        setErrors: function (errors) {
+            this.applyResult({ errors: errors, failedRules: {} });
+        },
+        applyResult: function (_a) {
+            var errors = _a.errors, failedRules = _a.failedRules, regenerateMap = _a.regenerateMap;
+            this.errors = errors;
+            this._regenerateMap = regenerateMap;
+            this.failedRules = __assign({}, (failedRules || {}));
+            this.setFlags({
+                valid: !errors.length,
+                passed: !errors.length,
+                invalid: !!errors.length,
+                failed: !!errors.length,
+                validated: true,
+                changed: !fastDeepEqual(this.value, this.initialValue)
+            });
+        },
+        registerField: function () {
+            updateRenderingContextRefs(this);
+        },
+        checkComputesRequiredState: function () {
+            var rules = __assign(__assign({}, this._resolvedRules), this.normalizedRules);
+            var isRequired = Object.keys(rules).some(RuleContainer.isRequireRule);
+            return isRequired;
+        }
+    }
+});
+function computeClassObj(names, flags) {
+    var acc = {};
+    var keys = Object.keys(flags);
+    var length = keys.length;
+    var _loop_1 = function (i) {
+        var flag = keys[i];
+        var className = (names && names[flag]) || flag;
+        var value = flags[flag];
+        if (isNullOrUndefined(value)) {
+            return "continue";
+        }
+        if ((flag === 'valid' || flag === 'invalid') && !flags.validated) {
+            return "continue";
+        }
+        if (typeof className === 'string') {
+            acc[className] = value;
+        }
+        else if (Array.isArray(className)) {
+            className.forEach(function (cls) {
+                acc[cls] = value;
+            });
+        }
+    };
+    for (var i = 0; i < length; i++) {
+        _loop_1(i);
+    }
+    return acc;
+}
+function createLookup(vm) {
+    var providers = vm.$_veeObserver.refs;
+    var reduced = {
+        names: {},
+        values: {}
+    };
+    return vm.fieldDeps.reduce(function (acc, depName) {
+        if (!providers[depName]) {
+            return acc;
+        }
+        acc.values[depName] = providers[depName].value;
+        acc.names[depName] = providers[depName].name;
+        return acc;
+    }, reduced);
+}
+function extractId(vm) {
+    if (vm.vid) {
+        return vm.vid;
+    }
+    if (vm.name) {
+        return vm.name;
+    }
+    if (vm.id) {
+        return vm.id;
+    }
+    if (vm.fieldName) {
+        return vm.fieldName;
+    }
+    PROVIDER_COUNTER++;
+    return "_vee_" + PROVIDER_COUNTER;
+}
+function updateRenderingContextRefs(vm) {
+    var providedId = extractId(vm);
+    var id = vm.id;
+    // Nothing has changed.
+    if (!vm.isActive || (id === providedId && vm.$_veeObserver.refs[id])) {
+        return;
+    }
+    // vid was changed.
+    if (id !== providedId && vm.$_veeObserver.refs[id] === vm) {
+        vm.$_veeObserver.unobserve(id);
+    }
+    vm.id = providedId;
+    vm.$_veeObserver.observe(vm);
+}
+function createObserver() {
+    return {
+        refs: {},
+        observe: function (vm) {
+            this.refs[vm.id] = vm;
+        },
+        unobserve: function (id) {
+            delete this.refs[id];
+        }
+    };
+}
+function watchCrossFieldDep(ctx, depName, withHooks) {
+    if (withHooks === void 0) { withHooks = true; }
+    var providers = ctx.$_veeObserver.refs;
+    if (!ctx._veeWatchers) {
+        ctx._veeWatchers = {};
+    }
+    if (!providers[depName] && withHooks) {
+        return ctx.$once('hook:mounted', function () {
+            watchCrossFieldDep(ctx, depName, false);
+        });
+    }
+    if (!isCallable(ctx._veeWatchers[depName]) && providers[depName]) {
+        ctx._veeWatchers[depName] = providers[depName].$watch('value', function () {
+            var isComputesRequired = ctx.checkComputesRequiredState();
+            if (ctx.flags.validated) {
+                ctx._needsValidation = true;
+                ctx.validate();
+            }
+            // Validate dependent field silently if it has rules with computesRequired
+            if (isComputesRequired && !ctx.flags.validated) {
+                ctx.validateSilent();
+            }
+        });
+    }
+}
+
+var FLAGS_STRATEGIES = [
+    ['pristine', 'every'],
+    ['dirty', 'some'],
+    ['touched', 'some'],
+    ['untouched', 'every'],
+    ['valid', 'every'],
+    ['invalid', 'some'],
+    ['pending', 'some'],
+    ['validated', 'every'],
+    ['changed', 'some'],
+    ['passed', 'every'],
+    ['failed', 'some']
+];
+var OBSERVER_COUNTER = 0;
+function data() {
+    var refs = {};
+    var errors = {};
+    var flags = createObserverFlags();
+    var fields = {};
+    // FIXME: Not sure of this one can be typed, circular type reference.
+    var observers = [];
+    return {
+        id: '',
+        refs: refs,
+        observers: observers,
+        errors: errors,
+        flags: flags,
+        fields: fields
+    };
+}
+function provideSelf() {
+    return {
+        $_veeObserver: this
+    };
+}
+var ValidationObserver = vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+    name: 'ValidationObserver',
+    provide: provideSelf,
+    inject: {
+        $_veeObserver: {
+            from: '$_veeObserver',
+            default: function () {
+                if (!this.$vnode.context.$_veeObserver) {
+                    return null;
+                }
+                return this.$vnode.context.$_veeObserver;
+            }
+        }
+    },
+    props: {
+        tag: {
+            type: String,
+            default: 'span'
+        },
+        vid: {
+            type: String,
+            default: function () {
+                return "obs_" + OBSERVER_COUNTER++;
+            }
+        },
+        slim: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data: data,
+    created: function () {
+        var _this = this;
+        this.id = this.vid;
+        register(this);
+        var onChange = debounce(function (_a) {
+            var errors = _a.errors, flags = _a.flags, fields = _a.fields;
+            _this.errors = errors;
+            _this.flags = flags;
+            _this.fields = fields;
+        }, 16);
+        this.$watch(computeObserverState, onChange);
+    },
+    activated: function () {
+        register(this);
+    },
+    deactivated: function () {
+        unregister(this);
+    },
+    beforeDestroy: function () {
+        unregister(this);
+    },
+    render: function (h) {
+        var children = normalizeChildren(this, prepareSlotProps(this));
+        return this.slim && children.length <= 1 ? children[0] : h(this.tag, { on: this.$listeners }, children);
+    },
+    methods: {
+        observe: function (subscriber, kind) {
+            var _a;
+            if (kind === void 0) { kind = 'provider'; }
+            if (kind === 'observer') {
+                this.observers.push(subscriber);
+                return;
+            }
+            this.refs = __assign(__assign({}, this.refs), (_a = {}, _a[subscriber.id] = subscriber, _a));
+        },
+        unobserve: function (id, kind) {
+            if (kind === void 0) { kind = 'provider'; }
+            if (kind === 'provider') {
+                var provider = this.refs[id];
+                if (!provider) {
+                    return;
+                }
+                this.$delete(this.refs, id);
+                return;
+            }
+            var idx = findIndex(this.observers, function (o) { return o.id === id; });
+            if (idx !== -1) {
+                this.observers.splice(idx, 1);
+            }
+        },
+        validateWithInfo: function (_a) {
+            var _b = (_a === void 0 ? {} : _a).silent, silent = _b === void 0 ? false : _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var results, isValid, _c, errors, flags, fields;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
+                        case 0: return [4 /*yield*/, Promise.all(__spreadArrays(values(this.refs)
+                                .filter(function (r) { return !r.disabled; })
+                                .map(function (ref) { return ref[silent ? 'validateSilent' : 'validate']().then(function (r) { return r.valid; }); }), this.observers.filter(function (o) { return !o.disabled; }).map(function (obs) { return obs.validate({ silent: silent }); })))];
+                        case 1:
+                            results = _d.sent();
+                            isValid = results.every(function (r) { return r; });
+                            _c = computeObserverState.call(this), errors = _c.errors, flags = _c.flags, fields = _c.fields;
+                            this.errors = errors;
+                            this.flags = flags;
+                            this.fields = fields;
+                            return [2 /*return*/, {
+                                    errors: errors,
+                                    flags: flags,
+                                    fields: fields,
+                                    isValid: isValid
+                                }];
+                    }
+                });
+            });
+        },
+        validate: function (_a) {
+            var _b = (_a === void 0 ? {} : _a).silent, silent = _b === void 0 ? false : _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var isValid;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this.validateWithInfo({ silent: silent })];
+                        case 1:
+                            isValid = (_c.sent()).isValid;
+                            return [2 /*return*/, isValid];
+                    }
+                });
+            });
+        },
+        handleSubmit: function (cb) {
+            return __awaiter(this, void 0, void 0, function () {
+                var isValid;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.validate()];
+                        case 1:
+                            isValid = _a.sent();
+                            if (!isValid || !cb) {
+                                return [2 /*return*/];
+                            }
+                            return [2 /*return*/, cb()];
+                    }
+                });
+            });
+        },
+        reset: function () {
+            return __spreadArrays(values(this.refs), this.observers).forEach(function (ref) { return ref.reset(); });
+        },
+        setErrors: function (errors) {
+            var _this = this;
+            Object.keys(errors).forEach(function (key) {
+                var provider = _this.refs[key];
+                if (!provider)
+                    return;
+                var errorArr = errors[key] || [];
+                errorArr = typeof errorArr === 'string' ? [errorArr] : errorArr;
+                provider.setErrors(errorArr);
+            });
+            this.observers.forEach(function (observer) {
+                observer.setErrors(errors);
+            });
+        }
+    }
+});
+function unregister(vm) {
+    if (vm.$_veeObserver) {
+        vm.$_veeObserver.unobserve(vm.id, 'observer');
+    }
+}
+function register(vm) {
+    if (vm.$_veeObserver) {
+        vm.$_veeObserver.observe(vm, 'observer');
+    }
+}
+function prepareSlotProps(vm) {
+    return __assign(__assign({}, vm.flags), { errors: vm.errors, fields: vm.fields, validate: vm.validate, validateWithInfo: vm.validateWithInfo, passes: vm.handleSubmit, handleSubmit: vm.handleSubmit, reset: vm.reset });
+}
+// Creates a modified version of validation flags
+function createObserverFlags() {
+    return __assign(__assign({}, createFlags()), { valid: true, invalid: false });
+}
+function computeObserverState() {
+    var vms = __spreadArrays(values(this.refs), this.observers.filter(function (o) { return !o.disabled; }));
+    var errors = {};
+    var flags = createObserverFlags();
+    var fields = {};
+    var length = vms.length;
+    for (var i = 0; i < length; i++) {
+        var vm = vms[i];
+        // validation provider
+        if (Array.isArray(vm.errors)) {
+            errors[vm.id] = vm.errors;
+            fields[vm.id] = __assign({ id: vm.id, name: vm.name, failedRules: vm.failedRules }, vm.flags);
+            continue;
+        }
+        // Nested observer, merge errors and fields
+        errors = __assign(__assign({}, errors), vm.errors);
+        fields = __assign(__assign({}, fields), vm.fields);
+    }
+    FLAGS_STRATEGIES.forEach(function (_a) {
+        var flag = _a[0], method = _a[1];
+        flags[flag] = vms[method](function (vm) { return vm.flags[flag]; });
+    });
+    return { errors: errors, flags: flags, fields: fields };
+}
+
+function withValidation(component, mapProps) {
+    var _a;
+    if (mapProps === void 0) { mapProps = identity; }
+    var options = 'options' in component ? component.options : component;
+    var providerOpts = ValidationProvider.options;
+    var hoc = {
+        name: (options.name || 'AnonymousHoc') + "WithValidation",
+        props: __assign({}, providerOpts.props),
+        data: providerOpts.data,
+        computed: __assign({}, providerOpts.computed),
+        methods: __assign({}, providerOpts.methods),
+        beforeDestroy: providerOpts.beforeDestroy,
+        inject: providerOpts.inject
+    };
+    var eventName = ((_a = options === null || options === void 0 ? void 0 : options.model) === null || _a === void 0 ? void 0 : _a.event) || 'input';
+    hoc.render = function (h) {
+        var _a;
+        this.registerField();
+        var vctx = createValidationCtx(this);
+        var listeners = __assign({}, this.$listeners);
+        var model = findModel(this.$vnode);
+        this._inputEventName = this._inputEventName || getInputEventName(this.$vnode, model);
+        var value = findValue(this.$vnode);
+        onRenderUpdate(this, value === null || value === void 0 ? void 0 : value.value);
+        var _b = createCommonHandlers(this), onInput = _b.onInput, onBlur = _b.onBlur, onValidate = _b.onValidate;
+        mergeVNodeListeners(listeners, eventName, onInput);
+        mergeVNodeListeners(listeners, 'blur', onBlur);
+        this.normalizedEvents.forEach(function (evt) {
+            mergeVNodeListeners(listeners, evt, onValidate);
+        });
+        // Props are any attrs not associated with ValidationProvider Plus the model prop.
+        // WARNING: Accidental prop overwrite will probably happen.
+        var prop = (findModelConfig(this.$vnode) || { prop: 'value' }).prop;
+        var props = __assign(__assign(__assign({}, this.$attrs), (_a = {}, _a[prop] = model === null || model === void 0 ? void 0 : model.value, _a)), mapProps(vctx));
+        return h(options, {
+            attrs: this.$attrs,
+            props: props,
+            on: listeners,
+            scopedSlots: this.$scopedSlots
+        }, normalizeSlots(this.$slots, this.$vnode.context));
+    };
+    return hoc;
+}
+
+var version = '3.4.14';
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vee-validate/dist/vee-validate.full.esm.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vee-validate/dist/vee-validate.full.esm.js ***!
+  \*****************************************************************/
+/*! exports provided: Rules, ValidationObserver, ValidationProvider, configure, extend, localeChanged, localize, normalizeRules, setInteractionMode, validate, version, withValidation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Rules", function() { return Rules; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidationObserver", function() { return ValidationObserver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidationProvider", function() { return ValidationProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configure", function() { return configure; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extend", function() { return extend; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localeChanged", function() { return localeChanged; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localize", function() { return localize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "normalizeRules", function() { return normalizeRules; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setInteractionMode", function() { return setInteractionMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validate", function() { return validate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "version", function() { return version; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withValidation", function() { return withValidation; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/**
+  * vee-validate v3.4.14
+  * (c) 2021 Abdelrahman Awad
+  * @license MIT
+  */
+
+
+var code = "en";
+var messages = {
+	alpha: "The {_field_} field may only contain alphabetic characters",
+	alpha_num: "The {_field_} field may only contain alpha-numeric characters",
+	alpha_dash: "The {_field_} field may contain alpha-numeric characters as well as dashes and underscores",
+	alpha_spaces: "The {_field_} field may only contain alphabetic characters as well as spaces",
+	between: "The {_field_} field must be between {min} and {max}",
+	confirmed: "The {_field_} field confirmation does not match",
+	digits: "The {_field_} field must be numeric and exactly contain {length} digits",
+	dimensions: "The {_field_} field must be {width} pixels by {height} pixels",
+	email: "The {_field_} field must be a valid email",
+	excluded: "The {_field_} field is not a valid value",
+	ext: "The {_field_} field is not a valid file",
+	image: "The {_field_} field must be an image",
+	integer: "The {_field_} field must be an integer",
+	length: "The {_field_} field must be {length} long",
+	max_value: "The {_field_} field must be {max} or less",
+	max: "The {_field_} field may not be greater than {length} characters",
+	mimes: "The {_field_} field must have a valid file type",
+	min_value: "The {_field_} field must be {min} or more",
+	min: "The {_field_} field must be at least {length} characters",
+	numeric: "The {_field_} field may only contain numeric characters",
+	oneOf: "The {_field_} field is not a valid value",
+	regex: "The {_field_} field format is invalid",
+	required_if: "The {_field_} field is required",
+	required: "The {_field_} field is required",
+	size: "The {_field_} field size must be less than {size}KB",
+	double: "The {_field_} field must be a valid decimal"
+};
+var en$1 = {
+	code: code,
+	messages: messages
+};
+
+/**
+ * Some Alpha Regex helpers.
+ * https://github.com/chriso/validator.js/blob/master/src/lib/alpha.js
+ */
+/* eslint-disable no-misleading-character-class */
+var alpha$1 = {
+    en: /^[A-Z]*$/i,
+    cs: /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]*$/i,
+    da: /^[A-ZÆØÅ]*$/i,
+    de: /^[A-ZÄÖÜß]*$/i,
+    es: /^[A-ZÁÉÍÑÓÚÜ]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]*$/i,
+    it: /^[A-Z\xC0-\xFF]*$/i,
+    lt: /^[A-ZĄČĘĖĮŠŲŪŽ]*$/i,
+    nl: /^[A-ZÉËÏÓÖÜ]*$/i,
+    hu: /^[A-ZÁÉÍÓÖŐÚÜŰ]*$/i,
+    pl: /^[A-ZĄĆĘŚŁŃÓŻŹ]*$/i,
+    pt: /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]*$/i,
+    ro: /^[A-ZĂÂÎŞŢ]*$/i,
+    ru: /^[А-ЯЁ]*$/i,
+    sk: /^[A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ]*$/i,
+    sr: /^[A-ZČĆŽŠĐ]*$/i,
+    sv: /^[A-ZÅÄÖ]*$/i,
+    tr: /^[A-ZÇĞİıÖŞÜ]*$/i,
+    uk: /^[А-ЩЬЮЯЄІЇҐ]*$/i,
+    ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]*$/,
+    az: /^[A-ZÇƏĞİıÖŞÜ]*$/i,
+    el: /^[Α-ώ]*$/i,
+    ja: /^[A-Z\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF\u4E00-\u9FAF]*$/i,
+    he: /^[A-Z\u05D0-\u05EA']*$/i
+};
+var alphaSpaces = {
+    en: /^[A-Z\s]*$/i,
+    cs: /^[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ\s]*$/i,
+    da: /^[A-ZÆØÅ\s]*$/i,
+    de: /^[A-ZÄÖÜß\s]*$/i,
+    es: /^[A-ZÁÉÍÑÓÚÜ\s]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ\s]*$/i,
+    it: /^[A-Z\xC0-\xFF\s]*$/i,
+    lt: /^[A-ZĄČĘĖĮŠŲŪŽ\s]*$/i,
+    nl: /^[A-ZÉËÏÓÖÜ\s]*$/i,
+    hu: /^[A-ZÁÉÍÓÖŐÚÜŰ\s]*$/i,
+    pl: /^[A-ZĄĆĘŚŁŃÓŻŹ\s]*$/i,
+    pt: /^[A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ\s]*$/i,
+    ro: /^[A-ZĂÂÎŞŢ\s]*$/i,
+    ru: /^[А-ЯЁ\s]*$/i,
+    sk: /^[A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ\s]*$/i,
+    sr: /^[A-ZČĆŽŠĐ\s]*$/i,
+    sv: /^[A-ZÅÄÖ\s]*$/i,
+    tr: /^[A-ZÇĞİıÖŞÜ\s]*$/i,
+    uk: /^[А-ЩЬЮЯЄІЇҐ\s]*$/i,
+    ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ\s]*$/,
+    az: /^[A-ZÇƏĞİıÖŞÜ\s]*$/i,
+    el: /^[Α-ώ\s]*$/i,
+    ja: /^[A-Z\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF\u4E00-\u9FAF\s]*$/i,
+    he: /^[A-Z\u05D0-\u05EA'\s]*$/i
+};
+var alphanumeric = {
+    en: /^[0-9A-Z]*$/i,
+    cs: /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]*$/i,
+    da: /^[0-9A-ZÆØÅ]$/i,
+    de: /^[0-9A-ZÄÖÜß]*$/i,
+    es: /^[0-9A-ZÁÉÍÑÓÚÜ]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ]*$/i,
+    it: /^[0-9A-Z\xC0-\xFF]*$/i,
+    lt: /^[0-9A-ZĄČĘĖĮŠŲŪŽ]*$/i,
+    hu: /^[0-9A-ZÁÉÍÓÖŐÚÜŰ]*$/i,
+    nl: /^[0-9A-ZÉËÏÓÖÜ]*$/i,
+    pl: /^[0-9A-ZĄĆĘŚŁŃÓŻŹ]*$/i,
+    pt: /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ]*$/i,
+    ro: /^[0-9A-ZĂÂÎŞŢ]*$/i,
+    ru: /^[0-9А-ЯЁ]*$/i,
+    sk: /^[0-9A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ]*$/i,
+    sr: /^[0-9A-ZČĆŽŠĐ]*$/i,
+    sv: /^[0-9A-ZÅÄÖ]*$/i,
+    tr: /^[0-9A-ZÇĞİıÖŞÜ]*$/i,
+    uk: /^[0-9А-ЩЬЮЯЄІЇҐ]*$/i,
+    ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]*$/,
+    az: /^[0-9A-ZÇƏĞİıÖŞÜ]*$/i,
+    el: /^[0-9Α-ώ]*$/i,
+    ja: /^[0-9A-Z\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF\u4E00-\u9FAF]*$/i,
+    he: /^[0-9A-Z\u05D0-\u05EA']*$/i
+};
+var alphaDash = {
+    en: /^[0-9A-Z_-]*$/i,
+    cs: /^[0-9A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ_-]*$/i,
+    da: /^[0-9A-ZÆØÅ_-]*$/i,
+    de: /^[0-9A-ZÄÖÜß_-]*$/i,
+    es: /^[0-9A-ZÁÉÍÑÓÚÜ_-]*$/i,
+    fa: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰپژگچکی]*$/,
+    fr: /^[0-9A-ZÀÂÆÇÉÈÊËÏÎÔŒÙÛÜŸ_-]*$/i,
+    it: /^[0-9A-Z\xC0-\xFF_-]*$/i,
+    lt: /^[0-9A-ZĄČĘĖĮŠŲŪŽ_-]*$/i,
+    nl: /^[0-9A-ZÉËÏÓÖÜ_-]*$/i,
+    hu: /^[0-9A-ZÁÉÍÓÖŐÚÜŰ_-]*$/i,
+    pl: /^[0-9A-ZĄĆĘŚŁŃÓŻŹ_-]*$/i,
+    pt: /^[0-9A-ZÃÁÀÂÇÉÊÍÕÓÔÚÜ_-]*$/i,
+    ro: /^[0-9A-ZĂÂÎŞŢ_-]*$/i,
+    ru: /^[0-9А-ЯЁ_-]*$/i,
+    sk: /^[0-9A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ_-]*$/i,
+    sr: /^[0-9A-ZČĆŽŠĐ_-]*$/i,
+    sv: /^[0-9A-ZÅÄÖ_-]*$/i,
+    tr: /^[0-9A-ZÇĞİıÖŞÜ_-]*$/i,
+    uk: /^[0-9А-ЩЬЮЯЄІЇҐ_-]*$/i,
+    ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ_-]*$/,
+    az: /^[0-9A-ZÇƏĞİıÖŞÜ_-]*$/i,
+    el: /^[0-9Α-ώ_-]*$/i,
+    ja: /^[0-9A-Z\u3000-\u303F\u3040-\u309F\u30A0-\u30FF\uFF00-\uFFEF\u4E00-\u9FAF_-]*$/i,
+    he: /^[0-9A-Z\u05D0-\u05EA'_-]*$/i
+};
+
+var validate$s = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$s(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alpha$1).some(function (loc) { return alpha$1[loc].test(value); });
+    }
+    return (alpha$1[locale] || alpha$1.en).test(value);
+};
+var params$k = [
+    {
+        name: 'locale'
+    }
+];
+var alpha = {
+    validate: validate$s,
+    params: params$k
+};
+
+var validate$r = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$r(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alphaDash).some(function (loc) { return alphaDash[loc].test(value); });
+    }
+    return (alphaDash[locale] || alphaDash.en).test(value);
+};
+var params$j = [
+    {
+        name: 'locale'
+    }
+];
+var alpha_dash = {
+    validate: validate$r,
+    params: params$j
+};
+
+var validate$q = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$q(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alphanumeric).some(function (loc) { return alphanumeric[loc].test(value); });
+    }
+    return (alphanumeric[locale] || alphanumeric.en).test(value);
+};
+var params$i = [
+    {
+        name: 'locale'
+    }
+];
+var alpha_num = {
+    validate: validate$q,
+    params: params$i
+};
+
+var validate$p = function (value, _a) {
+    var _b = (_a === void 0 ? {} : _a).locale, locale = _b === void 0 ? '' : _b;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$p(val, { locale: locale }); });
+    }
+    // Match at least one locale.
+    if (!locale) {
+        return Object.keys(alphaSpaces).some(function (loc) { return alphaSpaces[loc].test(value); });
+    }
+    return (alphaSpaces[locale] || alphaSpaces.en).test(value);
+};
+var params$h = [
+    {
+        name: 'locale'
+    }
+];
+var alpha_spaces = {
+    validate: validate$p,
+    params: params$h
+};
+
+var validate$o = function (value, _a) {
+    var _b = _a === void 0 ? {} : _a, min = _b.min, max = _b.max;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return !!validate$o(val, { min: min, max: max }); });
+    }
+    return Number(min) <= value && Number(max) >= value;
+};
+var params$g = [
+    {
+        name: 'min'
+    },
+    {
+        name: 'max'
+    }
+];
+var between = {
+    validate: validate$o,
+    params: params$g
+};
+
+var validate$n = function (value, _a) {
+    var target = _a.target;
+    return String(value) === String(target);
+};
+var params$f = [
+    {
+        name: 'target',
+        isTarget: true
+    }
+];
+var confirmed = {
+    validate: validate$n,
+    params: params$f
+};
+
+var validate$m = function (value, _a) {
+    var length = _a.length;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$m(val, { length: length }); });
+    }
+    var strVal = String(value);
+    return /^[0-9]*$/.test(strVal) && strVal.length === length;
+};
+var params$e = [
+    {
+        name: 'length',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var digits = {
+    validate: validate$m,
+    params: params$e
+};
+
+var validateImage = function (file, width, height) {
+    var URL = window.URL || window.webkitURL;
+    return new Promise(function (resolve) {
+        var image = new Image();
+        image.onerror = function () { return resolve(false); };
+        image.onload = function () { return resolve(image.width === width && image.height === height); };
+        image.src = URL.createObjectURL(file);
+    });
+};
+var validate$l = function (files, _a) {
+    var width = _a.width, height = _a.height;
+    var list = [];
+    files = Array.isArray(files) ? files : [files];
+    for (var i = 0; i < files.length; i++) {
+        // if file is not an image, reject.
+        if (!/\.(jpg|svg|jpeg|png|bmp|gif)$/i.test(files[i].name)) {
+            return Promise.resolve(false);
+        }
+        list.push(files[i]);
+    }
+    return Promise.all(list.map(function (file) { return validateImage(file, width, height); })).then(function (values) {
+        return values.every(function (v) { return v; });
+    });
+};
+var params$d = [
+    {
+        name: 'width',
+        cast: function (value) {
+            return Number(value);
+        }
+    },
+    {
+        name: 'height',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var dimensions = {
+    validate: validate$l,
+    params: params$d
+};
+
+var validate$k = function (value, _a) {
+    var multiple = (_a === void 0 ? {} : _a).multiple;
+    // eslint-disable-next-line
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (multiple && !Array.isArray(value)) {
+        value = String(value)
+            .split(',')
+            .map(function (emailStr) { return emailStr.trim(); });
+    }
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return re.test(String(val)); });
+    }
+    return re.test(String(value));
+};
+var params$c = [
+    {
+        name: 'multiple',
+        default: false
+    }
+];
+var email = {
+    validate: validate$k,
+    params: params$c
+};
+
+function isNaN$1(value) {
+    // NaN is the one value that does not equal itself.
+    // eslint-disable-next-line
+    return value !== value;
+}
+function isNullOrUndefined(value) {
+    return value === null || value === undefined;
+}
+function isEmptyArray(arr) {
+    return Array.isArray(arr) && arr.length === 0;
+}
+var isObject = function (obj) {
+    return obj !== null && obj && typeof obj === 'object' && !Array.isArray(obj);
+};
+/**
+ * A reference comparison function with NaN support
+ */
+function isRefEqual(lhs, rhs) {
+    if (isNaN$1(lhs) && isNaN$1(rhs)) {
+        return true;
+    }
+    return lhs === rhs;
+}
+// Checks if a given value is not an empty string or null or undefined.
+function isSpecified(val) {
+    if (val === '') {
+        return false;
+    }
+    return !isNullOrUndefined(val);
+}
+// eslint-disable-next-line @typescript-eslint/ban-types
+function isCallable(fn) {
+    return typeof fn === 'function';
+}
+function isLocator(value) {
+    return isCallable(value) && !!value.__locatorRef;
+}
+
+function findIndex(arrayLike, predicate) {
+    var array = Array.isArray(arrayLike) ? arrayLike : toArray(arrayLike);
+    if (isCallable(array.findIndex)) {
+        return array.findIndex(predicate);
+    }
+    /* istanbul ignore next */
+    for (var i = 0; i < array.length; i++) {
+        if (predicate(array[i], i)) {
+            return i;
+        }
+    }
+    /* istanbul ignore next */
+    return -1;
+}
+/**
+ * finds the first element that satisfies the predicate callback, polyfills array.find
+ */
+function find(arrayLike, predicate) {
+    var array = Array.isArray(arrayLike) ? arrayLike : toArray(arrayLike);
+    var idx = findIndex(array, predicate);
+    return idx === -1 ? undefined : array[idx];
+}
+function includes(collection, item) {
+    return collection.indexOf(item) !== -1;
+}
+/**
+ * Converts an array-like object to array, provides a simple polyfill for Array.from
+ */
+function toArray(arrayLike) {
+    if (isCallable(Array.from)) {
+        return Array.from(arrayLike);
+    }
+    /* istanbul ignore next */
+    return _copyArray(arrayLike);
+}
+/* istanbul ignore next */
+function _copyArray(arrayLike) {
+    var array = [];
+    var length = arrayLike.length;
+    for (var i = 0; i < length; i++) {
+        array.push(arrayLike[i]);
+    }
+    return array;
+}
+function values(obj) {
+    if (isCallable(Object.values)) {
+        return Object.values(obj);
+    }
+    // fallback to keys()
+    /* istanbul ignore next */
+    return Object.keys(obj).map(function (k) { return obj[k]; });
+}
+function merge(target, source) {
+    Object.keys(source).forEach(function (key) {
+        if (isObject(source[key])) {
+            if (!target[key]) {
+                target[key] = {};
+            }
+            merge(target[key], source[key]);
+            return;
+        }
+        target[key] = source[key];
+    });
+    return target;
+}
+
+function createFlags() {
+    return {
+        untouched: true,
+        touched: false,
+        dirty: false,
+        pristine: true,
+        valid: false,
+        invalid: false,
+        validated: false,
+        pending: false,
+        required: false,
+        changed: false,
+        passed: false,
+        failed: false
+    };
+}
+
+function identity(x) {
+    return x;
+}
+function debounce(fn, wait, token) {
+    if (wait === void 0) { wait = 0; }
+    if (token === void 0) { token = { cancelled: false }; }
+    if (wait === 0) {
+        return fn;
+    }
+    var timeout;
+    return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var later = function () {
+            timeout = undefined;
+            // check if the fn call was cancelled.
+            if (!token.cancelled)
+                fn.apply(void 0, args);
+        };
+        // because we might want to use Node.js setTimout for SSR.
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Emits a warning to the console
+ */
+function warn(message) {
+    console.warn("[vee-validate] " + message);
+}
+/**
+ * Replaces placeholder values in a string with their actual values
+ */
+function interpolate(template, values) {
+    return template.replace(/{([^}]+)}/g, function (_, p) {
+        return p in values ? values[p] : "{" + p + "}";
+    });
+}
+
+var validate$j = function (value, options) {
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$j(val, options); });
+    }
+    return toArray(options).some(function (item) {
+        // eslint-disable-next-line
+        return item == value;
+    });
+};
+var oneOf = {
+    validate: validate$j
+};
+
+var validate$i = function (value, args) {
+    return !validate$j(value, args);
+};
+var excluded = {
+    validate: validate$i
+};
+
+var validate$h = function (files, extensions) {
+    var regex = new RegExp(".(" + extensions.join('|') + ")$", 'i');
+    if (Array.isArray(files)) {
+        return files.every(function (file) { return regex.test(file.name); });
+    }
+    return regex.test(files.name);
+};
+var ext = {
+    validate: validate$h
+};
+
+var validate$g = function (files) {
+    var regex = /\.(jpg|svg|jpeg|png|bmp|gif|webp)$/i;
+    if (Array.isArray(files)) {
+        return files.every(function (file) { return regex.test(file.name); });
+    }
+    return regex.test(files.name);
+};
+var image = {
+    validate: validate$g
+};
+
+var validate$f = function (value) {
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return /^-?[0-9]+$/.test(String(val)); });
+    }
+    return /^-?[0-9]+$/.test(String(value));
+};
+var integer = {
+    validate: validate$f
+};
+
+var validate$e = function (value, _a) {
+    var other = _a.other;
+    return value === other;
+};
+var params$b = [
+    {
+        name: 'other'
+    }
+];
+var is = {
+    validate: validate$e,
+    params: params$b
+};
+
+var validate$d = function (value, _a) {
+    var other = _a.other;
+    return value !== other;
+};
+var params$a = [
+    {
+        name: 'other'
+    }
+];
+var is_not = {
+    validate: validate$d,
+    params: params$a
+};
+
+var validate$c = function (value, _a) {
+    var length = _a.length;
+    if (isNullOrUndefined(value)) {
+        return false;
+    }
+    if (typeof value === 'string') {
+        value = toArray(value);
+    }
+    if (typeof value === 'number') {
+        value = String(value);
+    }
+    if (!value.length) {
+        value = toArray(value);
+    }
+    return value.length === length;
+};
+var params$9 = [
+    {
+        name: 'length',
+        cast: function (value) { return Number(value); }
+    }
+];
+var length = {
+    validate: validate$c,
+    params: params$9
+};
+
+var validate$b = function (value, _a) {
+    var length = _a.length;
+    if (isNullOrUndefined(value)) {
+        return length >= 0;
+    }
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$b(val, { length: length }); });
+    }
+    return String(value).length <= length;
+};
+var params$8 = [
+    {
+        name: 'length',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var max = {
+    validate: validate$b,
+    params: params$8
+};
+
+var validate$a = function (value, _a) {
+    var max = _a.max;
+    if (isNullOrUndefined(value) || value === '') {
+        return false;
+    }
+    if (Array.isArray(value)) {
+        return value.length > 0 && value.every(function (val) { return validate$a(val, { max: max }); });
+    }
+    return Number(value) <= max;
+};
+var params$7 = [
+    {
+        name: 'max',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var max_value = {
+    validate: validate$a,
+    params: params$7
+};
+
+var validate$9 = function (files, mimes) {
+    var regex = new RegExp(mimes.join('|').replace('*', '.+') + "$", 'i');
+    if (Array.isArray(files)) {
+        return files.every(function (file) { return regex.test(file.type); });
+    }
+    return regex.test(files.type);
+};
+var mimes = {
+    validate: validate$9
+};
+
+var validate$8 = function (value, _a) {
+    var length = _a.length;
+    if (isNullOrUndefined(value)) {
+        return false;
+    }
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$8(val, { length: length }); });
+    }
+    return String(value).length >= length;
+};
+var params$6 = [
+    {
+        name: 'length',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var min = {
+    validate: validate$8,
+    params: params$6
+};
+
+var validate$7 = function (value, _a) {
+    var min = _a.min;
+    if (isNullOrUndefined(value) || value === '') {
+        return false;
+    }
+    if (Array.isArray(value)) {
+        return value.length > 0 && value.every(function (val) { return validate$7(val, { min: min }); });
+    }
+    return Number(value) >= min;
+};
+var params$5 = [
+    {
+        name: 'min',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var min_value = {
+    validate: validate$7,
+    params: params$5
+};
+
+var ar = /^[٠١٢٣٤٥٦٧٨٩]+$/;
+var en = /^[0-9]+$/;
+var validate$6 = function (value) {
+    var testValue = function (val) {
+        var strValue = String(val);
+        return en.test(strValue) || ar.test(strValue);
+    };
+    if (Array.isArray(value)) {
+        return value.every(testValue);
+    }
+    return testValue(value);
+};
+var numeric = {
+    validate: validate$6
+};
+
+var validate$5 = function (value, _a) {
+    var regex = _a.regex;
+    if (Array.isArray(value)) {
+        return value.every(function (val) { return validate$5(val, { regex: regex }); });
+    }
+    return regex.test(String(value));
+};
+var params$4 = [
+    {
+        name: 'regex',
+        cast: function (value) {
+            if (typeof value === 'string') {
+                return new RegExp(value);
+            }
+            return value;
+        }
+    }
+];
+var regex = {
+    validate: validate$5,
+    params: params$4
+};
+
+var validate$4 = function (value, _a) {
+    var allowFalse = (_a === void 0 ? { allowFalse: true } : _a).allowFalse;
+    var result = {
+        valid: false,
+        required: true
+    };
+    if (isNullOrUndefined(value) || isEmptyArray(value)) {
+        return result;
+    }
+    // incase a field considers `false` as an empty value like checkboxes.
+    if (value === false && !allowFalse) {
+        return result;
+    }
+    result.valid = !!String(value).trim().length;
+    return result;
+};
+var computesRequired$1 = true;
+var params$3 = [
+    {
+        name: 'allowFalse',
+        default: true
+    }
+];
+var required = {
+    validate: validate$4,
+    params: params$3,
+    computesRequired: computesRequired$1
+};
+
+var testEmpty = function (value) {
+    return isEmptyArray(value) || includes([false, null, undefined], value) || !String(value).trim().length;
+};
+var validate$3 = function (value, _a) {
+    var target = _a.target, values = _a.values;
+    var required;
+    if (values && values.length) {
+        if (!Array.isArray(values) && typeof values === 'string') {
+            values = [values];
+        }
+        // eslint-disable-next-line
+        required = values.some(function (val) { return val == String(target).trim(); });
+    }
+    else {
+        required = !testEmpty(target);
+    }
+    if (!required) {
+        return {
+            valid: true,
+            required: required
+        };
+    }
+    return {
+        valid: !testEmpty(value),
+        required: required
+    };
+};
+var params$2 = [
+    {
+        name: 'target',
+        isTarget: true
+    },
+    {
+        name: 'values'
+    }
+];
+var computesRequired = true;
+var required_if = {
+    validate: validate$3,
+    params: params$2,
+    computesRequired: computesRequired
+};
+
+var validate$2 = function (files, _a) {
+    var size = _a.size;
+    if (isNaN(size)) {
+        return false;
+    }
+    var nSize = size * 1024;
+    if (!Array.isArray(files)) {
+        return files.size <= nSize;
+    }
+    for (var i = 0; i < files.length; i++) {
+        if (files[i].size > nSize) {
+            return false;
+        }
+    }
+    return true;
+};
+var params$1 = [
+    {
+        name: 'size',
+        cast: function (value) {
+            return Number(value);
+        }
+    }
+];
+var size = {
+    validate: validate$2,
+    params: params$1
+};
+
+var validate$1 = function (value, params) {
+    var _a = params || {}, _b = _a.decimals, decimals = _b === void 0 ? 0 : _b, _c = _a.separator, separator = _c === void 0 ? 'dot' : _c;
+    var delimiterRegexPart = separator === 'comma' ? ',?' : '\\.?';
+    var decimalRegexPart = decimals === 0 ? '\\d*' : "(\\d{" + decimals + "})?";
+    var regex = new RegExp("^-?\\d+" + delimiterRegexPart + decimalRegexPart + "$");
+    return Array.isArray(value) ? value.every(function (val) { return regex.test(String(val)); }) : regex.test(String(value));
+};
+var params = [
+    {
+        name: 'decimals',
+        default: 0
+    },
+    {
+        name: 'separator',
+        default: 'dot'
+    }
+];
+var double = {
+    validate: validate$1,
+    params: params
+};
+
+/* eslint-disable camelcase */
+
+var Rules = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  alpha_dash: alpha_dash,
+  alpha_num: alpha_num,
+  alpha_spaces: alpha_spaces,
+  alpha: alpha,
+  between: between,
+  confirmed: confirmed,
+  digits: digits,
+  dimensions: dimensions,
+  email: email,
+  ext: ext,
+  image: image,
+  oneOf: oneOf,
+  integer: integer,
+  length: length,
+  is_not: is_not,
+  is: is,
+  max: max,
+  max_value: max_value,
+  mimes: mimes,
+  min: min,
+  min_value: min_value,
+  excluded: excluded,
+  numeric: numeric,
+  regex: regex,
+  required: required,
+  required_if: required_if,
+  size: size,
+  double: double
+});
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+var DEFAULT_CONFIG = {
+    defaultMessage: "{_field_} is not valid.",
+    skipOptional: true,
+    classes: {
+        touched: 'touched',
+        untouched: 'untouched',
+        valid: 'valid',
+        invalid: 'invalid',
+        pristine: 'pristine',
+        dirty: 'dirty' // control has been interacted with
+    },
+    bails: true,
+    mode: 'aggressive',
+    useConstraintAttrs: true
+};
+var currentConfig = __assign({}, DEFAULT_CONFIG);
+var getConfig = function () { return currentConfig; };
+var setConfig = function (newConf) {
+    currentConfig = __assign(__assign({}, currentConfig), newConf);
+};
+var configure = function (cfg) {
+    setConfig(cfg);
+};
+
+var EVENT_BUS = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+function localeChanged() {
+    EVENT_BUS.$emit('change:locale');
+}
+
+var Dictionary = /** @class */ (function () {
+    function Dictionary(locale, dictionary) {
+        this.container = {};
+        this.locale = locale;
+        this.merge(dictionary);
+    }
+    Dictionary.prototype.resolve = function (field, rule, values) {
+        return this.format(this.locale, field, rule, values);
+    };
+    Dictionary.prototype.format = function (locale, field, rule, values) {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var message;
+        // find if specific message for that field was specified.
+        var fieldContainer = (_c = (_b = (_a = this.container[locale]) === null || _a === void 0 ? void 0 : _a.fields) === null || _b === void 0 ? void 0 : _b[field]) === null || _c === void 0 ? void 0 : _c[rule];
+        var messageContainer = (_e = (_d = this.container[locale]) === null || _d === void 0 ? void 0 : _d.messages) === null || _e === void 0 ? void 0 : _e[rule];
+        message = fieldContainer || messageContainer || '';
+        if (!message) {
+            message = '{_field_} is not valid';
+        }
+        field = (_h = (_g = (_f = this.container[locale]) === null || _f === void 0 ? void 0 : _f.names) === null || _g === void 0 ? void 0 : _g[field]) !== null && _h !== void 0 ? _h : field;
+        return isCallable(message) ? message(field, values) : interpolate(message, __assign(__assign({}, values), { _field_: field }));
+    };
+    Dictionary.prototype.merge = function (dictionary) {
+        merge(this.container, dictionary);
+    };
+    Dictionary.prototype.hasRule = function (name) {
+        var _a, _b;
+        return !!((_b = (_a = this.container[this.locale]) === null || _a === void 0 ? void 0 : _a.messages) === null || _b === void 0 ? void 0 : _b[name]);
+    };
+    return Dictionary;
+}());
+var DICTIONARY;
+function localize(locale, dictionary) {
+    var _a;
+    if (!DICTIONARY) {
+        DICTIONARY = new Dictionary('en', {});
+        setConfig({
+            defaultMessage: function (field, values) {
+                return DICTIONARY.resolve(field, values === null || values === void 0 ? void 0 : values._rule_, values || {});
+            }
+        });
+    }
+    if (typeof locale === 'string') {
+        DICTIONARY.locale = locale;
+        if (dictionary) {
+            DICTIONARY.merge((_a = {}, _a[locale] = dictionary, _a));
+        }
+        localeChanged();
+        return;
+    }
+    DICTIONARY.merge(locale);
+}
+
+var RULES = {};
+function normalizeSchema(schema) {
+    var _a;
+    if ((_a = schema.params) === null || _a === void 0 ? void 0 : _a.length) {
+        schema.params = schema.params.map(function (param) {
+            if (typeof param === 'string') {
+                return { name: param };
+            }
+            return param;
+        });
+    }
+    return schema;
+}
+var RuleContainer = /** @class */ (function () {
+    function RuleContainer() {
+    }
+    RuleContainer.extend = function (name, schema) {
+        // if rule already exists, overwrite it.
+        var rule = normalizeSchema(schema);
+        if (RULES[name]) {
+            RULES[name] = merge(RULES[name], schema);
+            return;
+        }
+        RULES[name] = __assign({ lazy: false, computesRequired: false }, rule);
+    };
+    RuleContainer.isLazy = function (name) {
+        var _a;
+        return !!((_a = RULES[name]) === null || _a === void 0 ? void 0 : _a.lazy);
+    };
+    RuleContainer.isRequireRule = function (name) {
+        var _a;
+        return !!((_a = RULES[name]) === null || _a === void 0 ? void 0 : _a.computesRequired);
+    };
+    RuleContainer.getRuleDefinition = function (ruleName) {
+        return RULES[ruleName];
+    };
+    return RuleContainer;
+}());
+/**
+ * Adds a custom validator to the list of validation rules.
+ */
+function extend(name, schema) {
+    // makes sure new rules are properly formatted.
+    guardExtend(name, schema);
+    // Full schema object.
+    if (typeof schema === 'object') {
+        RuleContainer.extend(name, schema);
+        return;
+    }
+    RuleContainer.extend(name, {
+        validate: schema
+    });
+}
+/**
+ * Guards from extension violations.
+ */
+function guardExtend(name, validator) {
+    if (isCallable(validator)) {
+        return;
+    }
+    if (isCallable(validator.validate)) {
+        return;
+    }
+    if (RuleContainer.getRuleDefinition(name)) {
+        return;
+    }
+    throw new Error("Extension Error: The validator '" + name + "' must be a function or have a 'validate' method.");
+}
+
+var aggressive = function () { return ({
+    on: ['input', 'blur']
+}); };
+var lazy = function () { return ({
+    on: ['change', 'blur']
+}); };
+var eager = function (_a) {
+    var errors = _a.errors;
+    if (errors.length) {
+        return {
+            on: ['input', 'change']
+        };
+    }
+    return {
+        on: ['change', 'blur']
+    };
+};
+var passive = function () { return ({
+    on: []
+}); };
+var modes = {
+    aggressive: aggressive,
+    eager: eager,
+    passive: passive,
+    lazy: lazy
+};
+var setInteractionMode = function (mode, implementation) {
+    setConfig({ mode: mode });
+    if (!implementation) {
+        return;
+    }
+    if (!isCallable(implementation)) {
+        throw new Error('A mode implementation must be a function');
+    }
+    modes[mode] = implementation;
+};
+
+/**
+ * Normalizes the given rules expression.
+ */
+function normalizeRules(rules) {
+    // if falsy value return an empty object.
+    var acc = {};
+    Object.defineProperty(acc, '_$$isNormalized', {
+        value: true,
+        writable: false,
+        enumerable: false,
+        configurable: false
+    });
+    if (!rules) {
+        return acc;
+    }
+    // Object is already normalized, skip.
+    if (isObject(rules) && rules._$$isNormalized) {
+        return rules;
+    }
+    if (isObject(rules)) {
+        return Object.keys(rules).reduce(function (prev, curr) {
+            var params = [];
+            if (rules[curr] === true) {
+                params = [];
+            }
+            else if (Array.isArray(rules[curr])) {
+                params = rules[curr];
+            }
+            else if (isObject(rules[curr])) {
+                params = rules[curr];
+            }
+            else {
+                params = [rules[curr]];
+            }
+            if (rules[curr] !== false) {
+                prev[curr] = buildParams(curr, params);
+            }
+            return prev;
+        }, acc);
+    }
+    /* istanbul ignore if */
+    if (typeof rules !== 'string') {
+        warn('rules must be either a string or an object.');
+        return acc;
+    }
+    return rules.split('|').reduce(function (prev, rule) {
+        var parsedRule = parseRule(rule);
+        if (!parsedRule.name) {
+            return prev;
+        }
+        prev[parsedRule.name] = buildParams(parsedRule.name, parsedRule.params);
+        return prev;
+    }, acc);
+}
+function buildParams(ruleName, provided) {
+    var ruleSchema = RuleContainer.getRuleDefinition(ruleName);
+    if (!ruleSchema) {
+        return provided;
+    }
+    var params = {};
+    if (!ruleSchema.params && !Array.isArray(provided)) {
+        throw new Error('You provided an object params to a rule that has no defined schema.');
+    }
+    // Rule probably uses an array for their args, keep it as is.
+    if (Array.isArray(provided) && !ruleSchema.params) {
+        return provided;
+    }
+    var definedParams;
+    // collect the params schema.
+    if (!ruleSchema.params || (ruleSchema.params.length < provided.length && Array.isArray(provided))) {
+        var lastDefinedParam_1;
+        // collect any additional parameters in the last item.
+        definedParams = provided.map(function (_, idx) {
+            var _a;
+            var param = (_a = ruleSchema.params) === null || _a === void 0 ? void 0 : _a[idx];
+            lastDefinedParam_1 = param || lastDefinedParam_1;
+            if (!param) {
+                param = lastDefinedParam_1;
+            }
+            return param;
+        });
+    }
+    else {
+        definedParams = ruleSchema.params;
+    }
+    // Match the provided array length with a temporary schema.
+    for (var i = 0; i < definedParams.length; i++) {
+        var options = definedParams[i];
+        var value = options.default;
+        // if the provided is an array, map element value.
+        if (Array.isArray(provided)) {
+            if (i in provided) {
+                value = provided[i];
+            }
+        }
+        else {
+            // If the param exists in the provided object.
+            if (options.name in provided) {
+                value = provided[options.name];
+                // if the provided is the first param value.
+            }
+            else if (definedParams.length === 1) {
+                value = provided;
+            }
+        }
+        // if the param is a target, resolve the target value.
+        if (options.isTarget) {
+            value = createLocator(value, options.cast);
+        }
+        // A target param using interpolation
+        if (typeof value === 'string' && value[0] === '@') {
+            value = createLocator(value.slice(1), options.cast);
+        }
+        // If there is a transformer defined.
+        if (!isLocator(value) && options.cast) {
+            value = options.cast(value);
+        }
+        // already been set, probably multiple values.
+        if (params[options.name]) {
+            params[options.name] = Array.isArray(params[options.name]) ? params[options.name] : [params[options.name]];
+            params[options.name].push(value);
+        }
+        else {
+            // set the value.
+            params[options.name] = value;
+        }
+    }
+    return params;
+}
+/**
+ * Parses a rule string expression.
+ */
+var parseRule = function (rule) {
+    var params = [];
+    var name = rule.split(':')[0];
+    if (includes(rule, ':')) {
+        params = rule
+            .split(':')
+            .slice(1)
+            .join(':')
+            .split(',');
+    }
+    return { name: name, params: params };
+};
+function createLocator(value, castFn) {
+    var locator = function (crossTable) {
+        var val = crossTable[value];
+        return castFn ? castFn(val) : val;
+    };
+    locator.__locatorRef = value;
+    return locator;
+}
+function extractLocators(params) {
+    if (Array.isArray(params)) {
+        return params.filter(function (param) {
+            return isLocator(param) || (typeof param === 'string' && param[0] === '@');
+        });
+    }
+    return Object.keys(params)
+        .filter(function (key) { return isLocator(params[key]); })
+        .map(function (key) { return params[key]; });
+}
+
+/**
+ * Validates a value against the rules.
+ */
+function validate(value, rules, options) {
+    if (options === void 0) { options = {}; }
+    return __awaiter(this, void 0, void 0, function () {
+        var shouldBail, skipIfEmpty, field, result, errors, failedRules, regenerateMap;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    shouldBail = options === null || options === void 0 ? void 0 : options.bails;
+                    skipIfEmpty = options === null || options === void 0 ? void 0 : options.skipIfEmpty;
+                    field = {
+                        name: (options === null || options === void 0 ? void 0 : options.name) || '{field}',
+                        rules: normalizeRules(rules),
+                        bails: shouldBail !== null && shouldBail !== void 0 ? shouldBail : true,
+                        skipIfEmpty: skipIfEmpty !== null && skipIfEmpty !== void 0 ? skipIfEmpty : true,
+                        forceRequired: false,
+                        crossTable: (options === null || options === void 0 ? void 0 : options.values) || {},
+                        names: (options === null || options === void 0 ? void 0 : options.names) || {},
+                        customMessages: (options === null || options === void 0 ? void 0 : options.customMessages) || {}
+                    };
+                    return [4 /*yield*/, _validate(field, value, options)];
+                case 1:
+                    result = _a.sent();
+                    errors = [];
+                    failedRules = {};
+                    regenerateMap = {};
+                    result.errors.forEach(function (e) {
+                        var msg = e.msg();
+                        errors.push(msg);
+                        failedRules[e.rule] = msg;
+                        regenerateMap[e.rule] = e.msg;
+                    });
+                    return [2 /*return*/, {
+                            valid: result.valid,
+                            required: result.required,
+                            errors: errors,
+                            failedRules: failedRules,
+                            regenerateMap: regenerateMap
+                        }];
+            }
+        });
+    });
+}
+/**
+ * Starts the validation process.
+ */
+function _validate(field, value, _a) {
+    var _b = (_a === void 0 ? {} : _a).isInitial, isInitial = _b === void 0 ? false : _b;
+    return __awaiter(this, void 0, void 0, function () {
+        var _c, shouldSkip, required, errors, rules, length, i, rule, result;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0: return [4 /*yield*/, _shouldSkip(field, value)];
+                case 1:
+                    _c = _d.sent(), shouldSkip = _c.shouldSkip, required = _c.required, errors = _c.errors;
+                    if (shouldSkip) {
+                        return [2 /*return*/, {
+                                valid: !errors.length,
+                                required: required,
+                                errors: errors
+                            }];
+                    }
+                    rules = Object.keys(field.rules).filter(function (rule) { return !RuleContainer.isRequireRule(rule); });
+                    length = rules.length;
+                    i = 0;
+                    _d.label = 2;
+                case 2:
+                    if (!(i < length)) return [3 /*break*/, 5];
+                    if (isInitial && RuleContainer.isLazy(rules[i])) {
+                        return [3 /*break*/, 4];
+                    }
+                    rule = rules[i];
+                    return [4 /*yield*/, _test(field, value, {
+                            name: rule,
+                            params: field.rules[rule]
+                        })];
+                case 3:
+                    result = _d.sent();
+                    if (!result.valid && result.error) {
+                        errors.push(result.error);
+                        if (field.bails) {
+                            return [2 /*return*/, {
+                                    valid: false,
+                                    required: required,
+                                    errors: errors
+                                }];
+                        }
+                    }
+                    _d.label = 4;
+                case 4:
+                    i++;
+                    return [3 /*break*/, 2];
+                case 5: return [2 /*return*/, {
+                        valid: !errors.length,
+                        required: required,
+                        errors: errors
+                    }];
+            }
+        });
+    });
+}
+function _shouldSkip(field, value) {
+    return __awaiter(this, void 0, void 0, function () {
+        var requireRules, length, errors, isEmpty, isEmptyAndOptional, isRequired, i, rule, result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    requireRules = Object.keys(field.rules).filter(RuleContainer.isRequireRule);
+                    length = requireRules.length;
+                    errors = [];
+                    isEmpty = isNullOrUndefined(value) || value === '' || isEmptyArray(value);
+                    isEmptyAndOptional = isEmpty && field.skipIfEmpty;
+                    i = 0;
+                    _a.label = 1;
+                case 1:
+                    if (!(i < length)) return [3 /*break*/, 4];
+                    rule = requireRules[i];
+                    return [4 /*yield*/, _test(field, value, {
+                            name: rule,
+                            params: field.rules[rule]
+                        })];
+                case 2:
+                    result = _a.sent();
+                    if (!isObject(result)) {
+                        throw new Error('Require rules has to return an object (see docs)');
+                    }
+                    if (result.required !== undefined) {
+                        isRequired = result.required;
+                    }
+                    if (!result.valid && result.error) {
+                        errors.push(result.error);
+                        // Exit early as the field is required and failed validation.
+                        if (field.bails) {
+                            return [2 /*return*/, {
+                                    shouldSkip: true,
+                                    required: result.required,
+                                    errors: errors
+                                }];
+                        }
+                    }
+                    _a.label = 3;
+                case 3:
+                    i++;
+                    return [3 /*break*/, 1];
+                case 4:
+                    if (isEmpty && !isRequired && !field.skipIfEmpty) {
+                        return [2 /*return*/, {
+                                shouldSkip: false,
+                                required: isRequired,
+                                errors: errors
+                            }];
+                    }
+                    // field is configured to run through the pipeline regardless
+                    if (!field.bails && !isEmptyAndOptional) {
+                        return [2 /*return*/, {
+                                shouldSkip: false,
+                                required: isRequired,
+                                errors: errors
+                            }];
+                    }
+                    // skip if the field is not required and has an empty value.
+                    return [2 /*return*/, {
+                            shouldSkip: !isRequired && isEmpty,
+                            required: isRequired,
+                            errors: errors
+                        }];
+            }
+        });
+    });
+}
+/**
+ * Tests a single input value against a rule.
+ */
+function _test(field, value, rule) {
+    return __awaiter(this, void 0, void 0, function () {
+        var ruleSchema, normalizedValue, params, result, values_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    ruleSchema = RuleContainer.getRuleDefinition(rule.name);
+                    if (!ruleSchema || !ruleSchema.validate) {
+                        throw new Error("No such validator '" + rule.name + "' exists.");
+                    }
+                    normalizedValue = ruleSchema.castValue ? ruleSchema.castValue(value) : value;
+                    params = fillTargetValues(rule.params, field.crossTable);
+                    return [4 /*yield*/, ruleSchema.validate(normalizedValue, params)];
+                case 1:
+                    result = _a.sent();
+                    if (typeof result === 'string') {
+                        values_1 = __assign(__assign({}, (params || {})), { _field_: field.name, _value_: value, _rule_: rule.name });
+                        return [2 /*return*/, {
+                                valid: false,
+                                error: { rule: rule.name, msg: function () { return interpolate(result, values_1); } }
+                            }];
+                    }
+                    if (!isObject(result)) {
+                        result = { valid: result };
+                    }
+                    return [2 /*return*/, {
+                            valid: result.valid,
+                            required: result.required,
+                            error: result.valid ? undefined : _generateFieldError(field, value, ruleSchema, rule.name, params)
+                        }];
+            }
+        });
+    });
+}
+/**
+ * Generates error messages.
+ */
+function _generateFieldError(field, value, ruleSchema, ruleName, params) {
+    var _a;
+    var message = (_a = field.customMessages[ruleName]) !== null && _a !== void 0 ? _a : ruleSchema.message;
+    var ruleTargets = _getRuleTargets(field, ruleSchema, ruleName);
+    var _b = _getUserTargets(field, ruleSchema, ruleName, message), userTargets = _b.userTargets, userMessage = _b.userMessage;
+    var values = __assign(__assign(__assign(__assign({}, (params || {})), { _field_: field.name, _value_: value, _rule_: ruleName }), ruleTargets), userTargets);
+    return {
+        msg: function () { return _normalizeMessage(userMessage || getConfig().defaultMessage, field.name, values); },
+        rule: ruleName
+    };
+}
+function _getRuleTargets(field, ruleSchema, ruleName) {
+    var params = ruleSchema.params;
+    if (!params) {
+        return {};
+    }
+    var numTargets = params.filter(function (param) { return param.isTarget; }).length;
+    if (numTargets <= 0) {
+        return {};
+    }
+    var names = {};
+    var ruleConfig = field.rules[ruleName];
+    if (!Array.isArray(ruleConfig) && isObject(ruleConfig)) {
+        ruleConfig = params.map(function (param) {
+            return ruleConfig[param.name];
+        });
+    }
+    for (var index = 0; index < params.length; index++) {
+        var param = params[index];
+        var key = ruleConfig[index];
+        if (!isLocator(key)) {
+            continue;
+        }
+        key = key.__locatorRef;
+        var name_1 = field.names[key] || key;
+        names[param.name] = name_1;
+        names["_" + param.name + "_"] = field.crossTable[key];
+    }
+    return names;
+}
+function _getUserTargets(field, ruleSchema, ruleName, userMessage) {
+    var userTargets = {};
+    var rules = field.rules[ruleName];
+    var params = ruleSchema.params || [];
+    // early return if no rules
+    if (!rules) {
+        return {};
+    }
+    // check all rules to convert targets
+    Object.keys(rules).forEach(function (key, index) {
+        // get the rule
+        var rule = rules[key];
+        if (!isLocator(rule)) {
+            return {};
+        }
+        // get associated parameter
+        var param = params[index];
+        if (!param) {
+            return {};
+        }
+        // grab the name of the target
+        var name = rule.__locatorRef;
+        userTargets[param.name] = field.names[name] || name;
+        userTargets["_" + param.name + "_"] = field.crossTable[name];
+    });
+    return {
+        userTargets: userTargets,
+        userMessage: userMessage
+    };
+}
+function _normalizeMessage(template, field, values) {
+    if (typeof template === 'function') {
+        return template(field, values);
+    }
+    return interpolate(template, __assign(__assign({}, values), { _field_: field }));
+}
+function fillTargetValues(params, crossTable) {
+    if (Array.isArray(params)) {
+        return params.map(function (param) {
+            var targetPart = typeof param === 'string' && param[0] === '@' ? param.slice(1) : param;
+            if (targetPart in crossTable) {
+                return crossTable[targetPart];
+            }
+            return param;
+        });
+    }
+    var values = {};
+    var normalize = function (value) {
+        if (isLocator(value)) {
+            return value(crossTable);
+        }
+        return value;
+    };
+    Object.keys(params).forEach(function (param) {
+        values[param] = normalize(params[param]);
+    });
+    return values;
+}
+
+// do not edit .js files directly - edit src/index.jst
+
+
+
+var fastDeepEqual = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+var isEvent = function (evt) {
+    if (!evt) {
+        return false;
+    }
+    if (typeof Event !== 'undefined' && isCallable(Event) && evt instanceof Event) {
+        return true;
+    }
+    // this is for IE
+    /* istanbul ignore next */
+    if (evt && evt.srcElement) {
+        return true;
+    }
+    return false;
+};
+function normalizeEventValue(value) {
+    var _a, _b;
+    if (!isEvent(value)) {
+        return value;
+    }
+    var input = value.target;
+    if (input.type === 'file' && input.files) {
+        return toArray(input.files);
+    }
+    // If the input has a `v-model.number` modifier applied.
+    if ((_a = input._vModifiers) === null || _a === void 0 ? void 0 : _a.number) {
+        // as per the spec the v-model.number uses parseFloat
+        var valueAsNumber = parseFloat(input.value);
+        if (isNaN$1(valueAsNumber)) {
+            return input.value;
+        }
+        return valueAsNumber;
+    }
+    if ((_b = input._vModifiers) === null || _b === void 0 ? void 0 : _b.trim) {
+        var trimmedValue = typeof input.value === 'string' ? input.value.trim() : input.value;
+        return trimmedValue;
+    }
+    return input.value;
+}
+
+var isTextInput = function (vnode) {
+    var _a;
+    var attrs = ((_a = vnode.data) === null || _a === void 0 ? void 0 : _a.attrs) || vnode.elm;
+    // it will fallback to being a text input per browsers spec.
+    if (vnode.tag === 'input' && (!attrs || !attrs.type)) {
+        return true;
+    }
+    if (vnode.tag === 'textarea') {
+        return true;
+    }
+    return includes(['text', 'password', 'search', 'email', 'tel', 'url', 'number'], attrs === null || attrs === void 0 ? void 0 : attrs.type);
+};
+// export const isCheckboxOrRadioInput = (vnode: VNode): boolean => {
+//   const attrs = (vnode.data && vnode.data.attrs) || vnode.elm;
+//   return includes(['radio', 'checkbox'], attrs && attrs.type);
+// };
+// Gets the model object on the vnode.
+function findModel(vnode) {
+    if (!vnode.data) {
+        return undefined;
+    }
+    // Component Model
+    // THIS IS NOT TYPED IN OFFICIAL VUE TYPINGS
+    // eslint-disable-next-line
+    var nonStandardVNodeData = vnode.data;
+    if ('model' in nonStandardVNodeData) {
+        return nonStandardVNodeData.model;
+    }
+    if (!vnode.data.directives) {
+        return undefined;
+    }
+    return find(vnode.data.directives, function (d) { return d.name === 'model'; });
+}
+function findValue(vnode) {
+    var _a, _b;
+    var model = findModel(vnode);
+    if (model) {
+        return { value: model.value };
+    }
+    var config = findModelConfig(vnode);
+    var prop = (config === null || config === void 0 ? void 0 : config.prop) || 'value';
+    if (((_a = vnode.componentOptions) === null || _a === void 0 ? void 0 : _a.propsData) && prop in vnode.componentOptions.propsData) {
+        var propsDataWithValue = vnode.componentOptions.propsData;
+        return { value: propsDataWithValue[prop] };
+    }
+    if (((_b = vnode.data) === null || _b === void 0 ? void 0 : _b.domProps) && 'value' in vnode.data.domProps) {
+        return { value: vnode.data.domProps.value };
+    }
+    return undefined;
+}
+function extractChildren(vnode) {
+    if (Array.isArray(vnode)) {
+        return vnode;
+    }
+    if (Array.isArray(vnode.children)) {
+        return vnode.children;
+    }
+    /* istanbul ignore next */
+    if (vnode.componentOptions && Array.isArray(vnode.componentOptions.children)) {
+        return vnode.componentOptions.children;
+    }
+    return [];
+}
+function findInputNodes(vnode) {
+    if (!Array.isArray(vnode) && findValue(vnode) !== undefined) {
+        return [vnode];
+    }
+    var children = extractChildren(vnode);
+    return children.reduce(function (nodes, node) {
+        var candidates = findInputNodes(node);
+        if (candidates.length) {
+            nodes.push.apply(nodes, candidates);
+        }
+        return nodes;
+    }, []);
+}
+// Resolves v-model config if exists.
+function findModelConfig(vnode) {
+    /* istanbul ignore next */
+    if (!vnode.componentOptions)
+        return null;
+    // This is also not typed in the standard Vue TS.
+    return vnode.componentOptions.Ctor.options.model;
+}
+// Adds a listener to vnode listener object.
+function mergeVNodeListeners(obj, eventName, handler) {
+    // no listener at all.
+    if (isNullOrUndefined(obj[eventName])) {
+        obj[eventName] = [handler];
+        return;
+    }
+    // Is an invoker.
+    if (isCallable(obj[eventName]) && obj[eventName].fns) {
+        var invoker = obj[eventName];
+        invoker.fns = Array.isArray(invoker.fns) ? invoker.fns : [invoker.fns];
+        if (!includes(invoker.fns, handler)) {
+            invoker.fns.push(handler);
+        }
+        return;
+    }
+    if (isCallable(obj[eventName])) {
+        var prev = obj[eventName];
+        obj[eventName] = [prev];
+    }
+    if (Array.isArray(obj[eventName]) && !includes(obj[eventName], handler)) {
+        obj[eventName].push(handler);
+    }
+}
+// Adds a listener to a native HTML vnode.
+function addNativeNodeListener(node, eventName, handler) {
+    /* istanbul ignore next */
+    if (!node.data) {
+        node.data = {};
+    }
+    if (isNullOrUndefined(node.data.on)) {
+        node.data.on = {};
+    }
+    mergeVNodeListeners(node.data.on, eventName, handler);
+}
+// Adds a listener to a Vue component vnode.
+function addComponentNodeListener(node, eventName, handler) {
+    /* istanbul ignore next */
+    if (!node.componentOptions) {
+        return;
+    }
+    /* istanbul ignore next */
+    if (!node.componentOptions.listeners) {
+        node.componentOptions.listeners = {};
+    }
+    mergeVNodeListeners(node.componentOptions.listeners, eventName, handler);
+}
+function addVNodeListener(vnode, eventName, handler) {
+    if (vnode.componentOptions) {
+        addComponentNodeListener(vnode, eventName, handler);
+        return;
+    }
+    addNativeNodeListener(vnode, eventName, handler);
+}
+// Determines if `change` should be used over `input` for listeners.
+function getInputEventName(vnode, model) {
+    var _a;
+    // Is a component.
+    if (vnode.componentOptions) {
+        var event_1 = (findModelConfig(vnode) || { event: 'input' }).event;
+        return event_1;
+    }
+    // Lazy Models typically use change event
+    if ((_a = model === null || model === void 0 ? void 0 : model.modifiers) === null || _a === void 0 ? void 0 : _a.lazy) {
+        return 'change';
+    }
+    // is a textual-type input.
+    if (isTextInput(vnode)) {
+        return 'input';
+    }
+    return 'change';
+}
+function isHTMLNode(node) {
+    return includes(['input', 'select', 'textarea'], node.tag);
+}
+// TODO: Type this one properly.
+function normalizeSlots(slots, ctx) {
+    var acc = [];
+    return Object.keys(slots).reduce(function (arr, key) {
+        slots[key].forEach(function (vnode) {
+            if (!vnode.context) {
+                slots[key].context = ctx;
+                if (!vnode.data) {
+                    vnode.data = {};
+                }
+                vnode.data.slot = key;
+            }
+        });
+        return arr.concat(slots[key]);
+    }, acc);
+}
+function resolveTextualRules(vnode) {
+    var _a;
+    var attrs = (_a = vnode.data) === null || _a === void 0 ? void 0 : _a.attrs;
+    var rules = {};
+    if (!attrs)
+        return rules;
+    if (attrs.type === 'email' && RuleContainer.getRuleDefinition('email')) {
+        rules.email = ['multiple' in attrs];
+    }
+    if (attrs.pattern && RuleContainer.getRuleDefinition('regex')) {
+        rules.regex = attrs.pattern;
+    }
+    if (attrs.maxlength >= 0 && RuleContainer.getRuleDefinition('max')) {
+        rules.max = attrs.maxlength;
+    }
+    if (attrs.minlength >= 0 && RuleContainer.getRuleDefinition('min')) {
+        rules.min = attrs.minlength;
+    }
+    if (attrs.type === 'number') {
+        if (isSpecified(attrs.min) && RuleContainer.getRuleDefinition('min_value')) {
+            rules.min_value = Number(attrs.min);
+        }
+        if (isSpecified(attrs.max) && RuleContainer.getRuleDefinition('max_value')) {
+            rules.max_value = Number(attrs.max);
+        }
+    }
+    return rules;
+}
+function resolveRules(vnode) {
+    var _a;
+    var htmlTags = ['input', 'select', 'textarea'];
+    var attrs = (_a = vnode.data) === null || _a === void 0 ? void 0 : _a.attrs;
+    if (!includes(htmlTags, vnode.tag) || !attrs) {
+        return {};
+    }
+    var rules = {};
+    if ('required' in attrs && attrs.required !== false && RuleContainer.getRuleDefinition('required')) {
+        rules.required = attrs.type === 'checkbox' ? [true] : true;
+    }
+    if (isTextInput(vnode)) {
+        return normalizeRules(__assign(__assign({}, rules), resolveTextualRules(vnode)));
+    }
+    return normalizeRules(rules);
+}
+function normalizeChildren(context, slotProps) {
+    if (context.$scopedSlots.default) {
+        return context.$scopedSlots.default(slotProps) || [];
+    }
+    return context.$slots.default || [];
+}
+
+/**
+ * Determines if a provider needs to run validation.
+ */
+function shouldValidate(ctx, value) {
+    // when an immediate/initial validation is needed and wasn't done before.
+    if (!ctx._ignoreImmediate && ctx.immediate) {
+        return true;
+    }
+    // when the value changes for whatever reason.
+    if (!isRefEqual(ctx.value, value) && ctx.normalizedEvents.length) {
+        return true;
+    }
+    // when it needs validation due to props/cross-fields changes.
+    if (ctx._needsValidation) {
+        return true;
+    }
+    // when the initial value is undefined and the field wasn't rendered yet.
+    if (!ctx.initialized && value === undefined) {
+        return true;
+    }
+    return false;
+}
+function createValidationCtx(ctx) {
+    return __assign(__assign({}, ctx.flags), { errors: ctx.errors, classes: ctx.classes, failedRules: ctx.failedRules, reset: function () { return ctx.reset(); }, validate: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return ctx.validate.apply(ctx, args);
+        }, ariaInput: {
+            'aria-invalid': ctx.flags.invalid ? 'true' : 'false',
+            'aria-required': ctx.isRequired ? 'true' : 'false',
+            'aria-errormessage': "vee_" + ctx.id
+        }, ariaMsg: {
+            id: "vee_" + ctx.id,
+            'aria-live': ctx.errors.length ? 'assertive' : 'off'
+        } });
+}
+function onRenderUpdate(vm, value) {
+    if (!vm.initialized) {
+        vm.initialValue = value;
+    }
+    var validateNow = shouldValidate(vm, value);
+    vm._needsValidation = false;
+    vm.value = value;
+    vm._ignoreImmediate = true;
+    if (!validateNow) {
+        return;
+    }
+    var validate = function () {
+        if (vm.immediate || vm.flags.validated) {
+            return triggerThreadSafeValidation(vm);
+        }
+        vm.validateSilent();
+    };
+    if (vm.initialized) {
+        validate();
+        return;
+    }
+    vm.$once('hook:mounted', function () { return validate(); });
+}
+function computeModeSetting(ctx) {
+    var compute = (isCallable(ctx.mode) ? ctx.mode : modes[ctx.mode]);
+    return compute(ctx);
+}
+function triggerThreadSafeValidation(vm) {
+    var pendingPromise = vm.validateSilent();
+    // avoids race conditions between successive validations.
+    vm._pendingValidation = pendingPromise;
+    return pendingPromise.then(function (result) {
+        if (pendingPromise === vm._pendingValidation) {
+            vm.applyResult(result);
+            vm._pendingValidation = undefined;
+        }
+        return result;
+    });
+}
+// Creates the common handlers for a validatable context.
+function createCommonHandlers(vm) {
+    if (!vm.$veeOnInput) {
+        vm.$veeOnInput = function (e) {
+            vm.syncValue(e); // track and keep the value updated.
+            vm.setFlags({ dirty: true, pristine: false });
+        };
+    }
+    var onInput = vm.$veeOnInput;
+    if (!vm.$veeOnBlur) {
+        vm.$veeOnBlur = function () {
+            vm.setFlags({ touched: true, untouched: false });
+        };
+    }
+    // Blur event listener.
+    var onBlur = vm.$veeOnBlur;
+    var onValidate = vm.$veeHandler;
+    var mode = computeModeSetting(vm);
+    // Handle debounce changes.
+    if (!onValidate || vm.$veeDebounce !== vm.debounce) {
+        onValidate = debounce(function () {
+            vm.$nextTick(function () {
+                if (!vm._pendingReset) {
+                    triggerThreadSafeValidation(vm);
+                }
+                vm._pendingReset = false;
+            });
+        }, mode.debounce || vm.debounce);
+        // Cache the handler so we don't create it each time.
+        vm.$veeHandler = onValidate;
+        // cache the debounce value so we detect if it was changed.
+        vm.$veeDebounce = vm.debounce;
+    }
+    return { onInput: onInput, onBlur: onBlur, onValidate: onValidate };
+}
+// Adds all plugin listeners to the vnode.
+function addListeners(vm, node) {
+    var value = findValue(node);
+    // cache the input eventName.
+    vm._inputEventName = vm._inputEventName || getInputEventName(node, findModel(node));
+    onRenderUpdate(vm, value === null || value === void 0 ? void 0 : value.value);
+    var _a = createCommonHandlers(vm), onInput = _a.onInput, onBlur = _a.onBlur, onValidate = _a.onValidate;
+    addVNodeListener(node, vm._inputEventName, onInput);
+    addVNodeListener(node, 'blur', onBlur);
+    // add the validation listeners.
+    vm.normalizedEvents.forEach(function (evt) {
+        addVNodeListener(node, evt, onValidate);
+    });
+    vm.initialized = true;
+}
+
+var PROVIDER_COUNTER = 0;
+function data$1() {
+    var errors = [];
+    var fieldName = '';
+    var defaultValues = {
+        errors: errors,
+        value: undefined,
+        initialized: false,
+        initialValue: undefined,
+        flags: createFlags(),
+        failedRules: {},
+        isActive: true,
+        fieldName: fieldName,
+        id: ''
+    };
+    return defaultValues;
+}
+var ValidationProvider = vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+    name: 'ValidationProvider',
+    inject: {
+        $_veeObserver: {
+            from: '$_veeObserver',
+            default: function () {
+                if (!this.$vnode.context.$_veeObserver) {
+                    this.$vnode.context.$_veeObserver = createObserver();
+                }
+                return this.$vnode.context.$_veeObserver;
+            }
+        }
+    },
+    props: {
+        vid: {
+            type: String,
+            default: ''
+        },
+        name: {
+            type: String,
+            default: null
+        },
+        mode: {
+            type: [String, Function],
+            default: function () {
+                return getConfig().mode;
+            }
+        },
+        rules: {
+            type: [Object, String],
+            default: null
+        },
+        immediate: {
+            type: Boolean,
+            default: false
+        },
+        bails: {
+            type: Boolean,
+            default: function () { return getConfig().bails; }
+        },
+        skipIfEmpty: {
+            type: Boolean,
+            default: function () { return getConfig().skipOptional; }
+        },
+        debounce: {
+            type: Number,
+            default: 0
+        },
+        tag: {
+            type: String,
+            default: 'span'
+        },
+        slim: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        customMessages: {
+            type: Object,
+            default: function () {
+                return {};
+            }
+        },
+        detectInput: {
+            type: Boolean,
+            default: true
+        }
+    },
+    watch: {
+        rules: {
+            deep: true,
+            handler: function (val, oldVal) {
+                this._needsValidation = !fastDeepEqual(val, oldVal);
+            }
+        }
+    },
+    data: data$1,
+    computed: {
+        fieldDeps: function () {
+            var _this = this;
+            return Object.keys(this.normalizedRules).reduce(function (acc, rule) {
+                var deps = extractLocators(_this.normalizedRules[rule]).map(function (dep) {
+                    return isLocator(dep) ? dep.__locatorRef : dep.slice(1);
+                });
+                acc.push.apply(acc, deps);
+                deps.forEach(function (depName) {
+                    watchCrossFieldDep(_this, depName);
+                });
+                return acc;
+            }, []);
+        },
+        normalizedEvents: function () {
+            var _this = this;
+            var on = computeModeSetting(this).on;
+            return (on || []).map(function (e) {
+                if (e === 'input') {
+                    return _this._inputEventName;
+                }
+                return e;
+            });
+        },
+        isRequired: function () {
+            var rules = __assign(__assign({}, this._resolvedRules), this.normalizedRules);
+            var isRequired = Object.keys(rules).some(RuleContainer.isRequireRule);
+            this.flags.required = !!isRequired;
+            return isRequired;
+        },
+        classes: function () {
+            var names = getConfig().classes;
+            return computeClassObj(names, this.flags);
+        },
+        normalizedRules: function () {
+            return normalizeRules(this.rules);
+        }
+    },
+    mounted: function () {
+        var _this = this;
+        var onLocaleChanged = function () {
+            if (!_this.flags.validated) {
+                return;
+            }
+            var regenerateMap = _this._regenerateMap;
+            if (regenerateMap) {
+                var errors_1 = [];
+                var failedRules_1 = {};
+                Object.keys(regenerateMap).forEach(function (rule) {
+                    var msg = regenerateMap[rule]();
+                    errors_1.push(msg);
+                    failedRules_1[rule] = msg;
+                });
+                _this.applyResult({ errors: errors_1, failedRules: failedRules_1, regenerateMap: regenerateMap });
+                return;
+            }
+            _this.validate();
+        };
+        EVENT_BUS.$on('change:locale', onLocaleChanged);
+        this.$on('hook:beforeDestroy', function () {
+            EVENT_BUS.$off('change:locale', onLocaleChanged);
+        });
+    },
+    render: function (h) {
+        var _this = this;
+        this.registerField();
+        var ctx = createValidationCtx(this);
+        var children = normalizeChildren(this, ctx);
+        // Automatic v-model detection
+        if (this.detectInput) {
+            var inputs = findInputNodes(children);
+            if (inputs.length) {
+                inputs.forEach(function (input, idx) {
+                    var _a, _b, _c, _d, _e, _f;
+                    // If the elements are not checkboxes and there are more input nodes
+                    if (!includes(['checkbox', 'radio'], (_b = (_a = input.data) === null || _a === void 0 ? void 0 : _a.attrs) === null || _b === void 0 ? void 0 : _b.type) && idx > 0) {
+                        return;
+                    }
+                    var resolved = getConfig().useConstraintAttrs ? resolveRules(input) : {};
+                    if (!fastDeepEqual(_this._resolvedRules, resolved)) {
+                        _this._needsValidation = true;
+                    }
+                    if (isHTMLNode(input)) {
+                        _this.fieldName = ((_d = (_c = input.data) === null || _c === void 0 ? void 0 : _c.attrs) === null || _d === void 0 ? void 0 : _d.name) || ((_f = (_e = input.data) === null || _e === void 0 ? void 0 : _e.attrs) === null || _f === void 0 ? void 0 : _f.id);
+                    }
+                    _this._resolvedRules = resolved;
+                    addListeners(_this, input);
+                });
+            }
+        }
+        return this.slim && children.length <= 1 ? children[0] : h(this.tag, children);
+    },
+    beforeDestroy: function () {
+        // cleanup reference.
+        this.$_veeObserver.unobserve(this.id);
+    },
+    activated: function () {
+        this.isActive = true;
+    },
+    deactivated: function () {
+        this.isActive = false;
+    },
+    methods: {
+        setFlags: function (flags) {
+            var _this = this;
+            Object.keys(flags).forEach(function (flag) {
+                _this.flags[flag] = flags[flag];
+            });
+        },
+        syncValue: function (v) {
+            var value = normalizeEventValue(v);
+            this.value = value;
+            this.flags.changed = !fastDeepEqual(this.initialValue, value);
+        },
+        reset: function () {
+            var _this = this;
+            this.errors = [];
+            this.initialValue = this.value;
+            var flags = createFlags();
+            flags.required = this.isRequired;
+            this.setFlags(flags);
+            this.failedRules = {};
+            this.validateSilent();
+            this._pendingValidation = undefined;
+            this._pendingReset = true;
+            setTimeout(function () {
+                _this._pendingReset = false;
+            }, this.debounce);
+        },
+        validate: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (args.length > 0) {
+                        this.syncValue(args[0]);
+                    }
+                    return [2 /*return*/, triggerThreadSafeValidation(this)];
+                });
+            });
+        },
+        validateSilent: function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var rules, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            this.setFlags({ pending: true });
+                            rules = __assign(__assign({}, this._resolvedRules), this.normalizedRules);
+                            Object.defineProperty(rules, '_$$isNormalized', {
+                                value: true,
+                                writable: false,
+                                enumerable: false,
+                                configurable: false
+                            });
+                            return [4 /*yield*/, validate(this.value, rules, __assign(__assign({ name: this.name || this.fieldName }, createLookup(this)), { bails: this.bails, skipIfEmpty: this.skipIfEmpty, isInitial: !this.initialized, customMessages: this.customMessages }))];
+                        case 1:
+                            result = _a.sent();
+                            this.setFlags({
+                                pending: false,
+                                valid: result.valid,
+                                invalid: !result.valid
+                            });
+                            if (result.required !== undefined) {
+                                this.setFlags({
+                                    required: result.required
+                                });
+                            }
+                            return [2 /*return*/, result];
+                    }
+                });
+            });
+        },
+        setErrors: function (errors) {
+            this.applyResult({ errors: errors, failedRules: {} });
+        },
+        applyResult: function (_a) {
+            var errors = _a.errors, failedRules = _a.failedRules, regenerateMap = _a.regenerateMap;
+            this.errors = errors;
+            this._regenerateMap = regenerateMap;
+            this.failedRules = __assign({}, (failedRules || {}));
+            this.setFlags({
+                valid: !errors.length,
+                passed: !errors.length,
+                invalid: !!errors.length,
+                failed: !!errors.length,
+                validated: true,
+                changed: !fastDeepEqual(this.value, this.initialValue)
+            });
+        },
+        registerField: function () {
+            updateRenderingContextRefs(this);
+        },
+        checkComputesRequiredState: function () {
+            var rules = __assign(__assign({}, this._resolvedRules), this.normalizedRules);
+            var isRequired = Object.keys(rules).some(RuleContainer.isRequireRule);
+            return isRequired;
+        }
+    }
+});
+function computeClassObj(names, flags) {
+    var acc = {};
+    var keys = Object.keys(flags);
+    var length = keys.length;
+    var _loop_1 = function (i) {
+        var flag = keys[i];
+        var className = (names && names[flag]) || flag;
+        var value = flags[flag];
+        if (isNullOrUndefined(value)) {
+            return "continue";
+        }
+        if ((flag === 'valid' || flag === 'invalid') && !flags.validated) {
+            return "continue";
+        }
+        if (typeof className === 'string') {
+            acc[className] = value;
+        }
+        else if (Array.isArray(className)) {
+            className.forEach(function (cls) {
+                acc[cls] = value;
+            });
+        }
+    };
+    for (var i = 0; i < length; i++) {
+        _loop_1(i);
+    }
+    return acc;
+}
+function createLookup(vm) {
+    var providers = vm.$_veeObserver.refs;
+    var reduced = {
+        names: {},
+        values: {}
+    };
+    return vm.fieldDeps.reduce(function (acc, depName) {
+        if (!providers[depName]) {
+            return acc;
+        }
+        acc.values[depName] = providers[depName].value;
+        acc.names[depName] = providers[depName].name;
+        return acc;
+    }, reduced);
+}
+function extractId(vm) {
+    if (vm.vid) {
+        return vm.vid;
+    }
+    if (vm.name) {
+        return vm.name;
+    }
+    if (vm.id) {
+        return vm.id;
+    }
+    if (vm.fieldName) {
+        return vm.fieldName;
+    }
+    PROVIDER_COUNTER++;
+    return "_vee_" + PROVIDER_COUNTER;
+}
+function updateRenderingContextRefs(vm) {
+    var providedId = extractId(vm);
+    var id = vm.id;
+    // Nothing has changed.
+    if (!vm.isActive || (id === providedId && vm.$_veeObserver.refs[id])) {
+        return;
+    }
+    // vid was changed.
+    if (id !== providedId && vm.$_veeObserver.refs[id] === vm) {
+        vm.$_veeObserver.unobserve(id);
+    }
+    vm.id = providedId;
+    vm.$_veeObserver.observe(vm);
+}
+function createObserver() {
+    return {
+        refs: {},
+        observe: function (vm) {
+            this.refs[vm.id] = vm;
+        },
+        unobserve: function (id) {
+            delete this.refs[id];
+        }
+    };
+}
+function watchCrossFieldDep(ctx, depName, withHooks) {
+    if (withHooks === void 0) { withHooks = true; }
+    var providers = ctx.$_veeObserver.refs;
+    if (!ctx._veeWatchers) {
+        ctx._veeWatchers = {};
+    }
+    if (!providers[depName] && withHooks) {
+        return ctx.$once('hook:mounted', function () {
+            watchCrossFieldDep(ctx, depName, false);
+        });
+    }
+    if (!isCallable(ctx._veeWatchers[depName]) && providers[depName]) {
+        ctx._veeWatchers[depName] = providers[depName].$watch('value', function () {
+            var isComputesRequired = ctx.checkComputesRequiredState();
+            if (ctx.flags.validated) {
+                ctx._needsValidation = true;
+                ctx.validate();
+            }
+            // Validate dependent field silently if it has rules with computesRequired
+            if (isComputesRequired && !ctx.flags.validated) {
+                ctx.validateSilent();
+            }
+        });
+    }
+}
+
+var FLAGS_STRATEGIES = [
+    ['pristine', 'every'],
+    ['dirty', 'some'],
+    ['touched', 'some'],
+    ['untouched', 'every'],
+    ['valid', 'every'],
+    ['invalid', 'some'],
+    ['pending', 'some'],
+    ['validated', 'every'],
+    ['changed', 'some'],
+    ['passed', 'every'],
+    ['failed', 'some']
+];
+var OBSERVER_COUNTER = 0;
+function data() {
+    var refs = {};
+    var errors = {};
+    var flags = createObserverFlags();
+    var fields = {};
+    // FIXME: Not sure of this one can be typed, circular type reference.
+    var observers = [];
+    return {
+        id: '',
+        refs: refs,
+        observers: observers,
+        errors: errors,
+        flags: flags,
+        fields: fields
+    };
+}
+function provideSelf() {
+    return {
+        $_veeObserver: this
+    };
+}
+var ValidationObserver = vue__WEBPACK_IMPORTED_MODULE_0___default.a.extend({
+    name: 'ValidationObserver',
+    provide: provideSelf,
+    inject: {
+        $_veeObserver: {
+            from: '$_veeObserver',
+            default: function () {
+                if (!this.$vnode.context.$_veeObserver) {
+                    return null;
+                }
+                return this.$vnode.context.$_veeObserver;
+            }
+        }
+    },
+    props: {
+        tag: {
+            type: String,
+            default: 'span'
+        },
+        vid: {
+            type: String,
+            default: function () {
+                return "obs_" + OBSERVER_COUNTER++;
+            }
+        },
+        slim: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data: data,
+    created: function () {
+        var _this = this;
+        this.id = this.vid;
+        register(this);
+        var onChange = debounce(function (_a) {
+            var errors = _a.errors, flags = _a.flags, fields = _a.fields;
+            _this.errors = errors;
+            _this.flags = flags;
+            _this.fields = fields;
+        }, 16);
+        this.$watch(computeObserverState, onChange);
+    },
+    activated: function () {
+        register(this);
+    },
+    deactivated: function () {
+        unregister(this);
+    },
+    beforeDestroy: function () {
+        unregister(this);
+    },
+    render: function (h) {
+        var children = normalizeChildren(this, prepareSlotProps(this));
+        return this.slim && children.length <= 1 ? children[0] : h(this.tag, { on: this.$listeners }, children);
+    },
+    methods: {
+        observe: function (subscriber, kind) {
+            var _a;
+            if (kind === void 0) { kind = 'provider'; }
+            if (kind === 'observer') {
+                this.observers.push(subscriber);
+                return;
+            }
+            this.refs = __assign(__assign({}, this.refs), (_a = {}, _a[subscriber.id] = subscriber, _a));
+        },
+        unobserve: function (id, kind) {
+            if (kind === void 0) { kind = 'provider'; }
+            if (kind === 'provider') {
+                var provider = this.refs[id];
+                if (!provider) {
+                    return;
+                }
+                this.$delete(this.refs, id);
+                return;
+            }
+            var idx = findIndex(this.observers, function (o) { return o.id === id; });
+            if (idx !== -1) {
+                this.observers.splice(idx, 1);
+            }
+        },
+        validateWithInfo: function (_a) {
+            var _b = (_a === void 0 ? {} : _a).silent, silent = _b === void 0 ? false : _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var results, isValid, _c, errors, flags, fields;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
+                        case 0: return [4 /*yield*/, Promise.all(__spreadArrays(values(this.refs)
+                                .filter(function (r) { return !r.disabled; })
+                                .map(function (ref) { return ref[silent ? 'validateSilent' : 'validate']().then(function (r) { return r.valid; }); }), this.observers.filter(function (o) { return !o.disabled; }).map(function (obs) { return obs.validate({ silent: silent }); })))];
+                        case 1:
+                            results = _d.sent();
+                            isValid = results.every(function (r) { return r; });
+                            _c = computeObserverState.call(this), errors = _c.errors, flags = _c.flags, fields = _c.fields;
+                            this.errors = errors;
+                            this.flags = flags;
+                            this.fields = fields;
+                            return [2 /*return*/, {
+                                    errors: errors,
+                                    flags: flags,
+                                    fields: fields,
+                                    isValid: isValid
+                                }];
+                    }
+                });
+            });
+        },
+        validate: function (_a) {
+            var _b = (_a === void 0 ? {} : _a).silent, silent = _b === void 0 ? false : _b;
+            return __awaiter(this, void 0, void 0, function () {
+                var isValid;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this.validateWithInfo({ silent: silent })];
+                        case 1:
+                            isValid = (_c.sent()).isValid;
+                            return [2 /*return*/, isValid];
+                    }
+                });
+            });
+        },
+        handleSubmit: function (cb) {
+            return __awaiter(this, void 0, void 0, function () {
+                var isValid;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.validate()];
+                        case 1:
+                            isValid = _a.sent();
+                            if (!isValid || !cb) {
+                                return [2 /*return*/];
+                            }
+                            return [2 /*return*/, cb()];
+                    }
+                });
+            });
+        },
+        reset: function () {
+            return __spreadArrays(values(this.refs), this.observers).forEach(function (ref) { return ref.reset(); });
+        },
+        setErrors: function (errors) {
+            var _this = this;
+            Object.keys(errors).forEach(function (key) {
+                var provider = _this.refs[key];
+                if (!provider)
+                    return;
+                var errorArr = errors[key] || [];
+                errorArr = typeof errorArr === 'string' ? [errorArr] : errorArr;
+                provider.setErrors(errorArr);
+            });
+            this.observers.forEach(function (observer) {
+                observer.setErrors(errors);
+            });
+        }
+    }
+});
+function unregister(vm) {
+    if (vm.$_veeObserver) {
+        vm.$_veeObserver.unobserve(vm.id, 'observer');
+    }
+}
+function register(vm) {
+    if (vm.$_veeObserver) {
+        vm.$_veeObserver.observe(vm, 'observer');
+    }
+}
+function prepareSlotProps(vm) {
+    return __assign(__assign({}, vm.flags), { errors: vm.errors, fields: vm.fields, validate: vm.validate, validateWithInfo: vm.validateWithInfo, passes: vm.handleSubmit, handleSubmit: vm.handleSubmit, reset: vm.reset });
+}
+// Creates a modified version of validation flags
+function createObserverFlags() {
+    return __assign(__assign({}, createFlags()), { valid: true, invalid: false });
+}
+function computeObserverState() {
+    var vms = __spreadArrays(values(this.refs), this.observers.filter(function (o) { return !o.disabled; }));
+    var errors = {};
+    var flags = createObserverFlags();
+    var fields = {};
+    var length = vms.length;
+    for (var i = 0; i < length; i++) {
+        var vm = vms[i];
+        // validation provider
+        if (Array.isArray(vm.errors)) {
+            errors[vm.id] = vm.errors;
+            fields[vm.id] = __assign({ id: vm.id, name: vm.name, failedRules: vm.failedRules }, vm.flags);
+            continue;
+        }
+        // Nested observer, merge errors and fields
+        errors = __assign(__assign({}, errors), vm.errors);
+        fields = __assign(__assign({}, fields), vm.fields);
+    }
+    FLAGS_STRATEGIES.forEach(function (_a) {
+        var flag = _a[0], method = _a[1];
+        flags[flag] = vms[method](function (vm) { return vm.flags[flag]; });
+    });
+    return { errors: errors, flags: flags, fields: fields };
+}
+
+function withValidation(component, mapProps) {
+    var _a;
+    if (mapProps === void 0) { mapProps = identity; }
+    var options = 'options' in component ? component.options : component;
+    var providerOpts = ValidationProvider.options;
+    var hoc = {
+        name: (options.name || 'AnonymousHoc') + "WithValidation",
+        props: __assign({}, providerOpts.props),
+        data: providerOpts.data,
+        computed: __assign({}, providerOpts.computed),
+        methods: __assign({}, providerOpts.methods),
+        beforeDestroy: providerOpts.beforeDestroy,
+        inject: providerOpts.inject
+    };
+    var eventName = ((_a = options === null || options === void 0 ? void 0 : options.model) === null || _a === void 0 ? void 0 : _a.event) || 'input';
+    hoc.render = function (h) {
+        var _a;
+        this.registerField();
+        var vctx = createValidationCtx(this);
+        var listeners = __assign({}, this.$listeners);
+        var model = findModel(this.$vnode);
+        this._inputEventName = this._inputEventName || getInputEventName(this.$vnode, model);
+        var value = findValue(this.$vnode);
+        onRenderUpdate(this, value === null || value === void 0 ? void 0 : value.value);
+        var _b = createCommonHandlers(this), onInput = _b.onInput, onBlur = _b.onBlur, onValidate = _b.onValidate;
+        mergeVNodeListeners(listeners, eventName, onInput);
+        mergeVNodeListeners(listeners, 'blur', onBlur);
+        this.normalizedEvents.forEach(function (evt) {
+            mergeVNodeListeners(listeners, evt, onValidate);
+        });
+        // Props are any attrs not associated with ValidationProvider Plus the model prop.
+        // WARNING: Accidental prop overwrite will probably happen.
+        var prop = (findModelConfig(this.$vnode) || { prop: 'value' }).prop;
+        var props = __assign(__assign(__assign({}, this.$attrs), (_a = {}, _a[prop] = model === null || model === void 0 ? void 0 : model.value, _a)), mapProps(vctx));
+        return h(options, {
+            attrs: this.$attrs,
+            props: props,
+            on: listeners,
+            scopedSlots: this.$scopedSlots
+        }, normalizeSlots(this.$slots, this.$vnode.context));
+    };
+    return hoc;
+}
+
+var version = '3.4.14';
+// Install all rules.
+var RulesAsList = Object.keys(Rules).map(function (key) { return ({ schema: Rules[key], name: key }); });
+RulesAsList.forEach(function (_a) {
+    var name = _a.name, schema = _a.schema;
+    extend(name, schema);
+});
+// Install locale
+localize('en', en$1);
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AwaitingButton.vue?vue&type=template&id=62e80d49&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AwaitingButton.vue?vue&type=template&id=62e80d49& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    _vm._b(
+      { attrs: { loading: _vm.loading }, on: { click: _vm.clicked } },
+      "button",
+      _vm.$attrs,
+      false
+    ),
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -45727,10 +45703,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Login.vue?vue&type=template&id=12f5395a&":
-/*!***************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Login.vue?vue&type=template&id=12f5395a& ***!
-  \***************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a& ***!
+  \*****************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -45743,11 +45719,586 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "vh-100 d-flex align-items-center" }, [
+    _c("div", { staticClass: "min-vh-100 d-flex align-items-center" }, [
       _c("div", { staticClass: "row w-100 justify-content-center" }, [
         _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header text-center" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.user
+              ? _c(
+                  "div",
+                  { staticClass: "card-body" },
+                  [
+                    _c("ValidationObserver", {
+                      ref: "observer",
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "default",
+                            fn: function (ref) {
+                              var handleSubmit = ref.handleSubmit
+                              return [
+                                _c(
+                                  "form",
+                                  {
+                                    on: {
+                                      submit: function ($event) {
+                                        $event.preventDefault()
+                                        return handleSubmit(_vm.updateProfile)
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("ValidationProvider", {
+                                          attrs: {
+                                            vid: "first_name",
+                                            name: "First Name",
+                                            rules: "required",
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "default",
+                                                fn: function (ref) {
+                                                  var errors = ref.errors
+                                                  return [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.user.first_name,
+                                                          expression:
+                                                            "user.first_name",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      class: {
+                                                        "is-invalid": errors[0],
+                                                      },
+                                                      attrs: {
+                                                        type: "text",
+                                                        name: "first_name",
+                                                        id: "firstName",
+                                                        placeholder:
+                                                          "First Name",
+                                                      },
+                                                      domProps: {
+                                                        value:
+                                                          _vm.user.first_name,
+                                                      },
+                                                      on: {
+                                                        input: function (
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.user,
+                                                            "first_name",
+                                                            $event.target.value
+                                                          )
+                                                        },
+                                                      },
+                                                    }),
+                                                    _vm._v(" "),
+                                                    errors[0]
+                                                      ? _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "invalid-feedback",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                      " +
+                                                                _vm._s(
+                                                                  errors[0]
+                                                                ) +
+                                                                "\n                    "
+                                                            ),
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                  ]
+                                                },
+                                              },
+                                            ],
+                                            null,
+                                            true
+                                          ),
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("ValidationProvider", {
+                                          attrs: {
+                                            vid: "last_name",
+                                            name: "Last Name",
+                                            rules: "required",
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "default",
+                                                fn: function (ref) {
+                                                  var errors = ref.errors
+                                                  return [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value:
+                                                            _vm.user.last_name,
+                                                          expression:
+                                                            "user.last_name",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      class: {
+                                                        "is-invalid": errors[0],
+                                                      },
+                                                      attrs: {
+                                                        type: "text",
+                                                        name: "last_name",
+                                                        id: "lastName",
+                                                        placeholder:
+                                                          "Last Name",
+                                                      },
+                                                      domProps: {
+                                                        value:
+                                                          _vm.user.last_name,
+                                                      },
+                                                      on: {
+                                                        input: function (
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.user,
+                                                            "last_name",
+                                                            $event.target.value
+                                                          )
+                                                        },
+                                                      },
+                                                    }),
+                                                    _vm._v(" "),
+                                                    errors[0]
+                                                      ? _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "invalid-feedback",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                      " +
+                                                                _vm._s(
+                                                                  errors[0]
+                                                                ) +
+                                                                "\n                    "
+                                                            ),
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                  ]
+                                                },
+                                              },
+                                            ],
+                                            null,
+                                            true
+                                          ),
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("ValidationProvider", {
+                                          attrs: {
+                                            vid: "email",
+                                            name: "Email",
+                                            rules: "required|email",
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "default",
+                                                fn: function (ref) {
+                                                  var errors = ref.errors
+                                                  return [
+                                                    _c("input", {
+                                                      directives: [
+                                                        {
+                                                          name: "model",
+                                                          rawName: "v-model",
+                                                          value: _vm.user.email,
+                                                          expression:
+                                                            "user.email",
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "form-control",
+                                                      class: {
+                                                        "is-invalid": errors[0],
+                                                      },
+                                                      attrs: {
+                                                        type: "email",
+                                                        name: "email",
+                                                        id: "email",
+                                                        placeholder: "Email",
+                                                      },
+                                                      domProps: {
+                                                        value: _vm.user.email,
+                                                      },
+                                                      on: {
+                                                        input: function (
+                                                          $event
+                                                        ) {
+                                                          if (
+                                                            $event.target
+                                                              .composing
+                                                          ) {
+                                                            return
+                                                          }
+                                                          _vm.$set(
+                                                            _vm.user,
+                                                            "email",
+                                                            $event.target.value
+                                                          )
+                                                        },
+                                                      },
+                                                    }),
+                                                    _vm._v(" "),
+                                                    errors[0]
+                                                      ? _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "invalid-feedback",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                      " +
+                                                                _vm._s(
+                                                                  errors[0]
+                                                                ) +
+                                                                "\n                    "
+                                                            ),
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                  ]
+                                                },
+                                              },
+                                            ],
+                                            null,
+                                            true
+                                          ),
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c("ValidationProvider", {
+                                          attrs: {
+                                            vid: "phone",
+                                            name: "Phone",
+                                            rules: "required|numeric|digits:10",
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "default",
+                                                fn: function (ref) {
+                                                  var errors = ref.errors
+                                                  return [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "input-group mb-2 mr-sm-2",
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "input-group-prepend",
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "input-group-text",
+                                                              },
+                                                              [_vm._v("+977")]
+                                                            ),
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c("input", {
+                                                          directives: [
+                                                            {
+                                                              name: "model",
+                                                              rawName:
+                                                                "v-model",
+                                                              value:
+                                                                _vm.user.phone,
+                                                              expression:
+                                                                "user.phone",
+                                                            },
+                                                          ],
+                                                          staticClass:
+                                                            "form-control",
+                                                          class: {
+                                                            "is-invalid":
+                                                              errors[0],
+                                                          },
+                                                          attrs: {
+                                                            type: "text",
+                                                            name: "phone",
+                                                            id: "phone",
+                                                            placeholder:
+                                                              "Phone Number",
+                                                          },
+                                                          domProps: {
+                                                            value:
+                                                              _vm.user.phone,
+                                                          },
+                                                          on: {
+                                                            input: function (
+                                                              $event
+                                                            ) {
+                                                              if (
+                                                                $event.target
+                                                                  .composing
+                                                              ) {
+                                                                return
+                                                              }
+                                                              _vm.$set(
+                                                                _vm.user,
+                                                                "phone",
+                                                                $event.target
+                                                                  .value
+                                                              )
+                                                            },
+                                                          },
+                                                        }),
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    errors[0]
+                                                      ? _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "invalid-feedback",
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                      " +
+                                                                _vm._s(
+                                                                  errors[0]
+                                                                ) +
+                                                                "\n                    "
+                                                            ),
+                                                          ]
+                                                        )
+                                                      : _vm._e(),
+                                                  ]
+                                                },
+                                              },
+                                            ],
+                                            null,
+                                            true
+                                          ),
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "AwaitingButton",
+                                          {
+                                            staticClass:
+                                              "btn btn-success btn-block",
+                                            attrs: { type: "submit" },
+                                          },
+                                          [_vm._v("Update")]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
+                                ),
+                              ]
+                            },
+                          },
+                        ],
+                        null,
+                        false,
+                        3367013238
+                      ),
+                    }),
+                  ],
+                  1
+                )
+              : _vm._e(),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-body text-center" }, [
+      _c("h1", { staticClass: "text-center" }, [_vm._v("Profile")]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Activation.vue?vue&type=template&id=28c894ce&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Activation.vue?vue&type=template&id=28c894ce& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "activation" }, [
+    _c("div", { staticClass: "min-vh-100 d-flex align-items-center" }, [
+      _c("div", { staticClass: "row w-100 justify-content-center" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("h1", [_vm._v("You are almost there.")]),
+              _vm._v(" "),
+              _vm.success != ""
+                ? _c("div", { staticClass: "alert alert-success" }, [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.success) +
+                        "\n            "
+                    ),
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.error != ""
+                ? _c("div", { staticClass: "alert alert-danger" }, [
+                    _vm._v(
+                      "\n              " + _vm._s(_vm.error) + "\n            "
+                    ),
+                  ])
+                : _c("p", [
+                    _vm._v(
+                      "\n              Please confirm you email. A verification link has been sent your\n              email address.\n            "
+                    ),
+                  ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "\n              Did not receive the email?\n              "
+                ),
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.resendVerificationLink()
+                      },
+                    },
+                  },
+                  [_vm._v("\n                Resend\n              ")]
+                ),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Login.vue?vue&type=template&id=46ec553e&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Login.vue?vue&type=template&id=46ec553e& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "min-vh-100 d-flex align-items-center" }, [
+      _c("div", { staticClass: "row w-100 justify-content-center" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body text-center" }, [
               _c("h1", { staticClass: "text-center" }, [_vm._v("Login")]),
               _vm._v(" "),
               _c(
@@ -45765,296 +46316,229 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function ($event) {
-                      $event.preventDefault()
-                      return _vm.login.apply(null, arguments)
-                    },
-                  },
-                },
-                [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.email,
-                          expression: "email",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "email",
-                        name: "email",
-                        id: "email",
-                        placeholder: "Email",
-                        "aria-placeholder": "true",
-                      },
-                      domProps: { value: _vm.email },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.email = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.password,
-                          expression: "password",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        name: "password",
-                        id: "password",
-                        placeholder: "Password",
-                        "aria-placeholder": "true",
-                      },
-                      domProps: { value: _vm.password },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.password = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                ]
-              ),
-            ]),
-          ]),
-        ]),
-      ]),
-    ]),
-  ])
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "btn btn-success btn-block",
-        attrs: { type: "submit", value: "Login" },
-      }),
-    ])
-  },
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Profile.vue?vue&type=template&id=25b9215a& ***!
-  \*****************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "vh-100 d-flex align-items-center" }, [
-      _c("div", { staticClass: "row w-100 justify-content-center" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header text-center" }, [
-              _c("h1", { staticClass: "text-center" }, [_vm._v("Profile")]),
-              _vm._v(" "),
-              _c("p", { staticClass: "mb-0" }, [
-                _vm._v("Hello, " + _vm._s(_vm.user.first_name)),
-              ]),
-            ]),
+            _vm.message != ""
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _vm._v(
+                    "\n            " + _vm._s(_vm.message) + "\n          "
+                  ),
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function ($event) {
-                      $event.preventDefault()
-                      return _vm.handleUpdateProfile.apply(null, arguments)
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("ValidationObserver", {
+                  ref: "observer",
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function (ref) {
+                        var handleSubmit = ref.handleSubmit
+                        return [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function ($event) {
+                                  $event.preventDefault()
+                                  return handleSubmit(_vm.login)
+                                },
+                              },
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "email",
+                                      name: "Email",
+                                      rules: "required",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.email,
+                                                    expression: "email",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "email",
+                                                  name: "email",
+                                                  id: "email",
+                                                  placeholder: "Email",
+                                                  "aria-placeholder": "true",
+                                                },
+                                                domProps: { value: _vm.email },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.email =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "error-text" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                      " +
+                                                      _vm._s(errors[0]) +
+                                                      "\n                    "
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "password",
+                                      name: "Password",
+                                      rules: "required",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.password,
+                                                    expression: "password",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "password",
+                                                  name: "password",
+                                                  id: "password",
+                                                  placeholder: "Password",
+                                                  "aria-placeholder": "true",
+                                                },
+                                                domProps: {
+                                                  value: _vm.password,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.password =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "error-text" },
+                                                [
+                                                  _vm._v(
+                                                    "\n                      " +
+                                                      _vm._s(errors[0]) +
+                                                      "\n                    "
+                                                  ),
+                                                ]
+                                              ),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c(
+                                    "AwaitingButton",
+                                    {
+                                      staticClass: "btn btn-success btn-block",
+                                      attrs: { type: "submit" },
+                                    },
+                                    [_vm._v("Login")]
+                                  ),
+                                ],
+                                1
+                              ),
+                            ]
+                          ),
+                        ]
+                      },
                     },
-                  },
-                },
-                [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.first_name,
-                          expression: "user.first_name",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "first_name",
-                        id: "firstName",
-                        placeholder: "First Name",
-                      },
-                      domProps: { value: _vm.user.first_name },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.user, "first_name", $event.target.value)
-                        },
-                      },
-                    }),
                   ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.last_name,
-                          expression: "user.last_name",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "last_name",
-                        id: "lastName",
-                        placeholder: "Last Name",
-                      },
-                      domProps: { value: _vm.user.last_name },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.user, "last_name", $event.target.value)
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.email,
-                          expression: "user.email",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "email",
-                        name: "email",
-                        id: "email",
-                        placeholder: "Email",
-                      },
-                      domProps: { value: _vm.user.email },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.user, "email", $event.target.value)
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.phone,
-                          expression: "user.phone",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "phone",
-                        id: "phone",
-                        placeholder: "Phone Number",
-                      },
-                      domProps: { value: _vm.user.phone },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.user, "phone", $event.target.value)
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                ]
-              ),
-            ]),
+                }),
+              ],
+              1
+            ),
           ]),
         ]),
       ]),
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "btn btn-success btn-block",
-        attrs: { type: "submit", value: "Update" },
-      }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Register.vue?vue&type=template&id=3563ad7c&":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Register.vue?vue&type=template&id=3563ad7c& ***!
-  \******************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=template&id=0a273bdb&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/Register.vue?vue&type=template&id=0a273bdb&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -46067,11 +46551,11 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "vh-100 d-flex align-items-center" }, [
+    _c("div", { staticClass: "min-vh-100 d-flex align-items-center" }, [
       _c("div", { staticClass: "row w-100 justify-content-center" }, [
         _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header text-center" }, [
+            _c("div", { staticClass: "card-body text-center" }, [
               _c("h1", { staticClass: "text-center" }, [_vm._v("Register")]),
               _vm._v(" "),
               _c(
@@ -46089,246 +46573,572 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c(
-                "form",
-                {
-                  on: {
-                    submit: function ($event) {
-                      $event.preventDefault()
-                      return _vm.handleRegister.apply(null, arguments)
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("ValidationObserver", {
+                  ref: "observer",
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function (ref) {
+                        var handleSubmit = ref.handleSubmit
+                        return [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                submit: function ($event) {
+                                  $event.preventDefault()
+                                  return handleSubmit(_vm.register)
+                                },
+                              },
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "first_name",
+                                      name: "First Name",
+                                      rules: "required",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.first_name,
+                                                    expression: "first_name",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "text",
+                                                  name: "first_name",
+                                                  id: "firstName",
+                                                  placeholder: "First Name",
+                                                },
+                                                domProps: {
+                                                  value: _vm.first_name,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.first_name =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              errors[0]
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "invalid-feedback",
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                      " +
+                                                          _vm._s(errors[0]) +
+                                                          "\n                    "
+                                                      ),
+                                                    ]
+                                                  )
+                                                : _vm._e(),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "last_name",
+                                      name: "Last Name",
+                                      rules: "required",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.last_name,
+                                                    expression: "last_name",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "text",
+                                                  name: "last_name",
+                                                  id: "lastName",
+                                                  placeholder: "Last Name",
+                                                },
+                                                domProps: {
+                                                  value: _vm.last_name,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.last_name =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              errors[0]
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "invalid-feedback",
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                      " +
+                                                          _vm._s(errors[0]) +
+                                                          "\n                    "
+                                                      ),
+                                                    ]
+                                                  )
+                                                : _vm._e(),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "email",
+                                      name: "Email",
+                                      rules: "required|email",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.email,
+                                                    expression: "email",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "email",
+                                                  name: "email",
+                                                  id: "email",
+                                                  placeholder: "Email",
+                                                },
+                                                domProps: { value: _vm.email },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.email =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              errors[0]
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "invalid-feedback",
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                      " +
+                                                          _vm._s(errors[0]) +
+                                                          "\n                    "
+                                                      ),
+                                                    ]
+                                                  )
+                                                : _vm._e(),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "phone",
+                                      name: "Phone",
+                                      rules: "required|numeric|digits:10",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "input-group mb-2 mr-sm-2",
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "input-group-prepend",
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "input-group-text",
+                                                        },
+                                                        [_vm._v("+977")]
+                                                      ),
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value: _vm.phone,
+                                                        expression: "phone",
+                                                      },
+                                                    ],
+                                                    staticClass: "form-control",
+                                                    class: {
+                                                      "is-invalid": errors[0],
+                                                    },
+                                                    attrs: {
+                                                      type: "text",
+                                                      name: "phone",
+                                                      id: "phone",
+                                                      placeholder:
+                                                        "Phone Number",
+                                                    },
+                                                    domProps: {
+                                                      value: _vm.phone,
+                                                    },
+                                                    on: {
+                                                      input: function ($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.phone =
+                                                          $event.target.value
+                                                      },
+                                                    },
+                                                  }),
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              errors[0]
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "invalid-feedback",
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                      " +
+                                                          _vm._s(errors[0]) +
+                                                          "\n                    "
+                                                      ),
+                                                    ]
+                                                  )
+                                                : _vm._e(),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "password",
+                                      name: "Password",
+                                      rules: "required",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.password,
+                                                    expression: "password",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "password",
+                                                  name: "password",
+                                                  id: "password",
+                                                  placeholder: "Password",
+                                                },
+                                                domProps: {
+                                                  value: _vm.password,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.password =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              errors[0]
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "invalid-feedback",
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                      " +
+                                                          _vm._s(errors[0]) +
+                                                          "\n                    "
+                                                      ),
+                                                    ]
+                                                  )
+                                                : _vm._e(),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("ValidationProvider", {
+                                    attrs: {
+                                      vid: "password_confirmation",
+                                      name: "Password Confirmation",
+                                      rules: "required|confirmed:password",
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "default",
+                                          fn: function (ref) {
+                                            var errors = ref.errors
+                                            return [
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value:
+                                                      _vm.password_confirmation,
+                                                    expression:
+                                                      "password_confirmation",
+                                                  },
+                                                ],
+                                                staticClass: "form-control",
+                                                class: {
+                                                  "is-invalid": errors[0],
+                                                },
+                                                attrs: {
+                                                  type: "password",
+                                                  name: "password_confirmation",
+                                                  id: "password_confirmation",
+                                                  placeholder:
+                                                    "Retype Password",
+                                                },
+                                                domProps: {
+                                                  value:
+                                                    _vm.password_confirmation,
+                                                },
+                                                on: {
+                                                  input: function ($event) {
+                                                    if (
+                                                      $event.target.composing
+                                                    ) {
+                                                      return
+                                                    }
+                                                    _vm.password_confirmation =
+                                                      $event.target.value
+                                                  },
+                                                },
+                                              }),
+                                              _vm._v(" "),
+                                              errors[0]
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "invalid-feedback",
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                      " +
+                                                          _vm._s(errors[0]) +
+                                                          "\n                    "
+                                                      ),
+                                                    ]
+                                                  )
+                                                : _vm._e(),
+                                            ]
+                                          },
+                                        },
+                                      ],
+                                      null,
+                                      true
+                                    ),
+                                  }),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c(
+                                    "AwaitingButton",
+                                    {
+                                      staticClass: "btn btn-success btn-block",
+                                      attrs: { type: "submit" },
+                                    },
+                                    [_vm._v("Register")]
+                                  ),
+                                ],
+                                1
+                              ),
+                            ]
+                          ),
+                        ]
+                      },
                     },
-                  },
-                },
-                [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.first_name,
-                          expression: "first_name",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "first_name",
-                        id: "firstName",
-                        placeholder: "First Name",
-                      },
-                      domProps: { value: _vm.first_name },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.first_name = $event.target.value
-                        },
-                      },
-                    }),
                   ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.last_name,
-                          expression: "last_name",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "last_name",
-                        id: "lastName",
-                        placeholder: "Last Name",
-                      },
-                      domProps: { value: _vm.last_name },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.last_name = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.email,
-                          expression: "email",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "email",
-                        name: "email",
-                        id: "email",
-                        placeholder: "Email",
-                      },
-                      domProps: { value: _vm.email },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.email = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.phone,
-                          expression: "phone",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "phone",
-                        id: "phone",
-                        placeholder: "Phone Number",
-                      },
-                      domProps: { value: _vm.phone },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.phone = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.password,
-                          expression: "password",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        name: "password",
-                        id: "password",
-                        placeholder: "Password",
-                      },
-                      domProps: { value: _vm.password },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.password = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.password_confirmation,
-                          expression: "password_confirmation",
-                        },
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "password",
-                        name: "password_confirmation",
-                        id: "password_confirmation",
-                        placeholder: "Retype Password",
-                      },
-                      domProps: { value: _vm.password_confirmation },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.password_confirmation = $event.target.value
-                        },
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                ]
-              ),
-            ]),
+                }),
+              ],
+              1
+            ),
           ]),
         ]),
       ]),
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "btn btn-block btn-info text-light",
-        attrs: { type: "submit", value: "Register" },
-      }),
-    ])
-  },
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/VerifyEmail.vue?vue&type=template&id=42b94cd4&":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/VerifyEmail.vue?vue&type=template&id=42b94cd4& ***!
-  \*********************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Verify Email")])])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -46365,6 +47175,76 @@ var render = function () {
       },
       [_vm._v("Reset Password")]
     ),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/VerifyEmail.vue?vue&type=template&id=4bb4879b&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/auth/VerifyEmail.vue?vue&type=template&id=4bb4879b& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "min-vh-100 d-flex align-items-center" }, [
+    _c("div", { staticClass: "row w-100 justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h1", [_vm._v("Email Verification")]),
+            _vm._v(" "),
+            _vm.success != ""
+              ? _c("div", { staticClass: "alert alert-success" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.success) +
+                      "\n            "
+                  ),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.error != ""
+              ? _c("div", { staticClass: "alert alert-danger" }, [
+                  _vm._v(
+                    "\n              " + _vm._s(_vm.error) + "\n            "
+                  ),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "\n              Did not receive the email?\n              "
+              ),
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.resendVerificationLink()
+                    },
+                  },
+                },
+                [_vm._v("\n                Resend\n              ")]
+              ),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -63050,12 +63930,13 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _views_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/App */ "./resources/js/views/App.vue");
-/* harmony import */ var _firebase__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./firebase */ "./resources/js/firebase.js");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _views_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./views/App */ "./resources/js/views/App.vue");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _veeValidate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./veeValidate */ "./resources/js/veeValidate.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_AwaitingButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/AwaitingButton */ "./resources/js/components/AwaitingButton.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -63064,21 +63945,45 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-var token = localStorage.getItem('bearer_token');
 
-if (token) {
-  console.log('access token: ' + token);
-  axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = JSON.parse(token);
-}
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AwaitingButton', _components_AwaitingButton__WEBPACK_IMPORTED_MODULE_6__["default"]);
+axios__WEBPACK_IMPORTED_MODULE_5___default.a.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  console.log('current route', _router__WEBPACK_IMPORTED_MODULE_2__["default"].currentRoute.name);
 
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: "#app",
-  components: {
-    App: _views_App__WEBPACK_IMPORTED_MODULE_3__["default"]
-  },
-  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
-  store: _store_index__WEBPACK_IMPORTED_MODULE_5__["default"]
+  if (error.response.status === 422) {
+    _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].commit('setErrors', error.response.data.errors);
+  } else if (error.response.status === 400) {
+    _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+      name: 'NotFound'
+    });
+  } else if (_router__WEBPACK_IMPORTED_MODULE_2__["default"].currentRoute.name !== "Login" && error.response.status === 401) {
+    console.log('hello for login');
+    _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+      name: "Login"
+    });
+  } else {
+    return Promise.reject(error);
+  }
 });
+axios__WEBPACK_IMPORTED_MODULE_5___default.a.interceptors.request.use(function (config) {
+  config.headers.common = {
+    Authorization: JSON.parse(localStorage.getItem('bearer_token')),
+    "Content-Type": "application/json",
+    Accept: "application/json"
+  };
+  return config;
+});
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  el: '#app',
+  components: {
+    App: _views_App__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
+  store: _store_index__WEBPACK_IMPORTED_MODULE_3__["default"]
+}).$mount('#app');
 
 /***/ }),
 
@@ -63124,6 +64029,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/AwaitingButton.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/AwaitingButton.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AwaitingButton_vue_vue_type_template_id_62e80d49___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AwaitingButton.vue?vue&type=template&id=62e80d49& */ "./resources/js/components/AwaitingButton.vue?vue&type=template&id=62e80d49&");
+/* harmony import */ var _AwaitingButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AwaitingButton.vue?vue&type=script&lang=js& */ "./resources/js/components/AwaitingButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AwaitingButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AwaitingButton_vue_vue_type_template_id_62e80d49___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AwaitingButton_vue_vue_type_template_id_62e80d49___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AwaitingButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AwaitingButton.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/AwaitingButton.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AwaitingButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AwaitingButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AwaitingButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AwaitingButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AwaitingButton.vue?vue&type=template&id=62e80d49&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/AwaitingButton.vue?vue&type=template&id=62e80d49& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AwaitingButton_vue_vue_type_template_id_62e80d49___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AwaitingButton.vue?vue&type=template&id=62e80d49& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AwaitingButton.vue?vue&type=template&id=62e80d49&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AwaitingButton_vue_vue_type_template_id_62e80d49___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AwaitingButton_vue_vue_type_template_id_62e80d49___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -63265,64 +64239,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/firebase.js":
-/*!**********************************!*\
-  !*** ./resources/js/firebase.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.esm.js");
-/* harmony import */ var firebase_messaging__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/messaging */ "./node_modules/firebase/messaging/dist/index.esm.js");
-
-
-var firebaseConfig = {
-  apiKey: "AIzaSyC-4NHNS7NmE8ATmyglufesNiN7p7mA8Z0",
-  authDomain: "laravel-skeleton-50ef9.firebaseapp.com",
-  projectId: "laravel-skeleton-50ef9",
-  storageBucket: "laravel-skeleton-50ef9.appspot.com",
-  messagingSenderId: "1091942871448",
-  appId: "1:1091942871448:web:541e81f076d41c42c5fbed",
-  measurementId: "G-7Q8JC9T9Y2"
-}; // Initialize Firebase
-
-var firebase = Object(firebase_app__WEBPACK_IMPORTED_MODULE_0__["initializeApp"])(firebaseConfig);
-var messaging = Object(firebase_messaging__WEBPACK_IMPORTED_MODULE_1__["getMessaging"])();
-var vapid = "BEfgx025HTlvQjmrhjtmAyU2TNYZWdVD6nHlYCoJCTk5Jd3Un7av8jGiYIVIK3HAbQDQUDhMbbbGYiOxHnwN3UA";
-Object(firebase_messaging__WEBPACK_IMPORTED_MODULE_1__["getToken"])(messaging, {
-  vapidKey: vapid
-}).then(function (token) {
-  console.log("fmc token: " + token);
-  localStorage.setItem("fmc_token", JSON.stringify(token));
-  var t = document.getElementById("token");
-
-  if (t) {
-    t.value = token ? token : "";
-  } // alert(token)
-
-})["catch"](function (err) {
-  console.log(err);
-});
-Object(firebase_messaging__WEBPACK_IMPORTED_MODULE_1__["onMessage"])(messaging, function (payload) {
-  console.log("Message received. ", payload);
-  var n = new Notification(payload.notification.title, {
-    body: payload.notification.body
-  });
-
-  n.onclick = function (e) {
-    e.preventDefault();
-    window.open(payload.notification.click_action, '_blank');
-    notification.close();
-  };
-});
-/* harmony default export */ __webpack_exports__["default"] = ({
-  messaging: messaging
-});
-
-/***/ }),
-
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -63335,16 +64251,15 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _views_Home__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Home */ "./resources/js/views/Home.vue");
-/* harmony import */ var _views_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/Login */ "./resources/js/views/Login.vue");
-/* harmony import */ var _views_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/Register */ "./resources/js/views/Register.vue");
-/* harmony import */ var _views_Profile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/Profile */ "./resources/js/views/Profile.vue");
-/* harmony import */ var _views_About__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/About */ "./resources/js/views/About.vue");
-/* harmony import */ var _views_errors_404__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/errors/404 */ "./resources/js/views/errors/404.vue");
-/* harmony import */ var _views_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/auth/ResetPassword */ "./resources/js/views/auth/ResetPassword.vue");
-/* harmony import */ var _views_VerifyEmail__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/VerifyEmail */ "./resources/js/views/VerifyEmail.vue");
+/* harmony import */ var _views_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Home */ "./resources/js/views/Home.vue");
+/* harmony import */ var _views_auth_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/auth/Login */ "./resources/js/views/auth/Login.vue");
+/* harmony import */ var _views_auth_Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/auth/Register */ "./resources/js/views/auth/Register.vue");
+/* harmony import */ var _views_Profile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/Profile */ "./resources/js/views/Profile.vue");
+/* harmony import */ var _views_About__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/About */ "./resources/js/views/About.vue");
+/* harmony import */ var _views_errors_404__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/errors/404 */ "./resources/js/views/errors/404.vue");
+/* harmony import */ var _views_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/auth/ResetPassword */ "./resources/js/views/auth/ResetPassword.vue");
+/* harmony import */ var _views_auth_VerifyEmail__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/auth/VerifyEmail */ "./resources/js/views/auth/VerifyEmail.vue");
+/* harmony import */ var _views_auth_Activation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/auth/Activation */ "./resources/js/views/auth/Activation.vue");
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
 
 
@@ -63363,73 +64278,75 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: "*",
     name: "NotFound",
-    component: _views_errors_404__WEBPACK_IMPORTED_MODULE_8__["default"],
+    component: _views_errors_404__WEBPACK_IMPORTED_MODULE_7__["default"],
     meta: {
       title: "404 Not Found"
     }
   }, {
-    path: '/',
+    path: "/",
     name: "Home",
-    component: _views_Home__WEBPACK_IMPORTED_MODULE_3__["default"],
+    component: _views_Home__WEBPACK_IMPORTED_MODULE_2__["default"],
     meta: {
       title: "Home"
     }
   }, {
-    path: '/login',
+    path: "/login",
     name: "Login",
-    component: _views_Login__WEBPACK_IMPORTED_MODULE_4__["default"],
+    component: _views_auth_Login__WEBPACK_IMPORTED_MODULE_3__["default"],
     meta: {
       title: "Login",
       guest: true
     }
   }, {
-    path: '/register',
+    path: "/register",
     name: "Register",
-    component: _views_Register__WEBPACK_IMPORTED_MODULE_5__["default"],
+    component: _views_auth_Register__WEBPACK_IMPORTED_MODULE_4__["default"],
     meta: {
       title: "Register",
       guest: true
     }
   }, {
-    path: '/verify/email',
-    name: 'VerifyEmail',
-    component: _views_VerifyEmail__WEBPACK_IMPORTED_MODULE_10__["default"],
+    path: "/activate",
+    name: "Activate",
+    component: _views_auth_Activation__WEBPACK_IMPORTED_MODULE_10__["default"],
+    meta: {
+      title: "Activation"
+    }
+  }, {
+    path: "/verify/email",
+    name: "VerifyEmail",
+    component: _views_auth_VerifyEmail__WEBPACK_IMPORTED_MODULE_9__["default"],
     meta: {
       title: "Email Verification",
       guest: true
     }
   }, {
-    path: '/password/reset/:token/:email',
-    name: 'ResetPassword',
-    component: _views_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_9__["default"],
+    path: "/password/reset/:token/:email",
+    name: "ResetPassword",
+    component: _views_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_8__["default"],
     meta: {
       title: "Reset Password",
       guest: true
     }
   }, {
-    path: '/about',
+    path: "/about",
     name: "About",
-    component: _views_About__WEBPACK_IMPORTED_MODULE_7__["default"],
+    component: _views_About__WEBPACK_IMPORTED_MODULE_6__["default"],
     meta: {
-      title: 'About'
+      title: "About"
     }
   }, {
-    path: '/profile',
+    path: "/profile",
     name: "Profile",
-    component: _views_Profile__WEBPACK_IMPORTED_MODULE_6__["default"],
+    component: _views_Profile__WEBPACK_IMPORTED_MODULE_5__["default"],
     meta: {
       title: "Profile",
       "private": true
     }
   }],
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL
 }); // router.beforeEach((to, from , next) => {
-//     const auth = `${to.meta.auth}`;
-//     if(auth === "guest"){
-//     }
-// })
-// router.beforeEach((to, from , next) => {
 //     // redirect to login page if not logged in and trying to access a restricted page
 //     const publicPages = ['/login', '/', '*', '/register'];
 //     const authRequired = !publicPages.includes(to.path);
@@ -63452,7 +64369,7 @@ router.beforeEach(function (to, from, next) {
     return r.meta["private"] && !_store_index__WEBPACK_IMPORTED_MODULE_11__["default"].getters.isLoggedIn;
   })) {
     next({
-      name: 'Login',
+      name: "Login",
       params: {
         wantedRoute: to.fullPath
       }
@@ -63503,6 +64420,20 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // export 
 
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    errors: []
+  },
+  getters: {
+    errors: function errors(state) {
+      return state.errors;
+    }
+  },
+  mutations: {
+    setErrors: function setErrors(state, errors) {
+      state.errors = errors;
+    }
+  },
+  actions: {},
   modules: {
     auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
     pages: _modules_pages__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -63595,7 +64526,7 @@ var actions = {
               data = _yield$axios$post.data;
 
               if (data) {
-                console.log(data.data);
+                // console.log(data.data);
                 context.commit("GET_USER_INFO", data.data);
               }
 
@@ -63605,8 +64536,9 @@ var actions = {
             case 9:
               _context.prev = 9;
               _context.t0 = _context["catch"](1);
-              console.log(_context.t0.response);
+              // console.log(err.response);
               localStorage.removeItem("bearer_token");
+              throw _context.t0;
 
             case 13:
             case "end":
@@ -63642,7 +64574,7 @@ var actions = {
             case 9:
               _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
-              console.log(_context2.t0.response);
+              console.log(_context2.t0.response); // throw err;
 
             case 12:
             case "end":
@@ -63660,23 +64592,29 @@ var actions = {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              try {
-                _axios$post = axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/guest/register', params), data = _axios$post.data;
+              _context3.prev = 0;
+              _axios$post = axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/v1/guest/register', params), data = _axios$post.data;
 
-                if (data) {
-                  console.log(data.data);
-                  context.commit("");
-                }
-              } catch (err) {
-                console.log(err.response);
+              if (data) {
+                console.log(data.data);
+                context.commit("");
               }
 
-            case 1:
+              _context3.next = 9;
+              break;
+
+            case 5:
+              _context3.prev = 5;
+              _context3.t0 = _context3["catch"](0);
+              console.log(_context3.t0);
+              throw _context3.t0;
+
+            case 9:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3);
+      }, _callee3, null, [[0, 5]]);
     }))();
   },
   logoutUser: function logoutUser(context, params) {
@@ -63738,7 +64676,7 @@ var actions = {
             case 6:
               _context5.prev = 6;
               _context5.t0 = _context5["catch"](0);
-              console.log(_context5.t0.response);
+              throw _context5.t0;
 
             case 9:
             case "end":
@@ -63819,7 +64757,7 @@ var actions = {
             case 8:
               _context.prev = 8;
               _context.t0 = _context["catch"](0);
-              console.log(_context.t0.response);
+              console.log(_context.t0.response); // throw err;
 
             case 11:
             case "end":
@@ -63836,6 +64774,28 @@ var actions = {
   mutations: mutations,
   actions: actions
 });
+
+/***/ }),
+
+/***/ "./resources/js/veeValidate.js":
+/*!*************************************!*\
+  !*** ./resources/js/veeValidate.js ***!
+  \*************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate/dist/vee-validate.full.esm */ "./node_modules/vee-validate/dist/vee-validate.full.esm.js");
+
+
+ // registering the vee-validate globally
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('ValidationObserver', vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationObserver"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('ValidationProvider', vee_validate_dist_vee_validate_full_esm__WEBPACK_IMPORTED_MODULE_2__["ValidationProvider"]);
 
 /***/ }),
 
@@ -63919,7 +64879,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue_vue_type_template_id_91ac6b5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=91ac6b5c& */ "./resources/js/views/App.vue?vue&type=template&id=91ac6b5c&");
 /* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/views/App.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&lang=css& */ "./resources/js/views/App.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -63927,7 +64889,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _App_vue_vue_type_template_id_91ac6b5c___WEBPACK_IMPORTED_MODULE_0__["render"],
   _App_vue_vue_type_template_id_91ac6b5c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -63956,6 +64918,22 @@ component.options.__file = "resources/js/views/App.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/App.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/views/App.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/App.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 
@@ -64046,75 +65024,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Login.vue":
-/*!**************************************!*\
-  !*** ./resources/js/views/Login.vue ***!
-  \**************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Login_vue_vue_type_template_id_12f5395a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=12f5395a& */ "./resources/js/views/Login.vue?vue&type=template&id=12f5395a&");
-/* harmony import */ var _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=js& */ "./resources/js/views/Login.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Login_vue_vue_type_template_id_12f5395a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Login_vue_vue_type_template_id_12f5395a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/Login.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/Login.vue?vue&type=script&lang=js&":
-/*!***************************************************************!*\
-  !*** ./resources/js/views/Login.vue?vue&type=script&lang=js& ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Login.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Login.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/Login.vue?vue&type=template&id=12f5395a&":
-/*!*********************************************************************!*\
-  !*** ./resources/js/views/Login.vue?vue&type=template&id=12f5395a& ***!
-  \*********************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_12f5395a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Login.vue?vue&type=template&id=12f5395a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Login.vue?vue&type=template&id=12f5395a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_12f5395a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_12f5395a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/views/Profile.vue":
 /*!****************************************!*\
   !*** ./resources/js/views/Profile.vue ***!
@@ -64184,18 +65093,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Register.vue":
-/*!*****************************************!*\
-  !*** ./resources/js/views/Register.vue ***!
-  \*****************************************/
+/***/ "./resources/js/views/auth/Activation.vue":
+/*!************************************************!*\
+  !*** ./resources/js/views/auth/Activation.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Register_vue_vue_type_template_id_3563ad7c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Register.vue?vue&type=template&id=3563ad7c& */ "./resources/js/views/Register.vue?vue&type=template&id=3563ad7c&");
-/* harmony import */ var _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Register.vue?vue&type=script&lang=js& */ "./resources/js/views/Register.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Activation_vue_vue_type_template_id_28c894ce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Activation.vue?vue&type=template&id=28c894ce& */ "./resources/js/views/auth/Activation.vue?vue&type=template&id=28c894ce&");
+/* harmony import */ var _Activation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Activation.vue?vue&type=script&lang=js& */ "./resources/js/views/auth/Activation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -64204,9 +65113,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Register_vue_vue_type_template_id_3563ad7c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Register_vue_vue_type_template_id_3563ad7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Activation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Activation_vue_vue_type_template_id_28c894ce___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Activation_vue_vue_type_template_id_28c894ce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -64216,107 +65125,195 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/Register.vue"
+component.options.__file = "resources/js/views/auth/Activation.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/Register.vue?vue&type=script&lang=js&":
-/*!******************************************************************!*\
-  !*** ./resources/js/views/Register.vue?vue&type=script&lang=js& ***!
-  \******************************************************************/
+/***/ "./resources/js/views/auth/Activation.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/views/auth/Activation.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Register.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Register.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Activation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Activation.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Activation.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Activation_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Activation.vue?vue&type=template&id=28c894ce&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/auth/Activation.vue?vue&type=template&id=28c894ce& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Activation_vue_vue_type_template_id_28c894ce___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Activation.vue?vue&type=template&id=28c894ce& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Activation.vue?vue&type=template&id=28c894ce&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Activation_vue_vue_type_template_id_28c894ce___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Activation_vue_vue_type_template_id_28c894ce___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Login.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/views/auth/Login.vue ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Login_vue_vue_type_template_id_46ec553e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=46ec553e& */ "./resources/js/views/auth/Login.vue?vue&type=template&id=46ec553e&");
+/* harmony import */ var _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=js& */ "./resources/js/views/auth/Login.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Login_vue_vue_type_template_id_46ec553e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Login_vue_vue_type_template_id_46ec553e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/auth/Login.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Login.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/views/auth/Login.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Login.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Login.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Login.vue?vue&type=template&id=46ec553e&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/views/auth/Login.vue?vue&type=template&id=46ec553e& ***!
+  \**************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_46ec553e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Login.vue?vue&type=template&id=46ec553e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Login.vue?vue&type=template&id=46ec553e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_46ec553e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_46ec553e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Register.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/views/auth/Register.vue ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Register_vue_vue_type_template_id_0a273bdb_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Register.vue?vue&type=template&id=0a273bdb&scoped=true& */ "./resources/js/views/auth/Register.vue?vue&type=template&id=0a273bdb&scoped=true&");
+/* harmony import */ var _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Register.vue?vue&type=script&lang=js& */ "./resources/js/views/auth/Register.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _Register_vue_vue_type_style_index_0_id_0a273bdb_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true& */ "./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Register_vue_vue_type_template_id_0a273bdb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Register_vue_vue_type_template_id_0a273bdb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "0a273bdb",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/auth/Register.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Register.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/views/auth/Register.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Register.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/Register.vue?vue&type=template&id=3563ad7c&":
-/*!************************************************************************!*\
-  !*** ./resources/js/views/Register.vue?vue&type=template&id=3563ad7c& ***!
-  \************************************************************************/
+/***/ "./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true& ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_style_index_0_id_0a273bdb_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=style&index=0&id=0a273bdb&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_style_index_0_id_0a273bdb_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_style_index_0_id_0a273bdb_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_style_index_0_id_0a273bdb_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_style_index_0_id_0a273bdb_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/Register.vue?vue&type=template&id=0a273bdb&scoped=true&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/views/auth/Register.vue?vue&type=template&id=0a273bdb&scoped=true& ***!
+  \*****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_3563ad7c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Register.vue?vue&type=template&id=3563ad7c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Register.vue?vue&type=template&id=3563ad7c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_3563ad7c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_0a273bdb_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Register.vue?vue&type=template&id=0a273bdb&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/Register.vue?vue&type=template&id=0a273bdb&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_0a273bdb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_3563ad7c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/views/VerifyEmail.vue":
-/*!********************************************!*\
-  !*** ./resources/js/views/VerifyEmail.vue ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _VerifyEmail_vue_vue_type_template_id_42b94cd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VerifyEmail.vue?vue&type=template&id=42b94cd4& */ "./resources/js/views/VerifyEmail.vue?vue&type=template&id=42b94cd4&");
-/* harmony import */ var _VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VerifyEmail.vue?vue&type=script&lang=js& */ "./resources/js/views/VerifyEmail.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _VerifyEmail_vue_vue_type_template_id_42b94cd4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _VerifyEmail_vue_vue_type_template_id_42b94cd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/views/VerifyEmail.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/views/VerifyEmail.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./resources/js/views/VerifyEmail.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./VerifyEmail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/VerifyEmail.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/views/VerifyEmail.vue?vue&type=template&id=42b94cd4&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/views/VerifyEmail.vue?vue&type=template&id=42b94cd4& ***!
-  \***************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_template_id_42b94cd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./VerifyEmail.vue?vue&type=template&id=42b94cd4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/VerifyEmail.vue?vue&type=template&id=42b94cd4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_template_id_42b94cd4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_template_id_42b94cd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Register_vue_vue_type_template_id_0a273bdb_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -64386,6 +65383,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ResetPassword_vue_vue_type_template_id_80c06afc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ResetPassword_vue_vue_type_template_id_80c06afc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/VerifyEmail.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/views/auth/VerifyEmail.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _VerifyEmail_vue_vue_type_template_id_4bb4879b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VerifyEmail.vue?vue&type=template&id=4bb4879b& */ "./resources/js/views/auth/VerifyEmail.vue?vue&type=template&id=4bb4879b&");
+/* harmony import */ var _VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VerifyEmail.vue?vue&type=script&lang=js& */ "./resources/js/views/auth/VerifyEmail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _VerifyEmail_vue_vue_type_template_id_4bb4879b___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _VerifyEmail_vue_vue_type_template_id_4bb4879b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/auth/VerifyEmail.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/VerifyEmail.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/views/auth/VerifyEmail.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./VerifyEmail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/VerifyEmail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/auth/VerifyEmail.vue?vue&type=template&id=4bb4879b&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/auth/VerifyEmail.vue?vue&type=template&id=4bb4879b& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_template_id_4bb4879b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./VerifyEmail.vue?vue&type=template&id=4bb4879b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/auth/VerifyEmail.vue?vue&type=template&id=4bb4879b&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_template_id_4bb4879b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VerifyEmail_vue_vue_type_template_id_4bb4879b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
