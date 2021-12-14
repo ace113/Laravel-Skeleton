@@ -70,6 +70,10 @@ Route::group([
         // Page routes
         Route::post('/page/status', 'PageController@status')->name('page.status');
         Route::resource('/page', 'PageController');       
+
+        // Post routes
+        Route::post('/post/status', 'PostController@status')->name('post.status');
+        Route::resource('/post', 'PostController');       
     });
 });
 

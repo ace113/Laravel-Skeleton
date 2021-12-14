@@ -37,6 +37,9 @@ Route::group([
 
         Route::get('/test-sms', 'GuestController@testSms');
 
+        Route::get('/posts', 'GuestController@getPostsList');
+        Route::get('/posts/{slug}', 'GuestController@getPost');
+
         // sociolite
         Route::get('/login/facebook', 'GuestController@facebookLogin');
         Route::get('/login/facebook/callback', 'GuestController@facebookLoginCallback');

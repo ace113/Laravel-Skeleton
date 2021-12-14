@@ -65,6 +65,15 @@
                      </a>
                  @endcan
              </li>
+             <li class="nav-item {{ classActivePath('admin.post') }}">
+                 {{-- @can('page_access') --}}
+                     <a href="{{ route('admin.post.index') }}" class="nav-link">
+                         <i class="icon-doc"></i>
+                         <span class="title">Blogs</span>
+                         <span class="selected"></span>
+                     </a>
+                 {{-- @endcan --}}
+             </li>
              <li class="nav-item {{ classActivePath('admin.edit') }}">
                  <a href="javascript:;" class="nav-link nav-toggle">
                      <i class="icon-settings"></i>
