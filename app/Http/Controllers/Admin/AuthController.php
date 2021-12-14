@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    use UploadTrait;
     // get change password
     public function getChangePassword()
     {
@@ -57,8 +59,11 @@ class AuthController extends Controller
                 'last_name' => "required|string",
                 'email' => 'required|email|unique:users,email,'.$admin->id,
                 'phone' => 'required|numeric|unique:users,phone,'.$admin->id,
+                'image' => 'nullable'
             ]);
-    
+            $uploadedImage = $this->uploadImage($request, 'img', 'user');
+            $request['image'] = $uploadedImage; 
+        //    dd($request->all());
             $admin->update($request->all());
 
             return back()

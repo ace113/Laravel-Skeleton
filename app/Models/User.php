@@ -99,4 +99,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->hasMany(UserDeviceInfo::class);
     }
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

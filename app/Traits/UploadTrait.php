@@ -15,6 +15,7 @@ trait UploadTrait
         $file = $request->file($name);       
         if($file){            
             $fileNameToStore = $this->getFileNameToStore($file);
+            
             $path = $file->move(base_path().'/public/uploads/'. $folder, $fileNameToStore);
             
             $destination = public_path('uploads/'.$folder.'/'.$fileNameToStore);

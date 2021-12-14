@@ -11,7 +11,7 @@ class UserRepository
 {
     public function getUserById($id)
     {
-        return User::find($id);
+        return User::with('role')->find($id);
     }
 
     public function findUserByEmail($email)
@@ -74,12 +74,8 @@ class UserRepository
                 }
             })
             ->editColumn('action', function($query){
-                // return ' <a href="'.route('admin.user.edit',[$query->id]).'" class="btn btn-info btn-sx" data-toggle="tooltip" name="Edit">
-                // <i class="fa fa-edit"></i></a>&nbsp;
-                // <button class="btn btn-danger btn-sx delete" data-id="'.$query->id.'" data-toggle="tooltip" name="Delete">
-                //     <i class="fa fa-trash"></i>
-                // </button>'; 
-                return 'action';
+                return '<a href="'.route('admin.user.show',[$query->id]).'" class="btn btn-info btn-sx" data-toggle="tooltip" name="View Profile">
+                    <i class="fa fa-eye"></i></a>';
             })
             ->addIndexColumn()
             ->startsWithSearch()

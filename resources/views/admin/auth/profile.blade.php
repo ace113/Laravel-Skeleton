@@ -13,7 +13,7 @@
             <div class="portlet-body form">
                 <!--begin::form-->
                 <form action="{{ route('admin.update.profile') }}" method="POST" class="form"
-                    id="admin_profile">
+                    id="admin_profile" enctype="multipart/form-data">
                     @csrf                   
                     <div class="row">
                         <div class="col-md-12">
@@ -74,7 +74,24 @@
                                 </span>
                             </div>
                         </div>
-                    </div>                   
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group {{$errors->has('image') ? 'has-error' : ''}}">
+                                <label for="image" class="control-label">Avatar</label>
+                                @if($admin->image_url)
+                                    <img src="{{url($admin->image_url)}}" alt="" class="img-responsive img-fluid">
+                                
+                                @endif
+                                <input type="file" name="img" id="image" class="form-control">
+                                <span class="help-block">
+                                    @if ($errors->has('image'))
+                                        <small>{{ $errors->first('image') }}</small>
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
+                    </div>                  
 
                     <div class="form-actions">
                         <div class="row">

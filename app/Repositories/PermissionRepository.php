@@ -18,8 +18,8 @@ class PermissionRepository
     public function createPermission($request)
     {
         $permission = Permission::create([
-            'name' => ucwords($request->name),
-            'slug' => $this->createSlug($request->name, 0, 'Permission'),           
+            'title' => ucwords($request->title),
+            'slug' => $this->createSlug($request->title, 0, 'Permission'),           
             'status' => $request->status == 1 ? true : false
         ]);
 
@@ -31,8 +31,8 @@ class PermissionRepository
         $permission = self::getPermissionById($id);
 
         $permission->update([
-            'name' => ucwords($request->name),
-            'slug' => $this->createSlug($request->name, $id, 'Permission'),         
+            'title' => ucwords($request->title),
+            'slug' => $this->createSlug($request->title, $id, 'Permission'),         
             'status' => $request->status == 1 ? true : false
         ]); 
 

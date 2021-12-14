@@ -305,7 +305,7 @@ class AuthUserController extends ApiController
             $request->validate([
                 'image' => 'image|nullable'
             ]);
-            $uploadedImage = $this->imageUpload($request, 'image', 'user');
+            $uploadedImage = $this->uploadImage($request, 'image', 'user');
             $request->image = $uploadedImage;           
 
             $updateUser = $this->userRepository->updateUserById($request->user()->id, $request);
