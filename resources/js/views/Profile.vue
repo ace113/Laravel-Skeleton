@@ -7,6 +7,9 @@
             <div class="card-body text-center">
               <h1 class="text-center">Profile</h1>
               <!-- <p class="mb-0">Hello, {{user.first_name ? user.first_name: ''}}</p> -->
+              <div class="img">
+                <img :src="user.image_url" alt="" class="img-fluid img-avatar"/>
+              </div>
             </div>
             <div v-if="user" class="card-body">
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
@@ -154,3 +157,11 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.img-avatar{
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+</style>

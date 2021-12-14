@@ -136,13 +136,21 @@ router.beforeEach((to, from, next) => {
         return;
     }
 
+
     next();
 });
 
 // title
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | Laravel Skeleton`;
+    
+  
     next();
 });
+
+// router.afterEach((to, from, next) => {
+//     Vue.$loading.finish();
+    
+// });
 
 export default router;

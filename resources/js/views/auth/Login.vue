@@ -106,7 +106,7 @@ export default {
       };
       this.userLogin(data)
         .then(() => {
-          this.$router.push("/profile");
+          this.$router.push("/");
         })
         .catch((err) => {
           this.$refs.observer.setErrors({
