@@ -130,6 +130,16 @@ class PostController extends ApiController
         }
     }
 
+    public function getComment(Request $request)
+    {
+        try {
+            //code...
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
+    
     public function addComment(Request $request)
     {
         try {
