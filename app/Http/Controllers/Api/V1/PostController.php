@@ -26,14 +26,22 @@ class PostController extends ApiController
      *      operationId="getPosts",
      *      summary="Get Post",
      *      description="Gets posts",
-     *      tags={"Guest"},
+     *      tags={"Post"},
      *      @OA\Parameter(
-     *          name="slug",
-     *          description="length",
-     *          in="path",
+     *          name="page",
+     *          description="page",
+     *          in="query",
      *          @OA\Schema(
-     *              type="string",
-     *          )
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="per_page",
+     *          description="per page",
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -49,10 +57,10 @@ class PostController extends ApiController
      *      )
      * )
      */
-    public function getPostsList()
+    public function getPostsList(Request $request)
     {
         try {
-            $post = $this->postRepository->getPostsList();
+            $post = $this->postRepository->getPostsList($request);
             if(!$post){
                 $this->response['message'] = 'Not Found.';                
                 return $this->respondWithError($this->response);
@@ -72,7 +80,7 @@ class PostController extends ApiController
      *      operationId="getPost",
      *      summary="Get Post",
      *      description="Gets posts from slug",
-     *      tags={"Guest"},
+     *      tags={"Post"},
      *      @OA\Parameter(
      *          name="slug",
      *          description="Post Slug",
@@ -113,6 +121,36 @@ class PostController extends ApiController
     }
 
     public function getPostComments(Request $request)
+    {
+        try {
+            //code...
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
+
+    public function addComment(Request $request)
+    {
+        try {
+            //code...
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
+
+    public function updateComment(Request $request)
+    {
+        try {
+            //code...
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithError($this->response);
+        }
+    }
+
+    public function deleteComment(Request $request)
     {
         try {
             //code...

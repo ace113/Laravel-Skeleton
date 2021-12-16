@@ -479,6 +479,76 @@
                 }
             }
         },
+        "/api/v1/guest/posts/": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get Post",
+                "description": "Gets posts",
+                "operationId": "getPosts",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "per page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/guest/posts/{slug}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get Post",
+                "description": "Gets posts from slug",
+                "operationId": "getPost",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Post Slug",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/api/v1/guest/password/reset": {
             "post": {
                 "tags": [

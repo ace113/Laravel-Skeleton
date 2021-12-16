@@ -15,9 +15,10 @@ class PostRepository
         return Post::find($id);
     }
 
-    public function getPostsList(){
+    public function getPostsList($request)
+    {
         return Post::where('status', 1)           
-            ->paginate(5);
+            ->paginate((int)$request->per_page);
     }
 
     public function getUserPostById($id){

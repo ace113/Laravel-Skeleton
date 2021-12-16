@@ -37,14 +37,13 @@ Route::group([
 
         Route::get('/test-sms', 'GuestController@testSms');
 
-       
-        Route::get('/posts/comment', 'PostController@getPostComments');
-        Route::post('/posts/comment/create', 'PostController@addComment');
-        Route::patch('/posts/comment/{comment}', 'PostController@editComment');
-        Route::delete('/posts/comment/{comment}', 'PostController@deleteComment');
-
+        // Blogs
         Route::get('/posts', 'PostController@getPostsList');
         Route::get('/posts/{slug}', 'PostController@getPost');
+        Route::get('/posts/{slug}/comment', 'PostController@getPostComments');
+        Route::post('/posts/{slug}/comment/create', 'PostController@addComment');
+        Route::patch('/posts/{slug}/comment/{comment}', 'PostController@editComment');
+        Route::delete('/posts/{slug}/comment/{comment}', 'PostController@deleteComment');
 
         // sociolite
         Route::get('/login/facebook', 'GuestController@facebookLogin');
