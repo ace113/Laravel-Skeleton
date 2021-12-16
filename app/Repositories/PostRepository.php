@@ -126,6 +126,8 @@ class PostRepository
                 }
                 return ' <a href="'.route('admin.post.edit',[$query->id]).'" class="btn btn-info btn-sx" data-toggle="tooltip" title="Edit">
                 <i class="fa fa-edit"></i></a>&nbsp;
+                <a href="'.route('admin.comment.index', ["commentable_type"=>"Post","commentable_id"=> $query->id]).'" class="btn btn-default btn-sx" data-toggle="tooltip" title="Comments">
+                <i class="fa fa-comment"></i></a>&nbsp;
                 <button class="btn btn-danger btn-sx delete" data-id="'.$query->id.'" data-toggle="tooltip" title="Delete">
                     <i class="fa fa-trash"></i>
                 </button>'; 

@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\PostRepository;
+use App\Repositories\CommentRepository;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
-    protected $postRepository;
+    protected $commentRepository;
 
     public function __construct(
-        PostRepository $postRepository
+        CommentRepository $commentRepository
     ){
-        $this->postRepository = $postRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -24,9 +24,15 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            return $this->postRepository->getAjaxData($request);
+            return $this->commentRepository->getAjaxData($request);
         }
-        return view('admin.post.index');
+       
+        $params =[
+            'model' => $request->commentable_type,
+            'id' => $request->commentable_id
+        ];
+
+        return view('admin.comment.index', compact('params'));
     }
 
     /**
@@ -36,7 +42,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        return view('admin.comment.create');
     }
 
     /**
@@ -48,16 +54,16 @@ class PostController extends Controller
     public function store(Request $request)
     {
         try {
-            $post = $this->postRepository->createPost($request);
-            if(!$post){
+            $comment = $this->commentRepository->createComment($request);
+            if(!$comment){
                return redirect()
                     ->back()
                     ->withInput()
                     ->withError('Something went wrong');
             }
             return redirect()
-                ->route("admin.post.index")
-                ->withSuccess('Post created successfully');
+                ->route("admin.comment.index")
+                ->withSuccess('Comment created successfully');
         } catch (Exception $e) {
             return back()
                     ->withInput()
@@ -84,13 +90,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->postRepository->getPostById($id);
-        if($post->user_id !== auth()->user()->id){
+        $comment = $this->commentRepository->getCommentById($id);
+        if($comment->user_id !== auth()->user()->id){
             return redirect()
-                ->route('admin.post.index')
+                ->route('admin.comment.index')
                 ->withError('You don\'t have permission to access this resource');
         }
-        return view('admin.post.edit', compact('post'));
+        return view('admin.comment.edit', compact('comment'));
     }
 
     /**
@@ -103,16 +109,16 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $post = $this->postRepository->updatePost($request, $id);
-            if(!$post){
+            $comment = $this->commentRepository->updateComment($request, $id);
+            if(!$comment){
                return redirect()
                     ->back()
                     ->withInput()
                     ->withError('Something went wrong');
             }
             return redirect()
-                ->route("admin.post.index")
-                ->withSuccess('Post updated successfully');
+                ->route("admin.comment.index")
+                ->withSuccess('Comment updated successfully');
         } catch (Exception $e) {
             return back()
                     ->withInput()
@@ -130,7 +136,7 @@ class PostController extends Controller
     {
         $data = new \stdClass();
         try {
-            $is_deleted = $this->postRepository->deletePost($id);
+            $is_deleted = $this->commentRepository->deleteComment($id);
             if($is_deleted){
                 $data->status = 1;
             }else{
@@ -155,7 +161,7 @@ class PostController extends Controller
         $data = new \stdClass();
 
         try {
-            $is_changed = $this->postRepository->changeStatus($request);
+            $is_changed = $this->commentRepository->changeStatus($request);
             if($is_changed){
                 $data->status = 1;
             }else{
@@ -166,10 +172,5 @@ class PostController extends Controller
         }
 
         return response()->json($data);
-    }
-
-    public function postComments(Request $request, $id)
-    {
-        
     }
 }

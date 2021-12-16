@@ -73,7 +73,12 @@ Route::group([
 
         // Post routes
         Route::post('/post/status', 'PostController@status')->name('post.status');
-        Route::resource('/post', 'PostController');       
+        Route::get('/post/{id}/comments', 'PostController@postComments')->name('post.comments');
+        Route::resource('/post', 'PostController');   
+        
+        // comments routes
+        Route::post('/comment/status', 'CommentController@status')->name('comment.status');
+        Route::resource('/comment', 'CommentController');
     });
 });
 
