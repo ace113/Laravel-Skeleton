@@ -64,6 +64,28 @@
                          <span class="selected"></span>
                      </a>
                  @endcan
+             </li>        
+             <li class="nav-item {{ classActivePath('admin.post')}}{{classActivePath('admin.comment') }}">
+                 <a href="javascript:;" class="nav-link nav-toggle">
+                     <i class="icon-settings"></i>
+                     <span class="title">Blogs</span>
+                     <span class="arrow"></span>
+                     <span class="selected"></span>
+                 </a>
+                 <ul class="sub-menu {{ subMenuOpen('admin.post')}}{{subMenuOpen('admin.comment') }}">
+                     <li class="nav-item">
+                         <a href="{{ route('admin.post.index') }}" class="nav-link nav-toggle">
+                             <i class="icon-list"></i>
+                             <span class="title">Post</span>
+                         </a>
+                     </li>
+                     <li class="nav-item">
+                         <a href="{{ route('admin.comment.index') }}" class="nav-link nav-toggle">
+                             <i class="fa fa-comment"></i>
+                             <span class="title">Comments</span>
+                         </a>
+                     </li>
+                 </ul>
              </li>
              <li class="nav-item {{ classActivePath('admin.edit') }}">
                  <a href="javascript:;" class="nav-link nav-toggle">

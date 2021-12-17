@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\TwilioService;
 use App\Http\Controllers\Controller;
 use App\Repositories\PageRepository;
+use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Hash;
@@ -30,17 +31,20 @@ class GuestController extends ApiController
     protected $userRepository;
     protected $userTransformer;
     protected $pageRepository;
+    protected $postRepository;
     protected $twilioService;
 
     public function __construct(
         UserRepository $userRepository,
         UserTransformer $userTransformer,
         PageRepository $pageRepository,
+        PostRepository $postRepository,
         TwilioService $twilioService
     ){
         $this->userRepository = $userRepository;
         $this->userTransformer = $userTransformer;
         $this->pageRepository = $pageRepository;
+        $this->postRepository = $postRepository;
         // $this->middleware('signed')->only('verifyEmail');
         // $this->middleware('throttle:6,1')->only('verifyEmail', 'sendVerificationEmail');
         $this->twilioService = $twilioService;
@@ -372,8 +376,7 @@ class GuestController extends ApiController
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);
         }
-    }
-
+    } 
 
     protected function generateVerificationToken(){
         return \Str::random(32);

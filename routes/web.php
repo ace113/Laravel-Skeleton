@@ -70,6 +70,15 @@ Route::group([
         // Page routes
         Route::post('/page/status', 'PageController@status')->name('page.status');
         Route::resource('/page', 'PageController');       
+
+        // Post routes
+        Route::post('/post/status', 'PostController@status')->name('post.status');
+        Route::get('/post/{id}/comments', 'PostController@postComments')->name('post.comments');
+        Route::resource('/post', 'PostController');   
+        
+        // comments routes
+        Route::post('/comment/status', 'CommentController@status')->name('comment.status');
+        Route::resource('/comment', 'CommentController');
     });
 });
 
