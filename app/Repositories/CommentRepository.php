@@ -32,10 +32,13 @@ class CommentRepository
         return $comment;
     }
 
-    public function updateComment($requets, $id)
+    public function updateComment($request, $id)
     {
         $comment = self::getCommentById($id);
 
+        if(!$comment){
+            return false;
+        }
         $comment->update([
             'comment' => $request->comment,
             'email' => auth()->user()->email ?? $request->email,
@@ -52,9 +55,12 @@ class CommentRepository
     {
         $comment = self::getCommentById($id);
 
-        $comment->delete();
+       if($comment){
+            $comment->delete();
+            return $comment;
+       }
 
-        return $comment;
+      return false;
     }
 
     public function changeStatus($request)
@@ -63,8 +69,9 @@ class CommentRepository
 
         if($comment){
             $comment->status == 1 ? $comment->status = 0 : $comment->status = 1;
+            return $comment->save();
         }
-        return $comment->save();
+       return false;
     }
 
     public function getAjaxData($request)

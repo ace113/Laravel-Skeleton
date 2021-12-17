@@ -549,6 +549,155 @@
                 }
             }
         },
+        "/api/v1/guest/posts/{slug}/comments": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get Post comment",
+                "description": "gets comments of a post",
+                "operationId": "GetPostComment",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Post Slug",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/guest/comments/{comment}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Get comment",
+                "description": "Gets the comment",
+                "operationId": "Get comment",
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "path",
+                        "description": "comment id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete comment",
+                "description": "Delete the comment",
+                "operationId": "Delete comment",
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "path",
+                        "description": "comment id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update comment",
+                "description": "Update comment",
+                "operationId": "Update comment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Comment"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/guest/comments/create": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create comment",
+                "description": "create comment",
+                "operationId": "Create comment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Comment"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/api/v1/guest/password/reset": {
             "post": {
                 "tags": [
@@ -620,6 +769,40 @@
                 "type": "object",
                 "xml": {
                     "name": "ChangePassword"
+                }
+            },
+            "Comment": {
+                "title": "Comment",
+                "description": "Comment request body",
+                "properties": {
+                    "comment": {
+                        "title": "comment",
+                        "description": "Comment",
+                        "type": "string",
+                        "example": "This is comment"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name",
+                        "type": "string",
+                        "example": "John Cena"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "email",
+                        "type": "string",
+                        "example": "john@cena.com"
+                    },
+                    "parent_id": {
+                        "title": "parent_id",
+                        "description": "replies to comment. Put 0 if it is not a reply",
+                        "type": "integer",
+                        "example": "0"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Comment"
                 }
             },
             "DeviceInfo": {

@@ -40,11 +40,11 @@ Route::group([
         // Blogs
         Route::get('/posts', 'PostController@getPostsList');
         Route::get('/posts/{slug}', 'PostController@getPost');
-        Route::get('/posts/{slug}/comment', 'PostController@getPostComments');
-        Route::post('/posts/{slug}/comment/create', 'PostController@addComment');
-        Route::get('/posts/{slug}/comment/{comment}', 'PostController@getComment');
-        Route::patch('/posts/{slug}/comment/{comment}', 'PostController@editComment');
-        Route::delete('/posts/{slug}/comment/{comment}', 'PostController@deleteComment');
+        Route::get('/posts/{slug}/comments', 'PostController@getPostComments');
+        Route::post('/comments/create', 'PostController@addComment');
+        Route::get('/comments/{comment}', 'PostController@getComment');
+        Route::patch('/comments/{comment}', 'PostController@editComment');
+        Route::delete('/comments/{comment}', 'PostController@deleteComment');
 
         // sociolite
         Route::get('/login/facebook', 'GuestController@facebookLogin');
