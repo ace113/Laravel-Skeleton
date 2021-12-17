@@ -8,6 +8,7 @@ import Profile from "./views/Profile";
 import About from "./views/About";
 import NotFound from "./views/errors/404";
 import ResetPassword from "./views/auth/ResetPassword";
+import ForgotPassword from "./views/auth/ForgotPassword";
 import VerifyEmail from "./views/auth/VerifyEmail";
 import Activate from "./views/auth/Activation";
 
@@ -67,6 +68,15 @@ const router = new VueRouter({
                 title: "Email Verification",
                 guest: true,
             },
+        },
+        {
+            path: "/forgot/password",
+            name: "ForgotPassword",
+            component: ForgotPassword,
+            meta: {
+                title: "Forgot Password",
+                guest: true,
+            }
         },
         {
             path: "/password/reset/:token/:email",

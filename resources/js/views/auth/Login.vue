@@ -71,6 +71,9 @@
                   </div>
                 </form>
               </ValidationObserver>
+              <div class="card-text">
+                <router-link :to="{name: 'ForgotPassword'}">Forgot Password</router-link>
+              </div>
             </div>
           </div>
         </div>

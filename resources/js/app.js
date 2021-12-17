@@ -52,11 +52,13 @@ axios.interceptors.response.use(
         console.log('current route', router.currentRoute.name)
         if (error.response.status === 422) {
             store.commit('setErrors', error.response.data.errors);
-        } else if (error.response.status === 400) {
+        }
+         else if (error.response.status === 400) {
             router.push({
                 name: 'NotFound'
             });
-        } else if (router.currentRoute.name !== "Login" && error.response.status === 401) {
+        } 
+        else if (router.currentRoute.name !== "Login" && error.response.status === 401) {
             console.log('hello for login')
             router.push({
                 name: "Login"

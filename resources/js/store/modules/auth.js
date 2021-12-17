@@ -121,6 +121,17 @@ const actions = {
         } catch (err) {
             throw err;
         }
+    },
+    async forgotPassword(context, params){
+        try{
+            const {data} = await axios.post('/api/v1/guest/password/forgot', params);
+            if(data){
+                return data;
+                // context.commit('');
+            }
+        }catch(err){
+            throw err;
+        }
     }
 };
 

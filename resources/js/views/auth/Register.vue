@@ -212,7 +212,7 @@ export default {
             email: this.errors.email,
             password: this.errors.password,
           });
-          console.log("err", err.response);
+          console.log("err", error.response);
           // this.message = err.response.data.message;
         });
     },
