@@ -264,7 +264,7 @@ class GuestController extends ApiController
             if($user->markEmailAsVerified()){
                 event(new Verified($user));
                 $this->response['message'] = "Verification successfull";
-                return $this->respondWithSuccess = $this->response;
+                return $this->respondWithSuccess($this->response);
             }
 
         } catch (Exception $e) {

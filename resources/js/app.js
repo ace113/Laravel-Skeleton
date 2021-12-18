@@ -55,6 +55,9 @@ axios.interceptors.response.use(
             case 422:
                 store.commit('setErrors', errors.response.data.errors);
                 break;
+            case 401:
+                router.push({name: "Login"});
+                break;
             case 500: 
                 break;
             case 302:

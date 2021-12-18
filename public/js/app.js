@@ -65051,6 +65051,12 @@ axios__WEBPACK_IMPORTED_MODULE_5___default.a.interceptors.response.use(function 
       _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].commit('setErrors', errors.response.data.errors);
       break;
 
+    case 401:
+      _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+        name: "Login"
+      });
+      break;
+
     case 500:
       break;
 
