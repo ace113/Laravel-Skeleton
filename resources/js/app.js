@@ -53,12 +53,13 @@ axios.interceptors.response.use(
 
         switch (error.response.status) {
             case 422:
-                store.commit('setErrors', errors.response.data.errors);
+                store.commit('setErrors', error.response.data.errors);
                 break;
-            case 401:
-                router.push({name: "Login"});
-                break;
+            // case 401:
+            //     router.push({name: "Login"});
+            //     break;
             case 500: 
+                router.push({name: "ServerError"});
                 break;
             case 302:
                 router.push({

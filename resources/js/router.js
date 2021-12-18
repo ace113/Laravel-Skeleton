@@ -7,6 +7,7 @@ import Register from "./views/auth/Register";
 import Profile from "./views/Profile";
 import About from "./views/About";
 import NotFound from "./views/errors/404";
+import ServerError from "./views/errors/500";
 import ResetPassword from "./views/auth/ResetPassword";
 import ForgotPassword from "./views/auth/ForgotPassword";
 import VerifyEmail from "./views/auth/VerifyEmail";
@@ -113,6 +114,14 @@ const router = new VueRouter({
             meta: {
                 title: "404 Not Found",
             },
+        },
+        {
+            path: "/500",
+            name: "ServerError",
+            component: ServerError,
+            meta: {
+                title: "500 Internal Server Error",
+            }
         },
     ],
     mode: "history",
