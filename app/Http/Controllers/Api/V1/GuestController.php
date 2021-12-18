@@ -116,7 +116,7 @@ class GuestController extends ApiController
         } catch (Exception $e) {
             \DB::rollBack();
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -186,7 +186,7 @@ class GuestController extends ApiController
             return $this->respondWithHeaders($this->response, $headers);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -269,7 +269,7 @@ class GuestController extends ApiController
 
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -326,7 +326,7 @@ class GuestController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -374,7 +374,7 @@ class GuestController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     } 
 

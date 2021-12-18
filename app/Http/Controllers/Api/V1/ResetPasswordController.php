@@ -85,7 +85,7 @@ class ResetPasswordController extends ApiController
 
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 }

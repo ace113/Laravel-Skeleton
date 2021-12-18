@@ -70,7 +70,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -116,7 +116,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -163,7 +163,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -208,7 +208,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
     
@@ -248,7 +248,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -288,7 +288,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -333,7 +333,7 @@ class PostController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 }

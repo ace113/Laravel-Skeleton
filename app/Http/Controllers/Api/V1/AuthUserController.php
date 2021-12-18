@@ -64,7 +64,7 @@ class AuthUserController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -110,7 +110,7 @@ class AuthUserController extends ApiController
             }
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -169,7 +169,7 @@ class AuthUserController extends ApiController
 
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -222,7 +222,7 @@ class AuthUserController extends ApiController
 
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -265,7 +265,7 @@ class AuthUserController extends ApiController
             return $this->respondWithSuccess($this->response);
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 
@@ -336,7 +336,7 @@ class AuthUserController extends ApiController
             //code...
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
     public function googleLogin(Request $request){
@@ -344,7 +344,7 @@ class AuthUserController extends ApiController
             //code...
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithExcepiton($this->response);
         }
     }
     public function googleLoginCallback(Request $request){
@@ -352,7 +352,7 @@ class AuthUserController extends ApiController
             //code...
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
+            return $this->respondWithException($this->response);
         }
     }
 }
