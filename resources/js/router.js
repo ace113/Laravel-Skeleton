@@ -11,6 +11,7 @@ import ResetPassword from "./views/auth/ResetPassword";
 import ForgotPassword from "./views/auth/ForgotPassword";
 import VerifyEmail from "./views/auth/VerifyEmail";
 import Activate from "./views/auth/Activation";
+import Password from "./views/auth/Password";
 
 import store from "./store/index";
 
@@ -18,14 +19,6 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
-        {
-            path: "*",
-            name: "NotFound",
-            component: NotFound,
-            meta: {
-                title: "404 Not Found",
-            },
-        },
         {
             path: "/",
             name: "Home",
@@ -102,6 +95,23 @@ const router = new VueRouter({
             meta: {
                 title: "Profile",
                 private: true,
+            },
+        },
+        {
+            path: "/password",
+            name: "Password",
+            component: Password,
+            meta: {
+                title: "Password",
+                private: true,
+            },
+        },
+        {
+            path: "*",
+            name: "NotFound",
+            component: NotFound,
+            meta: {
+                title: "404 Not Found",
             },
         },
     ],

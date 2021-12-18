@@ -65,21 +65,22 @@ class ForgotPasswordController extends ApiController
             
             if(!$user){
                 $this->response['message'] = "No account associated with this email was found.";
-                return $this->respondWithError($this->response);
+                return $this->respondWithCustomcode($this->response, NO_RECORDS_FOUND);
             }
 
+            // sends reset link
             $response = $this->broker()->sendResetLink(
                 $this->credentials($request)
             );
 
-            if($response == Password::RESET_LINK_SENT){
-                $this->response['message'] = trans($response);
-                return $this->respondWithSuccess($this->response);
-            }
-            else {
+            if($response !== Password::RESET_LINK_SENT){
                 $this->response['message'] = trans($response);
                 return $this->respondWithError($this->response);    
             }
+
+            $this->response['message'] = trans($response);
+            return $this->respondWithSuccess($this->response);
+        
         } catch (Exception $e) {
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);

@@ -48,26 +48,43 @@ axios.interceptors.response.use(
     },
     error => {
         loader.hide();
-        console.log('loader', loader);
-        console.log('current route', router.currentRoute.name)
-        if (error.response.status === 422) {
-            store.commit('setErrors', error.response.data.errors);
+        // console.log('loader', loader);
+        // console.log('current route', router.currentRoute.name)        
+
+        switch (error.response.status) {
+            case 422:
+                store.commit('setErrors', errors.response.data.errors);
+                break;
+            case 500: 
+                break;
+            case 302:
+                router.push({
+                    name: "NotFound"
+                });
+        
+            default:
+                return Promise.reject(error);
+                break;
         }
-         else if (error.response.status === 400) {
-            router.push({
-                name: 'NotFound'
-            });
-        } 
-        else if (router.currentRoute.name !== "Login" && error.response.status === 401) {
-            console.log('hello for login')
-            router.push({
-                name: "Login"
-            })
-        } else if(error.response.status >= 500){
-            // shom modal error
-        } else {
-            return Promise.reject(error);
-        }
+
+        // if (error.response.status === 422) {
+        //     store.commit('setErrors', error.response.data.errors);
+        // }
+        //  else if (error.response.status === 302) {
+        //     router.push({
+        //         name: 'NotFound'
+        //     });
+        // } 
+        // else if (router.currentRoute.name !== "Login" && error.response.status === 401) {
+        //     console.log('hello for login')
+        //     router.push({
+        //         name: "Login"
+        //     })
+        // } else if(error.response.status >= 500){
+        //     // shom modal error
+        // } else {
+        //     return Promise.reject(error);
+        // }
     }
 );
 

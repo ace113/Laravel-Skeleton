@@ -87,7 +87,7 @@
                 ]
             }
         },
-        "/api/v1/auth/changePassword": {
+        "/api/v1/auth/change_password": {
             "post": {
                 "tags": [
                     "Auth"

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { post } from "jquery";
 
 const state = {
     status: "",
@@ -112,7 +113,7 @@ const actions = {
         try {
             const {
                 data
-            } = axios.post('/api/v1/auth/profile', params);
+            } = await axios.post('/api/v1/auth/profile', params);
             if (data) {
                 console.log(data.data)
                 context.commit("");
@@ -120,6 +121,16 @@ const actions = {
             return data.data;
         } catch (err) {
             throw err;
+        }
+    },
+    async changePassword(context, params){
+        try {
+            const { data } = await axios.post('/api/v1/auth/change_password', params);
+            if(data){
+
+            }
+        } catch (error) {
+            throw error;
         }
     },
     async forgotPassword(context, params){

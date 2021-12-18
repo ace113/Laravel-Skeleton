@@ -116,7 +116,7 @@ class AuthUserController extends ApiController
 
     /**
      * @OA\Post(
-     *      path="/api/v1/auth/changePassword",
+     *      path="/api/v1/auth/change_password",
      *      operationId="ChangePassword",
      *      summary="Change password",
      *      description="Change authenticated user's password",
@@ -148,12 +148,15 @@ class AuthUserController extends ApiController
         try {
             if(!Hash::check($request->current_password, auth()->user()->password))
             {
-                $this->response['message'] = 'Invalid Password.';
-                return $this->respondWithCustomCode($this->response, HTTP_UNAUTHORIZED);
+                $this->response['message'] = 'Invalid Password. Your current password value is invalid.';
+                return $this->respondWithCustomCode($this->response, HTTP_NON_AUTHORITATIVE_INFORMATION);
             }
 
             // update user with new password
             $user = auth()->user();
+            // revoke auth tokens
+            $user->token()->revoke();
+
             $user->password = bcrypt($request->password);
             $user->save();
 

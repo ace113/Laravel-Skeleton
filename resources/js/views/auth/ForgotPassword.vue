@@ -66,7 +66,10 @@ export default {
       this.forgotPassword(params)
         .then((res) => {
           console.log("res", res);
-          if (res.status == 200) {
+          if (res.status === 200) {
+            this.message = res.message;
+          }
+          if(res.status === 232){
             this.message = res.message;
           }
         })

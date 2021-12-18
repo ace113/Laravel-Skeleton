@@ -367,7 +367,7 @@ class GuestController extends ApiController
             $page = $this->pageRepository->getPageBySlug($slug);
             if(!$page){
                 $this->response['message'] = 'Page Not Found.';                
-                return $this->respondWithError($this->response);
+                return $this->respondWithCustomcode($this->response, PAGE_NOT_FOUND);
             }
           
             $this->response['data'] = $page;
