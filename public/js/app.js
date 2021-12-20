@@ -2778,10 +2778,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["getProfile", "updateProfile"])), {}, {
-    updateProfile: function updateProfile() {
+    profile: function profile() {
       var _this2 = this;
 
-      this.updateProfile(this.user).then(function () {})["catch"](function (err) {
+      this.updateProfile(this.user).then(function (res) {
+        console.log(res);
+      })["catch"](function (err) {
         _this2.$refs.observer.setErrors({
           first_name: _this2.errors.first_name,
           last_name: _this2.errors.last_name,
@@ -46291,7 +46293,7 @@ var render = function () {
                                     on: {
                                       submit: function ($event) {
                                         $event.preventDefault()
-                                        return handleSubmit(_vm.updateProfile)
+                                        return handleSubmit(_vm.profile)
                                       },
                                     },
                                   },
@@ -46719,7 +46721,7 @@ var render = function () {
                         ],
                         null,
                         false,
-                        3367013238
+                        1280263431
                       ),
                     }),
                   ],

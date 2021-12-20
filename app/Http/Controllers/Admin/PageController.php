@@ -93,6 +93,11 @@ class PageController extends Controller
         abort_if(Gate::denies('page_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $page = $this->pageRepository->getPageById($id);
+        if(!$page){
+            return redirect()
+                ->back()
+                ->withError('Page not found.');
+        }
         return view('admin.page.edit', compact('page'));
     }
 

@@ -24,7 +24,7 @@ class UserTransformer
     public function updateJson($data)
     {
         return [
-            'first_name' => Arr::get($data, 'first_name', null),
+            'firstf_name' => Arr::get($data, 'first_name', null),
             'last_name' => Arr::get($data, 'last_name', null),
             'email' => Arr::get($data, 'email', null),
             'phone' => Arr::get($data, 'phone', null),

@@ -91,6 +91,10 @@ class CommentController extends Controller
     public function edit($id)
     {
         $comment = $this->commentRepository->getCommentById($id);
+        if(!$comment){
+            return back()
+                ->withError('Comment not found');
+        }
         if($comment->user_id !== auth()->user()->id){
             return redirect()
                 ->route('admin.comment.index')

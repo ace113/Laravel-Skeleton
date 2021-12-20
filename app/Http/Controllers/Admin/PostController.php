@@ -85,6 +85,11 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = $this->postRepository->getPostById($id);
+        if(!$post){
+            return redirect()
+                ->back()
+                ->withError('Page not found.');
+        }
         if($post->user_id !== auth()->user()->id){
             return redirect()
                 ->route('admin.post.index')

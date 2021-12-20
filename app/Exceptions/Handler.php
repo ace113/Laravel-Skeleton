@@ -53,10 +53,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if($request->expectsJson()){
-            $exception = $this->prepareException($exception);
-            if($exception->getStatusCode() === 500){
-                return $this->prepareResponse($request, $e);
-            }
+            // $exception = $this->prepareException($exception);
+            // if($exception->getStatusCode() === 500){
+            //     return $this->prepareResponse($request, $e);
+            // }
             // return $this->handleApiException($request, $exception);
         }
         return parent::render($request, $exception);

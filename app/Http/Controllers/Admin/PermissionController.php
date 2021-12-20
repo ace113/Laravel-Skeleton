@@ -93,6 +93,11 @@ class PermissionController extends Controller
         abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden. Permission denied!');
 
         $permission = $this->permissionRepository->getPermissionById($id);
+        if(!$permission){
+            return redirect()
+            ->back()
+            ->withInput('Permission not found');
+        }
         return view('admin.permission.edit', compact('permission'));
     }
 

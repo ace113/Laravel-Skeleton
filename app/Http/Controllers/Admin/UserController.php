@@ -75,6 +75,10 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userRepository->getUserById($id);
+        if(!$user){
+            return back()
+            ->withError('User not found.');
+        }
         return view('admin.user.show', compact('user'));
     }
 
@@ -87,6 +91,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->userRepository->getUserById($id);
+        if(!$user){
+            return back()
+            ->withError('User not found.');
+        }
         return view('admin.user.edit', compact('user'));
     }
 

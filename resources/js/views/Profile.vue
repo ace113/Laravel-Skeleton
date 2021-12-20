@@ -13,7 +13,7 @@
             </div>
             <div v-if="user" class="card-body">
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-                <form @submit.prevent="handleSubmit(updateProfile)">
+                <form @submit.prevent="handleSubmit(profile)">
                   <div class="form-group">
                     <ValidationProvider
                       vid="first_name"
@@ -141,10 +141,10 @@ export default {
 
   methods: {
     ...mapActions(["getProfile", "updateProfile"]),
-    updateProfile() {     
+    profile() {     
 
-        this.updateProfile(this.user).then(() => {
-
+        this.updateProfile(this.user).then((res) => {
+          console.log(res)
         }).catch(err => {
           this.$refs.observer.setErrors({
             first_name: this.errors.first_name,
