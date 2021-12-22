@@ -23,7 +23,7 @@ Vue.component("FlashMessage", FlashMessage);
 Vue.use(VueFlashMessage, {
     method: 'iPefereQuickSilver',
     messageOptions: {
-        timeout: 3000,
+        timeout: 5000,
         important: true,
         autoEmit: true,
         pauseOnInteract: true,

@@ -65262,7 +65262,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("FlashMessage", _components
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_flash_message__WEBPACK_IMPORTED_MODULE_10___default.a, {
   method: 'iPefereQuickSilver',
   messageOptions: {
-    timeout: 3000,
+    timeout: 5000,
     important: true,
     autoEmit: true,
     pauseOnInteract: true
