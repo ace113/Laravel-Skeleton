@@ -1,5 +1,4 @@
 import axios from "axios";
-import { post } from "jquery";
 
 const state = {
     status: "",

@@ -8,17 +8,13 @@ import veeValidate from './veeValidate';
 import axios from 'axios';
 import AwaitingButton from './components/AwaitingButton';
 import VueLoading from 'vue-loading-overlay';
-import FlashMessage from './components/Message';
 import 'vue-loading-overlay/dist/vue-loading.css';
-// import Loading from './components/LoadingComponent';
 import VueFlashMessage from 'vue-flash-message';
 
 
 
 Vue.config.productionTip = false;
 Vue.component('AwaitingButton', AwaitingButton);
-Vue.component("FlashMessage", FlashMessage);
-// Vue.component('Loading', Loading);
 
 Vue.use(VueFlashMessage, {
     method: 'iPefereQuickSilver',
@@ -51,6 +47,7 @@ axios.interceptors.request.use(function (config) {
     loader = Vue.$loading.show();
     return config;
 }, function (error) {
+    loader.hide();
     console.log('request')
     return Promise.reject(error);
 })
@@ -81,30 +78,10 @@ axios.interceptors.response.use(
                 router.push({
                     name: "NotFound"
                 });
-
+                break;
             default:
                 return Promise.reject(error);
-                break;
         }
-
-        // if (error.response.status === 422) {
-        //     store.commit('setErrors', error.response.data.errors);
-        // }
-        //  else if (error.response.status === 302) {
-        //     router.push({
-        //         name: 'NotFound'
-        //     });
-        // } 
-        // else if (router.currentRoute.name !== "Login" && error.response.status === 401) {
-        //     console.log('hello for login')
-        //     router.push({
-        //         name: "Login"
-        //     })
-        // } else if(error.response.status >= 500){
-        //     // shom modal error
-        // } else {
-        //     return Promise.reject(error);
-        // }
     }
 );
 

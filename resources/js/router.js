@@ -187,14 +187,13 @@ router.beforeEach((to, from, next) => {
 // title
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | Laravel Skeleton`;
-    
-  
+     
     next();
 });
 
-// router.afterEach((to, from, next) => {
-//     Vue.$loading.finish();
+router.afterEach((to, from, next) => {
+    console.log(router.app);
     
-// });
+});
 
 export default router;
