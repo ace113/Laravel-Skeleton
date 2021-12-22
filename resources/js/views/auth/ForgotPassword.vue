@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body">
             <h1>Forgot Password</h1>
-            <div v-if="message != ''" class="alert alert-success">{{message}}</div>
+            <flash-message></flash-message>
             <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
               <form @click.prevent="handleSubmit(forgotPasswordEmail)">
                 <div class="form-group">
@@ -46,7 +46,11 @@ export default {
   data() {
     return {
       email: "",
-      message: "",
+      message: {
+        type: null,
+        text: null,
+        hidden: true,
+      },
     };
   },
   mounted() {
@@ -59,6 +63,7 @@ export default {
     ...mapActions(["forgotPassword"]),
     forgotPasswordEmail() {
       this.$store.commit("setErrors", {});
+      // this.message = {}
       var params = {
         email: this.email,
       };
@@ -67,17 +72,17 @@ export default {
         .then((res) => {
           console.log("res", res);
           if (res.status === 200) {
-            this.message = res.message;
+            this.flashSuccess(res.message);
           }
-          if(res.status === 232){
-            this.message = res.message;
+          if (res.status === 232) {
+            this.flashWarning(res.message);
           }
         })
         .catch((error) => {
           this.$refs.observer.setErrors({
             email: this.errors.email,
           });
-          this.message = error.response.data.message
+          this.flashError(error.response.data.message);
         });
     },
   },

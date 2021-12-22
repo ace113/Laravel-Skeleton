@@ -10,10 +10,9 @@
                 Don't have an account yet?
                 <router-link :to="{ name: 'Register' }">Register</router-link>
               </p>
+              <flash-message></flash-message>
             </div>
-            <div v-if="message != ''" class="alert alert-danger">
-              {{message}}
-            </div>
+            
             <div class="card-body">              
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
                 <form @submit.prevent="handleSubmit(login)">
@@ -118,6 +117,7 @@ export default {
           });          
           console.log('err',err.response)
           this.message = err.response.data.message;
+          this.flashError(err.response.data.message);
         });
     },
   },

@@ -6,16 +6,11 @@
           <div class="card">
             <div class="card-body">
               <h1>You are almost there.</h1>
-              <div v-if="success != ''" class="alert alert-success">
-                  {{ success }}
-              </div>
-              <div v-if="error != ''" class="alert alert-danger">
-                {{ error }}
-              </div>
+              <flash-message></flash-message>
 
-              <p v-else>
+              <p>
                 Please confirm you email. A verification link has been sent your
-                email address.
+                email address ({{email}}).
               </p>
               <p>
                 Did not receive the email?
@@ -43,7 +38,7 @@ export default {
   methods: {
     async resendVerificationLink() {
       var formData = {
-        email: "test@email.com",
+        email: JSON.parse(localStorage.getItem('registered_email')),
       };
       try {
         const { data } = await axios.post(
@@ -51,13 +46,13 @@ export default {
           formData
         );
         if (data) {
-          console.log(data);
           if(data.status === 200){
-              this.success = data.message;              
+              this.success = data.message; 
+              this.flashSuccess(data.message);             
           }
         }
       } catch (error) {
-        console.log(error.response.data.message);
+        this.flashError(error.response.data.message)
         this.error = error.response.data.message;
       }
     },

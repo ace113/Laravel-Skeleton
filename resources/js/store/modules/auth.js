@@ -71,8 +71,9 @@ const actions = {
             if (data) {
                 // console.log(data.data);
                 context.commit("GET_PROFILE", data.data);
+                return data;
             }
-            return data.data
+            return data
         } catch (err) {
             console.log(err.response);
             // throw err;
@@ -82,11 +83,12 @@ const actions = {
         try {
             const {
                 data
-            } = axios.post('/api/v1/guest/register', params);
+            } = await axios.post('/api/v1/guest/register', params);
             if (data) {
                 console.log(data.data)
-                context.commit("");
+                localStorage.setItem('registered_email', JSON.stringify(data.data.email));
             }
+            return data
         } catch (err) {
             console.log(err)
             throw err;
@@ -104,7 +106,7 @@ const actions = {
                 console.log(data.data);
                 context.commit("LOGOUT");
             }
-
+            return data.data;
         } catch (err) {
             console.log(err.response);
         }
@@ -116,7 +118,7 @@ const actions = {
             } = await axios.post('/api/v1/auth/profile', params);
             if (data) {
                 console.log(data.data)
-                context.commit("");
+                // context.commit("");
             }
             return data.data;
         } catch (err) {

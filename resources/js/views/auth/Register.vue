@@ -10,6 +10,7 @@
                 Already have an account
                 <router-link :to="{ name: 'Login' }">Login</router-link>
               </p>
+               <flash-message></flash-message>
             </div>
             <div class="card-body">
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
@@ -200,6 +201,7 @@ export default {
 
       this.registerUser(data)
         .then((res) => {
+          console.log('res', res)
           if (res.status === 200) {
             this.$router.push({ name: "Activate" });
           }
@@ -213,6 +215,7 @@ export default {
             password: this.errors.password,
           });
           console.log("err", error.response);
+          this.flashError(error.response.data.message);
           // this.message = err.response.data.message;
         });
     },

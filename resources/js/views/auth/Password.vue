@@ -6,9 +6,7 @@
           <div class="card">
             <div class="card-body text-cneter">
               <h1>Change Password</h1>
-              <div v-if="message != ''" class="alert alert-danger">
-              {{message}}
-            </div>
+             <flash-message></flash-message>
             </div>
             <div class="card-body">
               <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
@@ -122,7 +120,7 @@ export default {
             };
 
           this.changePassword(data).then((res)  => {
-
+            this.flashSuccess(res.message)
           }).catch((error) => {
               this.$refs.observer.setErrors({
                   current_password: this.errors.current_password,
@@ -130,6 +128,7 @@ export default {
                   password_confirmation: this.errors.password_confirmation
               });
               this.message = error.response.data.message;
+              this.flashError(error.response.data.message);
           })
       }
   }

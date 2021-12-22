@@ -8,14 +8,28 @@ import veeValidate from './veeValidate';
 import axios from 'axios';
 import AwaitingButton from './components/AwaitingButton';
 import VueLoading from 'vue-loading-overlay';
+import FlashMessage from './components/Message';
 import 'vue-loading-overlay/dist/vue-loading.css';
 // import Loading from './components/LoadingComponent';
+import VueFlashMessage from 'vue-flash-message';
 
 
 
 Vue.config.productionTip = false;
 Vue.component('AwaitingButton', AwaitingButton);
+Vue.component("FlashMessage", FlashMessage);
 // Vue.component('Loading', Loading);
+
+Vue.use(VueFlashMessage, {
+    method: 'iPefereQuickSilver',
+    messageOptions: {
+        timeout: 3000,
+        important: true,
+        autoEmit: true,
+        pauseOnInteract: true,
+    }
+});
+
 Vue.use(VueLoading, {
     color: 'green',
     zIndex: 999,
@@ -55,17 +69,19 @@ axios.interceptors.response.use(
             case 422:
                 store.commit('setErrors', error.response.data.errors);
                 break;
-            // case 401:
-            //     router.push({name: "Login"});
-            //     break;
-            case 500: 
-                router.push({name: "ServerError"});
+                // case 401:
+                //     router.push({name: "Login"});
+                //     break;
+            case 500:
+                router.push({
+                    name: "ServerError"
+                });
                 break;
             case 302:
                 router.push({
                     name: "NotFound"
                 });
-        
+
             default:
                 return Promise.reject(error);
                 break;

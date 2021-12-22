@@ -40,8 +40,10 @@ export default {
             };
             axios.post('/api/v1/guest/password/reset', data).then((res) => {
                 console.log(res);
+                this.flashSuccess(res.data.data.message)
             }).catch((error) => {
                 console.log(error);
+                this.flashError(error.response.data.message);
             })
         }
     }

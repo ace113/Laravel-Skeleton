@@ -28,6 +28,7 @@
     "dependencies": {
         "firebase": "^9.5.0",
         "vee-validate": "^3.4.14",
+        "vue-flash-message": "^0.7.2",
         "vue-loading-overlay": "^3.4.2",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.3",

@@ -37,19 +37,23 @@ export default {
     this.verifyEmail();
   },
   methods: {
-    verifyEmail() {
+    async verifyEmail() {
       const params = this.$route.query;
 
       try {
-        const { data } = axios.get("/api/v1/guest/register/verifyEmail", {
+        const { data } = await axios.get("/api/v1/guest/register/verifyEmail", {
           params,
         });
         if (data) {
           console.log("verified");
           if (data.status === 200) {
+            this.success = data.message+ "Please login."
             setTimeout(() => {
               this.$router.push({ name: "Login" });
             }, 5000);
+          }
+          if(data.status === 215){
+            this.error = data.message
           }
         }
       } catch (error) {

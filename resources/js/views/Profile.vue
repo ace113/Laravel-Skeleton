@@ -131,14 +131,13 @@ export default {
       user: {},
     };
   },
-
-  created() {
+  mounted() {
     this.getProfile().then((data)=> {
-        this.user = data
+      
+        this.user = data.data
     });
     
   },
-
   methods: {
     ...mapActions(["getProfile", "updateProfile"]),
     profile() {     
