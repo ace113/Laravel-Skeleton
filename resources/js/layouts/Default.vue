@@ -1,7 +1,7 @@
 <template>
   <div class="main-layout">
     <header-component />
-    <child />
+    <slot />
     <footer-component />
   </div>
 </template>
@@ -13,4 +13,4 @@ export default {
   components: { HeaderComponent, FooterComponent },
 };
 </script>
-        HeaderComponent
+     

@@ -1,5 +1,8 @@
 import Vue from "vue";
 
+import DefaultLayout from './layouts/Default';
+import ErrorLayout from './layouts/Error';
+
 import VueRouter from "vue-router";
 import Home from "./views/Home";
 import Login from "./views/auth/Login";
@@ -26,6 +29,7 @@ const router = new VueRouter({
             component: Home,
             meta: {
                 title: "Home",
+                layout: DefaultLayout,
             },
         },
         {
@@ -35,6 +39,7 @@ const router = new VueRouter({
             meta: {
                 title: "Login",
                 guest: true,
+                layout: DefaultLayout,
             },
         },
         {
@@ -44,6 +49,7 @@ const router = new VueRouter({
             meta: {
                 title: "Register",
                 guest: true,
+                layout: DefaultLayout,
             },
         },
         {
@@ -52,6 +58,7 @@ const router = new VueRouter({
             component: Activate,
             meta: {
                 title: "Activation",
+                layout: DefaultLayout,
             },
         },
         {
@@ -61,6 +68,7 @@ const router = new VueRouter({
             meta: {
                 title: "Email Verification",
                 guest: true,
+                layout: DefaultLayout,
             },
         },
         {
@@ -70,6 +78,7 @@ const router = new VueRouter({
             meta: {
                 title: "Forgot Password",
                 guest: true,
+                layout: DefaultLayout,
             }
         },
         {
@@ -79,6 +88,7 @@ const router = new VueRouter({
             meta: {
                 title: "Reset Password",
                 guest: true,
+                layout: DefaultLayout,
             },
         },
         {
@@ -87,6 +97,7 @@ const router = new VueRouter({
             component: About,
             meta: {
                 title: "About",
+                layout: DefaultLayout,
             },
         },
         {
@@ -96,6 +107,7 @@ const router = new VueRouter({
             meta: {
                 title: "Profile",
                 private: true,
+                layout: DefaultLayout,
             },
         },
         {
@@ -105,6 +117,7 @@ const router = new VueRouter({
             meta: {
                 title: "Password",
                 private: true,
+                layout: DefaultLayout,
             },
         },
         {
@@ -113,6 +126,7 @@ const router = new VueRouter({
             component: NotFound,
             meta: {
                 title: "404 Not Found",
+                layout: ErrorLayout,
             },
         },
         {
@@ -121,6 +135,7 @@ const router = new VueRouter({
             component: ServerError,
             meta: {
                 title: "500 Internal Server Error",
+                layout: ErrorLayout,
             }
         },
     ],
