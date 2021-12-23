@@ -117,15 +117,19 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+          <image-upload/>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-
+import ImageUpload from '../components/ImageUpload';
 export default {
   name: "Profile",
+  components: {ImageUpload},
   data() {
     return {
       user: {},

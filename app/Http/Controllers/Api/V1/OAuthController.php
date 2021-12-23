@@ -31,6 +31,7 @@ class OAuthController extends ApiController
      *          name="provider",
      *          description="Provider name like google, facebook etc",
      *          in="path",
+     *          required=true,
      *          @OA\Schema(
      *              type="string",
      *          )
@@ -75,6 +76,7 @@ class OAuthController extends ApiController
      *          name="provider",
      *          description="Provider name like google, facebook etc",
      *          in="path",
+     *          required=true,
      *          @OA\Schema(
      *              type="string",
      *          )

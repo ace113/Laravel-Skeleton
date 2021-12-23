@@ -215,7 +215,13 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/UploadImage"
+                                "properties": {
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -492,6 +498,39 @@
                         "name": "provider",
                         "in": "path",
                         "description": "Provider name like google, facebook etc",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/guest/login/{provider}/callback": {
+            "get": {
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "OauthLogin callback",
+                "description": "Oauth login callback",
+                "operationId": "oauthLogin callback",
+                "parameters": [
+                    {
+                        "name": "provider",
+                        "in": "path",
+                        "description": "Provider name like google, facebook etc",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }

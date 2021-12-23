@@ -281,7 +281,13 @@ class AuthUserController extends ApiController
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="multipart/form-data",
-     *              @OA\Schema(ref="#/components/schemas/UploadImage"),
+     *              @OA\Schema(
+     *                  @OA\Property(
+     *                      property="image",
+     *                      type="string",
+     *                      format="binary",
+     *                  )
+     *              ),
      *          ),
      *      ),
      *      @OA\Response(
@@ -302,17 +308,22 @@ class AuthUserController extends ApiController
      *      ),
      * )
      */
-    public function uploadImage(Request $request){
-        return response()->json($request);die;
+    public function uploadProfileImage(Request $request)  // NOTE: don't give the functions same name otherwise it will go in a loop
+    {
         try {
             $request->validate([
-                'image' => 'image|nullable'
+                'image' => 'image|mimes:jpg,png,bmp,gif'
             ]);
-            $uploadedImage = $this->uploadImage($request, 'image', 'user');
-            $request->image = $uploadedImage;           
+            
+            $uploadedImage = $this->uploadImage($request, 'image', 'user'); 
+           
+            $data = array();
+            $data['image'] = $uploadedImage;
+           
+            // dd($request->all());
 
-            $updateUser = $this->userRepository->updateUserById($request->user()->id, $request);
-
+            // $updateUser = $this->userRepository->updateUserById($request->user()->id, $data);
+            $updateUser = $request->user()->update($data);
             if($updateUser){
                 $this->response['message'] = 'Image uploaded successfully';
                 return $this->respondWithSuccess($this->response);
@@ -321,23 +332,5 @@ class AuthUserController extends ApiController
             $this->response['message'] = $e->getMessage();
             return $this->respondWithError($this->response);
         }
-    }
-
-    // public function faceookLogin(Request $request){
-    //     try {
-    //         return Socialite::driver('github')->redirect();
-    //     } catch (Exception $e) {
-    //         $this->response['message'] = $e->getMessage();
-    //         return $this->respondWithError($this->response);
-    //     }
-    // }
-    // public function faceookLoginCallback(Request $request){
-    //     try {
-    //         //code...
-    //     } catch (Exception $e) {
-    //         $this->response['message'] = $e->getMessage();
-    //         return $this->respondWithException($this->response);
-    //     }
-    // }
-   
+    }   
 }
