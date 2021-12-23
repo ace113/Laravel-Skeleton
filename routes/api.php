@@ -46,12 +46,9 @@ Route::group([
         Route::patch('/comments/{comment}', 'PostController@editComment');
         Route::delete('/comments/{comment}', 'PostController@deleteComment');
 
-        // sociolite
-        Route::get('/login/facebook', 'GuestController@facebookLogin');
-        Route::get('/login/facebook/callback', 'GuestController@facebookLoginCallback');
-        
-        Route::get('/login/google', 'GuestController@googleLogin');
-        Route::get('/login/google/callback', 'GuestController@googleLoginCallback');
+        // sociolite     
+        Route::get('/login/{provider}', 'OAuthController@loginRedirect');
+        Route::get('/login/{provider}/callback', 'OAuthController@loginCallback');
     });
 
     Route::group([

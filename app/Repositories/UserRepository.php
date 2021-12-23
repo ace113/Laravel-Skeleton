@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use Exception;
 use DataTables;
 use App\Models\User;
+use App\Models\OAuthProvider;
 use App\Models\UserDeviceInfo;
 use Illuminate\Support\Facades\DB;
 
@@ -110,5 +112,64 @@ class UserRepository
         ]);
 
         return $deviceInfo;
+    }
+
+    /**
+     * @param $provider 
+     * @param $sUser
+     * 
+     * @return $user model
+     */
+    public function findOrCreateUser($provider, $sUser)
+    {
+        $oauthProvider = OAuthProvider::where('provider', $provider)
+            ->where('provider_user_id', $sUser->getId())
+            ->first();
+
+        if($oauthProvider){
+            $oauthProvider->update([
+                'access_token' => $sUser->token,
+                'refresh_token' => $sUser->refreshToken,
+            ]);
+
+            return $oauthProvider->user;
+        }
+
+        // if(User::where('email', $sUser->getEmail())->exists()){
+        //     throw new Exception('This email already exists');
+        // }
+
+        return $this->updateOrCreateUserFromProvider($provider, $sUser);
+    }
+
+    /**
+     * @param $provider
+     * @param $sUser
+     * 
+     * @return /App/Models/User as user
+     */
+    protected function updateOrCreateUserFromProvider($provider, $sUser)
+    {
+        $user = self::findUserByEmail($sUser->getEmail());
+
+        if(!$user){
+            $user = User::create([
+                'first_name' => ucwords($sUser->user['given_name']),
+                'last_name' => ucwords($sUser->user['family_name']),
+                'email' => $sUser->getEmail(),
+                'email_verified_at' => now(),
+                'password' => bcrypt(mt_rand(5,15)), 
+                'role_id' => 3
+            ]);
+        }
+
+        $user->oauthProviders()->create([
+            'provider' => $provider,
+            'provider_user_id' => $sUser->getId(),
+            'access_token' => $sUser->token,
+            'refresh_token' => $sUser->refreshToken,
+        ]);
+
+        return $user;
     }
 }

@@ -39,7 +39,7 @@ class ApiController extends Controller
             [
                 'status' => HTTP_EXCEPTION_ERROR,
                 'message' => $response['message'],
-                'data' => $response['data'] ? : new \stdClass(), //The stdClass is the empty class in PHP which is used to cast other types to object.
+                'data' => $response['data'] ?? new \stdClass(), //The stdClass is the empty class in PHP which is used to cast other types to object.
             ], HTTP_EXCEPTION_ERROR
         );
     }

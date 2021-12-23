@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'image',
         'role_id',
         'email_verify_token',   
+        'email_verified_at',
     ];
 
     /**
@@ -41,7 +42,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token', 
         'created_at',
         'updated_at',
-        'email_verify_token',        
+        'email_verify_token',       
+        'role_id' 
     ];
 
     /**
@@ -107,5 +109,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function oauthProviders()
+    {
+        return $this->hasMany(OAuthProvider::class);
     }
 }

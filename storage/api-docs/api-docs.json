@@ -479,6 +479,37 @@
                 }
             }
         },
+        "/api/v1/guest/login/{provider}": {
+            "get": {
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "OauthLogin",
+                "description": "Oauth login",
+                "operationId": "oauthLogin",
+                "parameters": [
+                    {
+                        "name": "provider",
+                        "in": "path",
+                        "description": "Provider name like google, facebook etc",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/api/v1/guest/posts/": {
             "get": {
                 "tags": [

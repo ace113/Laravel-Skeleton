@@ -323,36 +323,21 @@ class AuthUserController extends ApiController
         }
     }
 
-    public function faceookLogin(Request $request){
-        try {
-            return Socialite::driver('github')->redirect();
-        } catch (Exception $e) {
-            $this->response['message'] = $e->getMessage();
-            return $this->respondWithError($this->response);
-        }
-    }
-    public function faceookLoginCallback(Request $request){
-        try {
-            //code...
-        } catch (Exception $e) {
-            $this->response['message'] = $e->getMessage();
-            return $this->respondWithException($this->response);
-        }
-    }
-    public function googleLogin(Request $request){
-        try {
-            //code...
-        } catch (Exception $e) {
-            $this->response['message'] = $e->getMessage();
-            return $this->respondWithExcepiton($this->response);
-        }
-    }
-    public function googleLoginCallback(Request $request){
-        try {
-            //code...
-        } catch (Exception $e) {
-            $this->response['message'] = $e->getMessage();
-            return $this->respondWithException($this->response);
-        }
-    }
+    // public function faceookLogin(Request $request){
+    //     try {
+    //         return Socialite::driver('github')->redirect();
+    //     } catch (Exception $e) {
+    //         $this->response['message'] = $e->getMessage();
+    //         return $this->respondWithError($this->response);
+    //     }
+    // }
+    // public function faceookLoginCallback(Request $request){
+    //     try {
+    //         //code...
+    //     } catch (Exception $e) {
+    //         $this->response['message'] = $e->getMessage();
+    //         return $this->respondWithException($this->response);
+    //     }
+    // }
+   
 }

@@ -63,7 +63,7 @@ class PostController extends ApiController
             $post = $this->postRepository->getPostsList($request);
             if(!$post){
                 $this->response['message'] = 'Not Found.';                
-                return $this->respondWithError($this->response);
+                return $this->respondWithCustomCode($this->response, HTTP_NO_CONTENT);
             }
           
             $this->response['data'] = $post;
@@ -109,7 +109,7 @@ class PostController extends ApiController
             $post = $this->postRepository->getPostBySlug($slug);
             if(!$post){
                 $this->response['message'] = 'Post Not Found.';                
-                return $this->respondWithError($this->response);
+                return $this->respondWithCustomCode($this->response, HTTP_NO_CONTENT);
             }
           
             $this->response['data'] = $post;

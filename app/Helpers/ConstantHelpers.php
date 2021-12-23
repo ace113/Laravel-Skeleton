@@ -23,6 +23,7 @@ define('HTTP_INTERNAL_SERVER_ERROR', 500);
 define('HTTP_NOT_IMPLEMENTED', 501);
 define('HTTP_BAD_GATEWAY', 502);
 define('HTTP_SERVICE_UNAVAILABLE', 503);
+define('HTTP_EXCEPTION_ERROR', 503);
 
 /**-----------------Custom Status Codes---------------------- */
 define('USER_INACTIVE', 213);
