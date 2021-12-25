@@ -16,6 +16,8 @@ import ForgotPassword from "./views/auth/ForgotPassword";
 import VerifyEmail from "./views/auth/VerifyEmail";
 import Activate from "./views/auth/Activation";
 import Password from "./views/auth/Password";
+import BlogList from './views/BlogList';
+import BlogPage from './views/Blog';
 
 import store from "./store/index";
 
@@ -101,6 +103,26 @@ const router = new VueRouter({
             },
         },
         {
+            path: "/blogs",
+            name: "Blogs",
+            component: BlogList,
+            meta: {
+                title: "Blogs",
+                layout: DefaultLayout,
+                guest: true,
+            },
+        },
+        {
+            path: '/blogs/:slug',
+            name: "Blog",
+            component: BlogPage,
+            meta: {
+                title: "Blog",
+                layout: DefaultLayout,
+                guest: true,
+            }
+        },
+        {
             path: "/profile",
             name: "Profile",
             component: Profile,
@@ -179,21 +201,18 @@ router.beforeEach((to, from, next) => {
         });
         return;
     }
-
-
     next();
 });
 
 // title
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | Laravel Skeleton`;
-     
     next();
 });
 
-router.afterEach((to, from, next) => {
-    console.log(router.app);
-    
-});
+// router.afterEach((to, from, next) => {
+//     console.log(router.app);
+
+// });
 
 export default router;

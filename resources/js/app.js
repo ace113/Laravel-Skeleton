@@ -4,17 +4,21 @@ import Vue from 'vue';
 import App from './views/App';
 import router from './router';
 import store from './store/index';
-import veeValidate from './veeValidate';
+
 import axios from 'axios';
 import AwaitingButton from './components/AwaitingButton';
 import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VueFlashMessage from 'vue-flash-message';
+import Pagination from 'laravel-vue-pagination';
 
-
+import veeValidate from './veeValidate';
+// import plugins
+import './plugins/fontawesome'
 
 Vue.config.productionTip = false;
 Vue.component('AwaitingButton', AwaitingButton);
+Vue.component('pagination', Pagination);
 
 Vue.use(VueFlashMessage, {
     method: 'iPefereQuickSilver',
@@ -59,9 +63,7 @@ axios.interceptors.response.use(
     },
     error => {
         loader.hide();
-        // console.log('loader', loader);
-        // console.log('current route', router.currentRoute.name)        
-
+       
         switch (error.response.status) {
             case 422:
                 store.commit('setErrors', error.response.data.errors);
@@ -79,6 +81,7 @@ axios.interceptors.response.use(
                     name: "NotFound"
                 });
                 break;
+           
             default:
                 return Promise.reject(error);
         }
@@ -89,7 +92,7 @@ axios.interceptors.response.use(
 const app = new Vue({
     el: '#app',
     components: {
-        App,
+        App,       
     },
     router,
     store

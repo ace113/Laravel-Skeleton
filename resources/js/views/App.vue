@@ -30,9 +30,17 @@ export default {
   },
   data() {
     return {
-      layout: this.$route.meta.layout || "div",
+      layout: this.$route.meta.layout,
     };
   },
+  watch: {
+    $route:{
+      immediate: true,
+      handler(){
+       this.layout = this.$route.meta.layout
+      }
+    }
+  }
 };
 </script>
 <style>

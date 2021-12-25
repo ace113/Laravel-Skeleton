@@ -1,0 +1,42 @@
+.pagination{
+    list-style: none;
+    display: flex;
+    margin-top: 1rem;
+
+   
+
+    .page-item{        
+        cursor: pointer;  
+        &:not(:first-child){
+            border-left: 1px solid rgba($color-dark-01, .1);
+        } 
+        &:not(:last-child){
+            border-right: 1px solid rgba($color-dark-01, .1);
+        }     
+    }
+
+    .active{
+        background-color: $color-blue-pure;
+        .page-link{
+            color: #fff !important;
+        }
+    }
+
+    .pagination-page-nav{
+        &:hover{
+            background-color: $color-blue-light;
+            .page-link{
+                color: #fff !important;
+            }
+        }
+    }
+
+    .page-link{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        color: $color-dark-03;
+    }
+}

@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->string('summary')->nullable();
             $table->string('image')->nullable();
-            $table->text('body');
+            $table->mediumText('body');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('status')->default(1);

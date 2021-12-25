@@ -20,6 +20,12 @@ class Post extends Model
         'user_id'
     ];
 
+    protected $appends = [
+        'date',
+        'author',
+        'image_url'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,5 +34,24 @@ class Post extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->format('M d, Y');
+    }
+
+    public function getAuthorAttribute()
+    {
+        return $this->user->full_name;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if($this->image){
+            return url('/uploads/posts/'. $this->image);
+        }else{
+            return url('/uploads/noavatar.jpg');
+        }
     }
 }

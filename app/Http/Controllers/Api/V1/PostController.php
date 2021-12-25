@@ -73,6 +73,23 @@ class PostController extends ApiController
             return $this->respondWithException($this->response);
         }
     }
+    
+    public function getLatestPostsList(Request $request)
+    {
+        try {
+            $post = $this->postRepository->getLatestPostsList($request);
+            if(!$post){
+                $this->response['message'] = 'Not Found.';                
+                return $this->respondWithCustomCode($this->response, HTTP_NO_CONTENT);
+            }
+          
+            $this->response['data'] = $post;
+            return $this->respondWithSuccess($this->response);
+        } catch (Exception $e) {
+            $this->response['message'] = $e->getMessage();
+            return $this->respondWithException($this->response);
+        }
+    }
 
     /**
      * @OA\Get(

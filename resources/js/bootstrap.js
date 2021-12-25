@@ -11,7 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('vue-flash-message/dist/vue-flash-message.min.css');
-    require('bootstrap');
+    // require('bootstrap');
 } catch (e) {}
 
 /**

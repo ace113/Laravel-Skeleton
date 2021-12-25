@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 
 import auth from './modules/auth'
 import pages from './modules/pages'
+import blogs from './modules/blogs'
+
 // load vuex
 Vue.use(Vuex);
 
@@ -24,5 +26,6 @@ export default new Vuex.Store({
     modules: {
         auth,
         pages,
+        blogs,
     }
 });

@@ -9,7 +9,7 @@
     <title>{{config('app.name')}}</title>
     <link rel="manifest" href="{{asset('manifest.json')}}">
 
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
 
 </head>
 <body>

@@ -1,11 +1,26 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
+
+// mixins
+@import 'mixins/mixins';
 // Variables
 @import 'variables';
-
 // base
 @import 'base/base';
 
+// layouts
+@import 'layouts/main';
+@import 'layouts/error';
+
+// components
+@import 'components/header';
+@import 'components/footer';
+@import 'components/blogs';
+@import 'components/pagination';
+
+
+
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';

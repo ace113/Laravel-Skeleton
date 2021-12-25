@@ -20,6 +20,17 @@ class PostRepository
         return Post::where('status', 1)           
             ->paginate((int)$request->per_page);
     }
+    public function getLatestPostsList($request)
+    {
+        $limit = 5;
+        if($request->limit != 0){
+            $limit = $request->limit;
+        }
+        return Post::where('status', 1) 
+            ->limit($limit)
+            ->get();           
+            
+    }
 
     public function getUserPostById($id){
         $user_id = auth()->user()->id;

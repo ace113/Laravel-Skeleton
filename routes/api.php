@@ -39,6 +39,7 @@ Route::group([
 
         // Blogs
         Route::get('/posts', 'PostController@getPostsList');
+        Route::get('/posts/latest', 'PostController@getLatestPostsList');
         Route::get('/posts/{slug}', 'PostController@getPost');
         Route::get('/posts/{slug}/comments', 'PostController@getPostComments');
         Route::post('/comments/create', 'PostController@addComment');

@@ -1,6 +1,6 @@
 <template>
   <div class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="jumbotron">
+    <div class="jumbotron container">
       <h1>Welcome To Laravel Skeleton Project</h1>
       <p>This is a laravel skeleton for rapid backend development.</p>
       <input type="text" id="token" value="token placeholder">

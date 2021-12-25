@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+         <flash-message></flash-message>
         <h2>{{getPage ? getPage.title : ''}}</h2>
         <p>
           <span v-html="getPage ? getPage.body : ''"></span>
@@ -24,7 +25,15 @@ export default {
   },
   mounted(){
       console.log('mounted about page');
-      this.getAboutPage();
+      this.getAboutPage()
+      .then(res => {
+        console.log(res)
+        if(res.status === 204){
+          this.flashInfo(res.message);
+        }
+      }).catch(error => {
+          this.flashError(error.response.data.message)
+      });
   }
 };
 </script>

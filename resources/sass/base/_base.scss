@@ -5,3 +5,48 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+html,
+body {
+    font-family: $font-family;
+    font-size: $font-size-base;
+    font-weight: normal;
+    line-height: $line-height-base;
+    // color: $color-brand-02;
+    
+    background-color: $color-white-01;
+
+    overflow-x: hidden;
+}
+
+a,
+a:visited,
+a:hover{
+    text-decoration: none;
+}
+
+.link{
+    &:visited,
+    &:hover{
+        text-decoration: none;
+        color: $color-white-01;
+    }
+}
+
+.container{
+    width: calc(100% - 10%);
+    margin: 0 auto;
+
+    @include breakpoint-up('large'){
+        width: calc(100% - 20%);
+    }
+}
+
+.color-blue-dark{
+    color: $color-blue-pure;
+}
+
+::selection{
+    background-color: $color-blue-pure;
+    color: $color-white-01;
+}
