@@ -4,6 +4,7 @@
             <div class="footer__grid container">
                 <div class="footer__grid--logo">
                     <h1>{{app_name}}</h1>
+                    <div class="text-small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta nulla tenetur saepe laboriosam?</div>
                 </div>
                 <div class="footer__grid--col1 col">
                     <h2>Site Map</h2>
@@ -38,17 +39,17 @@
                     </ul>
                 </div>
                 <div class="footer__grid--col3 col">
-                    <h2>Site Map</h2>
+                    <h2>Partners</h2>
                     <ul>
                         <li class="footer__item">
                             <router-link class="footer__link" to="#"
-                                >Home</router-link
+                                >Esewa</router-link
                             >
                             <router-link class="footer__link" to="#"
-                                >Home</router-link
+                                >Khalti</router-link
                             >
                             <router-link class="footer__link" to="#"
-                                >Home</router-link
+                                >Phone Pay</router-link
                             >
                         </li>
                     </ul>
@@ -67,7 +68,7 @@
                     </ul>
                 </div>
                 <div class="footer__grid--social">
-                    <button class="footer__grid--social btn" type="button">
+                    <button class="footer__grid--social-btn btn btn-primary" type="button">
                         Download App
                     </button>
                     <div class="footer__grid--social icons">
