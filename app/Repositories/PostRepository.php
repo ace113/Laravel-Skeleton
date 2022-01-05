@@ -17,7 +17,8 @@ class PostRepository
 
     public function getPostsList($request)
     {
-        return Post::where('status', 1)           
+        return Post::where('status', 1)
+            ->with('user')           
             ->paginate((int)$request->per_page);
     }
     public function getLatestPostsList($request)
@@ -27,6 +28,7 @@ class PostRepository
             $limit = $request->limit;
         }
         return Post::where('status', 1) 
+            ->with('user')
             ->limit($limit)
             ->get();           
             

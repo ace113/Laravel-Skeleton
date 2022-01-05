@@ -123,24 +123,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    /**
-     * ---------------
-     * Firebase cloud messaging service
-     * ---------------
-     */
-
-    'fmc_service_key' => env('FMC_SERVICE_KEY'),
-
-    /**
-     * ---------------
-     * Twilio Service 
-     * ---------------
-     */
-
-    'twilio_sid' => env('TWILIO_SID'),
-    'twilio_auth_token' => env('TWILIO_AUTH_TOKEN'),
-    'twilio_from_number' => env('TWILIO_FROM_NUMBER'),
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

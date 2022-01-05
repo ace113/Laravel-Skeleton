@@ -48,4 +48,14 @@ return [
         'redirect' => env('GITHUB_CALLBACK_URL'),
     ],
 
+    'twilio' => [
+        'sid' => env('TWILIO_ACCOUNT_SID'),
+        'token' => env('TWILIO_AUTH_TOKEN'),
+        'from' => env('TWILIO_FROM_NUMBER'),
+    ],
+
+    'fcm' => [
+        'key' => env('FMC_SERVER_KEY'),
+    ]
+
 ];

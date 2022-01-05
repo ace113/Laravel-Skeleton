@@ -9,20 +9,18 @@ class TwilioService
     public function sendMessage($data){
 
         // Your Account SId and Auth Token from twilio.com/console
-        $sid = config('app.twilio_sid');
-        $token= config('app.twilio_auth_token');
+        $sid = config('services.twilio.sid');
+        $token= config('services.twilio.token');
         
-        $client = new Client($sid, $token);
-
-        
+        $client = new Client($sid, $token);        
 
         // Use the client to do fun stuff like send text messages
         $client->messages->create(
             // the number you'd like to send the message to,
-            '+9779841760946',
+            $data->phone,
             [
                 // A twilio phone number you purchased 
-                'from' => config('app.twilio_from_number'),
+                'from' => config('services.twilio.from'),
                 // the body of tehe text message you'd like to send
                 'body' => 'Hey ! This is test sms'. $data->code.'.' 
             ]
