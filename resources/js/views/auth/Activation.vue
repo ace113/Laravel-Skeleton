@@ -1,26 +1,23 @@
 <template>
-  <div class="activation">
-    <div class="min-vh-100 d-flex align-items-center">
-      <div class="row w-100 justify-content-center">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
-              <h1>You are almost there.</h1>
+  <div class="auth">
+    <div class="auth__container container">
+      <div class="auth__card">
+        <div class="card-body">
+              <h2 class="mb-1">You are almost there.</h2>
               <flash-message></flash-message>
 
-              <p>
+              <p class="text-grey mb-1">
                 Please confirm you email. A verification link has been sent your
                 email address ({{email}}).
               </p>
-              <p>
+              <p class="text-grey mb-1">
                 Did not receive the email?
-                <button @click.prevent="resendVerificationLink()">
+               
+              </p>
+               <button type="button" class="btn btn-primary" @click.prevent="resendVerificationLink()">
                   Resend
                 </button>
-              </p>
             </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -33,7 +30,11 @@ export default {
     return {
       error: "",
       success: '',
+      email: ''
     };
+  },
+  mounted(){
+     this.email = JSON.parse(localStorage.getItem('registered_email'));
   },
   methods: {
     async resendVerificationLink() {

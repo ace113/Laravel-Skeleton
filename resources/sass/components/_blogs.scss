@@ -1,67 +1,66 @@
-.blogList {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-
-    @include breakpoint-up('medium') {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include breakpoint-up('large') {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
 .blogCard {
     width: 100%;
     height: 100%;
-    background: #fff;
     display: flex;
-    // box-shadow: 0 3px 5px 0 rgb(0, 0, 0, 0.1);
-
-    &:hover {
-        box-shadow: 0 6px 20px 0 rgb(0, 0, 0, 0.2);
-        cursor: pointer;
-    }
+    flex-direction: column;
 
     @include breakpoint-up('medium') {
-        flex-direction: column;
+        flex-direction: row;
     }
 
+    box-shadow: $box-shadow-card;
+
     &__image {
-        height: 100%;
-        width: 100%;
+        // background-color: red;
+        flex: 1;
+
+        .loaded{
+            height: 100%;
+            width: auto;
+        }
+        .placeholder{
+            height: 100%;
+            width: auto;
+            background-color: $color-text;
+        }
 
         img {
-            height: 100%;
             width: 100%;
+            height: 100%;
             object-fit: cover;
+            aspect-ratio: 1.4 / 1;
         }
     }
 
     &__content {
-        width: 100%;
         padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
+        flex: 2;
 
         &--top {
             display: flex;
             justify-content: space-between;
-            color: rgb(121, 121, 121);
-            font-size: 0.75rem;
+            align-items: center;
+            color: $color-text;
+            margin-bottom: 1rem;
         }
 
         &--header {
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: $font-md;
+            font-weight: 600;
             line-height: 1.1;
+            color: $color-title;
         }
+    }
+}
 
-        &--summary {}
+.blogList {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    gap: 1rem;
 
-        &--read {}
+    @include breakpoint-up('medium') {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -84,6 +83,15 @@
         flex: 2;
         padding: 1rem;
         background-color: whitesmoke;
+
+        &--recent {
+            .recent {
+                display: flex;
+                padding: 1rem 0;
+                gap: .5rem;
+                line-height: 1.1;
+            }
+        }
     }
 
     &__content {

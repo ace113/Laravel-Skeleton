@@ -1,0 +1,121 @@
+.hero{
+    width: 100%;
+    min-height: 300px;
+    color: $color-white-01;
+    background: linear-gradient(
+        to left bottom,
+        rgba($color-orange-light, 0.6),
+        rgba($color-blue-dark, 0.9)
+    );
+    display: flex;
+    align-items: center;
+    &__content{
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem 0; 
+        text-align: center;
+    }
+
+    &__title{
+        font-size: 2.25rem;
+        font-weight: 600;
+        line-height: 1.1;
+    }
+
+    &__subtitle{
+        max-width: 400px;
+        align-self: center;
+    }
+
+    &__actions{
+        .btn{
+            font-weight: 600;
+            &:hover{
+                background-color: $color-blue-light;
+            }
+        }
+    }
+}
+
+// featured
+.featured{
+    width: 100%;
+    padding: 2rem 0;
+
+    &__container{}
+
+    &__content{
+        &--grid{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+           
+
+            @include breakpoint-up('large'){
+                grid-template-columns: repeat(6, 1fr);
+                &>:first-child{
+                    // background-color: red;
+                    flex-direction: column;
+
+                    grid-column: span 3;
+                    grid-row: span 3;
+                }
+                &>:not(:first-child){
+                    flex: 1;
+                    grid-column: span 3;
+                }
+            }
+        }
+    }
+
+    &__title{
+        color: $color-white-03;
+        margin-bottom: 2rem;
+    }
+
+    
+}
+
+// banner
+.banner{
+    width: 100%;
+    min-height: 300px;  
+    background-color: whitesmoke;
+    display: flex;   
+    align-items: center;    
+    justify-content: center; 
+    &__container{       
+        height: 100%;        
+    }
+    &__content{
+       display: flex;
+       flex-direction: column;
+    }
+
+    &__title{
+
+    }
+}
+
+// latest
+.latest{
+    width: 100%;
+    padding: 2rem 0 0;
+
+    &__title{
+        color: $color-white-03;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__content{
+        &--grid{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+    }
+}

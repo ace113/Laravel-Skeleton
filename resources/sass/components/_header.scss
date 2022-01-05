@@ -1,39 +1,144 @@
 .header {
     width: 100%;
     height: $header-height;
-    background-color: $color-dark-01;
-    color: $color-white-02;
-    display: flex;
-    justify-content: initial;
-    align-items: center;
+    background-color: $color-white-01;
+    border-bottom: 1px solid whitesmoke;
+    color: $color-title;
+    // position: fixed;
+    // top: 0;
+    &__container{
+        position: relative;
+    }
 
     .nav {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        column-gap: 1rem;
+       
+        position: relative;
+        border: 1px solid red;
 
-        &__logo {
-            h1 {
-                // text-transform: uppercase !important;
+        @include breakpoint-up('large'){
+            height: $header-height;
+        }
+
+        &__logo{
+            flex: auto;
+            border: 1px solid green;
+        }
+
+        &__main{       
+            position: absolute;
+            top: $header-height;
+            right: 0;
+            left: 0;
+            z-index: 80;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background: $color-white-01;
+            opacity: 1;      
+            
+            &.open{
+                top: $header-height;
+                position: fixed;
+            }
+
+            @include breakpoint-up('large'){
+                position: unset;
+                display: inline-block;
+                vertical-align: middle;
+                flex: 1 1 0%;
+            }
+
+            &--dropdown{
+                position: relative;
+                &.active{
+                    visibility: visible;
+                    transform: translateY(-12px);
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                &::before{
+                    content: "";
+                    width: 95px;
+                    height: 2px;
+                    background: $color-blue-pure;
+                    display: block;
+                    position: absolute;
+                    z-index: 2;
+                    top: 0;
+                    left: 0;
+                }
             }
         }
 
-        &__menu {
-            list-style: none;
-            display: flex;
-            column-gap: 1rem;
+        &__link{
+            position: relative;
+            display: inline-block;
+            margin-right: auto;
         }
 
-        &__item {}
+        &__link{
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: .2px;
+            text-align: left;
+        }
 
-        &__link {
-            color: $color-white-02;
-            // font-size: 1rem;
-            font-weight: 500;
+        &__hamburger {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            padding: 0;
 
-            &:hover {
-                color: $color-blue-pure;
+            @include breakpoint-up('large') {
+                display: none;
+            }
+
+            .line {
+                fill: none;
+                stroke: $color-title;
+                stroke-width: 6;
+                transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+
+                &1 {
+                    stroke-dasharray: 60 207;
+                    stroke-width: 6;
+                }
+
+                &2 {
+                    stroke-dasharray: 60 60;
+                    stroke-width: 6;
+                }
+
+                &3 {
+                    stroke-dasharray: 60 207;
+                    stroke-width: 6;
+                }
+            }
+
+            &.open .line {
+                &1 {
+                    stroke-dasharray: 90 207;
+                    stroke-dashoffset: -134;
+                    stroke-width: 6;
+                }
+
+                &2 {
+                    stroke-dasharray: 1 60;
+                    stroke-dashoffset: -30;
+                    stroke-width: 6;
+                }
+
+                &3 {
+                    stroke-dasharray: 90 207;
+                    stroke-dashoffset: -134;
+                    stroke-width: 6;
+                }
             }
         }
 

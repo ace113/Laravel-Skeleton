@@ -12,8 +12,8 @@ body {
     font-size: $font-size-base;
     font-weight: normal;
     line-height: $line-height-base;
-    // color: $color-brand-02;
-    
+    color: $color-title;
+
     background-color: $color-white-01;
 
     overflow-x: hidden;
@@ -21,32 +21,130 @@ body {
 
 a,
 a:visited,
-a:hover{
+a:hover {
     text-decoration: none;
 }
 
-.link{
+.link {
+
     &:visited,
-    &:hover{
+    &:hover {
         text-decoration: none;
         color: $color-white-01;
     }
 }
 
-.container{
+.container {
     width: calc(100% - 10%);
     margin: 0 auto;
 
-    @include breakpoint-up('large'){
+    @include breakpoint-up('large') {
         width: calc(100% - 20%);
     }
 }
 
-.color-blue-dark{
+.color-blue-dark {
     color: $color-blue-pure;
 }
 
-::selection{
+::selection {
     background-color: $color-blue-pure;
     color: $color-white-01;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+
+// dropdown
+.dropdown {
+    position: relative;
+    display: inline-block;
+
+    &__btn {}
+
+    &__content {
+        // display: block;
+        position: absolute;
+        top: 30px;
+        left: -50%;
+        z-index: 1;
+
+        display: flex;
+        flex-direction: column;
+        background-color: $color-dark-01;
+        width: 200px;
+
+    }
+
+    &__link {
+        padding: .5rem .5rem .6rem;
+        color: $color-white-01;
+
+        &:hover {
+            color: $color-blue-pure;
+        }
+    }
+}
+
+
+// header-text
+.header-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+
+.text-small {
+    font-size: $font-sm;
+}
+
+.text-grey {
+    color: $color-text;
+}
+
+.link {
+    color: $color-blue-pure !important;
+    font-weight: 500;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.link-back {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        left: -.55rem;
+        position: absolute;
+        top: 50%;
+        transition: left 0.1s;
+    }
+
+    &::before {
+        // border-color: #c16b00;
+        border-style: solid;
+        border-width: 0 0 2px 2px;
+        height: 6px;
+        margin-top: -3px;
+        width: 6px;
+
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
+
+    &:hover::before {
+        left: -1rem;
+    }
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
 }

@@ -1,19 +1,24 @@
 <template>
-  <div class="container">
+  <div class="pageContent">
+    <page-title-header :title="getPage.title" />
+    <div class="container">
     <div class="row">
       <div class="col-md-12">
          <flash-message></flash-message>
-        <h2>{{getPage ? getPage.title : ''}}</h2>
+        <!-- <h2>{{getPage ? getPage.title : ''}}</h2> -->
         <p>
           <span v-html="getPage ? getPage.body : ''"></span>
         </p>
       </div>
     </div>
   </div>
+  </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import PageTitleHeader from '../components/PageTitleHeader.vue';
 export default {
+  components: { PageTitleHeader },
   name: "About",
   computed: {
       ...mapGetters(['getPage']),

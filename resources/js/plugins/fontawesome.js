@@ -20,6 +20,7 @@ import {
     faFacebookF,
     faLinkedinIn,
     faGithubAlt,
+    faGoogle
 
 } from '@fortawesome/free-brands-svg-icons';
 
@@ -32,6 +33,7 @@ library.add(
     faLinkedinIn,
     faGithubAlt,
     faPaperPlane,
+    faGoogle,
 );
 
 // config.autoAddCss = false;

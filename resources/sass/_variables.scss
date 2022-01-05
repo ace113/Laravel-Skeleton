@@ -2,12 +2,19 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family: 'Open Sans',
+$font-family: 'Roboto','Open Sans',
 sans-serif;
 $font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$line-height-base: 1.5;
 
-$font-title: 1.2px;
+$font-title: 1rem;
+
+
+$font-sm: 0.75rem;
+$font-nl: 1rem;
+$font-md: 1.125rem;
+$font-lg: 1.5rem;
+$font-xlg: 2rem;
 
 // Colors
 $blue: #3490dc;
@@ -31,6 +38,11 @@ $color-dark-02: #14151f;
 $color-white-03: #797979;
 $color-dark-03: #7c7c7c;
 
+// cutom
+$color-footer-text: #828a9c;
+$color-title: #2f323c;
+$color-text: #7e818c;
+
 // secondary colors
 $color-blue-dark: #2231aa;
 $color-blue-pure: #3c4baa;
@@ -42,4 +54,8 @@ $color-orange-pure: #ff915a;
 $color-orange-light: #ffb899;
 
 // 
-$header-height: 3.5rem;
+$header-height: 4.37rem;
+
+
+// shodow
+$box-shadow-card: 0 3px 5px rgb(0 1 1 / 10%);

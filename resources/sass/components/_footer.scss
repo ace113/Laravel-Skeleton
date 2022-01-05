@@ -13,11 +13,11 @@
     }
 
     &__link {
-        color: $color-footer-text;
+        color: $color-footer-text !important;
         transition: color .15s ease-in;
 
         &:hover {
-            color: $color-white-01;
+            color: $color-white-01 !important;
         }
     }
 
@@ -52,20 +52,25 @@
 
         &--logo {
             grid-area: logo;
+
             // justify-self: center;
             // align-self: center;
-            h1{
+            h1 {
                 color: $color-white-01;
-                margin-bottom: .5rem;
+                margin-bottom: 1rem;
             }
 
-            .text-small{
-                max-width: 250px;
+            .text-small {
+                max-width: 600px;
             }
 
             @include breakpoint-up('large') {
                 align-self: initial;
                 justify-self: initial;
+
+                .text-small {
+                    max-width: 250px;
+                }
             }
         }
 
@@ -107,7 +112,7 @@
                 justify-content: space-between;
                 align-items: center;
                 gap: 2rem;
-                
+
                 .btn-icon {
                     background-color: $color-footer-text;
                     width: 32px;

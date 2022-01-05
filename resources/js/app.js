@@ -11,6 +11,8 @@ import VueLoading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VueFlashMessage from 'vue-flash-message';
 import Pagination from 'laravel-vue-pagination';
+import VueClazyLoad from 'vue-clazy-load';
+import ImgLoad from './components/ImgLoad';
 
 import veeValidate from './veeValidate';
 // import plugins
@@ -18,6 +20,7 @@ import './plugins/fontawesome'
 
 Vue.config.productionTip = false;
 Vue.component('AwaitingButton', AwaitingButton);
+Vue.component('img-load', ImgLoad);
 Vue.component('pagination', Pagination);
 
 Vue.use(VueFlashMessage, {
@@ -29,6 +32,8 @@ Vue.use(VueFlashMessage, {
         pauseOnInteract: true,
     }
 });
+
+Vue.use(VueClazyLoad);
 
 Vue.use(VueLoading, {
     color: 'green',
@@ -49,6 +54,7 @@ axios.interceptors.request.use(function (config) {
         Accept: "application/json"
     };
     loader = Vue.$loading.show();
+    console.log('load start', loader)
     return config;
 }, function (error) {
     loader.hide();
@@ -59,6 +65,7 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(
     response => {
         loader.hide();
+        console.log('load end')
         return response
     },
     error => {
@@ -88,6 +95,13 @@ axios.interceptors.response.use(
     }
 );
 
+// axios.defaults.validateStatus = (status => {
+//     status === 422 ||
+//     status === 401 
+//     // status === 403 ||
+//     // status >= 200 &&
+//     // status <= 302
+// })
 
 const app = new Vue({
     el: '#app',

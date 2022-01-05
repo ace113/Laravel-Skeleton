@@ -33,7 +33,7 @@ export default {
         getBlogs(page = 1) {          
             const params = {
                 page,
-                per_page: 8,
+                per_page: 10,
             };
             this.getBlogListRequest(params)
                 .then((res) => {

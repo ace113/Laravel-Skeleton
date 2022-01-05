@@ -1,0 +1,36 @@
+.form-group{
+    margin: 1rem 0;
+}
+
+.form-control{
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    background: whitesmoke;
+}
+
+.is-invalid{
+    outline: crimson;
+    border: 2px solid rgba(crimson, .3);
+}
+
+.input-group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__prepend{
+        padding: 0 1rem;
+        background: rgb(218, 218, 218);
+        // justify-self: stretch;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.invalid-feedback{
+    font-size: $font-sm;
+    color: crimson;
+}

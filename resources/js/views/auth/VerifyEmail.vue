@@ -1,8 +1,7 @@
 <template>
-  <div class="min-vh-100 d-flex align-items-center">
-      <div class="row w-100 justify-content-center">
-        <div class="col-md-8">
-          <div class="card">
+  <div class="auth">
+    <div class="auth__container container">
+      <div class="auth__card">
             <div class="card-body">
               <h1>Email Verification</h1>
               <div v-if="success != ''" class="alert alert-success">
@@ -19,9 +18,8 @@
               </p>
             </div>
           </div>
-        </div>
-      </div>
     </div>
+  </div>
 </template>
 <script>
 import axios from "axios";

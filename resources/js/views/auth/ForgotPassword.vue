@@ -1,10 +1,13 @@
 <template>
-  <div class="min-vh-100 d-flex align-items-center">
-    <div class="row w-100 justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
+  <div class="auth">
+    <div class="auth__container container">
+      <div class="auth__content">
+        <div class="auth__content--form" >
           <div class="card-body">
-            <h1>Forgot Password</h1>
+            <h2>Forgot Password</h2>
+            <div class="text-small text-grey mb-1">
+              Enter your email and we'll send you a link to reset your password.
+            </div>
             <flash-message></flash-message>
             <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
               <form @click.prevent="handleSubmit(forgotPasswordEmail)">
@@ -28,12 +31,18 @@
                     </div>
                   </ValidationProvider>
                 </div>
-                <AwaitingButton type="submit" class="btn btn-success btn-block"
-                  >Submit</AwaitingButton
+                <AwaitingButton type="submit" class="btn btn-primary btn-block"
+                  >Send Email</AwaitingButton
                 >
               </form>
             </ValidationObserver>
           </div>
+          <div class="auth__content--text">
+             <router-link :to="{ name: 'Login' }" class="link link-back">Back to Login</router-link>
+          </div>
+        </div>
+        <div class="auth__content--figure">
+
         </div>
       </div>
     </div>
