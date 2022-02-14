@@ -48,7 +48,6 @@ class UserSeeder extends Seeder
 
         User::insert($users);
 
-        // factory(User::class, 5)->states('admin')->create();
-
+       
     }
 }
