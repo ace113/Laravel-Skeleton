@@ -23,7 +23,8 @@ class Post extends Model
     protected $appends = [
         'date',
         'author',
-        'image_url'
+        'image_url',
+        'gist'
     ];
 
     public function user()
@@ -53,5 +54,10 @@ class Post extends Model
         }else{
             return url('/uploads/noavatar.jpg');
         }
+    }
+
+    public function getGistAttribute()
+    {
+        return $this->summary ? \Str::limit($this->summary, 225): '';
     }
 }

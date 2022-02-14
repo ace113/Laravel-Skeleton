@@ -109,7 +109,7 @@ const router = new VueRouter({
             meta: {
                 title: "Blogs",
                 layout: DefaultLayout,
-                guest: true,
+                // guest: true,
             },
         },
         {

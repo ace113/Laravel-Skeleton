@@ -11,7 +11,7 @@
         </div>
         <!-- main nav -->
 
-        <div class="nav__main nav__menu" :class="isOpen ? 'open' : ''">
+        <div class="nav__main nav__menu" :class="isOpen ? 'open': ''">
           <ul class="nav__main--left">
             <li class="nav__item">
               <router-link class="nav__link" to="/">Home</router-link>
@@ -51,33 +51,15 @@
               </div>
             </li>
           </ul>
-          <ul class="nav__main-right--wrapper">
-            <div class="nav__main--right" v-show="!isLoggedIn">
+          <ul class="nav__main--right">
+            <div class="" v-show="!isLoggedIn">
               <li class="nav__item">
-                <div class="nav__search">
-                  <form class="nav__search--form">
-                    <input
-                      type="search"
-                      name="search"
-                      id="search"
-                      class="nav__search--input"
-                      placeholder="Search here"
-                    />
-                    <button type="submit" class="nav__search--btn">
-                      <fa-icon :icon="['fas', 'search']" />
-                    </button>
-                  </form>
-                </div>
-              </li>
-              <li class="nav__item">
-                <router-link
-                  class="btn btn-primary btn-nav"
-                  :to="{ name: 'Login' }"
+                <router-link class="btn btn-primary btn-nav" :to="{ name: 'Login' }"
                   >Login</router-link
                 >
               </li>
             </div>
-            <div class="nav__main--right" v-show="isLoggedIn">
+            <div class="" v-show="isLoggedIn">
               <li class="nav__item">
                 <div class="dropdown">
                   <div
@@ -146,7 +128,6 @@ export default {
       // const otherDropdown = document.querySelector(".dropdown__content");
       // console.log(otherDropdown);
       // otherDropdown.classList.remove("active");
-      event.target.classList.toggle('active');
       event.target.nextElementSibling.classList.toggle("active");
     },
   },

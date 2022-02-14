@@ -15867,6 +15867,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -15882,6 +15940,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     openMenu: function openMenu() {
       this.isOpen = !this.isOpen;
+    },
+    dropdownToggle: function dropdownToggle(event) {
+      // const otherDropdown = document.querySelector(".dropdown__content");
+      // console.log(otherDropdown);
+      // otherDropdown.classList.remove("active");
+      event.target.classList.toggle('active');
+      event.target.nextElementSibling.classList.toggle("active");
     }
   })
 });
@@ -56780,7 +56845,7 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "blogCard__content--summary" }, [
-        _vm._v("\n      " + _vm._s(_vm.blog.summary) + "\n    "),
+        _vm._v("\n      " + _vm._s(_vm.blog.gist) + "\n    "),
       ]),
       _vm._v(" "),
       _c(
@@ -57065,105 +57130,42 @@ var render = function () {
       _c("nav", { staticClass: "nav" }, [
         _c(
           "div",
-          { staticClass: "nav__logo" },
+          { staticClass: "nav__logo nav__logo--wrapper" },
           [
-            _c("router-link", { attrs: { to: "/" } }, [
-              _c("h2", [_vm._v(_vm._s(_vm.app_name))]),
-            ]),
+            _c(
+              "router-link",
+              { staticClass: "nav__logo--link", attrs: { to: "/" } },
+              [
+                _c("h2", { staticClass: "nav__logo--text" }, [
+                  _vm._v(_vm._s(_vm.app_name)),
+                ]),
+              ]
+            ),
           ],
           1
         ),
         _vm._v(" "),
         _c(
-          "ul",
-          { staticClass: "nav__main", class: _vm.isOpen ? "open" : "" },
+          "div",
+          {
+            staticClass: "nav__main nav__menu",
+            class: _vm.isOpen ? "open" : "",
+          },
           [
-            _c(
-              "li",
-              { staticClass: "nav__item" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav__link", attrs: { to: "/" } },
-                  [_vm._v("Home")]
-                ),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav__item" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav__link", attrs: { to: "/" } },
-                  [_vm._v("About")]
-                ),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav__item" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav__link", attrs: { to: "/" } },
-                  [_vm._v("Blog")]
-                ),
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              { staticClass: "nav__item" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav__link", attrs: { to: "#" } },
-                  [
-                    _c("span", [_vm._v("Dropdown")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "nav__main--dropdown" }, [
-                      _c("div", { staticClass: "dropdown-inner" }, [
-                        _c("ul", [
-                          _c("li", [
-                            _c("a", { attrs: { href: "#" } }, [
-                              _vm._v("hello"),
-                            ]),
-                            _vm._v(" "),
-                            _c("a", { attrs: { href: "#" } }, [
-                              _vm._v("hello"),
-                            ]),
-                          ]),
-                        ]),
-                      ]),
-                    ]),
-                  ]
-                ),
-              ],
-              1
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c("ul", { staticClass: "nav__main nav_main--helper" }, [
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.isLoggedIn,
-                  expression: "!isLoggedIn",
-                },
-              ],
-            },
-            [
+            _c("ul", { staticClass: "nav__main--left" }, [
+              _c(
+                "li",
+                { staticClass: "nav__item" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "nav__link", attrs: { to: "/" } },
+                    [_vm._v("Home")]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
                 "li",
                 { staticClass: "nav__item" },
@@ -57172,16 +57174,180 @@ var render = function () {
                     "router-link",
                     {
                       staticClass: "nav__link",
-                      attrs: { to: { name: "Login" } },
+                      attrs: { to: { name: "About" } },
                     },
-                    [_vm._v("Log In")]
+                    [_vm._v("About")]
                   ),
                 ],
                 1
               ),
-            ]
-          ),
-        ]),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav__item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "nav__link",
+                      attrs: { to: { name: "Blogs" } },
+                    },
+                    [_vm._v("Blog")]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav__item" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "nav__link", attrs: { to: "/" } },
+                    [_vm._v("Services")]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "nav__item" },
+                [
+                  _c(
+                    "router-link",
+                    { staticClass: "nav__link", attrs: { to: "/" } },
+                    [_vm._v("Contact")]
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("li", { staticClass: "nav__item" }, [
+                _c("div", { staticClass: "dropdown" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dropdown__text nav__link",
+                      on: {
+                        click: function ($event) {
+                          return _vm.dropdownToggle($event)
+                        },
+                      },
+                    },
+                    [_vm._v("\n                Travel\n              ")]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "nav__main-right--wrapper" }, [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.isLoggedIn,
+                      expression: "!isLoggedIn",
+                    },
+                  ],
+                  staticClass: "nav__main--right",
+                },
+                [
+                  _c("li", { staticClass: "nav__item" }, [
+                    _c("div", { staticClass: "nav__search" }, [
+                      _c("form", { staticClass: "nav__search--form" }, [
+                        _c("input", {
+                          staticClass: "nav__search--input",
+                          attrs: {
+                            type: "search",
+                            name: "search",
+                            id: "search",
+                            placeholder: "Search here",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "nav__search--btn",
+                            attrs: { type: "submit" },
+                          },
+                          [
+                            _c("fa-icon", {
+                              attrs: { icon: ["fas", "search"] },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "nav__item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-nav",
+                          attrs: { to: { name: "Login" } },
+                        },
+                        [_vm._v("Login")]
+                      ),
+                    ],
+                    1
+                  ),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isLoggedIn,
+                      expression: "isLoggedIn",
+                    },
+                  ],
+                  staticClass: "nav__main--right",
+                },
+                [
+                  _c("li", { staticClass: "nav__item" }, [
+                    _c("div", { staticClass: "dropdown" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "dropdown__text nav__link",
+                          on: {
+                            click: function ($event) {
+                              return _vm.dropdownToggle($event)
+                            },
+                          },
+                        },
+                        [
+                          _c("fa-icon", { attrs: { icon: ["fas", "user"] } }),
+                          _vm._v(" Hi, Paru\n                "),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm._m(1),
+                    ]),
+                  ]),
+                ]
+              ),
+            ]),
+          ]
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -57228,7 +57394,36 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "dropdown__content dropright" }, [
+      _c("li", { staticClass: "dropdown__item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Trek")]),
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "dropdown__item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Camp")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "dropdown__content dropright" }, [
+      _c("li", { staticClass: "dropdown__item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Profile")]),
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "dropdown__item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Change Password")]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -77558,15 +77753,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************************!*\
   !*** ./resources/js/components/HeaderComponent.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HeaderComponent_vue_vue_type_template_id_153bfd55___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderComponent.vue?vue&type=template&id=153bfd55& */ "./resources/js/components/HeaderComponent.vue?vue&type=template&id=153bfd55&");
 /* harmony import */ var _HeaderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeaderComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/HeaderComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _HeaderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _HeaderComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -77596,7 +77790,7 @@ component.options.__file = "resources/js/components/HeaderComponent.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/HeaderComponent.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78397,8 +78591,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
     component: _views_BlogList__WEBPACK_IMPORTED_MODULE_16__["default"],
     meta: {
       title: "Blogs",
-      layout: _layouts_Default__WEBPACK_IMPORTED_MODULE_1__["default"],
-      guest: true
+      layout: _layouts_Default__WEBPACK_IMPORTED_MODULE_1__["default"] // guest: true,
+
     }
   }, {
     path: '/blogs/:slug',

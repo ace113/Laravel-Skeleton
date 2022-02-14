@@ -13,4 +13,12 @@ class Page extends Model
         'image',
         'status',
     ];
+
+    protected $hidden = [
+        'status',
+        'created_at',
+        'updated_at',
+        'image',
+        'id'
+    ];
 }

@@ -21,7 +21,7 @@
         {{ blog.title }}
       </div>
       <div class="blogCard__content--summary">
-        {{ blog.summary }}
+        {{ blog.gist }}
       </div>
       <div class="blogCard__content--read">
         <router-link :to="{ name: 'Blog', params: { slug: blog.slug } }"

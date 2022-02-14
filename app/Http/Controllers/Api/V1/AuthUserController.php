@@ -225,6 +225,7 @@ class AuthUserController extends ApiController
             return $this->respondWithException($this->response);
         }
     }
+    
 
      /**
      * @OA\Post(
