@@ -30,6 +30,7 @@ class PostRepository
         return Post::where('status', 1) 
             ->with('user')
             ->limit($limit)
+            ->latest()
             ->get();           
             
     }
