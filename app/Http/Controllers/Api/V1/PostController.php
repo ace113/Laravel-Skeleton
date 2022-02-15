@@ -22,7 +22,7 @@ class PostController extends ApiController
 
    /**
      * @OA\Get(
-     *      path="/api/v1/guest/posts/",
+     *      path="/api/v1/guest/posts",
      *      operationId="getPosts",
      *      summary="Get Post",
      *      description="Gets posts",
