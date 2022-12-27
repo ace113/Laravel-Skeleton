@@ -41,7 +41,7 @@
 
             @include breakpoint-up('large'){
                 padding: 4rem;
-                justify-content: end;
+                justify-content: flex-end;
                 display: flex;
             }
         }

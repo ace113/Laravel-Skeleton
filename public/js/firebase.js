@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,4 +18,37 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const messaging = getMessaging();
+
+const vapid =
+    "BEfgx025HTlvQjmrhjtmAyU2TNYZWdVD6nHlYCoJCTk5Jd3Un7av8jGiYIVIK3HAbQDQUDhMbbbGYiOxHnwN3UA";
+
+getToken(messaging, {
+    vapidKey: vapid,
+})
+    .then((token) => {
+        console.log("fmc token: " + token);
+        localStorage.setItem("fmc_token", JSON.stringify(token));
+        var t = document.getElementById("token");
+        if(t){
+            t.value = token ? token : "";
+        }
+        // alert(token)
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+onMessage(messaging, (payload) => {
+    console.log("Message received. ", payload);
+    let n = new Notification(payload.notification.title, {
+        body: payload.notification.body,
+    });
+    n.onclick = function(e) {
+        e.preventDefault();
+        window.open(payload.notification.click_action, '_blank');
+        notification.close();
+    }
+});
+
+export default {messaging};

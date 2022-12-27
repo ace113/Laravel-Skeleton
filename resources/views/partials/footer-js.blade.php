@@ -91,6 +91,7 @@ type="text/javascript"></script>
 <script src="{{ asset('/assets/global/plugins/bootstrap-toastr/toastr.js') }}"></script>
 
 {{-- general --}}
+<script src="{{asset('/js/firebase.js')}}" type="module" defer></script>
 <script src="{{asset('/js/general.js')}}"></script>
 <script>
     /* Toastr messages */
